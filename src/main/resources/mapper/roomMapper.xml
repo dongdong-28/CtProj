@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.campus.CtProj.dao.roomMapper">
+
+
+    <!--전체 방 수 카운트 -->
+    <select id="count" resultType="int">
+        SELECT count(*) FROM room_info;
+    </select>
+
+    <!--전체 writer 아이디로 방 수 카운트 -->
+    <select id="countId" parameterType="String" resultType="int">
+        SELECT count(*) FROM room_info WHERE writer = #{writer};
+    </select>
+
+
+
+    <delete id="delete" parameterType="map">
+        DELETE FROM room_info WHERE bno = #{bno} and writer = #{writer}
+    </delete>
+
+    <insert id="insert" parameterType="RoomDto">
+        INSERT INTO room_info
+            (title, picture,meet_Date,meet_place,notice,category,writer,user_limit,user_cnt)
+        VALUES
+            (#{title}, #{picture}, #{meet_Date}, #{meet_place}, #{notice}, #{category}, #{writer}, #{user_limit}, #{user_cnt})
+    </insert>
+
+    <select id="selectAll" resultType="RoomDto">
+        SELECT bno, title, picture,meet_Date,meet_place,notice,category,writer,user_limit,user_cnt
+        FROM room_info ORDER BY writer ASC;
+    </select>
+
+
+<!--    <select id="selectAll" parameterType="list " resultType="RoomDto">-->
+<!--        SELECT bno, title, picture,meet_Date,meet_place,notice,category,writer,user_limit,user_cnt-->
+<!--        FROM room_info  WHERE bno = #{bno} and writer = #{writer}-->
+
+
+    <select id="select" parameterType="Integer" resultType="RoomDto">
+        SELECT bno, title, picture,meet_Date,meet_place,notice,category,writer,user_limit,user_cnt
+        FROM room_info  WHERE bno = #{bno}
+    </select>
+
+
+    <select id="selectHostRoom" parameterType="String" resultType="RoomDto">
+        SELECT bno, title, picture,meet_Date,meet_place,notice,category,writer,user_limit,user_cnt
+        FROM room_info  WHERE writer = #{writer}
+    </select>
+
+    <select id="selectRoom" parameterType="Integer" resultType="RoomDto">
+        SELECT bno, title, picture,meet_Date,meet_place,notice,category,writer,user_limit,user_cnt
+        FROM room_info  WHERE bno  IN
+        <if test="list.size == 0">
+            (null)
+        </if>
+        <if test = "list != null">
+        <foreach collection="list" item="bno" open="(" close=")" separator=",">
+                            #{bno}
+                        </foreach>
+        </if>
+
+    </select>
+
+    <update id="update" parameterType="RoomDto">
+        UPDATE room_info
+        SET   title = #{title}
+          , picture = #{picture}
+          , meet_Date = #{meet_Date}
+          , meet_place = #{meet_place}
+          , notice = #{notice}
+          , category = #{category}
+          , up_date = now()
+          , user_cnt = #{user_cnt}
+        WHERE bno = #{bno} and writer = #{writer}
+    </update>
+
+
+
+
+
+
+<!--    <sql id="searchCondition">-->
+<!--        <choose>-->
+<!--            <when test='option=="T"'>-->
+<!--                AND title LIKE concat('%',#{keyword},'%')-->
+<!--            </when>-->
+<!--            <when test='option=="W"'>-->
+<!--                AND writer LIKE concat('%',#{keyword},'%')-->
+<!--            </when>-->
+<!--            <otherwise>-->
+<!--                AND (title LIKE concat('%',#{keyword},'%')-->
+<!--                OR content LIKE concat('%',#{keyword},'%'))-->
+<!--            </otherwise>-->
+<!--        </choose>-->
+
+<!--    </sql>-->
+
+<!--    <select id="searchSelectPage" parameterType="SearchCondition" resultType="BoardDto">-->
+<!--        <include refid="selectFromBoard"/>-->
+<!--        WHERE true-->
+<!--        <include refid="searchCondition"/>-->
+
+<!--        ORDER BY reg_date DESC, bno DESC-->
+<!--        LIMIT #{offset}, #{pageSize}-->
+<!--    </select>-->
+
+<!--    <select id="searchResultCnt" parameterType="SearchCondition" resultType="int">-->
+<!--        SELECT count(*)-->
+<!--        FROM board-->
+<!--        WHERE true-->
+<!--        <include refid="searchCondition"/>-->
+
+<!--    </select>-->
+
+
+</mapper>

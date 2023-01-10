@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.campus.CtProj.dao.UserMapper">
+
+    <delete id="deleteAll">
+        DELETE FROM user_data
+    </delete>
+
+    <delete id="delete" parameterType="String">
+        DELETE FROM user_data WHERE id = #{id}
+    </delete>
+
+    <insert id="insert" parameterType="UserDto">
+        INSERT INTO user_data (id, password, nickname, img_profile,reg_date,list_num)
+        VALUES (#{id}, #{password}, #{nickname}, #{img_profile},now(),#{list_num})
+    </insert>
+
+
+    <select id="select" parameterType="String" resultType="UserDto">
+        SELECT id,
+               password,
+               nickname,
+               point,
+               level,
+               img_profile,
+               reg_date,
+               list_num
+        FROM user_data WHERE id = #{id};
+    </select>
+
+
+    <update id="update" parameterType="UserDto">
+        UPDATE user_data
+        SET   nickname = #{nickname}
+          , password = #{password}
+          , point = #{point}
+          , level = #{level}
+          , img_profile = #{img_profile}
+        WHERE id = #{id}
+    </update>
+
+
+</mapper>
