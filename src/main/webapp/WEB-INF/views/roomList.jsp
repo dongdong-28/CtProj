@@ -34,23 +34,6 @@
 
     <link rel="stylesheet" type="text/css" href="<c:url value="/css/stylesmainpage.css"/>">
 
-    <style>
-        .btn-myroom {
-            margin : 5px;
-        }
-
-        @media (min-width: 992px) {
-            header.masthead {
-                height: 50vh;
-                min-height: 0;
-
-            }
-        }
-        .login-card {
-            left:550px;
-            bottom : 2px;
-        }
-    </style>
 
 
 </head>

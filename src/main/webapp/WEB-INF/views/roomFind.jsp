@@ -32,7 +32,7 @@
     <!-- Core theme CSS (includes Bootstrap)-->
 <%--    <link rel="stylesheet" type="text/css" href="<c:url value="/css/stylesmainpage.css"/>">--%>
 
-    <link rel="stylesheet" type="text/css" href="<c:url value="/css/stylesfind.css"/>">
+    <link rel="stylesheet" type="text/css" href="<c:url value="/css/stylesmainpage.css"/>">
     <style>
         ul > li {
             display:table-row-group;

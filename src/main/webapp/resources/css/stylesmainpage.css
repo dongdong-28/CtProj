@@ -4529,8 +4529,8 @@ textarea.form-control-lg {
   /*style="width: 13rem; height:18rem; left:550px;bottom : 2px"*/
   width: 13rem;
   height:18rem;
-  left:1000px;
-  bottom : 20px;
+  left:550px;
+  bottom : 2px;
 }
 
 .card > hr {
@@ -11313,6 +11313,7 @@ body {
 
 .page-section {
   padding: 8rem 0;
+  background-color: #f6f7f3;
 }
 
 .text-white-75 {
@@ -11419,8 +11420,8 @@ header.masthead h1, header.masthead .h1 {
 }
 @media (min-width: 992px) {
   header.masthead {
-    height: 100vh;
-    min-height: 40rem;
+    height: 50vh;
+    /*min-height: 0;*/
     padding-top: 4.5rem;
     padding-bottom: 0;
   }
@@ -11476,4 +11477,7 @@ header.masthead h1, header.masthead .h1 {
 .btn-oranges {
   color : #ffffff;
   background-color: #e19157;
+}
+.btn-myroom {
+  margin : 5px;
 }

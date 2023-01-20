@@ -29,6 +29,19 @@
     <!-- Core theme CSS (includes Bootstrap)-->
     <link rel="stylesheet" type="text/css" href="<c:url value="/css/stylesmainpage.css"/>">
 
+    <style>
+        @media (min-width: 992px){
+        header.masthead {
+            height: 100vh;
+            min-height: 40rem;
+        }
+        }
+
+        .login-card {
+            left:1000px;
+            bottom : 20px;
+        }
+    </style>
 </head>
 <body id="page-top">
 
