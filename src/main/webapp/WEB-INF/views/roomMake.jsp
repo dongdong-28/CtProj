@@ -31,7 +31,14 @@
     <!-- Core theme CSS (includes Bootstrap)-->
     <%--    <link rel="stylesheet" type="text/css" href="<c:url value="/css/stylesmainpage.css"/>">--%>
 
-    <link rel="stylesheet" type="text/css" href="<c:url value="/css/stylesmake.css"/>">
+    <link rel="stylesheet" type="text/css" href="<c:url value="/css/stylesmainpage.css"/>">
+
+    <style>
+        .form-group {
+            width : 400px;
+        }
+
+    </style>
 
 </head>
 <body id="page-top">

@@ -32,7 +32,9 @@
     <!-- Core theme CSS (includes Bootstrap)-->
 <%--    <link rel="stylesheet" type="text/css" href="<c:url value="/css/stylesmainpage.css"/>">--%>
 
-    <link rel="stylesheet" type="text/css" href="<c:url value="/css/styleslist.css"/>">
+    <link rel="stylesheet" type="text/css" href="<c:url value="/css/stylesmainpage.css"/>">
+
+
 
 </head>
 <body id="page-top">

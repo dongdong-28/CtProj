@@ -32,11 +32,22 @@
     <!-- Core theme CSS (includes Bootstrap)-->
     <%--    <link rel="stylesheet" type="text/css" href="<c:url value="/css/stylesmainpage.css"/>">--%>
 
-    <link rel="stylesheet" type="text/css" href="<c:url value="/css/stylesentmem.css"/>">
+    <link rel="stylesheet" type="text/css" href="<c:url value="/css/stylesmainpage.css"/>">
     <style>
         ul > li {
             display:table-row-group;
             color : black;
+        }
+        .wrapInfo {
+            position : absolute;
+        }
+        .page-section {
+            height:800px;
+        }
+        .login-card {
+            background-color: #4f5050;
+           left : 1097px;
+            top: 119px;
         }
     </style>
 
