@@ -200,7 +200,7 @@
             rooms.forEach(function (room) {
                 // var pic =  document.getElementById('InputPic').files[0].name;
                 const dateFormat = new Date(room.meet_Date);
-                const meet_date = dateFormat.getFullYear() + '년 ' + (dateFormat.getMonth() + 1) + '월 ' + dateFormat.getDate() + '일';
+                const meet_date = dateFormat.getFullYear() + '년 ' + (dateFormat.getMonth() + 1) + '월 ' + dateFormat.getDate() + '일'+dateFormat.getHours()+'시 '+dateFormat.getMinutes()+'분';
                 tmp += '<div class="col mb-3">'
                 tmp += '  <div class="card h-70">'
                 tmp += '      <!-- Product image-->'

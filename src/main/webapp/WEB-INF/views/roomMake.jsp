@@ -134,12 +134,31 @@
                 <input type="text" class="form-control rooms-notice" id="InputNotice" placeholder="입력해주세요">
             </div>
             <div class="form-group">
+<%--                <input type="text" class="form-control rooms-category" id="InputCategory" placeholder="입력해주세요">--%>
+
                 <label for="InputCategory" class="form-label mt-4">카테고리</label>
-                <input type="text" class="form-control rooms-category" id="InputCategory" placeholder="입력해주세요">
+                <select name="Category" id="InputCategory" class="form-group rooms-category">
+                    <option value="식사">식사</option>
+                    <option value="공부">공부</option>
+                    <option value="운동">운동</option>
+                    <option value="여행">여행</option>
+                    <option value="거래">거래</option>
+                    <option value="기타">기타</option>
+                </select>
+
             </div>
             <div class="form-group">
                 <label for="InputLimit" class="form-label mt-4">제한 인원</label>
-                <input type="text" class="form-control rooms-user_limit" id="InputLimit" placeholder="입력해주세요">
+<%--                <input type="text" class="form-control rooms-user_limit" id="InputLimit" placeholder="입력해주세요">--%>
+                <select name="limit" id="InputLimit" class="form-group rooms-user_limit">
+                    <option value="2">2명</option>
+                    <option value="3">3명</option>
+                    <option value="4">4명</option>
+                    <option value="5">5명</option>
+                    <option value="6">6명</option>
+                    <option value="7">7명</option>
+                    <option value="8">8명</option>
+                </select>
             </div>
             <button id="sendBtn" class="btn btn-primary" type="button" style="margin-top:20px">등록하기</button>
 
@@ -204,33 +223,17 @@
                 },
                 error: function () {
                     alert("다시 입력해주세요.")
+
                 } // 에러가 발생했을 때, 호출될 함수
             }); // $.ajax()
         });
 
 
-        // $('#InputDate').daterangepicker({
-        //     "locale": {
-        //         "format": "YYYY-MM-DD",
-        //         "separator": " ~ ",
-        //         "applyLabel": "확인",
-        //         "cancelLabel": "취소",
-        //         "fromLabel": "From",
-        //         "toLabel": "To",
-        //         "customRangeLabel": "Custom",
-        //         "weekLabel": "W",
-        //         "daysOfWeek": ["일", "월", "화", "수", "목", "금", "토"],
-        //         "monthNames": ["1월", "2월", "3월", "4월", "5월", "6월", "7월", "8월", "9월", "10월", "11월", "12월"],
-        //     },
-        //     "startDate": new Date(),
-        //     "endDate": new Date(),
-        //     "drops": "auto"
-        // }, function (start, end, label) {
-        //     console.log('New date range selected: ' + start.format('YYYY-MM-DD') + ' to ' + end.format('YYYY-MM-DD') + ' (predefined range: ' + label + ')');
-        // });
+
 
         $('#InputDate').daterangepicker({
             "singleDatePicker": true,
+            "timePicker" : true,
             "locale" :{
                 "applyLabel": "확인",
                 "cancelLabel": "취소",
