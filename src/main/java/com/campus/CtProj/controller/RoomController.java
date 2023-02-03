@@ -8,6 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
+import java.sql.Timestamp;
 import java.util.List;
 
 //@Controller
@@ -29,6 +30,8 @@ public class RoomController {
 //         dto.setNotice(dto.getNotice());
 //         dto.setCategory(dto.getCategory());
         dto.setWriter(writer);
+//        String date = "2022-12-13";
+//        dto.setMeet_Date(Timestamp.valueOf(date));
 //        dto.setBno(bno);
         System.out.println("dto = " + dto);
 

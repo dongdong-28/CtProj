@@ -193,6 +193,7 @@
             let title = $(".rooms-title").val();
             let picture = $(".rooms-picture").val();
             let meet_Date = $(".rooms-meet_Date").val();
+            console.log(meet_Date);
             let meet_place = $(".rooms-meet_place").val();
             let notice = $(".rooms-notice").val();
             let category = $(".rooms-category").val();
@@ -218,10 +219,12 @@
                 }),  // 서버로 전송할 데이터. stringify()로 직렬화 필요.
                 success: function (result) {
                     alert("방 생성을 성공하였습니다.");
+                    console.log(meet_Date);
                     showList();
 
                 },
                 error: function () {
+                    console.log(meet_Date);
                     alert("다시 입력해주세요.")
 
                 } // 에러가 발생했을 때, 호출될 함수
@@ -237,7 +240,7 @@
             "locale" :{
                 "applyLabel": "확인",
                 "cancelLabel": "취소",
-                "format": 'YYYY-MM-DD',
+                "format": 'YYYY-MM-DD HH:MM:00',
                 "daysOfWeek": ["일", "월", "화", "수", "목", "금", "토"],
                 "monthNames": ["1월", "2월", "3월", "4월", "5월", "6월", "7월", "8월", "9월", "10월", "11월", "12월"],
             },
