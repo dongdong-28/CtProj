@@ -13,10 +13,8 @@ public class RoomDto {
    private Integer bno;
    private String title;
    private String picture;
-//   @JsonFormat(pattern = "YYYY-MM-DD HH:MM", timezone="Asia/Seoul")
+   @JsonFormat(pattern ="yyyy-MM-dd hh:mm", timezone="Asia/Seoul")
    private Timestamp meet_Date;
-//   private SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-//   private String meet_Date = sdf.format(meet_Date);
    private String meet_place;
    private String notice;
    private String category;
