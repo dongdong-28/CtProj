@@ -35,6 +35,10 @@
     <!-- Core theme CSS (includes Bootstrap)-->
     <%--    <link rel="stylesheet" type="text/css" href="<c:url value="/css/stylesmainpage.css"/>">--%>
 
+<%--    map 생성--%>
+    <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=db8b2358629d0f1e73331408000d8bfd"></script>
+
+
     <!-- date range picker 사용위해서-->
     <script type="text/javascript" src="https://cdn.jsdelivr.net/jquery/latest/jquery.min.js"></script>
     <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
@@ -128,6 +132,7 @@
             <div class="form-group">
                 <label for="InputPlace" class="form-label mt-4">만날 장소</label>
                 <input type="text" class="form-control rooms-meet_place" id="InputPlace" placeholder="입력해주세요">
+                <div id="map" style="width:100%;height:350px;"></div>
             </div>
             <div class="form-group">
                 <label for="InputNotice" class="form-label mt-4">공지사항</label>
@@ -276,6 +281,29 @@
 
 
     });
+
+    // 지도 만들기
+    var mapContainer = document.getElementById('map'), // 지도를 표시할 div
+        mapOption = {
+            center: new kakao.maps.LatLng(33.450701, 126.570667), // 지도의 중심좌표
+            level: 3 // 지도의 확대 레벨
+        };
+
+    var map = new kakao.maps.Map(mapContainer, mapOption); // 지도를 생성합니다
+
+    // 마커가 표시될 위치입니다
+    var markerPosition = new kakao.maps.LatLng(33.450701, 126.570667);
+
+    // 마커를 생성합니다
+    var marker = new kakao.maps.Marker({
+        position: markerPosition
+    });
+
+    // 마커가 지도 위에 표시되도록 설정합니다
+    marker.setMap(map);
+
+    // 마커가 드래그 가능하도록 설정합니다
+    marker.setDraggable(true);
 
 </script>
 <!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *-->
