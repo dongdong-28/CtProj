@@ -1,6 +1,5 @@
 package com.campus.CtProj.dao;
 
-import com.campus.CtProj.domain.EnterDto;
 import com.campus.CtProj.domain.RoomDto;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -49,6 +48,11 @@ public class RoomDaoImpl implements RoomDao {
     public RoomDto select(Integer bno) throws Exception {
         return session.selectOne(namespace + "select", bno);
     } // T selectOne(String statement, Object parameter)
+
+    @Override
+    public List<RoomDto> selectCategory(String category) {
+        return session.selectList(namespace+"select", category);
+    }
 
 
     @Override

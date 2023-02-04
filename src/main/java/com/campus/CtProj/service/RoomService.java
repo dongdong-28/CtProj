@@ -22,6 +22,9 @@ public interface RoomService {
     List<RoomDto> getList() throws Exception;
 
 
-        // 방 안에 내용 변경
+    // 카테고리별로 방 읽기
+    List<RoomDto> getListCategory(String category) throws Exception;
+
+    // 방 안에 내용 변경
     int modify(RoomDto roomDto) throws Exception;
 }

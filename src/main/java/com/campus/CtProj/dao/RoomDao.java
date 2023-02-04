@@ -23,6 +23,8 @@ public interface RoomDao {
     ;
 
 
+    List<RoomDto> selectCategory(String category);
+
     List<RoomDto> selectRoom(List<Integer> list) throws Exception // T selectOne(String statement, Object parameter)
     ;
 

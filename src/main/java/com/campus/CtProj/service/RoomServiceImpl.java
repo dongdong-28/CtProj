@@ -4,12 +4,9 @@ package com.campus.CtProj.service;
 import com.campus.CtProj.dao.RoomDao;
 import com.campus.CtProj.dao.EnterDao;
 import com.campus.CtProj.domain.RoomDto;
-import com.campus.CtProj.domain.EnterDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
-import java.text.SimpleDateFormat;
 import java.util.List;
 
 @Service
@@ -53,6 +50,14 @@ public class RoomServiceImpl implements RoomService {
     @Override       // 방 읽기
     public RoomDto read(Integer bno) throws Exception {
         RoomDto roomDto = roomDao.select(bno);
+
+        return roomDto;
+    }
+
+    // 카테고리별로 방 생성
+    @Override       // 방 읽기
+    public List<RoomDto> getListCategory(String category) throws Exception {
+        List<RoomDto> roomDto = roomDao.selectCategory(category);
 
         return roomDto;
     }

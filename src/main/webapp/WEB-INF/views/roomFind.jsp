@@ -87,6 +87,24 @@
 <section class="py-5 page-section">
     <h1>방 정보</h1>
     <div class="container px-4 px-lg-5 mt-5">
+<%--        키워드로 제목 검색--%>
+        <div class="search">
+            <input type="text" id="search-list" placeholder="Keyword...!">
+            <input type="button" class=" " id="searchBtn">
+            <label for="searchBtn"></label>
+
+        </div>
+<%--        카테고리 선택--%>
+        <label for="InputCategory" class="form-label mt-4">카테고리</label>
+        <select name="Category" id="InputCategory" class="form-group rooms-category">
+            <option  value="전체">전체</option>
+            <option class="rooms-categoryOption" value="식사">식사</option>
+            <option class="rooms-categoryOption" value="공부">공부</option>
+            <option class="rooms-categoryOption" value="운동">운동</option>
+            <option class="rooms-categoryOption" value="여행">여행</option>
+            <option class="rooms-categoryOption" value="거래">거래</option>
+            <option class="rooms-categoryOption" value="기타">기타</option>
+        </select>
         <div id="roomList"></div>        <!-- 방 정보를 가져와서 집어넣을 예정이다-->
     </div>
 
@@ -182,6 +200,33 @@
             });
 
 
+
+            /* 카테고리 다시..!*/
+
+            // $("#roomList").on("click", ".rooms-categoryOption", function () {
+            //     let category = $(".rooms-categoryOption").val();
+            //
+            //     $.ajax({
+            //         type: 'POST',       // 요청 메서드
+            //         url: '/CtProj/rooms/' + category,  // 요청 URI
+            //         headers: {"content-type": "application/json"}, // 요청 헤더
+            //         data: JSON.stringify({
+            //             user_id: id,
+            //             category: category
+            //
+            //         }),  // 서버로 전송할 데이터. stringify()로 직렬화 필요.
+            //         success: function (result) {
+            //             alert("성공!.");
+            //             // formTest(result);
+            //         },
+            //         error: function () {
+            //             alert("실패..!")
+            //         } // 에러가 발생했을 때, 호출될 함수
+            //     }); // $.ajax()
+            // });
+
+
+
         });
 
         // let formTest = function (room) {
@@ -216,6 +261,7 @@
                 tmp += ' 사진= <span class="picture">' + room.picture + '</span><br>'
                 tmp += ' 시간= <span class="meet_Date">' + meet_date + '</span><br>'
                 tmp += ' 장소= <span class="meet_place">' + room.meet_place + '</span><br>'
+                tmp += ' 카테고리= <span class="category">' + room.category + '</span><br>'
                 <%--tmp +=  '인원수: '+${list.size()+1} + ' / '+ room.user_limit+'<br>';--%>
                 tmp += ' 작성자=<span class="writer">' + room.writer + '</span>'
                 tmp += '      <!-- Product actions-->'
