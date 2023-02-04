@@ -41,6 +41,29 @@
             left:1000px;
             bottom : 20px;
         }
+
+        #menuList{
+            width:100%;
+            padding-left:90px;
+
+        }
+        .show-list {
+            padding-right: 20px;
+            border-radius: 10px;
+            border : 2px solid #f4623a;
+            margin: 60px 50px 30px 58px;
+            width: 270px;
+            height: 250px;
+            background-color: #f6f7f3;
+            transition: all 0.3s cubic-bezier(0.42,0.0,0.58,1.0);
+
+
+        }
+        .show-list:hover {
+            box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
+            transform: translateY(-10px);
+        }
+
     </style>
 </head>
 <body id="page-top">
@@ -106,29 +129,29 @@
     <div class="container px-4 px-lg-5">
         <h2 class="text-center mt-0">카테고리를 선택해주세요</h2>
         <hr class="divider" />
-        <div class="row gx-4 gx-lg-5">
-            <div class="col-lg-4 col-md-6 text-center">
+        <div class="row gx-4 gx-lg-5" id="menuList">
+            <div class="col-lg-4 col-md-6 text-center show-list">
                 <div class="mt-5">
                     <div class="mb-2"><i class="bi-gem fs-1 text-primary"></i></div>
                     <h3 class="h4 mb-2">식사</h3>
 <%--                    <p class="text-muted mb-0">Our themes are updated regularly to keep them bug free!</p>--%>
                 </div>
             </div>
-            <div class="col-lg-4 col-md-6 text-center">
+            <div class="col-lg-4 col-md-6 text-center show-list">
                 <div class="mt-5">
                     <div class="mb-2"><i class="bi-laptop fs-1 text-primary"></i></div>
                     <h3 class="h4 mb-2">공부</h3>
 <%--                    <p class="text-muted mb-0">All dependencies are kept current to keep things fresh.</p>--%>
                 </div>
             </div>
-            <div class="col-lg-4 col-md-6 text-center">
+            <div class="col-lg-4 col-md-6 text-center show-list">
                 <div class="mt-5">
                     <div class="mb-2"><i class="bi-globe fs-1 text-primary"></i></div>
                     <h3 class="h4 mb-2">여행</h3>
 <%--                    <p class="text-muted mb-0">You can use this design as is, or you can make changes!</p>--%>
                 </div>
             </div>
-            <div class="col-lg-4 col-md-6 text-center">
+            <div class="col-lg-4 col-md-6 text-center show-list">
                 <div class="mt-5">
                     <div class="mb-2"><i class="bi-heart fs-1 text-primary"></i></div>
                     <h3 class="h4 mb-2">운동</h3>
@@ -136,14 +159,14 @@
                 </div>
             </div>
             <!-- 반복-->
-            <div class="col-lg-4 col-md-6 text-center">
+            <div class="col-lg-4 col-md-6 text-center show-list">
                 <div class="mt-5">
                     <div class="mb-2"><i class="bi-gem fs-1 text-primary"></i></div>
                     <h3 class="h4 mb-2">거래</h3>
 <%--                    <p class="text-muted mb-0">Our themes are updated regularly to keep them bug free!</p>--%>
                 </div>
             </div>
-            <div class="col-lg-4 col-md-6 text-center">
+            <div class="col-lg-4 col-md-6 text-center show-list">
                 <div class="mt-5">
                     <div class="mb-2"><i class="bi-laptop fs-1 text-primary"></i></div>
                     <h3 class="h4 mb-2">기타</h3>

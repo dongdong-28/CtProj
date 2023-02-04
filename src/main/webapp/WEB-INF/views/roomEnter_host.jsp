@@ -1,103 +1,193 @@
+<%@ page import="java.util.Date" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@taglib prefix="c" uri="http://java.sun.com/jstl/core_rt" %>
 <%@ page session="true"%>
-<c:set var="loginId" value="${sessionScope.id}"/>
+<c:set var="loginId" value="${pageContext.request.getSession(false)==null ? '' : pageContext.request.session.getAttribute('id')}"/>
+<c:set var="userInfo" value="${pageContext.request.getSession(false)==null ? '' : pageContext.request.session.getAttribute('userDto')}"/>
 <c:set var="loginOutLink" value="${loginId=='' ? '/login/login' : '/login/logout'}"/>
 <c:set var="loginOut" value="${loginId=='' ? 'Login' : 'ID='+=loginId}"/>
+<c:set var="sd" value="${loginId=='' ? 'Login' : 'ID='+=loginId}"/>
+<c:set var="userInfoVal" value="${userInfo=='' ? '로그인을 해주세요' : '닉네임= '+= userInfo.nickname += '<br> 포인트= '+=userInfo.point+='<br> 레벨= '+=userInfo.level}"/>
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>fastcampus</title>
-    <link rel="stylesheet" href="<c:url value='/css/menu.css?after'/>">
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <meta name="description" content="" />
+    <meta name="author" content="" />
+    <title>With Us</title>
+
+
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <script src="https://code.jquery.com/jquery-1.11.3.js"></script>
+    <!-- Favicon-->
+    <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
+    <!-- Bootstrap Icons-->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css" rel="stylesheet" />
+    <!-- Google fonts-->
+    <link href="https://fonts.googleapis.com/css?family=Merriweather+Sans:400,700" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css?family=Merriweather:400,300,300italic,400italic,700,700italic" rel="stylesheet" type="text/css" />
+    <!-- SimpleLightbox plugin CSS-->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/SimpleLightbox/2.1.0/simpleLightbox.min.css" rel="stylesheet" />
+    <!-- Core theme CSS (includes Bootstrap)-->
+    <%--    <link rel="stylesheet" type="text/css" href="<c:url value="/css/stylesmainpage.css"/>">--%>
+
+    <link rel="stylesheet" type="text/css" href="<c:url value="/css/stylesmainpage.css"/>">
     <style>
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-            font-family: "Noto Sans KR", sans-serif;
-        }
-        .container {
-            width : 50%;
-            margin : auto;
-        }
-        .writing-header {
-            position: relative;
-            margin: 20px 0 0 0;
-            padding-bottom: 10px;
-            border-bottom: 1px solid #323232;
-        }
-        input {
-            width: 20%;
-            height: 35px;
-            margin: 5px 0px 10px 0px;
-            border: 1px solid #e9e8e8;
-            padding: 8px;
-            background: #f8f8f8;
-            outline-color: #e6e6e6;
-        }
-        textarea {
-            width: 20%;
-            background: #f8f8f8;
-            margin: 5px 0px 10px 0px;
-            border: 1px solid #e9e8e8;
-            resize: none;
-            padding: 8px;
-            outline-color: #e6e6e6;
-        }
-        .frm {
-            width:100%;
-        }
-        .btn {
-            background-color: rgb(236, 236, 236); /* Blue background */
-            border: none; /* Remove borders */
-            color: black; /* White text */
-            padding: 6px 12px; /* Some padding */
-            font-size: 16px; /* Set a font size */
-            cursor: pointer; /* Mouse pointer on hover */
-            border-radius: 5px;
-        }
-        .btn:hover {
-            text-decoration: underline;
-        }
         ul > li {
             display:table-row-group;
             color : black;
         }
+        .wrapInfo {
+            position : absolute;
+        }
+        .page-section {
+            height:800px;
+        }
+        .login-card {
+            background-color: #4f5050;
+            left : 1097px;
+            top: 119px;
+        }
     </style>
+
 </head>
-<body>
-<div id="menu">
-    <ul>
-        <li id="logo">With us</li>
-        <li><a href="<c:url value='/'/>">Home</a></li>
-        <li><a href="<c:url value='/'/>">방 입장</a></li>
-        <li><a href="<c:url value='/'/>">방 찾기</a></li>
-        <li><a href="<c:url value='/room/make'/>">방 생성</a></li>
-        <li><a href="<c:url value='/'/>">나의 방</a></li>
-        <li><a href="<c:url value='/board/list'/>">Board</a></li>
-        <li><a href="<c:url value='/'/>">마이페이지</a></li>
-        <li><a href="<c:url value='${loginOutLink}'/>">${loginOut}</a></li>
-        <li><a href="<c:url value='/register/add'/>">회원가입</a></li>
-        <li><a href=""><i class="fa fa-search"></i></a></li>
-    </ul>
-</div>
-<h1>${roomDto.bno}</h1>
-<h2>회원인 방리스트</h2>
-<div id="room-info"></div>        <!-- 방 정보를 가져와서 집어넣을 예정이다-->
-<h2>방장</h2>
-<h2>회원들</h2>
-<div id="list-mem"></div>
-<h2>총 인원</h2>
-<div id="list-num"></div>
-<%--<div id="list-host"></div>        <!-- 방 정보를 가져와서 집어넣을 예정이다-->--%>
+<body id="page-top">
+
+<!-- Navigation-->
+<nav class="navbar navbar-expand-lg navbar-light fixed-top py-3" id="mainNav">
+    <div class="container px-4 px-lg-5">
+        <a class="navbar-brand" href="#page-top">With us</a>
+        <button class="navbar-toggler navbar-toggler-right" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
+        <div class="collapse navbar-collapse mx-auto" id="navbarResponsive">
+            <ul class="navbar-nav m-auto my-2 my-lg-0">
+                <li class="nav-item"><a class="nav-link nav-menu" href="<c:url value='/'/>">홈</a></li>
+                <li class="nav-item"><a class="nav-link nav-menu" href="<c:url value='/room/in-mem'/>">방 입장</a></li>
+                <li class="nav-item"><a class="nav-link nav-menu" href="<c:url value='/room/find'/>">방 찾기</a></li>
+                <li class="nav-item"><a class="nav-link nav-menu" href="<c:url value='/room/make'/>">방 생성</a></li>
+                <li class="nav-item"><a class="nav-link nav-menu" href="<c:url value='/room/list'/>">나의 방</a></li>
+                <%--                <li class="nav-item"><a class="nav-link " href="#contact">Contact</a></li>--%>
+                <%--                <li class="nav-item"><a class="nav-link" href="#contact">Contact</a></li>--%>
+                <%--                <li class="nav-item"><a class="nav-link" href="#contact">로그인</a></li>--%>
+            </ul>
+
+        </div>
+        <!-- 로그인-->
+        <a href="<c:url value='${loginOutLink}'/>">  <button type="button" class="btn btn-outline-danger" >${loginOut}</button></a>
+        <a href="<c:url value='/register/add'/>">  <button type="button" class="btn btn-outline-danger">회원가입</button></a>
+
+
+
+    </div>
+</nav>
+<!-- Masthead-->
+<header class="masthead" style="height: 82.8px; padding-top: 0px;">
+
+</header>
+<!-- Section-->
+
+<section class="py-5 page-section">
+    <div class="container px-4 px-lg-5 h-100">
+        <div class="row h-100 text-center">
+
+            <!-- 공지 사항 -->
+            <div class="card border-primary mb-3 wrapInfo" style="max-width: 50rem;height:100px;padding: 0">
+                <div class="card-header">공지사항</div>
+                <div class="card-body">
+                    <h4 class="card-title"> ${roomDto.notice}</h4>
+                </div>
+            </div>
+
+            <!-- 로그인한 유저 정보 -->
+            <div class="card login-card" style="position : absolute; right: 120px;">
+                <div class="text-center my-3">
+                    <img class="img-fluid rounded-circle mb-4" src="https://dummyimage.com/150x150/6c757d/dee2e6.jpg" alt="..." />
+                    <!-- 유저정보-->
+                    <div> <p class="text-white-50 mb-0">${userInfoVal}</p></div>
+                </div>
+
+            </div>
+            <%--                <div id="mem-box" class="wrap">--%>
+            <%--                    <div style="border:1px solid black">방장 : ${roomDto.writer}</div>--%>
+            <%--                    <div id="list-mem" style="border:1px solid black"> </div>--%>
+            <%--                </div>--%>
+
+            <div class="card border-primary mb-3 wrapInfo" style="max-width: 20rem;height:100px;padding: 0;top:36%">
+                <div class="card-header">장소</div>
+                <div class="card-body">
+                    <h4 class="card-title">${roomDto.meet_place}</h4>
+                </div>
+            </div>
+
+
+            <div class="card border-primary mb-3 wrapInfo"  style="max-width: 20rem;height:100px;padding: 0;top:36%;left:35%">
+                <div class="card-header">시간</div>
+                <div class="card-body">
+                    <h4 class="card-title"> ${roomDto.meet_Date}</h4>
+                </div>
+            </div>
+
+
+            <%--            <div class="card border-primary mb-3" style="max-width: 20rem;">--%>
+            <%--                <div class="card-header">Header</div>--%>
+            <%--                <div class="card-body">--%>
+            <%--                    <h4 class="card-title">Primary card title</h4>--%>
+            <%--                    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>--%>
+            <%--                </div>--%>
+            <%--            </div>--%>
+
+            <!-- 방장 + 인원 -->
+            <ul class="list-group border-primary" style="width:auto;position: absolute;left: 75%;top: 58%;">
+                <div id="list-mem"> </div>
+            </ul>
+
+            <!-- 현재 인원 / 제한인원 -->
+            <ul class="list-group border-primary" style="width:auto;position: absolute;left: 89%;top: 58%;">
+                <div id="list-num"></div>
+            </ul>
+
+            <!-- 지도 보여주기-->
+            <div class="card border-primary mb-3 wrapInfo" style="max-width: 20rem;padding: 0;height:200px;top: 55%">
+                <div class="card-header">지도</div>
+                <div class="card-body">
+                    <h4 class="card-title"></h4>
+                </div>
+            </div>
+
+            <!-- 채팅창-->
+            <div class="card border-primary mb-3 wrapInfo" style="max-width: 35rem;height:350px;padding: 0;top: 55%; left:35%">
+                <div class="card-header">채팅창</div>
+                <div class="card-body">
+                    <h4 class="card-title"></h4>
+                </div>
+            </div>
+
+            <!-- 나가기버튼-->
+            <div id="room-info" class="wrapInfo" style="left:40%;top:96%"></div>
 
 
 
 
-<script>
+
+        </div>
+    </div>
+</section>
+
+
+
+<!-- About-->
+
+<footer class="bg-light py-5">
+    <div class="container px-4 px-lg-5"><div class="small text-center text-muted">Copyright &copy; 2022 - Company Name</div></div>
+</footer>
+<!-- Bootstrap core JS-->
+<script src="<c:url value="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"/>"></script>
+<!-- SimpleLightbox plugin JS-->
+<script src="<c:url value="https://cdnjs.cloudflare.com/ajax/libs/SimpleLightbox/2.1.0/simpleLightbox.min.js"/>"></script>
+
+<!-- Core theme JS-->
+<script >
+
     let showList = function () {
         $("#room-info").html(toHtmlRoomInfo());    // 서버로부터 응답이 도착하면 호출될 함수
         $("#list-mem").html(toHtmlMem());
@@ -145,18 +235,18 @@
         //         } // 에러가 발생했을 때, 호출될 함수
         //     }); // $.ajax()
         // });
-        //
-        //
+
+
         // $("#room-info").on("click", ".delBtn-Mem", function () {
         //     let bno = $(this).parent().attr("data-bno");
         //     // let title = $(this).parent().attr("title");
         //
         //     $.ajax({
         //         type: 'DELETE',       // 요청 메서드
-        //         url: '/CtProj/room-info/' + bno,  // 요청 URI
+        //         url: '/CtProj/roomin-mem/' + bno,  // 요청 URI
         //         success: function (result) {
         //             alert(result);
-        //             showList();          // 삭제된 이후에 목록에 다시 갱신해주며 보여주기
+        //             window.location.ref = "/index";
         //         },
         //         error: function () {
         //             alert("error")
@@ -184,54 +274,72 @@
     });
 
     let toHtmlRoomInfo = function () {
-        let tmp = "<ul>";
-        tmp += '<li data-bno=' + ${roomDto.bno} + '>'
-        tmp += '방번호= ' + ${roomDto.bno};
-        tmp += ' 제목= <span class="title">'+'${roomDto.title}' + '</span>'
-        tmp += ' 사진= <span class="picture">' + '${roomDto.picture}' + '</span>'
-        tmp += ' 만남시간= <span class="meet_Date">' + '${roomDto.meet_Date}' + '</span>'
-        tmp += ' 만남장소= <span class="meet_place">' + '${roomDto.meet_place}' + '</span>'
-        tmp += ' 공지사항= <span class="notice">' + '${roomDto.notice}'+ '</span>'
-        tmp += ' 카테고리= <span class="category">' + '${roomDto.category}' + '</span>'
-        tmp += ' 제한인원= <span class="user_limit">' + '${roomDto.user_limit}' + '</span>'
-        tmp += ' 입장인원=<span class="writer">' + '${roomDto.writer}' + '</span>'
-        tmp += ' 작성자=<span class="writer">' + '${roomDto.writer}' + '</span>'
-        tmp += '<form action = "/CtProj/delete-room-host" method = "post">'
-        tmp += '<input type = "text" name = "room_num" value =' + ${roomDto.bno}+ ' "/>"'
-        tmp += '<input type = "submit" value="나가기"/>'
-        tmp += '</form>'
-        tmp += '<button class="sendBtn-Mem">입장</button>'
-        tmp += '<button class="delBtn-Mem">삭제</button>'
-        tmp += '</li>'
-        return tmp + "</ul>";
+        let tmp = '<form action = "/CtProj/delete-room-mem" method = "post">'
+        tmp += '<input type = "hidden" name = "room_num" value ="' + ${roomDto.bno}+ '" />'
+        tmp += '<input type = "submit"  class="btn btn-outline-primary" value="나가기"/>'
+        return tmp + '</form>';
+        // tmp += '</li>'
+        // return tmp + "</ul>";
+
 
     }
 
     let toHtmlMem = function () {
         let tmp = "<ul>";
-        tmp += '<li data-bno=' + ${roomDto.bno} + '>'
-        tmp += '방번호= ' + ${roomDto.bno};
-        tmp += ' 제목= <span class="title">'+${list.size()} + '</span>'
-        tmp += ' 아이디: '
+        <%--tmp += '<li data-bno=' + ${roomDto.bno} + '>'--%>
+        <%--tmp += '방번호= ' + ${roomDto.bno};--%>
+        tmp += '<li class="list-group-item d-flex justify-content-between align-items-center list-group-item-danger">방장: ' +${roomDto.writer} +'</li>'
         tmp +=' <c:forEach items= "${list}" var="list" >'
-        tmp +=  ${list} + " ";
+        tmp += '<li class="list-group-item d-flex justify-content-between align-items-center">'
+        tmp +=  ${list} + "</li> ";
         tmp += '</c:forEach>'
-        tmp += '</li>'
+        // tmp += '</li>'
         return tmp + "</ul>";
 
     }
 
     let toHtmlListNum = function () {
-        let tmp = "<ul>";
-
-        tmp += '인원수 = ' + ${list.size()+1};
-        tmp += ' / 제한인원인원수 = ' + ${roomDto.user_limit}
-        return tmp + "</ul>";
+        // let tmp = "<ul>";
+        let tmp = '<li class="list-group-item d-flex justify-content-between align-items-center">'
+        tmp +=  ${list.size()+1};
+        tmp += ' / '+ ${roomDto.user_limit}
+        return tmp + "</li> ";
 
     }
 
 
 
+
+    window.addEventListener('DOMContentLoaded', event => {
+
+        // Navbar shrink function
+        var navbarShrink = function () {
+            const navbarCollapsible = document.body.querySelector('#mainNav');
+            if (!navbarCollapsible) {
+                return;
+            }
+            if (window.scrollY === 0) {
+                navbarCollapsible.classList.remove('navbar-shrink')
+            } else {
+                navbarCollapsible.classList.add('navbar-shrink')
+            }
+
+        };
+
+        // Shrink the navbar
+        navbarShrink();
+
+        // Shrink the navbar when page is scrolled
+        document.addEventListener('scroll', navbarShrink);
+
+
+    });
+
 </script>
+<!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *-->
+<!-- * *                               SB Forms JS                               * *-->
+<!-- * * Activate your form at https://startbootstrap.com/solution/contact-forms * *-->
+<!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *-->
+<script src="<c:url value="https://cdn.startbootstrap.com/sb-forms-latest.js"/>"></script>
 </body>
 </html>
