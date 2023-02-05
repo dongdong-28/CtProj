@@ -109,11 +109,11 @@ public class RoomController {
 
     }
 
-    @PostMapping("/rooms/{category}")
-    public ResponseEntity<List<RoomDto>> listCategory(@PathVariable String category){
+    @GetMapping("/rooms-category")
+    public ResponseEntity<List<RoomDto>> listCategory(String category){
         List<RoomDto> list = null;
         try {
-            list =  service.getListCategory(category);
+            list =  service.readCategoryList(category);
             // return 으로 그냥 list 를 보내는 것이 아니라 ResponseEntity<List<CommentDto>>(list, HttpStatus.OK) 를 쓴 이유는
             // 그냥 list 로 보내면 오류가 나도 응답은 200번대로 나온다 그래서 responseEntity를 사용해서 list 에다가 + 상태코드도 같이 보내주게 한다.
             return new ResponseEntity<List<RoomDto>>(list, HttpStatus.OK);   // 200

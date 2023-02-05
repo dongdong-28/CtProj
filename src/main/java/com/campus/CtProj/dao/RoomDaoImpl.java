@@ -51,7 +51,7 @@ public class RoomDaoImpl implements RoomDao {
 
     @Override
     public List<RoomDto> selectCategory(String category) {
-        return session.selectList(namespace+"select", category);
+        return session.selectList(namespace+"selectCategory", category);
     }
 
 

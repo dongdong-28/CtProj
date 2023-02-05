@@ -33,7 +33,7 @@
         FROM room_info ORDER BY writer ASC;
     </select>
 
-    <!-- 카테고리별로 선태갷서 보여준다-->
+    <!-- 카테고리별로 선택해서 보여준다-->
     <select id="selectCategory" resultType="RoomDto">
         SELECT bno, title, picture,meet_Date,meet_place,notice,category,writer,user_limit,user_cnt
         FROM room_info WHERE category = #{category}
