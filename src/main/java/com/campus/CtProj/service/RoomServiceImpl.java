@@ -54,7 +54,7 @@ public class RoomServiceImpl implements RoomService {
         return roomDto;
     }
 
-    // 카테고리별로 방 생성
+    // 카테고리별로 방 가져오기
     @Override       // 방 읽기
     public List<RoomDto> readCategoryList(String category) throws Exception {
         List<RoomDto> roomDto = roomDao.selectCategory(category);

@@ -97,12 +97,21 @@ public class CommonController {
         return "roomEnter_host";
     }
 
+    // 홈에서 카테고리선택에 따른 방 찾기
+    @GetMapping("/find/category")
+    public String MainToCategory(Model m, HttpServletRequest request) throws Exception {
+        String category = request.getParameter("category");
+        m.addAttribute("maintocate",category);
+        return "roomFind";
+    }
+
     private boolean loginCheck(HttpServletRequest request) {
         // 1. 세션을 얻어서
         HttpSession session = request.getSession();
         // 2. 세션에 id가 있는지 확인, 있으면 true를 반환
         return session.getAttribute("id")!=null;
     }
+
 
 
     }

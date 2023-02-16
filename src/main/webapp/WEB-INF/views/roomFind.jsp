@@ -61,8 +61,8 @@
                 <li class="nav-item"><a class="nav-link nav-menu" href="<c:url value='/room/find'/>">방 찾기</a></li>
                 <li class="nav-item"><a class="nav-link nav-menu" href="<c:url value='/room/make'/>">방 생성</a></li>
                 <li class="nav-item"><a class="nav-link nav-menu" href="<c:url value='/room/list'/>">나의 방</a></li>
-                <%--                <li class="nav-item"><a class="nav-link " href="#contact">Contact</a></li>--%>
-                <%--                <li class="nav-item"><a class="nav-link" href="#contact">Contact</a></li>--%>
+                <%--                <li class="nav-item"><a class="nav-link " href="#cotantact">Contact</a></li>--%>
+                <%--                <li class="nav-item"><a class="nav-link" href="#conct">Contact</a></li>--%>
                 <%--                <li class="nav-item"><a class="nav-link" href="#contact">로그인</a></li>--%>
             </ul>
 
@@ -116,7 +116,7 @@
             <option value="거래">거래</option>
             <option value="기타">기타</option>
         </select>
-        <button type="button" class="categoryBtn">선택</button>
+        <button type="button" id="categoryBtn" class="rooms-category">선택</button>
 
         <div id="roomList"></div>        <!-- 방 정보를 가져와서 집어넣을 예정이다-->
     </div>
@@ -141,31 +141,35 @@
 <script>
 
     let showList = function () {
-        let ca = $("#InputCategory").val();
-        if(ca == "전체"){
+        let maincate = "${maintocate}";
+        if( maincate == ""){
             $.ajax({
                 type: 'GET',       // 요청 메서드
                 url: '/CtProj/rooms',  // 요청 URI
                 success: function (result) {
                     $("#roomList").html(toHtml(result));    // 서버로부터 응답이 도착하면 호출될 함수
+                    console.log(maincate);
+
                 },
                 error: function () {
                     alert("error")
                 } // 에러가 발생했을 때, 호출될 함수
             }); // $.ajax()
 
-        }
-        else {
+        } else {
             $.ajax({
                 type: 'GET',       // 요청 메서드
-                url: '/CtProj/rooms-category?category=' + ca,  // 요청 URI
+                url: '/CtProj/rooms-category?category=' + maincate,  // 요청 URI
+                // headers: {"content-type": "application/json"}, // 요청 헤더
+                // data: JSON.stringify({
+                //     category: categoryOption
+                // }),  // 서버로 전송할 데이터. stringify()로 직렬화 필요.
                 success: function (result) {
-                    alert("성공!.");
                     $("#roomList").html(toHtml(result));    // 서버로부터 응답이 도착하면 호출될 함수
-                    console.log(ca);
+                    console.log(maincate);
                 },
                 error: function () {
-                    alert("실패..!")
+
                 } // 에러가 발생했을 때, 호출될 함수
             }); // $.ajax()
         }
@@ -236,25 +240,38 @@
         });
 
         /* 카테고리 다시..!*/
+        $("#categoryBtn").on("click", function () {
+            let categoryOption = $("#InputCategory").val();
 
-        $("#roomList").on("click", ".categoryBtn", function () {
-            let categoryOption = $(".InputCategory").val();
+            if(categoryOption == "전체") {
+                $.ajax({
+                    type: 'GET',       // 요청 메서드
+                    url: '/CtProj/rooms',  // 요청 URI
+                    success: function (result) {
+                        $("#roomList").html(toHtml(result));    // 서버로부터 응답이 도착하면 호출될 함수
+                    },
+                    error: function () {
+                        alert("error")
+                    } // 에러가 발생했을 때, 호출될 함수
+                }); // $.ajax()
+            } else {
+                $.ajax({
+                    type: 'GET',       // 요청 메서드
+                    url: '/CtProj/rooms-category?category=' + categoryOption,  // 요청 URI
+                    // headers: {"content-type": "application/json"}, // 요청 헤더
+                    // data: JSON.stringify({
+                    //     category: categoryOption
+                    // }),  // 서버로 전송할 데이터. stringify()로 직렬화 필요.
+                    success: function (result) {
+                        $("#roomList").html(toHtml(result));    // 서버로부터 응답이 도착하면 호출될 함수
+                    },
+                    error: function () {
 
-            $.ajax({
-                type: 'GET',       // 요청 메서드
-                url: '/CtProj/rooms-category?category=' + categoryOption,  // 요청 URI
-                headers: {"content-type": "application/json"}, // 요청 헤더
-                data: JSON.stringify({
-                    category: categoryOption
-                }),  // 서버로 전송할 데이터. stringify()로 직렬화 필요.
-                success: function (result) {
-                    alert("성공!.");
-                    console.log(categoryOption);
-                },
-                error: function () {
-                    alert("실패..!")
-                } // 에러가 발생했을 때, 호출될 함수
-            }); // $.ajax()
+                    } // 에러가 발생했을 때, 호출될 함수
+                }); // $.ajax()
+            }
+
+
         });
 
 
