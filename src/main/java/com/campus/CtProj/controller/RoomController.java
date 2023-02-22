@@ -109,6 +109,7 @@ public class RoomController {
 
     }
 
+    // 메인페이지에서 방찾기 페이지로 클릭해서 이동했을 때
     @GetMapping("/rooms-category")
     public ResponseEntity<List<RoomDto>> listCategory(String category){
         List<RoomDto> list = null;

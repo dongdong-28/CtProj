@@ -97,7 +97,7 @@ public class CommonController {
         return "roomEnter_host";
     }
 
-    // 홈에서 카테고리선택에 따른 방 찾기
+    // 홈에서 카테고리선택에 따른 방 찾기 .. 카테고리선택을 방 찾기 페이지로 넘기기 위한..!
     @GetMapping("/find/category")
     public String MainToCategory(Model m, HttpServletRequest request) throws Exception {
         String category = request.getParameter("category");

@@ -142,7 +142,7 @@
 
     let showList = function () {
         let maincate = "${maintocate}";
-        if( maincate == ""){
+        if (maincate == "") {
             $.ajax({
                 type: 'GET',       // 요청 메서드
                 url: '/CtProj/rooms',  // 요청 URI
@@ -173,9 +173,6 @@
                 } // 에러가 발생했을 때, 호출될 함수
             }); // $.ajax()
         }
-
-
-
 
 
         // let goRoomIn = function () {
@@ -239,11 +236,11 @@
             }); // $.ajax()
         });
 
-        /* 카테고리 다시..!*/
+        /* 카테고리 왜 다시..??다시..!*/
         $("#categoryBtn").on("click", function () {
             let categoryOption = $("#InputCategory").val();
 
-            if(categoryOption == "전체") {
+            if (categoryOption == "전체") {
                 $.ajax({
                     type: 'GET',       // 요청 메서드
                     url: '/CtProj/rooms',  // 요청 URI
@@ -273,6 +270,13 @@
 
 
         });
+
+        $("#searchBtn").on("click",function(){
+
+
+
+        })
+
 
 
     });
