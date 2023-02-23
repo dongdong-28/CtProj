@@ -100,12 +100,16 @@
     <div class="container px-4 px-lg-5 mt-5">
         <%--        키워드로 제목 검색--%>
         <div class="search">
-            <input type="text" id="search-list" placeholder="Keyword...!">
-            <input type="button" class=" " id="searchBtn">
-            <label for="searchBtn"></label>
+            <select id="search-option" name="option">
+                <option value="T" selected> 제목</option>
+                <option value="C">작성자</option>
+            </select>
+            <input type="text" id="search-input" placeholder="Keyword...!" value=''>
+            <input type="button" value="선택" id="searchBtn">
+            <%--            <label for="searchBtn"></label>--%>
 
         </div>
-        <%--        카테고리 선택--%>
+        <%--카테고리 선택--%>
         <label for="InputCategory" class="form-label mt-4">카테고리</label>
         <select name="Category" id="InputCategory" class="form-group rooms-category">
             <option value="전체">전체</option>
@@ -271,12 +275,23 @@
 
         });
 
-        $("#searchBtn").on("click",function(){
+        $("#searchBtn").on("click", function () {
+            let option = $('#search-option').val();
+            let keyword = $('#search-input').val();
+            $.ajax({
+                type: 'GET',
+                url: '/CtProj/rooms-search?keyword='+keyword+'&option='+option,
+                success: function (result) {
+                    console.log(keyword);
+                    console.log(option);
+                    $("#roomList").html(toHtml(result));    // 서버로부터 응답이 도착하면 호출될 함수
+                },
+                error: function () {
 
+                } // 에러가 발생했을 때, 호출될 함수
+            })
 
-
-        })
-
+        });
 
 
     });

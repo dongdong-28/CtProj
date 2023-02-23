@@ -1,6 +1,7 @@
 package com.campus.CtProj.controller;
 
 import com.campus.CtProj.domain.RoomDto;
+import com.campus.CtProj.domain.SearchCondition;
 import com.campus.CtProj.service.RoomService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -123,4 +124,19 @@ public class RoomController {
             return new ResponseEntity<List<RoomDto>>(list, HttpStatus.BAD_REQUEST);      //400
         }
     }
-}
+
+    // 검색으로 방 읽기
+    @GetMapping("/rooms-search")
+    public ResponseEntity<List<RoomDto>> SearchSelectPage(SearchCondition sc) throws Exception {
+        List<RoomDto> list = null;
+        try {
+            list = service.getSearchSelectPage(sc);
+            return new ResponseEntity<List<RoomDto>>(list, HttpStatus.OK);   // 200
+        } catch (Exception e) {
+            e.printStackTrace();
+            return new ResponseEntity<List<RoomDto>>(list, HttpStatus.BAD_REQUEST);      //400
+        }
+    }
+
+    }
+

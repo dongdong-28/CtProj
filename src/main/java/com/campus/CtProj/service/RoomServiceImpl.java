@@ -4,6 +4,7 @@ package com.campus.CtProj.service;
 import com.campus.CtProj.dao.RoomDao;
 import com.campus.CtProj.dao.EnterDao;
 import com.campus.CtProj.domain.RoomDto;
+import com.campus.CtProj.domain.SearchCondition;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -70,6 +71,10 @@ public class RoomServiceImpl implements RoomService {
     @Override           // 방 안에 내용 변경
     public int modify(RoomDto roomDto) throws Exception {
         return roomDao.update(roomDto);
+    }
+    @Override
+    public List<RoomDto> getSearchSelectPage(SearchCondition sc) throws Exception{
+        return roomDao.searchSelectPage(sc);
     }
 
 }

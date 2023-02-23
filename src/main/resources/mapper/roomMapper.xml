@@ -84,6 +84,21 @@
         WHERE bno = #{bno} and writer = #{writer}
     </update>
 
+    <!--검색하기 -->
+    <select id="searchSelectPage" parameterType="SearchCondition" resultType ="RoomDto">
+        SELECT bno, title, picture,meet_Date,meet_place,notice,category,writer,user_limit,user_cnt
+        FROM room_info
+        WHERE true
+        <choose>
+            <when test='option=="T"'>
+            AND title LIKE concat('%',#{keyword},'%');
+            </when>
+            <when test='option=="C"'>
+                AND writer LIKE concat('%',#{keyword},'%');
+            </when>
+        </choose>
+    </select>
+
 
 
 

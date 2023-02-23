@@ -1,6 +1,7 @@
 package com.campus.CtProj.dao;
 
 import com.campus.CtProj.domain.RoomDto;
+import com.campus.CtProj.domain.SearchCondition;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -70,12 +71,12 @@ public class RoomDaoImpl implements RoomDao {
     public int update(RoomDto dto) throws Exception {
         return session.update(namespace + "update", dto);
     } // int update(String statement, Object parameter)
-//
-//    @Override
-//    public int increaseViewCnt(Integer bno) throws Exception {
-//        return session.update(namespace+"increaseViewCnt", bno);
-//    } // int update(String statement, Object parameter)
-//
+
+
+    @Override
+    public List<RoomDto> searchSelectPage(SearchCondition sc) throws Exception {
+        return session.selectList(namespace+"searchSelectPage",sc);
+    }
 
 
 }
