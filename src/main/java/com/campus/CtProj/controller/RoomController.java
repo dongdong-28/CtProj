@@ -1,6 +1,7 @@
 package com.campus.CtProj.controller;
 
 import com.campus.CtProj.domain.RoomDto;
+import com.campus.CtProj.domain.SearchCondition;
 import com.campus.CtProj.service.RoomService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -8,6 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
+import java.sql.Timestamp;
 import java.util.List;
 
 //@Controller
@@ -29,6 +31,8 @@ public class RoomController {
 //         dto.setNotice(dto.getNotice());
 //         dto.setCategory(dto.getCategory());
         dto.setWriter(writer);
+//        String date = "2022-12-13";
+//        dto.setMeet_Date(Timestamp.valueOf(date));
 //        dto.setBno(bno);
         System.out.println("dto = " + dto);
 
@@ -105,4 +109,34 @@ public class RoomController {
         }
 
     }
-}
+
+    // 메인페이지에서 방찾기 페이지로 클릭해서 이동했을 때
+    @GetMapping("/rooms-category")
+    public ResponseEntity<List<RoomDto>> listCategory(String category){
+        List<RoomDto> list = null;
+        try {
+            list =  service.readCategoryList(category);
+            // return 으로 그냥 list 를 보내는 것이 아니라 ResponseEntity<List<CommentDto>>(list, HttpStatus.OK) 를 쓴 이유는
+            // 그냥 list 로 보내면 오류가 나도 응답은 200번대로 나온다 그래서 responseEntity를 사용해서 list 에다가 + 상태코드도 같이 보내주게 한다.
+            return new ResponseEntity<List<RoomDto>>(list, HttpStatus.OK);   // 200
+        } catch (Exception e) {
+            e.printStackTrace();
+            return new ResponseEntity<List<RoomDto>>(list, HttpStatus.BAD_REQUEST);      //400
+        }
+    }
+
+    // 검색으로 방 읽기
+    @GetMapping("/rooms-search")
+    public ResponseEntity<List<RoomDto>> SearchSelectPage(SearchCondition sc) throws Exception {
+        List<RoomDto> list = null;
+        try {
+            list = service.getSearchSelectPage(sc);
+            return new ResponseEntity<List<RoomDto>>(list, HttpStatus.OK);   // 200
+        } catch (Exception e) {
+            e.printStackTrace();
+            return new ResponseEntity<List<RoomDto>>(list, HttpStatus.BAD_REQUEST);      //400
+        }
+    }
+
+    }
+

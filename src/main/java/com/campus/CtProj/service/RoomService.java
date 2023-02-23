@@ -1,6 +1,7 @@
 package com.campus.CtProj.service;
 
 import com.campus.CtProj.domain.RoomDto;
+import com.campus.CtProj.domain.SearchCondition;
 
 import java.util.List;
 
@@ -22,6 +23,13 @@ public interface RoomService {
     List<RoomDto> getList() throws Exception;
 
 
-        // 방 안에 내용 변경
+    // 카테고리별로 방 읽기
+    List<RoomDto> readCategoryList(String category) throws Exception;
+
+    // 방 안에 내용 변경
     int modify(RoomDto roomDto) throws Exception;
-}
+
+    // 검색으로 방 읽기
+     List<RoomDto> getSearchSelectPage(SearchCondition sc) throws Exception;
+
+    }

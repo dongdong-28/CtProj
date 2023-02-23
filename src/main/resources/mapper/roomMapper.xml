@@ -33,8 +33,15 @@
         FROM room_info ORDER BY writer ASC;
     </select>
 
+    <!-- 카테고리별로 선택해서 보여준다-->
+    <select id="selectCategory" resultType="RoomDto">
+        SELECT bno, title, picture,meet_Date,meet_place,notice,category,writer,user_limit,user_cnt
+        FROM room_info WHERE category = #{category}
+    </select>
 
-<!--    <select id="selectAll" parameterType="list " resultType="RoomDto">-->
+
+
+    <!--    <select id="selectAll" parameterType="list " resultType="RoomDto">-->
 <!--        SELECT bno, title, picture,meet_Date,meet_place,notice,category,writer,user_limit,user_cnt-->
 <!--        FROM room_info  WHERE bno = #{bno} and writer = #{writer}-->
 
@@ -76,6 +83,21 @@
           , user_cnt = #{user_cnt}
         WHERE bno = #{bno} and writer = #{writer}
     </update>
+
+    <!--검색하기 -->
+    <select id="searchSelectPage" parameterType="SearchCondition" resultType ="RoomDto">
+        SELECT bno, title, picture,meet_Date,meet_place,notice,category,writer,user_limit,user_cnt
+        FROM room_info
+        WHERE true
+        <choose>
+            <when test='option=="T"'>
+            AND title LIKE concat('%',#{keyword},'%');
+            </when>
+            <when test='option=="C"'>
+                AND writer LIKE concat('%',#{keyword},'%');
+            </when>
+        </choose>
+    </select>
 
 
 

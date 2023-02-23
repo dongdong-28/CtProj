@@ -4,12 +4,10 @@ package com.campus.CtProj.service;
 import com.campus.CtProj.dao.RoomDao;
 import com.campus.CtProj.dao.EnterDao;
 import com.campus.CtProj.domain.RoomDto;
-import com.campus.CtProj.domain.EnterDto;
+import com.campus.CtProj.domain.SearchCondition;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
-import java.text.SimpleDateFormat;
 import java.util.List;
 
 @Service
@@ -57,6 +55,14 @@ public class RoomServiceImpl implements RoomService {
         return roomDto;
     }
 
+    // 카테고리별로 방 가져오기
+    @Override       // 방 읽기
+    public List<RoomDto> readCategoryList(String category) throws Exception {
+        List<RoomDto> roomDto = roomDao.selectCategory(category);
+
+        return roomDto;
+    }
+
 //    @Override
 //    public List<BoardDto> getPage(Map map) throws Exception {
 //        return boardDao.selectPage(map);
@@ -65,6 +71,10 @@ public class RoomServiceImpl implements RoomService {
     @Override           // 방 안에 내용 변경
     public int modify(RoomDto roomDto) throws Exception {
         return roomDao.update(roomDto);
+    }
+    @Override
+    public List<RoomDto> getSearchSelectPage(SearchCondition sc) throws Exception{
+        return roomDao.searchSelectPage(sc);
     }
 
 }

@@ -663,7 +663,7 @@ progress {
 }
 @media (min-width: 1400px) {
   .container-xxl, .container-xl, .container-lg, .container-md, .container-sm, .container {
-    max-width: 1320px;
+    max-width: 1400px;
   }
 }
 .row {
@@ -7336,6 +7336,7 @@ textarea.form-control-lg {
 
 .mt-5 {
   margin-top: 3rem !important;
+  padding-top:20px
 }
 
 .mt-auto {
@@ -11312,7 +11313,7 @@ body {
 }
 
 .page-section {
-  padding: 8rem 0;
+  padding: 4rem 0;
   background-color: #f6f7f3;
 }
 

@@ -1,5 +1,6 @@
 package com.campus.CtProj.domain;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import org.apache.ibatis.javassist.Loader;
 
 import java.sql.Timestamp;
@@ -12,9 +13,8 @@ public class RoomDto {
    private Integer bno;
    private String title;
    private String picture;
+   @JsonFormat(pattern ="yyyy-MM-dd hh:mm", timezone="Asia/Seoul")
    private Timestamp meet_Date;
-//   private SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-//   private String meet_Date = sdf.format(meet_Date);
    private String meet_place;
    private String notice;
    private String category;
