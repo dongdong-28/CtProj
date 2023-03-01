@@ -270,18 +270,25 @@
         //     }); // $.ajax()
         // });
 
-
     });
 
     let toHtmlRoomInfo = function () {
-        let tmp = '<form action = "/CtProj/delete-room-mem" method = "post">'
+        let tmp = '<form action = "/CtProj/delete-room-host" onsubmit="return btnCheck()" method = "post">'
         tmp += '<input type = "hidden" name = "room_num" value ="' + ${roomDto.bno}+ '" />'
         tmp += '<input type = "submit"  class="btn btn-outline-primary" value="나가기"/>'
         return tmp + '</form>';
+
         // tmp += '</li>'
+
         // return tmp + "</ul>";
-
-
+    }
+    function btnCheck() {
+        if(confirm("정말로 나가시겠습니까?")) {
+            alert("완료되었습니다.");
+        }
+            else {
+            return false;
+        }
     }
 
     let toHtmlMem = function () {
