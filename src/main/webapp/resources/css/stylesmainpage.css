@@ -5512,6 +5512,7 @@ textarea.form-control-lg {
   transition: transform 0.3s ease-out;
   transform: translate(0, -50px);
 }
+
 @media (prefers-reduced-motion: reduce) {
   .modal.fade .modal-dialog {
     transition: none;
@@ -11481,4 +11482,25 @@ header.masthead h1, header.masthead .h1 {
 }
 .btn-myroom {
   margin : 5px;
+}
+
+.btn-room-modify {
+  width : 20%;
+  margin-left : 80%;
+}
+
+/* 라이트박스 컨테이너 */
+#lightbox.active{
+  position: fixed; overflow: hidden;
+  background: rgb(84, 83, 83);
+  width: 800px; height: 540px;
+  left: 50%; margin-left: -400px;
+  top: 50%; margin-top: -250px;
+  box-sizing: border-box; padding: 30px;
+  z-index: 99; display: block;
+}
+#lightbox{ display: none; }
+#lightbox h1, #lightbox p{
+  color: white; text-align: center;
+  margin-bottom: 10px;
 }

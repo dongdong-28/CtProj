@@ -81,7 +81,7 @@
           , category = #{category}
           , up_date = now()
           , user_cnt = #{user_cnt}
-        WHERE bno = #{bno} and writer = #{writer}
+        WHERE bno = #{bno}
     </update>
 
     <!--검색하기 -->

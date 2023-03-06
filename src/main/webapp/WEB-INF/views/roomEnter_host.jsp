@@ -32,6 +32,13 @@
     <!-- Core theme CSS (includes Bootstrap)-->
     <%--    <link rel="stylesheet" type="text/css" href="<c:url value="/css/stylesmainpage.css"/>">--%>
 
+    <!-- Remember to include jQuery :) -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.0.0/jquery.min.js"></script>
+
+    <!-- jQuery Modal -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.css" />
+
     <link rel="stylesheet" type="text/css" href="<c:url value="/css/stylesmainpage.css"/>">
     <style>
         ul > li {
@@ -90,14 +97,6 @@
     <div class="container px-4 px-lg-5 h-100">
         <div class="row h-100 text-center">
 
-            <!-- 공지 사항 -->
-            <div class="card border-primary mb-3 wrapInfo" style="max-width: 50rem;height:100px;padding: 0">
-                <div class="card-header">공지사항</div>
-                <div class="card-body">
-                    <h4 class="card-title"> ${roomDto.notice}</h4>
-                </div>
-            </div>
-
             <!-- 로그인한 유저 정보 -->
             <div class="card login-card" style="position : absolute; right: 120px;">
                 <div class="text-center my-3">
@@ -107,12 +106,30 @@
                 </div>
 
             </div>
+
+            <!-- 방 제목 -->
+            <div class="card border-primary mb-3 wrapInfo" style="max-width: 50rem;height:100px;padding: 0">
+                <div class="card-header">방제목</div>
+                <div class="card-body">
+                    <h4 class="card-title"> ${roomDto.title}</h4>
+                </div>
+            </div>
+
+            <!-- 공지 사항 -->
+            <div class="card border-primary mb-3 wrapInfo" style="margin-top: 150px; max-width: 50rem;height:100px;padding: 0">
+                <div class="card-header">공지사항</div>
+                <div class="card-body">
+                    <h4 class="card-title"> ${roomDto.notice}</h4>
+                </div>
+            </div>
+
+
             <%--                <div id="mem-box" class="wrap">--%>
             <%--                    <div style="border:1px solid black">방장 : ${roomDto.writer}</div>--%>
             <%--                    <div id="list-mem" style="border:1px solid black"> </div>--%>
             <%--                </div>--%>
 
-            <div class="card border-primary mb-3 wrapInfo" style="max-width: 20rem;height:100px;padding: 0;top:36%">
+            <div class="card border-primary mb-3 wrapInfo" style="margin-top: 150px;max-width: 20rem;height:100px;padding: 0;top:36%">
                 <div class="card-header">장소</div>
                 <div class="card-body">
                     <h4 class="card-title">${roomDto.meet_place}</h4>
@@ -120,7 +137,7 @@
             </div>
 
 
-            <div class="card border-primary mb-3 wrapInfo"  style="max-width: 20rem;height:100px;padding: 0;top:36%;left:35%">
+            <div class="card border-primary mb-3 wrapInfo"  style="margin-top: 150px;max-width: 20rem;height:100px;padding: 0;top:36%;left:35%">
                 <div class="card-header">시간</div>
                 <div class="card-body">
                     <h4 class="card-title"> ${roomDto.meet_Date}</h4>
@@ -147,7 +164,7 @@
             </ul>
 
             <!-- 지도 보여주기-->
-            <div class="card border-primary mb-3 wrapInfo" style="max-width: 20rem;padding: 0;height:200px;top: 55%">
+            <div class="card border-primary mb-3 wrapInfo" style="margin-top: 150px;max-width: 20rem;padding: 0;height:200px;top: 55%">
                 <div class="card-header">지도</div>
                 <div class="card-body">
                     <h4 class="card-title"></h4>
@@ -155,23 +172,51 @@
             </div>
 
             <!-- 채팅창-->
-            <div class="card border-primary mb-3 wrapInfo" style="max-width: 35rem;height:350px;padding: 0;top: 55%; left:35%">
+            <div class="card border-primary mb-3 wrapInfo" style="margin-top: 150px;max-width: 35rem;height:350px;padding: 0;top: 55%; left:35%">
                 <div class="card-header">채팅창</div>
                 <div class="card-body">
                     <h4 class="card-title"></h4>
                 </div>
             </div>
 
+
+            <!-- 수정버튼-->
+            <button  type="button" id="btn-mod" class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop" style="width:80px;height:50px;left:140%;margin-left: 82%;margin-top:26%;">수정</button>
+
             <!-- 나가기버튼-->
-            <div id="room-info" class="wrapInfo" style="left:40%;top:96%"></div>
-
-
-
-
+            <div id="room-out" class="wrapInfo" style="left:40%;top:96%"></div>
 
         </div>
     </div>
+
+    <!-- Modal -->
+    <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true" style="display: block;background: transparent;margin-left: 35%;box-shadow:none;">
+        <div class="modal-dialog" role="document" >
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Modal title</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true"></span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <p>Modal body text goes here.</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary">Save changes</button>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
 </section>
+
+
+
+
+
 
 
 
@@ -188,91 +233,80 @@
 <!-- Core theme JS-->
 <script >
 
+    // const emailInputEl = document.querySelector("#exampleInputEmail1");
+    // const modelEl = document.querySelector("#exampleModal");
+    //
+    // modelEl.addEventListener("shown.bs.modal", function() {
+    //     emailInputEl.focus();
+    // })
+
+
+
+    // $('#btn-mod').click(function(e){
+    //     e.preventDefault();
+    //     $('#staticBackdrop').modal("show");
+    // });
+
     let showList = function () {
-        $("#room-info").html(toHtmlRoomInfo());    // 서버로부터 응답이 도착하면 호출될 함수
+        $("#room-out").html(toHtmlRoomOut());    // 서버로부터 응답이 도착하면 호출될 함수
         $("#list-mem").html(toHtmlMem());
         $("#list-num").html(toHtmlListNum());
 
-        // $.ajax({
-        //     type: 'GET',       // 요청 메서드
-        //     url: '/CtProj/room-info',  // 요청 URI
-        //     success: function (result) {
-        //         $("#room-info").html(toHtmlRoomInfo(result));    // 서버로부터 응답이 도착하면 호출될 함수
-        //     },
-        //     error: function () {
-        //         alert("error")
-        //     } // 에러가 발생했을 때, 호출될 함수
-        // }); // $.ajax()
-        //
-        // $.ajax({
-        //     type: 'GET',       // 요청 메서드
-        //     url: '/CtProj/list-host',  // 요청 URI
-        //     success: function (result) {
-        //         $("#list-host").html(toHtmlHost(result));    // 서버로부터 응답이 도착하면 호출될 함수
-        //     },
-        //     error: function () {
-        //         alert("error")
-        //     } // 에러가 발생했을 때, 호출될 함수
-        // }); // $.ajax()
+
     }
 
     $(document).ready(function () {
         showList();
 
 
-        // $("#roomList").on("click", ".sendBtn", function () {
-        //     let bno = $(this).parent().attr("data-bno");
-        //
-        //     $.ajax({
-        //         type: 'DELETE',       // 요청 메서드
-        //         url: '/CtProj/rooms/' + bno,  // 요청 URI
-        //         success: function (result) {
-        //             alert(result);
-        //             showList();          // 삭제된 이후에 목록에 다시 갱신해주며 보여주기
-        //         },
-        //         error: function () {
-        //             alert("error")
-        //         } // 에러가 발생했을 때, 호출될 함수
-        //     }); // $.ajax()
-        // });
 
 
-        // $("#room-info").on("click", ".delBtn-Mem", function () {
-        //     let bno = $(this).parent().attr("data-bno");
-        //     // let title = $(this).parent().attr("title");
+
+        // $("#sendBtn").click(function () {
+        //     let title = $(".rooms-title").val();
+        //     let picture = $(".rooms-picture").val();
+        //     let meet_Date = $(".rooms-meet_Date").val();
+        //     console.log(meet_Date);
+        //     let meet_place = $(".rooms-meet_place").val();
+        //     let notice = $(".rooms-notice").val();
+        //     let category = $(".rooms-category").val();
+        //     let user_limit = $(".rooms-user_limit").val();
+        //
+        //     if (title.trim() == '' || meet_Date.trim() == '' || meet_place.trim() == '' || category.trim() == '' || user_limit.trim() == '') {     // 공백을 입력할때 주의 주기!!
+        //         alert("입력해주세요!!!");
+        //         return;
+        //     }
         //
         //     $.ajax({
-        //         type: 'DELETE',       // 요청 메서드
-        //         url: '/CtProj/roomin-mem/' + bno,  // 요청 URI
+        //         type: 'PATCH',       // 요청 메서드
+        //         url: '/CtProj/rooms/{bno}',  // 요청 URI /ch4/comments?bno=1085 POST
+        //         headers: {"content-type": "application/json"}, // 요청 헤더
+        //         data: JSON.stringify({
+        //             title: title,
+        //             picture: picture,
+        //             meet_Date: meet_Date,
+        //             meet_place: meet_place,
+        //             notice: notice,
+        //             category: category,
+        //             user_limit: user_limit
+        //         }),  // 서버로 전송할 데이터. stringify()로 직렬화 필요.
         //         success: function (result) {
-        //             alert(result);
-        //             window.location.ref = "/index";
-        //         },
-        //         error: function () {
-        //             alert("error")
-        //         } // 에러가 발생했을 때, 호출될 함수
-        //     }); // $.ajax()
-        // });
-        // $("#list-host").on("click", ".delBtn-Host", function () {
-        //     let bno = $(this).parent().attr("data-bno");
-        //     // let title = $(this).parent().attr("title");
+        //             alert("방 생성을 성공하였습니다.");
+        //             console.log(meet_Date);
+        //             showList();
         //
-        //     $.ajax({
-        //         type: 'DELETE',       // 요청 메서드
-        //         url: '/CtProj/list-host/' + bno,  // 요청 URI
-        //         success: function (result) {
-        //             alert(result);
-        //             showList();          // 삭제된 이후에 목록에 다시 갱신해주며 보여주기
         //         },
         //         error: function () {
-        //             alert("error")
+        //             console.log(meet_Date);
+        //             alert("다시 입력해주세요.")
+        //
         //         } // 에러가 발생했을 때, 호출될 함수
         //     }); // $.ajax()
         // });
 
     });
 
-    let toHtmlRoomInfo = function () {
+    let toHtmlRoomOut = function () {
         let tmp = '<form action = "/CtProj/delete-room-host" onsubmit="return btnCheck()" method = "post">'
         tmp += '<input type = "hidden" name = "room_num" value ="' + ${roomDto.bno}+ '" />'
         tmp += '<input type = "submit"  class="btn btn-outline-primary" value="나가기"/>'
@@ -348,5 +382,6 @@
 <!-- * * Activate your form at https://startbootstrap.com/solution/contact-forms * *-->
 <!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *-->
 <script src="<c:url value="https://cdn.startbootstrap.com/sb-forms-latest.js"/>"></script>
+
 </body>
 </html>
