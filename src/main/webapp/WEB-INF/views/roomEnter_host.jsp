@@ -39,6 +39,12 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.css" />
 
+    <!-- date range picker 사용위해서-->
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/jquery/latest/jquery.min.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css"/>
+
     <link rel="stylesheet" type="text/css" href="<c:url value="/css/stylesmainpage.css"/>">
     <style>
         ul > li {
@@ -189,7 +195,7 @@
         </div>
     </div>
 
-    <!-- Modal -->
+    <!-- Modal(수정화면) -->
     <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true" style="display: block;background: transparent;margin-left: 35%;box-shadow:none;">
         <div class="modal-dialog" role="document" >
             <div class="modal-content">
@@ -201,10 +207,61 @@
                 </div>
                 <div class="modal-body">
                     <p>Modal body text goes here.</p>
+                    <fieldset style="padding-left:40px">
+                    <div class="form-group">
+                        <label for="InputTitle" class="form-label mt-4">제목</label>
+                        <input type="text" class="form-control rooms-title" id="InputTitle" value="${roomDto.title}">
+                    </div>
+                    <div class="form-group">
+                        <label for="InputPic" class="form-label mt-4">사진</label>
+                        <input class="form-control rooms-picture" type="file" id="InputPic" value="${roomDto.picture}" accept="image/*" placeholder="입력해주세요">
+
+                    </div>
+
+                    <div class="form-group">
+                        <label for="InputDate" class="form-label mt-4">만날 시간</label>
+                        <input type="text" class="form-control rooms-meet_Date" id="InputDate" aria-describedby="emailHelp" value="${roomDto.meet_Date}"/>
+                        <small id="emailHelp" class="form-text text-muted">ex) 2022-12-10 </small>
+                    </div>
+                    <div class="form-group">
+                        <label for="InputPlace" class="form-label mt-4">만날 장소</label>
+                        <input type="text" class="form-control rooms-meet_place" id="InputPlace" value="${roomDto.meet_place}">
+<%--                        <div id="map" style="width:100%;height:350px;"></div>--%>
+                    </div>
+                    <div class="form-group">
+                        <label for="InputNotice" class="form-label mt-4">공지사항</label>
+                        <input type="text" class="form-control rooms-notice" id="InputNotice" value="${roomDto.notice}">
+                    </div>
+                    <div class="form-group">
+                        <label for="InputCategory" class="form-label mt-4">카테고리</label>
+                        <select name="Category" id="InputCategory" class="form-group rooms-category">
+                            <option value="식사">식사</option>
+                            <option value="공부" selected>공부</option>
+                            <option value="운동">운동</option>
+                            <option value="여행">여행</option>
+                            <option value="거래">거래</option>
+                            <option value="기타">기타</option>
+                        </select>
+
+                    </div>
+                    <div class="form-group">
+                        <label for="InputLimit" class="form-label mt-4">제한 인원</label>
+                        <%--                <input type="text" class="form-control rooms-user_limit" id="InputLimit" placeholder="입력해주세요">--%>
+                        <select name="limit" id="InputLimit" class="form-group rooms-user_limit">
+                            <option value="2">2명</option>
+                            <option value="3">3명</option>
+                            <option value="4">4명</option>
+                            <option value="5">5명</option>
+                            <option value="6">6명</option>
+                            <option value="7">7명</option>
+                            <option value="8">8명</option>
+                        </select>
+                    </div>
+                    </fieldset>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-primary">Save changes</button>
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary" id="Mod-Btn">변경하기</button>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">취소하기</button>
                 </div>
             </div>
         </div>
@@ -259,50 +316,61 @@
         showList();
 
 
+        $("#Mod-Btn").click(function () {
+            let title = $(".rooms-title").val();
+            let picture = $(".rooms-picture").val();
+            let meet_Date = $(".rooms-meet_Date").val();
+            let meet_place = $(".rooms-meet_place").val();
+            let notice = $(".rooms-notice").val();
+            let category = $(".rooms-category").val();
+            let user_limit = $(".rooms-user_limit").val();
+            let bno = ${roomDto.bno}
 
+            if (title.trim() == '' || meet_Date.trim() == '' || meet_place.trim() == '' || category.trim() == '' || user_limit.trim() == '') {     // 공백을 입력할때 주의 주기!!
+                alert("입력해주세요!!!");
+                return;
+            }
 
+            $.ajax({
+                type: 'PATCH',       // 요청 메서드
+                url: '/CtProj/rooms/'+bno,  // 요청 URI /ch4/comments?bno=1085 POST
+                headers: {"content-type": "application/json"}, // 요청 헤더
+                data: JSON.stringify({
+                    title: title,
+                    picture: picture,
+                    meet_Date: meet_Date,
+                    meet_place: meet_place,
+                    notice: notice,
+                    category: category,
+                    user_limit: user_limit
+                }),  // 서버로 전송할 데이터. stringify()로 직렬화 필요.
+                success: function (result) {
+                    alert("방 변경완료하였습니다.");
+                    console.log(meet_Date);
+                    showList();
 
-        // $("#sendBtn").click(function () {
-        //     let title = $(".rooms-title").val();
-        //     let picture = $(".rooms-picture").val();
-        //     let meet_Date = $(".rooms-meet_Date").val();
-        //     console.log(meet_Date);
-        //     let meet_place = $(".rooms-meet_place").val();
-        //     let notice = $(".rooms-notice").val();
-        //     let category = $(".rooms-category").val();
-        //     let user_limit = $(".rooms-user_limit").val();
-        //
-        //     if (title.trim() == '' || meet_Date.trim() == '' || meet_place.trim() == '' || category.trim() == '' || user_limit.trim() == '') {     // 공백을 입력할때 주의 주기!!
-        //         alert("입력해주세요!!!");
-        //         return;
-        //     }
-        //
-        //     $.ajax({
-        //         type: 'PATCH',       // 요청 메서드
-        //         url: '/CtProj/rooms/{bno}',  // 요청 URI /ch4/comments?bno=1085 POST
-        //         headers: {"content-type": "application/json"}, // 요청 헤더
-        //         data: JSON.stringify({
-        //             title: title,
-        //             picture: picture,
-        //             meet_Date: meet_Date,
-        //             meet_place: meet_place,
-        //             notice: notice,
-        //             category: category,
-        //             user_limit: user_limit
-        //         }),  // 서버로 전송할 데이터. stringify()로 직렬화 필요.
-        //         success: function (result) {
-        //             alert("방 생성을 성공하였습니다.");
-        //             console.log(meet_Date);
-        //             showList();
-        //
-        //         },
-        //         error: function () {
-        //             console.log(meet_Date);
-        //             alert("다시 입력해주세요.")
-        //
-        //         } // 에러가 발생했을 때, 호출될 함수
-        //     }); // $.ajax()
-        // });
+                },
+                error: function () {
+                    console.log(meet_Date);
+                    console.log(bno);
+                    alert("다시 입력해주세요.")
+
+                } // 에러가 발생했을 때, 호출될 함수
+            }); // $.ajax()
+        });
+
+        $('#InputDate').daterangepicker({
+            "singleDatePicker": true,
+            "timePicker" : true,
+            "timePicker24Hour" : true,
+            "locale" :{
+                "applyLabel": "확인",
+                "cancelLabel": "취소",
+                "format": 'YYYY-MM-DD hh:mm',
+                "daysOfWeek": ["일", "월", "화", "수", "목", "금", "토"],
+                "monthNames": ["1월", "2월", "3월", "4월", "5월", "6월", "7월", "8월", "9월", "10월", "11월", "12월"],
+            },
+        });
 
     });
 
