@@ -99,10 +99,11 @@ public class RoomDaoImplTest {
 //
     @Test
     public void update() throws Exception {
-        RoomDto roomDto = roomDao.select(161);
+        RoomDto roomDto = roomDao.select(216);
         System.out.println(roomDto.getNotice());
         roomDto.setMeet_place("서초");
         roomDto.setNotice("진짜 다 바꼈네ㅋㅋㅋ ");
+        roomDto.setUser_limit(5);
         assertTrue(roomDao.update(roomDto) == 1);
     }
 }

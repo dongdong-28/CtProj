@@ -80,6 +80,7 @@
           , notice = #{notice}
           , category = #{category}
           , up_date = now()
+          , user_limit = #{user_limit}
           , user_cnt = #{user_cnt}
         WHERE bno = #{bno}
     </update>

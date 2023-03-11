@@ -8,6 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
+import java.util.ArrayList;
 import java.util.List;
 
 //@Controller
@@ -94,6 +95,26 @@ public class RoomListController {
             return new ResponseEntity<>("DEL_ERR",HttpStatus.BAD_REQUEST);
         }
     }
+
+    // 강퇴하기
+    @DeleteMapping("/list-mem-drop/{bno}/{user_id}")
+    public ResponseEntity<String> removeMemDrop(@PathVariable Integer bno, @PathVariable String user_id) throws Exception {
+
+        System.out.println(user_id);
+
+        try {
+            int rowCnt = service.removeMem(bno, user_id);
+
+            if(rowCnt != 1)
+                throw new Exception("Delete Failed");
+            return new ResponseEntity<>(HttpStatus.OK);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            return new ResponseEntity<>("DEL_ERR",HttpStatus.BAD_REQUEST);
+        }
+    }
+
 
     @DeleteMapping("/list-host/{bno}")
     public ResponseEntity<String> removeHost(@PathVariable Integer bno, HttpSession session) throws Exception {
