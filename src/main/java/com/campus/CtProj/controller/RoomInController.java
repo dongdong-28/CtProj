@@ -1,6 +1,7 @@
 package com.campus.CtProj.controller;
 
 import com.campus.CtProj.domain.RoomDto;
+import com.campus.CtProj.service.EnterService;
 import com.campus.CtProj.service.RoomInService;
 import com.campus.CtProj.service.RoomListService;
 import com.campus.CtProj.service.RoomService;
@@ -21,6 +22,8 @@ import java.util.List;
 public class RoomInController {
     @Autowired
     RoomInService service;
+    @Autowired
+    EnterService enterService;
 
 //    // 회원에 따른 방들을 전부 보여주는 메서드
 //    @PostMapping("/room-in/{bno}")
@@ -66,7 +69,7 @@ public class RoomInController {
     public String RemoveMem(Model m,HttpSession session, HttpServletRequest request) throws Exception {
         String user_id = (String)session.getAttribute("id");
         Integer room_bno = Integer.parseInt(request.getParameter("room_num"));
-        int rowCnt = service.leaveMem(room_bno, user_id);
+        int rowCnt = enterService.remove(room_bno, user_id);
         return "redirect:/";
     }
 

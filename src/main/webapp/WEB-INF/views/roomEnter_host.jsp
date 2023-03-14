@@ -391,24 +391,29 @@
 
         $('#drop-Btn').click(function () {
             let bno = ${roomDto.bno};
+            let cnt = 0;
             $("input:checkbox[name='flexCheckChecked']:checked").each(function () {
                 let user_id = $(this).val();
-                if($(this).checked === false)
-                    return;
+
                 $.ajax({
                     type: 'DELETE',       // 요청 메서드
                     url: '/CtProj/list-mem-drop/' + bno + '/' + user_id,  // 요청 URI
                     success: function (result) {
+                        alert("삭제되었습니다.")
                         showList();          // 삭제된 이후에 목록에 다시 갱신해주며 보여주기
+                        cnt += 1;
+                        console.log(cnt)
                     },
                     error: function () {
                         alert("삭제에 실패하였습니다.")
-
-
                     } // 에러가 발생했을 때, 호출될 함수
                 }); // $.ajax()
-                alert("삭제되었습니다.");
             });
+            if(cnt === 0) {
+                console.log("Nop")
+                return;
+            }
+
 
         });
 

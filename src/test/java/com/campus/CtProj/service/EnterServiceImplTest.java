@@ -28,7 +28,7 @@ public class EnterServiceImplTest {
     public void remove() throws Exception{
 
 
-        assertTrue(service.remove(103,"17100123") == 1);
+        assertTrue(service.remove(219,"17100123") == 1);
 
     }
 
@@ -38,7 +38,7 @@ public class EnterServiceImplTest {
 
     @Test
     public void enter() throws Exception {
-        EnterDto dto = new EnterDto("17100725",103);
+        EnterDto dto = new EnterDto("17100999",222);
 
         assertTrue(service.enter(dto) == 1);
     }
