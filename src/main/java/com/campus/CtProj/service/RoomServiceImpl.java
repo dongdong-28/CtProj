@@ -50,9 +50,8 @@ public class RoomServiceImpl implements RoomService {
 
     @Override       // 방 읽기
     public RoomDto read(Integer bno) throws Exception {
-        RoomDto roomDto = roomDao.select(bno);
 
-        return roomDto;
+        return roomDao.select(bno);
     }
 
     // 카테고리별로 방 가져오기

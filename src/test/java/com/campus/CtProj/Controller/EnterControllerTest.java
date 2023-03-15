@@ -47,7 +47,7 @@ public class EnterControllerTest {
     // 방 입장
     @Test
     public void enter() throws Exception {
-        EnterDto enterDto = new EnterDto("17100999",218);
+        EnterDto enterDto = new EnterDto("17100123",216);
         assertTrue(EntService.enter(enterDto)==1);
     }
 

@@ -58,26 +58,7 @@ public class RoomListController {
 
     }
 
-//    // 방 입장하는 메서드
-////    @ResponseBody
-//    @PostMapping("/list")   // /ch4/comments?bno=1085 POST
-//    // CommentDto 그대로 하면 안들어간다! 그래서 앞에 @RequestBody 를 붙여줘야한다
-//    public ResponseEntity<String> read(HttpSession session) throws Exception{    // 입력한 내용을 받아와야하니깐 CommentDto dto 해줘야한다.
-//        String user_id = (String) session.getAttribute("id");
-//
-//        dto.setUser_id(user_id);
-//        service.readMem(user_id);
-//
-//        try {
-//            if(service.enter(dto) != 1)
-//                throw new Exception("Enter failed. ");
-//            return new ResponseEntity<>("ENT_OK", HttpStatus.OK);
-//
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//            return new ResponseEntity<>("ENT_ERR", HttpStatus.BAD_REQUEST);
-//        }
-//    }
+
 
 
 //    @ResponseBody
@@ -137,31 +118,7 @@ public class RoomListController {
     }
 
 
-//   //  방안에 내용들을 수정하는 메서드
-//    @ResponseBody
-//    @PatchMapping("/rooms/{bno}")   // /ch4/comments/bno PATCH
-//    // CommentDto 그대로 하면 안들어간다! 그래서 앞에 @RequestBody 를 붙여줘야한다
-//    public ResponseEntity<String> modify(@PathVariable Integer bno,@RequestBody RoomDto dto)  {    // 입력한 내용을 받아와야하니깐 CommentDto dto 해줘야한다.
-//        //        String writer = (String)session.getAttribute("id");
-//
-//        String writer = "17100725";
-//        dto.setWriter(writer);
-//        dto.setBno(bno);
-//        System.out.println("dto = " + dto);
-//
-//        try {
-//            if(service.modify(dto) != 1)
-//                throw new Exception("Write failed. ");
-//            return new ResponseEntity<>("MOD_OK", HttpStatus.OK);
-//
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//            return new ResponseEntity<>("MOD_ERR", HttpStatus.BAD_REQUEST);
-//        }
-//    }
-//
-//
-////
+
     // 회원이 입장+ 생성한 방 총 수를 보여준다.
     @RequestMapping("/list-num")            // comments?bno=1080 GET
 //      @ResponseBody

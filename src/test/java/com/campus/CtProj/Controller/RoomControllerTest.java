@@ -43,6 +43,15 @@ public class RoomControllerTest {
 
     }
 
+
+    @Test
+    public void read() throws Exception {
+        RoomDto roomDto = service.read(216);
+        System.out.println(roomDto);
+//        assertTrue(service.read(216)== 1);
+
+    }
+
 //    // 방 생성
 //    @Test
 //    public void MakeRoom() throws Exception {
@@ -57,12 +66,4 @@ public class RoomControllerTest {
     }
 
 
-//    @Test
-//    public void listCategory() throws Exception{
-//        List<RoomDto> list = null;
-//        String category = "기타";
-//            list =  service.readCategoryList(category);
-//            assertTrue(list == 1);
-//
-//    }
 }

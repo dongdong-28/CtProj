@@ -126,6 +126,8 @@
 
             </div>
 
+            <div id="roomInfo"></div>
+
             <!-- 방 제목 -->
             <div class="card border-primary mb-3 wrapInfo" style="max-width: 50rem;height:100px;padding: 0">
                 <div class="card-header">방제목</div>
@@ -202,6 +204,9 @@
                     <h4 class="card-title"></h4>
                 </div>
             </div>
+
+            <!--강퇴버튼-->
+            <button type="button" class="btn btn-primary" id="drop-Btn" style="width:120px;height:50px;margin-left:80%; margin-top:20%;">강퇴하기</button>
 
 
             <!-- 수정버튼-->
@@ -294,7 +299,6 @@
         </div>
     </div>
 
-
 </section>
 
 
@@ -327,9 +331,48 @@
     // });
 
     let showList = function () {
+
+        // $("#roomInfo").html(toHtmlRoomInfo());    // 서버로부터 응답이 도착하면 호출될 함수
+
+
+        <%--$.ajax({--%>
+        <%--    type: 'GET',       // 요청 메서드--%>
+        <%--    url: '/CtProj/room?bno='+${roomDto.bno},  // 요청 URI--%>
+        <%--    success: function (result) {--%>
+        <%--    },--%>
+        <%--    error: function () {--%>
+        <%--        alert("error")--%>
+        <%--    } // 에러가 발생했을 때, 호출될 함수--%>
+        <%--}); // $.ajax()--%>
+
+        $.ajax({
+            type: 'GET',       // 요청 메서드
+            url: '/CtProj/room/get-mem-list?bno='+${roomDto.bno},  // 요청 URI
+            success: function (result) {
+                console.log(result)
+                $("#list-mem").html(toHtmlMem(result));
+            },
+            error: function () {
+                alert("error")
+            } // 에러가 발생했을 때, 호출될 함수
+        }); // $.ajax()
+
+        $.ajax({
+            type: 'GET',       // 요청 메서드
+            url: '/CtProj/room/get-mem-num?bno='+${roomDto.bno},  // 요청 URI
+            success: function (result) {
+                console.log(result)
+                $("#list-num").html(toHtmlListNum(result));
+            },
+            error: function () {
+                alert("error")
+            } // 에러가 발생했을 때, 호출될 함수
+        }); // $.ajax()
+
+        <%--$("#list-mem").html(toHtmlMem(${list}));--%>
+        // $("#list-num").html(toHtmlListNum());
         $("#room-out").html(toHtmlRoomOut());    // 서버로부터 응답이 도착하면 호출될 함수
-        $("#list-mem").html(toHtmlMem());
-        $("#list-num").html(toHtmlListNum());
+
 
 
     }
@@ -358,6 +401,7 @@
                 alert("입장한 인원이 제한인원보다 많습니다.")
                 return;
             }
+
 
             $.ajax({
                 type: 'PATCH',       // 요청 메서드
@@ -391,29 +435,29 @@
 
         $('#drop-Btn').click(function () {
             let bno = ${roomDto.bno};
-            let cnt = 0;
-            $("input:checkbox[name='flexCheckChecked']:checked").each(function () {
-                let user_id = $(this).val();
-
-                $.ajax({
-                    type: 'DELETE',       // 요청 메서드
-                    url: '/CtProj/list-mem-drop/' + bno + '/' + user_id,  // 요청 URI
-                    success: function (result) {
-                        alert("삭제되었습니다.")
-                        showList();          // 삭제된 이후에 목록에 다시 갱신해주며 보여주기
-                        cnt += 1;
-                        console.log(cnt)
-                    },
-                    error: function () {
-                        alert("삭제에 실패하였습니다.")
-                    } // 에러가 발생했을 때, 호출될 함수
-                }); // $.ajax()
-            });
-            if(cnt === 0) {
-                console.log("Nop")
+            if($("input:checkbox[name='flexCheckChecked']:checked").length === 0){
+                alert("강퇴할 인원이 없습니다.")
                 return;
             }
+            if (confirm("정말로 강퇴하시겠습니까?")) {
+                $("input:checkbox[name='flexCheckChecked']:checked").each(function () {
+                    let user_id = $(this).val();
 
+                    $.ajax({
+                        type: 'DELETE',       // 요청 메서드
+                        url: '/CtProj/list-mem-drop/' + bno + '/' + user_id,  // 요청 URI
+                        success: function (result) {
+                            alert("삭제되었습니다.")
+                            showList();          // 삭제된 이후에 목록에 다시 갱신해주며 보여주기
+                        },
+                        error: function () {
+                            alert("삭제에 실패하였습니다.")
+                        } // 에러가 발생했을 때, 호출될 함수
+                    }); // $.ajax()
+                });
+            } else {
+                return false;
+            }
 
         });
 
@@ -451,31 +495,86 @@
         }
     }
 
-    let toHtmlMem = function () {
+    // let toHtmlRoomInfo = function (room) {
+    //     let tmp = ' <div class="card border-primary mb-3 wrapInfo" style="max-width: 50rem;height:100px;padding: 0">';
+    //
+    //     tmp += '<!-- 방 제목 -->'
+    //     tmp += ' <div class="card-header">방제목</div>'
+    //     tmp += '<div class="card-body">'
+    //     tmp += '<h4 class="card-title">'+ room.title+'</h4>'
+    //     tmp += '</div>'
+    //     tmp += ' </div>'
+    //
+    //     tmp += '<!-- 공지 사항 -->'
+    //     tmp += '<div class="card border-primary mb-3 wrapInfo" style="margin-top: 150px; max-width: 50rem;height:100px;padding: 0">'
+    //     tmp += '<div class="card-header">공지사항</div>'
+    //     tmp += '<div class="card-body">'
+    //     tmp += '<h4 class="card-title">'+room.notice+'</h4>'
+    //     tmp += ' </div>'
+    //     tmp += '</div>'
+    //     tmp += '<div class="card border-primary mb-3 wrapInfo" style="margin-top: 150px;max-width: 20rem;height:100px;padding: 0;top:36%">'
+    //     tmp += '<div class="card-header">장소</div>'
+    //     tmp += '<div class="card-body">'
+    //     tmp += '<h4 class="card-title">'+room.meet_place+'</h4>'
+    //     tmp += '</div>'
+    //     tmp += '</div>'
+    //     tmp += '<div class="card border-primary mb-3 wrapInfo" style="margin-top: 150px;max-width: 20rem;height:100px;padding: 0;top:36%;left:35%">'
+    //     tmp += '<div class="card-header">시간</div>'
+    //     tmp += '<div class="card-body">'
+    //     tmp += '<h4 class="card-title">'+ room.meet_Date+'</h4>'
+    //     tmp += '</div>'
+    //     tmp += '</div>'
+    //
+    //     tmp += '<!-- 방장 + 인원 -->'
+    //     tmp += '<ul class="list-group border-primary" style="width:auto;position: absolute;left: 75%;top: 58%;">'
+    //     tmp += '<div id="list-mem"></div>'
+    //     tmp += '</ul>'
+    //
+    //     tmp += '<!-- 현재 인원 / 제한인원 -->'
+    //     tmp += '<ul class="list-group border-primary" style="width:auto;position: absolute;left: 89%;top: 58%;">'
+    //     tmp += '<div id="list-num"></div>'
+    //     tmp += '</ul>'
+    //
+    //     tmp += '<!-- 지도 보여주기-->'
+    //     tmp += '<div class="card border-primary mb-3 wrapInfo" style="margin-top: 150px;max-width: 20rem;padding: 0;height:200px;top: 55%">'
+    //     tmp += '<div class="card-header">지도</div>'
+    //     tmp += '<div class="card-body">'
+    //     tmp += '<h4 class="card-title"></h4>'
+    //     tmp += '</div>'
+    //     tmp += '</div>'
+    //
+    //     tmp += '<!-- 채팅창-->'
+    //     tmp += '<div class="card border-primary mb-3 wrapInfo" style="margin-top: 150px;max-width: 35rem;height:350px;padding: 0;top: 55%; left:35%">'
+    //     tmp += '<div class="card-header">채팅창</div>'
+    //     tmp += '<h4 class="card-title"></h4>'
+    //     tmp += '</div>'
+    //     return tmp + '</div>';
+    // }
+
+<%--let tmp = "<ul>";--%>
+<%--tmp += '<li class="list-group-item d-flex justify-content-between align-items-center list-group-item-danger">방장: ' + ${roomDto.writer} +'</li>'--%>
+<%--tmp += '<c:forEach items=' + list + ' var="list">'--%>
+<%--    tmp += '<c:for items=' + room.bno + ' var="list-style-type:none;">'--%>
+<%--        tmp += '<li data-bno=' + room.bno + ' style="list-style-type:none;">'--%>
+<%--        tmp += '<li class="list-group-item d-flex justify-content-between align-items-center">'--%>
+<%--        tmp += list +'<input class="form-check-input" type="checkbox" name="flexCheckChecked"  value="'+list+'"> </li> ';--%>
+<%--        tmp += '</c:for ></ul>'--%>
+<%--    return tmp + '<button type="button" class="btn btn-primary" id="drop-Btn">강퇴하기</button>';--%>
+
+    let toHtmlMem = function (list) {
         let tmp = "<ul>";
-        <%--tmp += '<li data-bno=' + ${roomDto.bno} + '>'--%>
-        <%--tmp += '방번호= ' + ${roomDto.bno};--%>
         tmp += '<li class="list-group-item d-flex justify-content-between align-items-center list-group-item-danger">방장: ' + ${roomDto.writer} +'</li>'
-        tmp += ' <c:forEach items= "${list}" var="list" >'
-        tmp += '<li class="list-group-item d-flex justify-content-between align-items-center">'
-        tmp += ${list} +'<input class="form-check-input" type="checkbox" name="flexCheckChecked"  value="${list}"> </li> ';
-        tmp += '</c:forEach></ul>'
-        // tmp += '</li>'
-        return tmp + '<button type="button" class="btn btn-primary" id="drop-Btn">강퇴하기</button>';
-
+        for(const val in Object.keys(list)){
+            tmp += '<li class="list-group-item d-flex justify-content-between align-items-center">'
+            tmp += list[val] +'<input class="form-check-input" type="checkbox" name="flexCheckChecked"  value="'+list[val]+'"> </li> ';
+        }
+        return tmp +  '</ul>';
     }
-    // <div class="form-check">
-    //         <label class="form-check-label" for="flexCheckChecked">
-    //             Checked checkbox
-    //         </label>
-    //     <input class="form-check-input" type="checkbox" value="" id="flexCheckChecked">
-    // </div>
 
-
-    let toHtmlListNum = function () {
-        // let tmp = "<ul>";
+    let toHtmlListNum = function (size) {
+        console.log(size)
         let tmp = '<li class="list-group-item d-flex justify-content-between align-items-center">'
-        tmp +=  ${list.size()+1};
+        tmp +=  size;
         tmp += ' / ' +
         ${roomDto.user_limit}
         return tmp + "</li> ";
