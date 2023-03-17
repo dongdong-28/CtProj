@@ -36,6 +36,30 @@ public class EnterServiceImpl implements EnterService {
         try {
             Integer dtoVal = enterDao.selectBno(enterDto);
             int cnt =  dto.getUser_cnt()-1;
+            System.out.println("삭제완료 : "+cnt);
+
+            if(dtoVal == null || cnt == 0)
+                throw new Exception(" no enter mem ");
+            dto.setUser_cnt(cnt);
+            roomDao.update(dto);
+            return enterDao.delete(room_bno, user_id);
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+            return 0;
+        }
+
+    }
+    // 강퇴하기
+    @Override
+    @Transactional(rollbackFor = Exception.class)
+    public int dropOut(Integer room_bno, String user_id,Integer drop_num) throws Exception {
+        RoomDto dto = roomDao.select(room_bno);
+        EnterDto enterDto = new EnterDto(user_id,room_bno);
+        try {
+            Integer dtoVal = enterDao.selectBno(enterDto);
+            int cnt =  dto.getUser_cnt()-drop_num;
+            System.out.println("삭제완료 : "+cnt);
 
             if(dtoVal == null || cnt == 0)
                 throw new Exception(" no enter mem ");

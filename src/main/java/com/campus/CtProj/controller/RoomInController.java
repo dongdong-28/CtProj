@@ -59,21 +59,41 @@ public class RoomInController {
         }
 
     }
-    @GetMapping("/room/get-mem-num")
-    @ResponseBody public ResponseEntity<Integer> getMemListNum(HttpServletRequest request) throws Exception {
 
-        Integer bno = Integer.parseInt(request.getParameter("bno"));
-        List<String> list = null;
-        Integer size = null;
+    // 강퇴하기
+    @ResponseBody
+    @DeleteMapping("/room/mem-drop/{bno}/{user_id}/{drop_num}")
+    public ResponseEntity<String> removeMemDrop(@PathVariable Integer bno,@PathVariable Integer drop_num, @PathVariable String user_id) throws Exception {
+
+        System.out.println(user_id);
+
         try {
-            list = enterService.selectRoomId(bno);
-            size = list.size()+1;
-            return new ResponseEntity<>(size, HttpStatus.OK);   // 200
+            int rowCnt = enterService.dropOut(bno, user_id,drop_num);
+
+            if(rowCnt != 1)
+                throw new Exception("Delete Failed");
+            return new ResponseEntity<>(HttpStatus.OK);
+
         } catch (Exception e) {
             e.printStackTrace();
-            return new ResponseEntity<>(size, HttpStatus.BAD_REQUEST);      //400
+            return new ResponseEntity<>("DEL_ERR",HttpStatus.BAD_REQUEST);
         }
-
     }
+//    @GetMapping("/room/get-mem-num")
+//    @ResponseBody public ResponseEntity<Integer> getMemListNum(HttpServletRequest request) throws Exception {
+//
+//        Integer bno = Integer.parseInt(request.getParameter("bno"));
+//        List<String> list = null;
+//        Integer size = null;
+//        try {
+//            list = enterService.selectRoomId(bno);
+//            size = list.size()+1;
+//            return new ResponseEntity<>(size, HttpStatus.OK);   // 200
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//            return new ResponseEntity<>(size, HttpStatus.BAD_REQUEST);      //400
+//        }
+//
+//    }
 
 }

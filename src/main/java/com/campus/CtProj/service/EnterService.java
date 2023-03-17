@@ -17,4 +17,7 @@ public interface EnterService {
 
      List<String> selectRoomId(Integer room_bno) throws Exception ;
 
+     int dropOut(Integer room_bno, String user_id,Integer drop_num) throws Exception;
+
+
     }
