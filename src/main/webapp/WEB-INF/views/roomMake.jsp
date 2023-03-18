@@ -108,7 +108,7 @@
 </header>
 <!-- Section-->
 <section class="py-5 page-section">
-    <form>
+    <form action="/" method = "post" enctype="multipart/form-data">
         <fieldset style="padding-left:40px">
             <div class="form-group">
                 <label for="InputTitle" class="form-label mt-4">제목</label>
@@ -165,13 +165,14 @@
                     <option value="8">8명</option>
                 </select>
             </div>
-            <button id="sendBtn" class="btn btn-primary" type="button" style="margin-top:20px">등록하기</button>
+
 
             <%--            <button id="sendBtn" class ="btn btn-primary" type="button">등록하기</button>--%>
             <%--       <input type = "submit" id="sendBtn" value = "등록하기" class="btn btn-primary"/>--%>
 
         </fieldset>
     </form>
+    <button id="sendBtn" class="btn btn-primary" type="submit" style="margin-top:20px">등록하기</button>
 
 </section>
 
@@ -234,6 +235,8 @@
 
                 } // 에러가 발생했을 때, 호출될 함수
             }); // $.ajax()
+
+
         });
 
 

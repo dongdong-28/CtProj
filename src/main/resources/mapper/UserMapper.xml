@@ -13,8 +13,8 @@
     </delete>
 
     <insert id="insert" parameterType="UserDto">
-        INSERT INTO user_data (id, password, nickname, img_profile,reg_date,list_num)
-        VALUES (#{id}, #{password}, #{nickname}, #{img_profile},now(),#{list_num})
+        INSERT INTO user_data (id, password, nickname, filename,filepath,reg_date)
+        VALUES (#{id}, #{password}, #{nickname}, #{filenaem},#{filepath},now())
     </insert>
 
 
@@ -22,11 +22,11 @@
         SELECT id,
                password,
                nickname,
-               point,
+               coin,
                level,
-               img_profile,
+               filename,
+               filepath,
                reg_date,
-               list_num
         FROM user_data WHERE id = #{id};
     </select>
 
@@ -35,9 +35,10 @@
         UPDATE user_data
         SET   nickname = #{nickname}
           , password = #{password}
-          , point = #{point}
+          , coin = #{coin}
           , level = #{level}
-          , img_profile = #{img_profile}
+          , filename = #{filename}
+          , filepath = #{filepath}
         WHERE id = #{id}
     </update>
 
