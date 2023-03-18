@@ -38,7 +38,7 @@ public class EnterServiceImplTest {
 
     @Test
     public void enter() throws Exception {
-        EnterDto dto = new EnterDto("17100999",222);
+        EnterDto dto = new EnterDto("17100456",246);
 
         assertTrue(service.enter(dto) == 1);
     }

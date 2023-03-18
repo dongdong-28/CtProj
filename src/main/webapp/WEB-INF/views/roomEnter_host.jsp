@@ -173,6 +173,7 @@
             <ul class="list-group border-primary" style="width:auto;position: absolute;left: 89%;top: 58%;">
                 <div id="list-num"></div>
             </ul>
+<%--            <div class="rooms-user_cnt" style="display:none">room</div>--%>
 
 <%--            <!-- 지도 보여주기-->--%>
 <%--            <div class="card border-primary mb-3 wrapInfo"--%>
@@ -321,12 +322,17 @@
     //     $('#staticBackdrop').modal("show");
     // });
 
+
     let showList = function () {
 
         $.ajax({
             type: 'GET',       // 요청 메서드
             url: '/CtProj/room?bno='+${roomDto.bno},  // 요청 URI
+            async : false,
             success: function (result) {
+                console.log("카운트!")
+                console.log(result.user_cnt)
+                 cnt = result.user_cnt // 수정할때를 위해서 전역변수로 넘겨준다
                 $("#roomInfo").html(toHtmlRoomInfo(result));    // 서버로부터 응답이 도착하면 호출될 함수
             },
             error: function () {
@@ -378,8 +384,10 @@
             let notice = $(".rooms-notice").val();
             let category = $(".rooms-category").val();
             let user_limit = $(".rooms-user_limit").val();
-            let user_cnt = $(".rooms-user_cnt").val();
+            let user_cnt = cnt
             let bno = ${roomDto.bno};
+            console.log("유저카운트")
+            console.log(user_cnt)
 
             if (title.trim() === '' || meet_Date.trim() === '' || meet_place.trim() === '' || category.trim() === '' || user_limit.trim() === '') {     // 공백을 입력할때 주의 주기!!
                 alert("입력해주세요!!!");
@@ -402,8 +410,8 @@
                     meet_place: meet_place,
                     notice: notice,
                     category: category,
-                    user_limit: user_limit,
                     user_cnt: user_cnt,
+                    user_limit: user_limit,
                 }),  // 서버로 전송할 데이터. stringify()로 직렬화 필요.
                 success: function (result) {
                     console.log("방 변경후")
@@ -423,7 +431,7 @@
 
         $('#drop-Btn').click(function () {
             let bno = ${roomDto.bno};
-            let user_id = []
+            user_id = []
             if($("input:checkbox[name='flexCheckChecked']:checked").length === 0){
                 alert("강퇴할 인원이 없습니다.")
                 return;
@@ -436,21 +444,21 @@
                 return false;
             }
 
-            console.log(user_id)
             for(const val in Object.values(user_id)) {
                 console.log(val)
                 $.ajax({
                     type: 'DELETE',       // 요청 메서드
                     url: '/CtProj/room/mem-drop/' + bno + '/' + user_id[val]+'/'+user_id.length,  // 요청 URI
                     success: function (result) {
-                        alert("삭제되었습니다.")
                         showList();          // 삭제된 이후에 목록에 다시 갱신해주며 보여주기
                     },
                     error: function () {
                         alert("삭제에 실패하였습니다.")
+                        return false;
                     } // 에러가 발생했을 때, 호출될 함수
                 }); // $.ajax()
             }
+            alert("삭제되었습니다.")
         });
 
         $('#InputDate').daterangepicker({
@@ -516,7 +524,7 @@
         tmp += '<h4 class="card-title">'+ room.meet_Date+'</h4>'
         tmp += '</div>'
         tmp += '</div>'
-
+        tmp += '<div class = "rooms-user_cnt" style="display:none;">'+room.user_cnt+'</div>'
         // tmp += '<!-- 방장 + 인원 -->'
         // tmp += '<ul class="list-group border-primary" style="width:auto;position: absolute;left: 75%;top: 58%;">'
         // tmp += '<div id="list-mem"></div>'
@@ -565,8 +573,8 @@
 
     let toHtmlListNum = function (room) {
         let tmp = '<li class="list-group-item d-flex justify-content-between align-items-center">'
-        tmp +=  room.user_cnt+1;
-        tmp += ' / ' +'<div class="rooms-user_cnt">'+room.user_limit+'</div>'
+        tmp +=  room.user_cnt;
+        tmp += ' / ' +room.user_limit
         return tmp + "</li> ";
 
     }
