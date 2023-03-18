@@ -8,6 +8,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.sql.Timestamp;
 import java.util.List;
@@ -18,6 +19,24 @@ import java.util.List;
 public class RoomController {
     @Autowired
     RoomService service;
+
+    // 방 읽기
+    @GetMapping("/room")
+    public ResponseEntity<RoomDto> read(HttpServletRequest request) throws Exception {
+
+        RoomDto RoomInfo = null;
+        Integer bno = Integer.parseInt(request.getParameter("bno"));
+        try {
+            RoomInfo =  service.read(bno);
+            return new ResponseEntity<>(RoomInfo, HttpStatus.OK);   // 200
+        } catch (Exception e) {
+            e.printStackTrace();
+            return new ResponseEntity<>(RoomInfo, HttpStatus.BAD_REQUEST);      //400
+        }
+
+    }
+
+
 
     // 방 생성하는 메서드
 //    @ResponseBody
@@ -70,8 +89,7 @@ public class RoomController {
     }
 
    //  방안에 내용들을 수정하는 메서드
-    @ResponseBody
-    @PatchMapping("/rooms/{bno}")   // /ch4/comments/bno PATCH
+   @PatchMapping("/rooms/{bno}")   // /ch4/comments/bno PATCH
     // CommentDto 그대로 하면 안들어간다! 그래서 앞에 @RequestBody 를 붙여줘야한다
     public ResponseEntity<String> modify(@PathVariable Integer bno,@RequestBody RoomDto dto, HttpSession session)  {    // 입력한 내용을 받아와야하니깐 CommentDto dto 해줘야한다.
         String writer = (String)session.getAttribute("id");

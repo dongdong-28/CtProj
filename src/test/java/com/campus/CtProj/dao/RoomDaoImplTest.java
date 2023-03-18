@@ -1,45 +1,45 @@
-//package com.campus.CtProj.dao;
-//
-//import com.campus.CtProj.domain.BoardDto;
-//import com.campus.CtProj.domain.EnterDto;
-//import com.campus.CtProj.domain.RoomDto;
-//import org.junit.Test;
-//import org.junit.runner.RunWith;
-//import org.springframework.beans.factory.annotation.Autowired;
-//import org.springframework.test.context.ContextConfiguration;
-//import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-//
-//import java.sql.Timestamp;
-//import java.text.SimpleDateFormat;
-//import java.util.Date;
-//import java.util.List;
-//
-//import static org.junit.Assert.*;
-//
-//
-//@RunWith(SpringJUnit4ClassRunner.class)
-//@ContextConfiguration(locations = {"file:src/main/webapp/WEB-INF/spring/root-context.xml"})
-//public class RoomDaoImplTest {
-//
-//    @Autowired
-//    RoomDao roomDao;
-//
-//    @Autowired
-//    EnterDao enterDao;
-//
-//    @Test
-//    public void count() throws Exception{
-//        System.out.println(roomDao.count());
-//
-//    }
-//
-//    @Test
-//    public void countId() throws Exception {
-//        System.out.println(roomDao.countId("7100725"));
-//    }
-//
-//
-//
+package com.campus.CtProj.dao;
+
+import com.campus.CtProj.domain.BoardDto;
+import com.campus.CtProj.domain.EnterDto;
+import com.campus.CtProj.domain.RoomDto;
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+
+import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.List;
+
+import static org.junit.Assert.*;
+
+
+@RunWith(SpringJUnit4ClassRunner.class)
+@ContextConfiguration(locations = {"file:src/main/webapp/WEB-INF/spring/root-context.xml"})
+public class RoomDaoImplTest {
+
+    @Autowired
+    RoomDao roomDao;
+
+    @Autowired
+    EnterDao enterDao;
+
+    @Test
+    public void count() throws Exception{
+        System.out.println(roomDao.count());
+
+    }
+
+    @Test
+    public void countId() throws Exception {
+        System.out.println(roomDao.countId("7100725"));
+    }
+
+
+
 //    @Test
 //    public void selectRoom() throws Exception {
 //
@@ -60,47 +60,50 @@
 //
 //
 //    }
+
+
+
+
+//    @Test
+//    public void delete() throws Exception {
+//        RoomDto roomDto = roomDao.select(59,"17100999");
+//        assertTrue(roomDao.delete(roomDto.getBno(), roomDto.getWriter()) == 1);
 //
+//    }
 //
+//    @Test
+//    public void insert() throws  Exception{
+//        RoomDto roomDto = new RoomDto("같이 놀사람!", "/pic", "공릉동", "꼭참석해야해요", "취미","17100721", 6);
+//        assertTrue(roomDao.insert(roomDto)==1);
 //
+////        boardDto = new BoardDto("no title", "no content", "asdf");
+////        assertTrue(boardDao.insert(boardDto)==1);
+////        assertTrue(boardDao.count()==2);
+////
+////        boardDao.deleteAll();
+////        boardDto = new BoardDto("no title", "no content", "asdf");
+////        assertTrue(boardDao.insert(boardDto)==1);
+////        assertTrue(boardDao.count()==1);
+//    }
 //
-////    @Test
-////    public void delete() throws Exception {
-////        RoomDto roomDto = roomDao.select(59,"17100999");
-////        assertTrue(roomDao.delete(roomDto.getBno(), roomDto.getWriter()) == 1);
-////
-////    }
-////
-////    @Test
-////    public void insert() throws  Exception{
-////        RoomDto roomDto = new RoomDto("같이 놀사람!", "/pic", "공릉동", "꼭참석해야해요", "취미","17100721", 6);
-////        assertTrue(roomDao.insert(roomDto)==1);
-////
-//////        boardDto = new BoardDto("no title", "no content", "asdf");
-//////        assertTrue(boardDao.insert(boardDto)==1);
-//////        assertTrue(boardDao.count()==2);
-//////
-//////        boardDao.deleteAll();
-//////        boardDto = new BoardDto("no title", "no content", "asdf");
-//////        assertTrue(boardDao.insert(boardDto)==1);
-//////        assertTrue(boardDao.count()==1);
-////    }
-////
-////    @Test
-////    public void select()throws Exception {
-////        RoomDto roomDto = new RoomDto("같이 놀사람!", "/pic", "노원구", "꼭참석해야해요", "취미","17100999", 6);
-////        roomDao.insert(roomDto);
-////        RoomDto roomDto2 = roomDao.select(59,"17100725");
-////        System.out.println(roomDto2.getMeet_place());
-////        System.out.println(roomDto.getMeet_place());
-////        assertTrue(roomDto.getMeet_place().equals(roomDto2.getMeet_place()));
-////
-////    }
-////
-////    @Test
-////    public void update() throws Exception {
-////        RoomDto roomDto = roomDao.select(59,"17100999");
-////        roomDto.setMeet_place("강동구");
-////        assertTrue(roomDao.update(roomDto) == 1);
-////    }
-//}
+//    @Test
+//    public void select()throws Exception {
+//        RoomDto roomDto = new RoomDto("같이 놀사람!", "/pic", "노원구", "꼭참석해야해요", "취미","17100999", 6);
+//        roomDao.insert(roomDto);
+//        RoomDto roomDto2 = roomDao.select(59,"17100725");
+//        System.out.println(roomDto2.getMeet_place());
+//        System.out.println(roomDto.getMeet_place());
+//        assertTrue(roomDto.getMeet_place().equals(roomDto2.getMeet_place()));
+//
+//    }
+//
+    @Test
+    public void update() throws Exception {
+        RoomDto roomDto = roomDao.select(216);
+        System.out.println(roomDto.getNotice());
+        roomDto.setMeet_place("서초");
+        roomDto.setNotice("진짜 다 바꼈네ㅋㅋㅋ ");
+        roomDto.setUser_limit(5);
+        assertTrue(roomDao.update(roomDto) == 1);
+    }
+}

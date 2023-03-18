@@ -97,6 +97,25 @@ public class CommonController {
         return "roomEnter_host";
     }
 
+    // 방장이 방안에서 변경사항 변경하기
+    @PostMapping("/in-host-mod")
+    public String ModHost(Model m, HttpServletRequest request) throws Exception {
+        Integer room_bno = Integer.parseInt(request.getParameter("room_num"));
+        RoomDto roomDto = roomService.read(room_bno);
+        List<String> list = enterService.selectRoomId(room_bno);
+        if(roomService.modify(roomDto) != 1){
+            System.out.println("변경안됨.. ㅋㅋ ");
+            return "roomEnter_host";
+        }
+        m.addAttribute("roomDto",roomDto);    // view 로 넘기기
+        m.addAttribute("list",list);
+        if(!loginCheck(request))
+            return "redirect:/login/login?toURL="+request.getRequestURL();  // 로그인을 안했으면 로그인 화면으로 이동
+        System.out.println("변경완료인데..?");
+        return "roomEnter_host";
+    }
+
+
     // 홈에서 카테고리선택에 따른 방 찾기 .. 카테고리선택을 방 찾기 페이지로 넘기기 위한..!
     @GetMapping("/find/category")
     public String MainToCategory(Model m, HttpServletRequest request) throws Exception {

@@ -63,45 +63,5 @@ public class EnterController {
         }
     }
 
-//   //  방안에 내용들을 수정하는 메서드
-//    @ResponseBody
-//    @PatchMapping("/rooms/{bno}")   // /ch4/comments/bno PATCH
-//    // CommentDto 그대로 하면 안들어간다! 그래서 앞에 @RequestBody 를 붙여줘야한다
-//    public ResponseEntity<String> modify(@PathVariable Integer bno,@RequestBody RoomDto dto)  {    // 입력한 내용을 받아와야하니깐 CommentDto dto 해줘야한다.
-//        //        String writer = (String)session.getAttribute("id");
-//
-//        String writer = "17100725";
-//        dto.setWriter(writer);
-//        dto.setBno(bno);
-//        System.out.println("dto = " + dto);
-//
-//        try {
-//            if(service.modify(dto) != 1)
-//                throw new Exception("Write failed. ");
-//            return new ResponseEntity<>("MOD_OK", HttpStatus.OK);
-//
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//            return new ResponseEntity<>("MOD_ERR", HttpStatus.BAD_REQUEST);
-//        }
-//    }
-//
-//
-//
-//    // 모든 방을 가져온다
-//    @RequestMapping("/rooms")            // comments?bno=1080 GET
-////      @ResponseBody
-//        public ResponseEntity<List<RoomDto>> list()  {
-//        List<RoomDto> list = null;
-//        try {
-//            list =  service.getList();
-//            // return 으로 그냥 list 를 보내는 것이 아니라 ResponseEntity<List<CommentDto>>(list, HttpStatus.OK) 를 쓴 이유는
-//            // 그냥 list 로 보내면 오류가 나도 응답은 200번대로 나온다 그래서 responseEntity를 사용해서 list 에다가 + 상태코드도 같이 보내주게 한다.
-//            return new ResponseEntity<List<RoomDto>>(list, HttpStatus.OK);   // 200
-//        } catch (Exception e) {
-//                    e.printStackTrace();
-//            return new ResponseEntity<List<RoomDto>>(list, HttpStatus.BAD_REQUEST);      //400
-//        }
-//
-//    }
+
 }

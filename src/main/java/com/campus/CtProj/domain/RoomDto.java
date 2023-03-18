@@ -13,13 +13,15 @@ public class RoomDto {
    private Integer bno;
    private String title;
    private String picture;
-   @JsonFormat(pattern ="yyyy-MM-dd hh:mm", timezone="Asia/Seoul")
+    @JsonFormat(pattern ="yyyy-MM-dd hh:mm", timezone="Asia/Seoul")
    private Timestamp meet_Date;
    private String meet_place;
    private String notice;
    private String category;
-   private Date reg_date;
-   private Date up_date;
+    @JsonFormat(pattern ="yyyy-MM-dd hh:mm", timezone="Asia/Seoul")
+    private Timestamp reg_date;
+    @JsonFormat(pattern ="yyyy-MM-dd hh:mm", timezone="Asia/Seoul")
+    private Timestamp up_date;
    private String writer;
    private int user_limit;
    private int user_cnt = 1;
@@ -128,7 +130,7 @@ public class RoomDto {
         return reg_date;
     }
 
-    public void setReg_date(Date reg_date) {
+    public void setReg_date(Timestamp reg_date) {
         this.reg_date = reg_date;
     }
 
@@ -136,7 +138,7 @@ public class RoomDto {
         return up_date;
     }
 
-    public void setUp_date(Date up_date) {
+    public void setUp_date(Timestamp up_date) {
         this.up_date = up_date;
     }
 
