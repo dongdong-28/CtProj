@@ -39,13 +39,6 @@
         FROM room_info WHERE category = #{category}
     </select>
 
-
-
-    <!--    <select id="selectAll" parameterType="list " resultType="RoomDto">-->
-<!--        SELECT bno, title, filename,filepath,meet_Date,meet_place,notice,category,writer,user_limit,user_cnt-->
-<!--        FROM room_info  WHERE bno = #{bno} and writer = #{writer}-->
-
-
     <select id="select" parameterType="Integer" resultType="RoomDto">
         SELECT bno, title, filename,filepath,meet_Date,meet_place,notice,category,writer,user_limit,user_cnt
         FROM room_info  WHERE bno = #{bno}

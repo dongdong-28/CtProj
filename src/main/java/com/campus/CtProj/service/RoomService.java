@@ -2,6 +2,7 @@ package com.campus.CtProj.service;
 
 import com.campus.CtProj.domain.RoomDto;
 import com.campus.CtProj.domain.SearchCondition;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 
@@ -10,7 +11,7 @@ public interface RoomService {
     int getCount() throws Exception;
 
     // 방 생성
-    int write(RoomDto roomDto) throws Exception;
+     int write(RoomDto roomDto, MultipartFile file) throws Exception;
 
     // 방 삭제
     int remove(Integer bno, String writer) throws Exception;

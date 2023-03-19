@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -115,6 +116,33 @@ public class CommonController {
         return "roomEnter_host";
     }
 
+    // 방 생성하는 메서드
+//    @ResponseBody
+    @PostMapping("/in-test")
+    public String write(MultipartFile file,HttpSession session) throws Exception {    // 입력한 내용을 받아와야하니깐 CommentDto dto 해줘야한다.
+
+        RoomDto roomDto = null;
+        System.out.println("dto = " + roomDto);
+        System.out.println("fil = " + file);
+        String writer = (String)session.getAttribute("id");
+
+        roomDto.setWriter(writer);
+
+        System.out.println("dto = " + roomDto);
+        System.out.println("fil = " + file);
+
+        try {
+            if(roomService.write(roomDto,file) != 1)
+                throw new Exception("Write failed. ");
+
+            return "index";
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            return "roomFind";
+        }
+    }
+
 
     // 홈에서 카테고리선택에 따른 방 찾기 .. 카테고리선택을 방 찾기 페이지로 넘기기 위한..!
     @GetMapping("/find/category")
@@ -123,6 +151,9 @@ public class CommonController {
         m.addAttribute("maintocate",category);
         return "roomFind";
     }
+
+
+
 
     private boolean loginCheck(HttpServletRequest request) {
         // 1. 세션을 얻어서

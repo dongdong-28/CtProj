@@ -9,7 +9,7 @@
 <c:set var="loginOut" value="${loginId=='' ? 'Login' : 'ID='+=loginId}"/>
 <c:set var="sd" value="${loginId=='' ? 'Login' : 'ID='+=loginId}"/>
 <c:set var="userInfoVal"
-       value="${userInfo=='' ? '로그인을 해주세요' : '닉네임= '+= userInfo.nickname += '<br> 포인트= '+=userInfo.point+='<br> 레벨= '+=userInfo.level}"/>
+       value="${userInfo=='' ? '로그인을 해주세요' : '닉네임= '+= userInfo.nickname += '<br> 포인트= '+=userInfo.coin+='<br> 레벨= '+=userInfo.level}"/>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -35,8 +35,9 @@
     <!-- Core theme CSS (includes Bootstrap)-->
     <%--    <link rel="stylesheet" type="text/css" href="<c:url value="/css/stylesmainpage.css"/>">--%>
 
-<%--    map 생성--%>
-    <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=db8b2358629d0f1e73331408000d8bfd"></script>
+    <%--    map 생성--%>
+    <script type="text/javascript"
+            src="//dapi.kakao.com/v2/maps/sdk.js?appkey=db8b2358629d0f1e73331408000d8bfd"></script>
 
 
     <!-- date range picker 사용위해서-->
@@ -108,41 +109,44 @@
 </header>
 <!-- Section-->
 <section class="py-5 page-section">
-    <form action="/" method = "post" enctype="multipart/form-data">
+<%--    enctype="multipart/form-data"--%>
+    <form action="/CtProj/room/in-test" method="post">
         <fieldset style="padding-left:40px">
             <div class="form-group">
                 <label for="InputTitle" class="form-label mt-4">제목</label>
-                <input type="text" class="form-control rooms-title" id="InputTitle" placeholder="입력해주세요">
+                <input type="text" class="form-control rooms-title" name="title" id="InputTitle" placeholder="입력해주세요">
             </div>
             <div class="form-group">
-                <label for="InputPic" class="form-label mt-4">사진</label>
-                <input class="form-control rooms-picture" type="file" id="InputPic" accept="image/*" onchange="Test()"
-                       placeholder="입력해주세요">
+                <label for="img_file" class="form-label mt-4">사진</label>
+                <input class="form-control rooms-picture" type="file" name="file" id="img_file" placeholder="입력해주세요">
 
             </div>
 
             <div class="form-group">
 
                 <label for="InputDate" class="form-label mt-4">만날 시간</label>
-                <input type="text" class="form-control rooms-meet_Date" id="InputDate" aria-describedby="emailHelp"
+                <input type="text" class="form-control rooms-meet_Date" name="meet_Date" id="InputDate"
+                       aria-describedby="emailHelp"
                        placeholder="입력해주세요"/>
                 <small id="emailHelp" class="form-text text-muted">ex) 2022-12-10 </small>
             </div>
 
             <div class="form-group">
                 <label for="InputPlace" class="form-label mt-4">만날 장소</label>
-                <input type="text" class="form-control rooms-meet_place" id="InputPlace" placeholder="입력해주세요">
+                <input type="text" class="form-control rooms-meet_place" name="meet_place" id="InputPlace"
+                       placeholder="입력해주세요">
                 <div id="map" style="width:100%;height:350px;"></div>
             </div>
             <div class="form-group">
                 <label for="InputNotice" class="form-label mt-4">공지사항</label>
-                <input type="text" class="form-control rooms-notice" id="InputNotice" placeholder="입력해주세요">
+                <input type="text" class="form-control rooms-notice" name="notice" id="InputNotice"
+                       placeholder="입력해주세요">
             </div>
             <div class="form-group">
-<%--                <input type="text" class="form-control rooms-category" id="InputCategory" placeholder="입력해주세요">--%>
+                <%--                <input type="text" class="form-control rooms-category" id="InputCategory" placeholder="입력해주세요">--%>
 
                 <label for="InputCategory" class="form-label mt-4">카테고리</label>
-                <select name="Category" id="InputCategory" class="form-group rooms-category">
+                <select name="category" id="InputCategory" class="form-group rooms-category">
                     <option value="식사">식사</option>
                     <option value="공부">공부</option>
                     <option value="운동">운동</option>
@@ -154,8 +158,8 @@
             </div>
             <div class="form-group">
                 <label for="InputLimit" class="form-label mt-4">제한 인원</label>
-<%--                <input type="text" class="form-control rooms-user_limit" id="InputLimit" placeholder="입력해주세요">--%>
-                <select name="limit" id="InputLimit" class="form-group rooms-user_limit">
+                <%--                <input type="text" class="form-control rooms-user_limit" id="InputLimit" placeholder="입력해주세요">--%>
+                <select name="user_limit" id="InputLimit" class="form-group rooms-user_limit">
                     <option value="2">2명</option>
                     <option value="3">3명</option>
                     <option value="4">4명</option>
@@ -168,14 +172,13 @@
 
 
             <%--            <button id="sendBtn" class ="btn btn-primary" type="button">등록하기</button>--%>
-            <%--       <input type = "submit" id="sendBtn" value = "등록하기" class="btn btn-primary"/>--%>
 
         </fieldset>
+        <input type = "submit" value = "등록하기" class="btn btn-primary"/>
+
     </form>
-    <button id="sendBtn" class="btn btn-primary" type="submit" style="margin-top:20px">등록하기</button>
 
 </section>
-
 
 
 <!-- About-->
@@ -195,58 +198,56 @@
 
 
     $(document).ready(function () {
-        $("#sendBtn").click(function () {
-            let title = $(".rooms-title").val();
-            let picture = $(".rooms-picture").val();
-            let meet_Date = $(".rooms-meet_Date").val();
-            console.log(meet_Date);
-            let meet_place = $(".rooms-meet_place").val();
-            let notice = $(".rooms-notice").val();
-            let category = $(".rooms-category").val();
-            let user_limit = $(".rooms-user_limit").val();
-
-            if (title.trim() == '' || meet_Date.trim() == '' || meet_place.trim() == '' || category.trim() == '' || user_limit.trim() == '') {     // 공백을 입력할때 주의 주기!!
-                alert("입력해주세요!!!");
-                return;
-            }
-
-            $.ajax({
-                type: 'POST',       // 요청 메서드
-                url: '/CtProj/rooms/',  // 요청 URI /ch4/comments?bno=1085 POST
-                headers: {"content-type": "application/json"}, // 요청 헤더
-                data: JSON.stringify({
-                    title: title,
-                    picture: picture,
-                    meet_Date: meet_Date,
-                    meet_place: meet_place,
-                    notice: notice,
-                    category: category,
-                    user_limit: user_limit
-                }),  // 서버로 전송할 데이터. stringify()로 직렬화 필요.
-                success: function (result) {
-                    alert("방 생성을 성공하였습니다.");
-                    console.log(meet_Date);
-                    showList();
-
-                },
-                error: function () {
-                    console.log(meet_Date);
-                    alert("다시 입력해주세요.")
-
-                } // 에러가 발생했을 때, 호출될 함수
-            }); // $.ajax()
-
-
-        });
-
-
+        // $("#sendBtn").click(function () {
+        //     let title = $(".rooms-title").val();
+        //     let picture = $(".rooms-picture").val();
+        //     let meet_Date = $(".rooms-meet_Date").val();
+        //     console.log(meet_Date);
+        //     let meet_place = $(".rooms-meet_place").val();
+        //     let notice = $(".rooms-notice").val();
+        //     let category = $(".rooms-category").val();
+        //     let user_limit = $(".rooms-user_limit").val();
+        //
+        //     if (title.trim() == '' || meet_Date.trim() == '' || meet_place.trim() == '' || category.trim() == '' || user_limit.trim() == '') {     // 공백을 입력할때 주의 주기!!
+        //         alert("입력해주세요!!!");
+        //         return;
+        //     }
+        //
+        //     $.ajax({
+        //         type: 'POST',       // 요청 메서드
+        //         url: '/CtProj/rooms/',  // 요청 URI /ch4/comments?bno=1085 POST
+        //         headers: {"content-type": "application/json"}, // 요청 헤더
+        //         data: JSON.stringify({
+        //             title: title,
+        //             picture: picture,
+        //             meet_Date: meet_Date,
+        //             meet_place: meet_place,
+        //             notice: notice,
+        //             category: category,
+        //             user_limit: user_limit
+        //         }),  // 서버로 전송할 데이터. stringify()로 직렬화 필요.
+        //         success: function (result) {
+        //             alert("방 생성을 성공하였습니다.");
+        //             console.log(meet_Date);
+        //             showList();
+        //
+        //         },
+        //         error: function () {
+        //             console.log(meet_Date);
+        //             alert("다시 입력해주세요.")
+        //
+        //         } // 에러가 발생했을 때, 호출될 함수
+        //     }); // $.ajax()
+        //
+        //
+        // });
 
 
         $('#InputDate').daterangepicker({
             "singleDatePicker": true,
-            "timePicker" : true,
-            "timePicker24Hour" : true,
-            "locale" :{
+            "timePicker": true,
+            "timePicker24Hour": true,
+            "locale": {
                 "applyLabel": "확인",
                 "cancelLabel": "취소",
                 "format": 'YYYY-MM-DD hh:mm',

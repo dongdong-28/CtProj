@@ -6,23 +6,24 @@ import com.campus.CtProj.service.RoomService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import javax.validation.Valid;
 import java.sql.Timestamp;
 import java.util.List;
 
-//@Controller
-//@ResponseBody
-@RestController
+@Controller
 public class RoomController {
     @Autowired
     RoomService service;
 
     // 방 읽기
     @GetMapping("/room")
-    public ResponseEntity<RoomDto> read(HttpServletRequest request) throws Exception {
+    @ResponseBody public ResponseEntity<RoomDto> read(HttpServletRequest request) throws Exception {
 
         RoomDto RoomInfo = null;
         Integer bno = Integer.parseInt(request.getParameter("bno"));
@@ -36,43 +37,37 @@ public class RoomController {
 
     }
 
+//    // 방 생성하는 메서드
+////    @ResponseBody
+//    @PostMapping("/test")
+//    public String write(MultipartFile file, RoomDto roomDto, HttpSession session) throws Exception {    // 입력한 내용을 받아와야하니깐 CommentDto dto 해줘야한다.
+//        String writer = (String)session.getAttribute("id");
+//
+//        roomDto.setWriter(writer);
+//
+//        System.out.println("dto = " + roomDto);
+//        System.out.println("fil = " + file);
+//
+//        try {
+//            if(roomService.write(roomDto,file) != 1)
+//                throw new Exception("Write failed. ");
+//
+//            return "/index";
+//
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//            return "/roomFind";
+//        }
+//    }
 
 
-    // 방 생성하는 메서드
-//    @ResponseBody
-    @PostMapping("/rooms")
-    // CommentDto 그대로 하면 안들어간다! 그래서 앞에 @RequestBody 를 붙여줘야한다
-    public ResponseEntity<String> write(@RequestBody RoomDto dto,HttpSession session) {    // 입력한 내용을 받아와야하니깐 CommentDto dto 해줘야한다.
-          String writer = (String)session.getAttribute("id");
-//         dto.setTitle(dto.getTitle());
-//         dto.setMeet_Date(dto.getMeet_Date());
-//         dto.setMeet_place(dto.getMeet_place());
-//         dto.setNotice(dto.getNotice());
-//         dto.setCategory(dto.getCategory());
-        dto.setWriter(writer);
-//        String date = "2022-12-13";
-//        dto.setMeet_Date(Timestamp.valueOf(date));
-//        dto.setBno(bno);
-        System.out.println("dto = " + dto);
-
-        try {
-            if(service.write(dto) != 1)
-                throw new Exception("Write failed. ");
-
-            return new ResponseEntity<>("WRT_OK", HttpStatus.OK);
-
-        } catch (Exception e) {
-            e.printStackTrace();
-            return new ResponseEntity<>("WRT_ERR", HttpStatus.BAD_REQUEST);
-        }
-    }
 
     // 방을 삭제하는 메서드
     // {cno} 이거는 밑에 그냥 쿼리스트링으로 한게 아니고 rest 방식으로 한 url의 일부이므로 @PathVariable 을 붙여준다.
     @DeleteMapping("/rooms/{bno}")       // /comments/1 <-- 삭제할 방 번호
 //    @ResponseBody
     // /comments/1?bno=1085         // 이 bno 는 그냥 쿼리스트링
-    public ResponseEntity<String> remove(@PathVariable Integer bno, HttpSession session) throws Exception {
+    @ResponseBody public ResponseEntity<String> remove(@PathVariable Integer bno, HttpSession session) throws Exception {
         String writer = (String) session.getAttribute("id");
 
         try {
@@ -91,7 +86,7 @@ public class RoomController {
    //  방안에 내용들을 수정하는 메서드
    @PatchMapping("/rooms/{bno}")   // /ch4/comments/bno PATCH
     // CommentDto 그대로 하면 안들어간다! 그래서 앞에 @RequestBody 를 붙여줘야한다
-    public ResponseEntity<String> modify(@PathVariable Integer bno,@RequestBody RoomDto dto, HttpSession session)  {    // 입력한 내용을 받아와야하니깐 CommentDto dto 해줘야한다.
+   @ResponseBody public ResponseEntity<String> modify(@PathVariable Integer bno,@RequestBody RoomDto dto, HttpSession session)  {    // 입력한 내용을 받아와야하니깐 CommentDto dto 해줘야한다.
         String writer = (String)session.getAttribute("id");
 
         dto.setWriter(writer);
@@ -112,9 +107,9 @@ public class RoomController {
 
 
     // 모든 방을 가져온다
-    @RequestMapping("/rooms")            // comments?bno=1080 GET
+    @GetMapping("/rooms")            // comments?bno=1080 GET
 //      @ResponseBody
-        public ResponseEntity<List<RoomDto>> list()  {
+    @ResponseBody public ResponseEntity<List<RoomDto>> list()  {
         List<RoomDto> list = null;
         try {
             list =  service.getList();
@@ -128,9 +123,9 @@ public class RoomController {
 
     }
 
-    // 메인페이지에서 방찾기 페이지로 클릭해서 이동했을 때
+    // 방찾기 페이지에서 카테고리 선택하면 그에 맞는 방읽기
     @GetMapping("/rooms-category")
-    public ResponseEntity<List<RoomDto>> listCategory(String category){
+    @ResponseBody public ResponseEntity<List<RoomDto>> listCategory(String category){
         List<RoomDto> list = null;
         try {
             list =  service.readCategoryList(category);

@@ -21,6 +21,16 @@
 		<beans:property name="suffix" value=".jsp" />
 	</beans:bean>
 
+	<!--파일업로드 설정(multiparts)  -->
+	<beans:bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+		<beans:property name="maxUploadSize" value="809715200"/>
+	</beans:bean>
+
+	<!-- MULTIPART RESOLVERS -->
+
+	<!-- regular spring resolver -->
+
+
 	<context:component-scan base-package="com.campus.CtProj"/>
 
 	<view-controller path="/" view-name="index"/>
