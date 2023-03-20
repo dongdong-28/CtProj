@@ -25,7 +25,7 @@
         INSERT INTO room_info
             (title, filename,filepath,meet_Date,meet_place,notice,category,writer,user_limit,user_cnt)
         VALUES
-            (#{title}, #{picture}, #{meet_Date}, #{meet_place}, #{notice}, #{category}, #{writer}, #{user_limit}, #{user_cnt})
+            (#{title}, #{filename},#{filepath}, #{meet_Date}, #{meet_place}, #{notice}, #{category}, #{writer}, #{user_limit}, #{user_cnt})
     </insert>
 
     <select id="selectAll" resultType="RoomDto">
@@ -67,7 +67,8 @@
     <update id="update" parameterType="RoomDto">
         UPDATE room_info
         SET   title = #{title}
-          , picture = #{picture}
+          , filename = #{filename}
+          , filepath = #{filepath}
           , meet_Date = #{meet_Date}
           , meet_place = #{meet_place}
           , notice = #{notice}

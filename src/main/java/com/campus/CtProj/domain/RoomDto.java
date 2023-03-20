@@ -11,8 +11,7 @@ public class RoomDto {
     private String title;
     private String filename;
     private String filepath;
-    @JsonFormat(pattern = "yyyy-MM-dd hh:mm", timezone = "Asia/Seoul")
-    private Timestamp meet_Date;
+    private String meet_Date;
     private String meet_place;
     private String notice;
     private String category;
@@ -29,7 +28,7 @@ public class RoomDto {
 
     ;
 
-    public RoomDto(Integer bno, String title, String filename, String filepath, Timestamp meet_Date, String meet_place, String notice, String category, String writer, int user_limit, int user_cnt) {
+    public RoomDto(Integer bno, String title, String filename, String filepath, String meet_Date, String meet_place, String notice, String category, String writer, int user_limit, int user_cnt) {
         this.bno = bno;
         this.title = title;
         this.filename = filename;
@@ -105,11 +104,11 @@ public class RoomDto {
         this.filepath = filepath;
     }
 
-    public Timestamp getMeet_Date() {
+    public String getMeet_Date() {
         return meet_Date;
     }
 
-    public void setMeet_Date(Timestamp meet_Date) {
+    public void setMeet_Date(String meet_Date) {
         this.meet_Date = meet_Date;
     }
 

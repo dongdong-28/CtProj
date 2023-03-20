@@ -119,9 +119,8 @@ public class CommonController {
     // 방 생성하는 메서드
 //    @ResponseBody
     @PostMapping("/in-test")
-    public String write(MultipartFile file,HttpSession session) throws Exception {    // 입력한 내용을 받아와야하니깐 CommentDto dto 해줘야한다.
+    public String write(RoomDto roomDto,MultipartFile file,HttpSession session) throws Exception {    // 입력한 내용을 받아와야하니깐 CommentDto dto 해줘야한다.
 
-        RoomDto roomDto = null;
         System.out.println("dto = " + roomDto);
         System.out.println("fil = " + file);
         String writer = (String)session.getAttribute("id");

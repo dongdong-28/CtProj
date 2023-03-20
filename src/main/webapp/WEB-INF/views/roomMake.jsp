@@ -110,7 +110,7 @@
 <!-- Section-->
 <section class="py-5 page-section">
 <%--    enctype="multipart/form-data"--%>
-    <form action="/CtProj/room/in-test" method="post">
+    <form action="/CtProj/room/in-test" method="post" enctype="multipart/form-data" >
         <fieldset style="padding-left:40px">
             <div class="form-group">
                 <label for="InputTitle" class="form-label mt-4">제목</label>

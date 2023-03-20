@@ -48,13 +48,13 @@ public class RoomServiceImpl implements RoomService {
 
     @Override           // 방 생성
     public int write(RoomDto roomDto, MultipartFile file) throws Exception {
-        String projectPath = System.getProperty("user.dir") + "\\src\\webapp\\resources\\static\\img";      // 저장할 경로지정
+        String projectPath ="/Users/pdh_f/IdeaProjects/CtProj/src/main/webapp/resources/upload/img";      // 저장할 경로지정
         UUID uuid = UUID.randomUUID();      // 파일 이름앞에 붙일 랜덤 이름 생성
         String filename = uuid + "_"+file.getOriginalFilename();
         File saveFile = new File(projectPath,filename);               // 파일 넣어줄 껍데기 만들고 경로 , 이름 생성
         file.transferTo(saveFile);
         roomDto.setFilename(filename);
-        roomDto.setFilepath("/img"+filename);
+        roomDto.setFilepath("/img/"+filename);
 
         return roomDao.insert(roomDto);
     }
