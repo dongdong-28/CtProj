@@ -13,8 +13,10 @@ import org.springframework.web.multipart.MultipartFile;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
+import java.io.File;
 import java.sql.Timestamp;
 import java.util.List;
+import java.util.UUID;
 
 @Controller
 public class RoomController {
@@ -59,6 +61,39 @@ public class RoomController {
 //            return "/roomFind";
 //        }
 //    }
+@PostMapping("/room")
+public String write(RoomDto roomDto,MultipartFile file,HttpSession session,HttpServletRequest request) throws Exception {    // 입력한 내용을 받아와야하니깐 CommentDto dto 해줘야한다.
+
+    String writer = (String)session.getAttribute("id");
+    String path ="/upload";    // 저장할 경로지정
+    String savePath = request.getServletContext().getRealPath("/resources"+path);
+    System.out.println(savePath);
+    UUID uuid = UUID.randomUUID();      // 파일 이름앞에 붙일 랜덤 이름 생성
+    String filename = uuid + "_"+file.getOriginalFilename();
+
+    File saveFile = new File(savePath,filename);               // 파일 넣어줄 껍데기 만들고 경로 , 이름 생성
+    file.transferTo(saveFile);
+    String filepath = path+"/"+filename;
+
+    roomDto.setFilename(filename);
+    roomDto.setFilepath(filepath);
+    System.out.println(roomDto);
+    System.out.println(filepath);
+
+    roomDto.setWriter(writer);
+
+    try {
+        if(service.write(roomDto) != 1)
+            throw new Exception("Write failed. ");
+
+        return "index";
+
+    } catch (Exception e) {
+        e.printStackTrace();
+        return "roomFind";
+    }
+
+}
 
 
 

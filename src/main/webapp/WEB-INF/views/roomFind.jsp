@@ -325,7 +325,6 @@
             tmp += '<li data-bno=' + room.bno + '>'
             // tmp += '방번호= ' + room.bno + '<br>'
             tmp += ' 제목= <span class="title">' + room.title + '</span><br>'
-            tmp += ' 사진= <span class="picture">' + room.filepath + '</span><br>'
             tmp += ' 시간= <span class="meet_Date">' + meet_date + '</span><br>'
             tmp += ' 장소= <span class="meet_place">' + room.meet_place + '</span><br>'
             tmp += ' 카테고리= <span class="category">' + room.category + '</span><br>'

@@ -228,12 +228,12 @@
                             <input type="text" class="form-control rooms-title" id="InputTitle"
                                    value="${roomDto.title}">
                         </div>
-                        <div class="form-group">
-                            <label for="InputPic" class="form-label mt-4">사진</label>
-                            <input class="form-control rooms-picture" type="file" id="InputPic"
-                                   value="${roomDto.picture}" accept="image/*" placeholder="입력해주세요">
+<%--                        <div class="form-group">--%>
+<%--                            <label for="InputPic" class="form-label mt-4">사진</label>--%>
+<%--                            <input class="form-control rooms-picture" type="file" id="InputPic"--%>
+<%--                                   value="${roomDto.picture}" accept="image/*" placeholder="입력해주세요">--%>
 
-                        </div>
+<%--                        </div>--%>
 
                         <div class="form-group">
                             <label for="InputDate" class="form-label mt-4">만날 시간</label>
@@ -378,7 +378,7 @@
 
         $("#Mod-Btn").click(function () {
             let title = $(".rooms-title").val();
-            let picture = $(".rooms-picture").val();
+            // let picture = $(".rooms-picture").val();
             let meet_Date = $(".rooms-meet_Date").val();
             let meet_place = $(".rooms-meet_place").val();
             let notice = $(".rooms-notice").val();
@@ -405,7 +405,7 @@
                 headers: {"content-type": "application/json"}, // 요청 헤더
                 data: JSON.stringify({
                     title: title,
-                    picture: picture,
+                    // picture: picture,
                     meet_Date: meet_Date,
                     meet_place: meet_place,
                     notice: notice,
