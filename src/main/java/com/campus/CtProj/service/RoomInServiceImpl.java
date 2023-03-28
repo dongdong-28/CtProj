@@ -32,10 +32,6 @@ public class RoomInServiceImpl implements RoomInService {
         return roomDao.select(room_bno);
     }
 
-    @Override
-    public int leaveMem(Integer room_bno, String user_id) throws Exception {
-        return enterDao.delete(room_bno, user_id);
-    }
 
     @Override
     @Transactional(rollbackFor = Exception.class)

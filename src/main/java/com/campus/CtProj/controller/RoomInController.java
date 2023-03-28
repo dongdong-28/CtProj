@@ -12,14 +12,21 @@ import org.springframework.stereotype.Controller;
 import org.springframework.stereotype.Repository;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import java.io.File;
 import java.util.List;
+import java.util.Objects;
+import java.util.UUID;
 
 @Controller
-//@RestController
+@RequestMapping("/room_in")
 public class RoomInController {
+    @Autowired
+    RoomService roomService;
     @Autowired
     RoomInService service;
     @Autowired
@@ -27,26 +34,25 @@ public class RoomInController {
 
 
     // 방 입장 상태에서 나가기를 누르면 메인 홈으로 이동하게 한다.
-    @PostMapping("/delete-room-mem")
-    public String RemoveMem(Model m,HttpSession session, HttpServletRequest request) throws Exception {
+    @PostMapping("/delete/mem")
+    public String RemoveMem(HttpSession session, HttpServletRequest request) throws Exception {
         String user_id = (String)session.getAttribute("id");
         Integer room_bno = Integer.parseInt(request.getParameter("room_num"));
-        int rowCnt = enterService.remove(room_bno, user_id);
+        int rowCnt = enterService.removeMem(room_bno, user_id);
         return "redirect:/";
     }
 
     // 방 입장 상태에서 나가기를 누르면 메인 홈으로 이동하게 한다.
-    @PostMapping("/delete-room-host")
-    public String RemoveHost(Model m,HttpSession session, HttpServletRequest request) throws Exception {
+    @PostMapping("/delete/host")
+    public String RemoveHost(HttpSession session, HttpServletRequest request) throws Exception {
         String user_id = (String)session.getAttribute("id");
         Integer room_bno = Integer.parseInt(request.getParameter("room_num"));
         int rowCnt = service.leaveHost(room_bno, user_id);
         return "redirect:/";
     }
 
-    @GetMapping("/room/get-mem-list")
+    @GetMapping("/list/mem")
    @ResponseBody public ResponseEntity<List<String>> getMemList(HttpServletRequest request) throws Exception {
-
         Integer bno = Integer.parseInt(request.getParameter("bno"));
         List<String> list = null;
         try {
@@ -62,7 +68,7 @@ public class RoomInController {
 
     // 강퇴하기
     @ResponseBody
-    @DeleteMapping("/room/mem-drop/{bno}/{user_id}/{drop_num}")
+    @DeleteMapping("/drop/mem/{bno}/{user_id}/{drop_num}")
     public ResponseEntity<String> removeMemDrop(@PathVariable Integer bno,@PathVariable Integer drop_num, @PathVariable String user_id) throws Exception {
 
         System.out.println(user_id);
@@ -79,21 +85,42 @@ public class RoomInController {
             return new ResponseEntity<>("DEL_ERR",HttpStatus.BAD_REQUEST);
         }
     }
-//    @GetMapping("/room/get-mem-num")
-//    @ResponseBody public ResponseEntity<Integer> getMemListNum(HttpServletRequest request) throws Exception {
-//
-//        Integer bno = Integer.parseInt(request.getParameter("bno"));
-//        List<String> list = null;
-//        Integer size = null;
-//        try {
-//            list = enterService.selectRoomId(bno);
-//            size = list.size()+1;
-//            return new ResponseEntity<>(size, HttpStatus.OK);   // 200
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//            return new ResponseEntity<>(size, HttpStatus.BAD_REQUEST);      //400
-//        }
-//
-//    }
 
+
+
+    // 방장이 방 내용 수정하기
+    @PostMapping("/upload")
+    @ResponseBody public ResponseEntity<String> modifyHostRoom(RoomDto dto,@RequestParam("uploadFile")MultipartFile uploadfile, HttpSession session,HttpServletRequest request) throws Exception {    // 입력한 내용을 받아와야하니깐 CommentDto dto 해줘야한다.
+
+        System.out.println("담기지도 않나..?");
+        String writer = (String)session.getAttribute("id");
+        RoomDto roomDto = service.read(dto.getBno());
+
+            System.out.println("사진지정");
+            String path ="/upload";    // 저장할 경로지정
+            String savePath = request.getServletContext().getRealPath("/resources"+path);
+            System.out.println(savePath);
+            UUID uuid = UUID.randomUUID();      // 파일 이름앞에 붙일 랜덤 이름 생성
+            String filename = uuid + "_"+uploadfile.getOriginalFilename();
+
+            File saveFile = new File(savePath,filename);               // 파일 넣어줄 껍데기 만들고 경로 , 이름 생성
+            uploadfile.transferTo(saveFile);
+            String filepath = path+"/"+filename;
+            dto.setFilename(filename);
+            dto.setFilepath(filepath);
+
+        System.out.println(dto);
+
+        dto.setWriter(writer);
+
+        try {
+            if(roomService.modify(dto) != 1)
+                throw new Exception("Write failed. ");
+            return new ResponseEntity<>("MOD_OK", HttpStatus.OK);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            return new ResponseEntity<>("MOD_ERR", HttpStatus.BAD_REQUEST);
+        }
+    }
 }

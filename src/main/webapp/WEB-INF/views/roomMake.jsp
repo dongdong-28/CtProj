@@ -9,7 +9,7 @@
 <c:set var="loginOut" value="${loginId=='' ? 'Login' : 'ID='+=loginId}"/>
 <c:set var="sd" value="${loginId=='' ? 'Login' : 'ID='+=loginId}"/>
 <c:set var="userInfoVal"
-       value="${userInfo=='' ? '로그인을 해주세요' : '닉네임= '+= userInfo.nickname += '<br> 포인트= '+=userInfo.coin+='<br> 레벨= '+=userInfo.level}"/>
+       value="${userInfo=='' ? '로그인을 해주세요' : '닉네임= '+= userInfo.id += '<br> 포인트= '+=userInfo.coin+='<br> 레벨= '+=userInfo.level}"/>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -110,7 +110,7 @@
 <!-- Section-->
 <section class="py-5 page-section">
 <%--    enctype="multipart/form-data"--%>
-    <form action="/CtProj/room" method="post" enctype="multipart/form-data" >
+    <form action="/CtProj/room" method="post" onsubmit="return sub()"  enctype="multipart/form-data" >
         <fieldset style="padding-left:40px">
             <div class="form-group">
                 <label for="InputTitle" class="form-label mt-4">제목</label>
@@ -196,23 +196,27 @@
 <!-- Core theme JS-->
 <script>
 
+    function sub() {
+        let title = $(".rooms-title").val();
+        let meet_Date = $(".rooms-meet_Date").val();
+        console.log(meet_Date);
+        let meet_place = $(".rooms-meet_place").val();
+        let notice = $(".rooms-notice").val();
+        let category = $(".rooms-category").val();
+        let user_limit = $(".rooms-user_limit").val();
+
+        if (title.trim() == '' || meet_Date.trim() == '' || meet_place.trim() == '' || notice.trim() == '' || category.trim() == ''|| category.trim() == ''|| user_limit.trim() == '') {     // 공백을 입력할때 주의 주기!!
+            alert("다시 입력해주세요");
+            return false;
+        }
+        alert("방이 생성되었습니다.")
+
+    }
+
 
     $(document).ready(function () {
         // $("#sendBtn").click(function () {
-        //     let title = $(".rooms-title").val();
-        //     let picture = $(".rooms-picture").val();
-        //     let meet_Date = $(".rooms-meet_Date").val();
-        //     console.log(meet_Date);
-        //     let meet_place = $(".rooms-meet_place").val();
-        //     let notice = $(".rooms-notice").val();
-        //     let category = $(".rooms-category").val();
-        //     let user_limit = $(".rooms-user_limit").val();
-        //
-        //     if (title.trim() == '' || meet_Date.trim() == '' || meet_place.trim() == '' || category.trim() == '' || user_limit.trim() == '') {     // 공백을 입력할때 주의 주기!!
-        //         alert("입력해주세요!!!");
-        //         return;
-        //     }
-        //
+
         //     $.ajax({
         //         type: 'POST',       // 요청 메서드
         //         url: '/CtProj/rooms/',  // 요청 URI /ch4/comments?bno=1085 POST

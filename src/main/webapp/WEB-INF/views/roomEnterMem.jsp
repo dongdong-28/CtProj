@@ -7,7 +7,7 @@
 <c:set var="loginOutLink" value="${loginId=='' ? '/login/login' : '/login/logout'}"/>
 <c:set var="loginOut" value="${loginId=='' ? 'Login' : 'ID='+=loginId}"/>
 <c:set var="sd" value="${loginId=='' ? 'Login' : 'ID='+=loginId}"/>
-<c:set var="userInfoVal" value="${userInfo=='' ? '로그인을 해주세요' : '닉네임= '+= userInfo.nickname += '<br> 포인트= '+=userInfo.coin+='<br> 레벨= '+=userInfo.level}"/>
+<c:set var="userInfoVal" value="${userInfo=='' ? '로그인을 해주세요' : '닉네임= '+= userInfo.id += '<br> 포인트= '+=userInfo.coin+='<br> 레벨= '+=userInfo.level}"/>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -107,10 +107,7 @@
                 </div>
 
             </div>
-<%--                <div id="mem-box" class="wrap">--%>
-<%--                    <div style="border:1px solid black">방장 : ${roomDto.writer}</div>--%>
-<%--                    <div id="list-mem" style="border:1px solid black"> </div>--%>
-<%--                </div>--%>
+
 
             <div class="card border-primary mb-3 wrapInfo" style="max-width: 20rem;height:100px;padding: 0;top:36%">
                 <div class="card-header">장소</div>
@@ -127,14 +124,6 @@
                 </div>
             </div>
 
-
-<%--            <div class="card border-primary mb-3" style="max-width: 20rem;">--%>
-<%--                <div class="card-header">Header</div>--%>
-<%--                <div class="card-body">--%>
-<%--                    <h4 class="card-title">Primary card title</h4>--%>
-<%--                    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>--%>
-<%--                </div>--%>
-<%--            </div>--%>
 
             <!-- 방장 + 인원 -->
             <ul class="list-group border-primary" style="width:auto;position: absolute;left: 75%;top: 58%;">
@@ -274,7 +263,7 @@
     });
 
     let toHtmlRoomInfo = function () {
-        let tmp = '<form action = "/CtProj/delete-room-mem" onsubmit="return btnCheck()" method = "post">'
+        let tmp = '<form action = "/CtProj/room_in/delete/mem" onsubmit="return btnCheck()" method = "post">'
         tmp += '<input type = "hidden" name = "room_num" value ="' + ${roomDto.bno}+ '" />'
         tmp += '<input type = "submit"  class="btn btn-outline-primary" value="나가기"/>'
         return tmp + '</form>';

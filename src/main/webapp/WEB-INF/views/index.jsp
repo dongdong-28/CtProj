@@ -8,7 +8,7 @@
 <c:set var="loginOutLink" value="${loginId=='' ? '/login/login' : '/login/logout'}"/>
 <c:set var="loginOut" value="${loginId=='' ? 'Login' : 'ID='+=loginId}"/>
 <c:set var="sd" value="${loginId=='' ? 'Login' : 'ID='+=loginId}"/>
-<c:set var="userInfoVal" value="${userInfo=='' ? '로그인을 해주세요' : '닉네임= '+= userInfo.nickname += '<br> 포인트= '+=userInfo.coin+='<br> 레벨= '+=userInfo.level}"/>
+<c:set var="userInfoVal" value="${userInfo=='' ? '로그인을 해주세요' : '닉네임= '+= userInfo.id += '<br> 포인트= '+=userInfo.coin+='<br> 레벨= '+=userInfo.level}"/>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -87,9 +87,6 @@
                 <li class="nav-item"><a class="nav-link nav-menu" href="<c:url value='/room/find'/>">방 찾기</a></li>
                 <li class="nav-item"><a class="nav-link nav-menu" href="<c:url value='/room/make'/>">방 생성</a></li>
                 <li class="nav-item"><a class="nav-link nav-menu" href="<c:url value='/room/list'/>">나의 방</a></li>
-                <%--                <li class="nav-item"><a class="nav-link " href="#contact">Contact</a></li>--%>
-                <%--                <li class="nav-item"><a class="nav-link" href="#contact">Contact</a></li>--%>
-                <%--                <li class="nav-item"><a class="nav-link" href="#contact">로그인</a></li>--%>
             </ul>
 
 
@@ -128,7 +125,6 @@
             </div>
             <div class="col-lg-8 align-self-baseline">
                 <p class="text-white-75 mb-5">삶 전체에 있어서 가장 참된 것은 만남이다.<br> - 마르틴 부버《나와 너》 - </p>
-                <%--                    <p class="text-white-75 mb-5">나 스스로가 최선을 다해 멋진 사람이 되어가면 주변에 알아서 사람들이 모인다.<br> 공통적인 해결방안: 내 할일부터, 내 인생부터</p>--%>
                 <a class="btn btn-primary btn-xl" href="#services">Find Out</a>
             </div>
         </div>

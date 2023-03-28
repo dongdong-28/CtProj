@@ -1,39 +1,42 @@
 <%@ page import="java.text.SimpleDateFormat" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@taglib prefix="c" uri="http://java.sun.com/jstl/core_rt" %>
-<%@ page session="true"%>
-<c:set var="loginId" value="${pageContext.request.getSession(false)==null ? '' : pageContext.request.session.getAttribute('id')}"/>
-<c:set var="userInfo" value="${pageContext.request.getSession(false)==null ? '' : pageContext.request.session.getAttribute('userDto')}"/>
+<%@ page session="true" %>
+<c:set var="loginId"
+       value="${pageContext.request.getSession(false)==null ? '' : pageContext.request.session.getAttribute('id')}"/>
+<c:set var="userInfo"
+       value="${pageContext.request.getSession(false)==null ? '' : pageContext.request.session.getAttribute('userDto')}"/>
 <c:set var="loginOutLink" value="${loginId=='' ? '/login/login' : '/login/logout'}"/>
 <c:set var="loginOut" value="${loginId=='' ? 'Login' : 'ID='+=loginId}"/>
 <c:set var="sd" value="${loginId=='' ? 'Login' : 'ID='+=loginId}"/>
-<c:set var="userInfoVal" value="${userInfo=='' ? '로그인을 해주세요' : '닉네임= '+= userInfo.nickname += '<br> 포인트= '+=userInfo.coin+='<br> 레벨= '+=userInfo.level}"/>
+<c:set var="userInfoVal"
+       value="${userInfo=='' ? '로그인을 해주세요' : '닉네임= '+= userInfo.id += '<br> 포인트= '+=userInfo.coin+='<br> 레벨= '+=userInfo.level}"/>
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<%--    <meta charset="utf-8" />--%>
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
-    <meta name="description" content="" />
-    <meta name="author" content="" />
+    <%--    <meta charset="utf-8" />--%>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
+    <meta name="description" content=""/>
+    <meta name="author" content=""/>
     <title>With Us</title>
 
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <script src="https://code.jquery.com/jquery-1.11.3.js"></script>
     <!-- Favicon-->
-    <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
+    <link rel="icon" type="image/x-icon" href="assets/favicon.ico"/>
     <!-- Bootstrap Icons-->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css" rel="stylesheet" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css" rel="stylesheet"/>
     <!-- Google fonts-->
-    <link href="https://fonts.googleapis.com/css?family=Merriweather+Sans:400,700" rel="stylesheet" />
-    <link href="https://fonts.googleapis.com/css?family=Merriweather:400,300,300italic,400italic,700,700italic" rel="stylesheet" type="text/css" />
+    <link href="https://fonts.googleapis.com/css?family=Merriweather+Sans:400,700" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/css?family=Merriweather:400,300,300italic,400italic,700,700italic"
+          rel="stylesheet" type="text/css"/>
     <!-- SimpleLightbox plugin CSS-->
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/SimpleLightbox/2.1.0/simpleLightbox.min.css" rel="stylesheet" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/SimpleLightbox/2.1.0/simpleLightbox.min.css" rel="stylesheet"/>
     <!-- Core theme CSS (includes Bootstrap)-->
-<%--    <link rel="stylesheet" type="text/css" href="<c:url value="/css/stylesmainpage.css"/>">--%>
+    <%--    <link rel="stylesheet" type="text/css" href="<c:url value="/css/stylesmainpage.css"/>">--%>
 
     <link rel="stylesheet" type="text/css" href="<c:url value="/css/stylesmainpage.css"/>">
-
 
 
 </head>
@@ -43,7 +46,9 @@
 <nav class="navbar navbar-expand-lg navbar-light fixed-top py-3" id="mainNav">
     <div class="container px-4 px-lg-5">
         <a class="navbar-brand" href="#page-top">With us</a>
-        <button class="navbar-toggler navbar-toggler-right" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
+        <button class="navbar-toggler navbar-toggler-right" type="button" data-bs-toggle="collapse"
+                data-bs-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false"
+                aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
         <div class="collapse navbar-collapse mx-auto" id="navbarResponsive">
             <ul class="navbar-nav m-auto my-2 my-lg-0">
                 <li class="nav-item"><a class="nav-link nav-menu" href="<c:url value='/'/>">홈</a></li>
@@ -51,16 +56,19 @@
                 <li class="nav-item"><a class="nav-link nav-menu" href="<c:url value='/room/find'/>">방 찾기</a></li>
                 <li class="nav-item"><a class="nav-link nav-menu" href="<c:url value='/room/make'/>">방 생성</a></li>
                 <li class="nav-item"><a class="nav-link nav-menu" href="<c:url value='/room/list'/>">나의 방</a></li>
-<%--                <li class="nav-item"><a class="nav-link " href="#contact">Contact</a></li>--%>
-<%--                <li class="nav-item"><a class="nav-link" href="#contact">Contact</a></li>--%>
-<%--                <li class="nav-item"><a class="nav-link" href="#contact">로그인</a></li>--%>
+                <%--                <li class="nav-item"><a class="nav-link " href="#contact">Contact</a></li>--%>
+                <%--                <li class="nav-item"><a class="nav-link" href="#contact">Contact</a></li>--%>
+                <%--                <li class="nav-item"><a class="nav-link" href="#contact">로그인</a></li>--%>
             </ul>
 
         </div>
         <!-- 로그인-->
-        <a href="<c:url value='${loginOutLink}'/>">  <button type="button" class="btn btn-outline-danger" >${loginOut}</button></a>
-        <a href="<c:url value='/register/add'/>">  <button type="button" class="btn btn-outline-danger">회원가입</button></a>
-
+        <a href="<c:url value='${loginOutLink}'/>">
+            <button type="button" class="btn btn-outline-danger">${loginOut}</button>
+        </a>
+        <a href="<c:url value='/register/add'/>">
+            <button type="button" class="btn btn-outline-danger">회원가입</button>
+        </a>
 
 
     </div>
@@ -69,23 +77,27 @@
 <header class="masthead">
     <div class="container px-4 px-lg-5 h-100">
         <div class="row gx-4  h-100 align-items-center justify-content-center text-center">
-            <div class="card login-card" >
+            <div class="card login-card">
                 <div class="text-center my-3">
-                    <img class="img-fluid rounded-circle mb-4" src="https://dummyimage.com/150x150/6c757d/dee2e6.jpg" alt="..." />
+                    <img class="img-fluid rounded-circle mb-4" src="https://dummyimage.com/150x150/6c757d/dee2e6.jpg"
+                         alt="..."/>
                     <!-- 유저정보-->
-                    <div> <p class="text-white-50 mb-0" style="width: 182px;height: 72px;font-size: inherit;">${userInfoVal}</p></div>
+                    <div><p class="text-white-50 mb-0"
+                            style="width: 182px;height: 72px;font-size: inherit;">${userInfoVal}</p></div>
                 </div>
             </div>
-    </div>
+        </div>
     </div>
 </header>
 <!-- Section-->
 <section class="py-5 page-section">
-    <h2> <div id="list-num"></div>    </h2>    <!-- 방 정보를 가져와서 집어넣을 예정이다-->
+    <h2>
+        <div id="list-num"></div>
+    </h2>    <!-- 방 정보를 가져와서 집어넣을 예정이다-->
 
     <div class="container px-4 px-lg-5 mt-5">
         <h1>방장인 방</h1>
-            <div id="list-host"></div>        <!-- 방 정보를 가져와서 집어넣을 예정이다-->
+        <div id="list-host"></div>        <!-- 방 정보를 가져와서 집어넣을 예정이다-->
 
     </div>
 
@@ -98,11 +110,12 @@
 </section>
 
 
-
 <!-- About-->
 
 <footer class="bg-light py-5">
-    <div class="container px-4 px-lg-5"><div class="small text-center text-muted">Copyright &copy; 2022 - Company Name</div></div>
+    <div class="container px-4 px-lg-5">
+        <div class="small text-center text-muted">Copyright &copy; 2022 - Company Name</div>
+    </div>
 </footer>
 <!-- Bootstrap core JS-->
 <script src="<c:url value="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"/>"></script>
@@ -110,12 +123,12 @@
 <script src="<c:url value="https://cdnjs.cloudflare.com/ajax/libs/SimpleLightbox/2.1.0/simpleLightbox.min.js"/>"></script>
 
 <!-- Core theme JS-->
-<script >
+<script>
 
     let showList = function () {
         $.ajax({
             type: 'GET',       // 요청 메서드
-            url: '/CtProj/list-mem',  // 요청 URI
+            url: '/CtProj/list/mem',  // 요청 URI
             success: function (result) {
                 $("#list-mem").html(toHtmlMem(result));    // 서버로부터 응답이 도착하면 호출될 함수
             },
@@ -126,7 +139,7 @@
 
         $.ajax({
             type: 'GET',       // 요청 메서드
-            url: '/CtProj/list-host',  // 요청 URI
+            url: '/CtProj/list/host',  // 요청 URI
             success: function (result) {
                 $("#list-host").html(toHtmlHost(result));    // 서버로부터 응답이 도착하면 호출될 함수
             },
@@ -137,7 +150,7 @@
 
         $.ajax({
             type: 'GET',       // 요청 메서드
-            url: '/CtProj/list-num',  // 요청 URI
+            url: '/CtProj/list/num',  // 요청 URI
             success: function (result) {
                 $("#list-num").html(toHtmlListNum(result));    // 서버로부터 응답이 도착하면 호출될 함수
             },
@@ -172,38 +185,41 @@
             let bno = $(this).parent().parent().attr("data-bno");
             // let title = $(this).parent().attr("title");
 
-            $.ajax({
-                type: 'DELETE',       // 요청 메서드
-                url: '/CtProj/list-mem/' + bno,  // 요청 URI
-                success: function (result) {
-                    alert("삭제되었습니다.");
-                    showList();          // 삭제된 이후에 목록에 다시 갱신해주며 보여주기
-                },
-                error: function () {
-                    alert("삭제에 실패하였습니다.")
-                } // 에러가 발생했을 때, 호출될 함수
-            }); // $.ajax()
+            if (confirm("삭제하시겠습니까?")) {
+                $.ajax({
+                    type: 'DELETE',       // 요청 메서드
+                    url: '/CtProj/list/mem/' + bno,  // 요청 URI
+                    success: function (result) {
+                        alert("삭제되었습니다.");
+                        showList();          // 삭제된 이후에 목록에 다시 갱신해주며 보여주기
+                    },
+                    error: function () {
+                        alert("삭제에 실패하였습니다.")
+                    } // 에러가 발생했을 때, 호출될 함수
+                }); // $.ajax()
+            }
         });
+
         $("#list-host").on("click", ".delBtn-Host", function () {
             let bno = $(this).parent().parent().attr("data-bno");
             // let title = $(this).parent().attr("title");
-
-            $.ajax({
-                type: 'DELETE',       // 요청 메서드
-                url: '/CtProj/list-host/' + bno,  // 요청 URI
-                success: function (result) {
-                    alert("삭제되었습니다");
-                    showList();          // 삭제된 이후에 목록에 다시 갱신해주며 보여주기
-                },
-                error: function () {
-                    alert("삭제에 실패하였습니다.")
-                } // 에러가 발생했을 때, 호출될 함수
-            }); // $.ajax()
+            if (confirm("삭제하시겠습니까?")) {
+                $.ajax({
+                    type: 'DELETE',       // 요청 메서드
+                    url: '/CtProj/list/host/' + bno,  // 요청 URI
+                    success: function (result) {
+                        alert("삭제되었습니다");
+                        showList();          // 삭제된 이후에 목록에 다시 갱신해주며 보여주기
+                    },
+                    error: function () {
+                        alert("삭제에 실패하였습니다.")
+                    } // 에러가 발생했을 때, 호출될 함수
+                }); // $.ajax()
+            }
         });
 
 
     });
-
 
 
     let toHtmlMem = function (rooms) {
@@ -223,16 +239,16 @@
             tmp += '<ul>'
             tmp += '<li data-bno=' + room.bno + ' style="list-style-type:none;">'
             // tmp += '방번호= ' + room.bno
-            tmp += ' <h4 class="card-title">'+'제목: <span class="title">'+room.title+'</span>'+'</h4>'
+            tmp += ' <h4 class="card-title">' + '제목: <span class="title">' + room.title + '</span>' + '</h4>'
             tmp += '<p class="card-text" style="display: inline-block">'
-            tmp += '날짜: <span class="meet_Date">'+meet_date+'</span><br>'
-            tmp += '장소: <span class="meet_Place">'+room.meet_place+'</span><br>'
+            tmp += '날짜: <span class="meet_Date">' + meet_date + '</span><br>'
+            tmp += '장소: <span class="meet_Place">' + room.meet_place + '</span><br>'
             <%--tmp +=  '인원수: '+${list.size()+1} + ' / '+ room.user_limit;--%>
             tmp += '</p>'
             tmp += '      <!-- Product actions-->'
             tmp += '   <div class="sub" style="position:absolute;top:50%;left:84%">'
             tmp += '<form action = "/CtProj/room/in-mem" method = "post" style="display: inline-block">'
-            tmp += '<input type = "hidden" name = "room_num" value ="' +room.bno+ '"/>'
+            tmp += '<input type = "hidden" name = "room_num" value ="' + room.bno + '"/>'
             tmp += ' <input type = "submit" value = "입장하기" class="btn btn-outline-danger btn-myroom"/>'
             tmp += '</form>'
             tmp += '  <button type="button" class="btn btn-outline-primary btn-myroom delBtn-Mem">나가기</button>'
@@ -251,9 +267,6 @@
     }
 
 
-
-
-
     let toHtmlHost = function (rooms) {
 
         let tmp = '<div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">'
@@ -270,16 +283,16 @@
             tmp += '<ul>'
             tmp += '<li data-bno=' + room.bno + ' style="list-style-type:none;">'
             // tmp += '방번호= ' + room.bno
-            tmp += ' <h4 class="card-title">'+'제목: <span class="title">'+room.title+'</span>'+'</h4>'
+            tmp += ' <h4 class="card-title">' + '제목: <span class="title">' + room.title + '</span>' + '</h4>'
             tmp += '<p class="card-text" style="display: inline-block">'
-            tmp += '날짜: <span class="meet_Date">'+meet_date+'</span><br>'
-            tmp += '장소: <span class="meet_Place">'+room.meet_place+'</span><br>'
+            tmp += '날짜: <span class="meet_Date">' + meet_date + '</span><br>'
+            tmp += '장소: <span class="meet_Place">' + room.meet_place + '</span><br>'
             <%--tmp +=  '인원수: '+${list.size()+1} + ' / '+ room.user_limit;--%>
             tmp += '</p>'
             tmp += '      <!-- Product actions-->'
             tmp += '   <div class="sub" style="position:absolute;top:50%;left:84%">'
             tmp += '<form action = "/CtProj/room/in-host" method = "post" style="display: inline-block">'
-            tmp += '<input type = "hidden" name = "room_num" value ="' +room.bno+ '"/>'
+            tmp += '<input type = "hidden" name = "room_num" value ="' + room.bno + '"/>'
             tmp += ' <input type = "submit" value = "입장하기" class="btn btn-outline-danger btn-myroom"/>'
             tmp += '</form>'
             tmp += '  <button type="button" class="btn btn-outline-primary btn-myroom delBtn-Host">나가기</button>'
@@ -309,7 +322,6 @@
     }
 
 
-
     window.addEventListener('DOMContentLoaded', event => {
 
         // Navbar shrink function
@@ -331,7 +343,6 @@
 
         // Shrink the navbar when page is scrolled
         document.addEventListener('scroll', navbarShrink);
-
 
 
     });

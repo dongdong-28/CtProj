@@ -9,7 +9,8 @@
 <c:set var="loginOutLink" value="${loginId=='' ? '/login/login' : '/login/logout'}"/>
 <c:set var="loginOut" value="${loginId=='' ? 'Login' : 'ID='+=loginId}"/>
 <c:set var="sd" value="${loginId=='' ? 'Login' : 'ID='+=loginId}"/>
-<c:set var="userInfoVal" value="${userInfo=='' ? '로그인을 해주세요' : '닉네임= '+= userInfo.nickname += '<br> 포인트= '+=userInfo.coin+='<br> 레벨= '+=userInfo.level}"/>
+<c:set var="userInfoVal"
+       value="${userInfo=='' ? '로그인을 해주세요' : '닉네임= '+= userInfo.id += '<br> 포인트= '+=userInfo.coin+='<br> 레벨= '+=userInfo.level}"/>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -33,8 +34,6 @@
           rel="stylesheet" type="text/css"/>
     <!-- SimpleLightbox plugin CSS-->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/SimpleLightbox/2.1.0/simpleLightbox.min.css" rel="stylesheet"/>
-    <!-- Core theme CSS (includes Bootstrap)-->
-    <%--    <link rel="stylesheet" type="text/css" href="<c:url value="/css/stylesmainpage.css"/>">--%>
 
     <!-- Remember to include jQuery :) -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.0.0/jquery.min.js"></script>
@@ -88,9 +87,6 @@
                 <li class="nav-item"><a class="nav-link nav-menu" href="<c:url value='/room/find'/>">방 찾기</a></li>
                 <li class="nav-item"><a class="nav-link nav-menu" href="<c:url value='/room/make'/>">방 생성</a></li>
                 <li class="nav-item"><a class="nav-link nav-menu" href="<c:url value='/room/list'/>">나의 방</a></li>
-                <%--                <li class="nav-item"><a class="nav-link " href="#contact">Contact</a></li>--%>
-                <%--                <li class="nav-item"><a class="nav-link" href="#contact">Contact</a></li>--%>
-                <%--                <li class="nav-item"><a class="nav-link" href="#contact">로그인</a></li>--%>
             </ul>
 
         </div>
@@ -129,41 +125,6 @@
             <div id="roomInfo"></div>
 
 
-<%--            <!-- 방 제목 -->--%>
-<%--            <div class="card border-primary mb-3 wrapInfo" style="max-width: 50rem;height:100px;padding: 0">--%>
-<%--                <div class="card-header">방제목</div>--%>
-<%--                <div class="card-body">--%>
-<%--                    <h4 class="card-title"> ${roomDto.title}</h4>--%>
-<%--                </div>--%>
-<%--            </div>--%>
-
-<%--            <!-- 공지 사항 -->--%>
-<%--            <div class="card border-primary mb-3 wrapInfo"--%>
-<%--                 style="margin-top: 150px; max-width: 50rem;height:100px;padding: 0">--%>
-<%--                <div class="card-header">공지사항</div>--%>
-<%--                <div class="card-body">--%>
-<%--                    <h4 class="card-title"> ${roomDto.notice}</h4>--%>
-<%--                </div>--%>
-<%--            </div>--%>
-<%--            --%>
-
-<%--            <div class="card border-primary mb-3 wrapInfo"--%>
-<%--                 style="margin-top: 150px;max-width: 20rem;height:100px;padding: 0;top:36%">--%>
-<%--                <div class="card-header">장소</div>--%>
-<%--                <div class="card-body">--%>
-<%--                    <h4 class="card-title">${roomDto.meet_place}</h4>--%>
-<%--                </div>--%>
-<%--            </div>--%>
-
-
-<%--            <div class="card border-primary mb-3 wrapInfo"--%>
-<%--                 style="margin-top: 150px;max-width: 20rem;height:100px;padding: 0;top:36%;left:35%">--%>
-<%--                <div class="card-header">시간</div>--%>
-<%--                <div class="card-body">--%>
-<%--                    <h4 class="card-title"> ${roomDto.meet_Date}</h4>--%>
-<%--                </div>--%>
-<%--            </div>--%>
-
             <!-- 방장 + 인원 -->
             <ul class="list-group border-primary" style="width:auto;position: absolute;left: 75%;top: 58%;">
                 <div id="list-mem"></div>
@@ -173,28 +134,11 @@
             <ul class="list-group border-primary" style="width:auto;position: absolute;left: 89%;top: 58%;">
                 <div id="list-num"></div>
             </ul>
-<%--            <div class="rooms-user_cnt" style="display:none">room</div>--%>
-
-<%--            <!-- 지도 보여주기-->--%>
-<%--            <div class="card border-primary mb-3 wrapInfo"--%>
-<%--                 style="margin-top: 150px;max-width: 20rem;padding: 0;height:200px;top: 55%">--%>
-<%--                <div class="card-header">지도</div>--%>
-<%--                <div class="card-body">--%>
-<%--                    <h4 class="card-title"></h4>--%>
-<%--                </div>--%>
-<%--            </div>--%>
-
-<%--            <!-- 채팅창-->--%>
-<%--            <div class="card border-primary mb-3 wrapInfo"--%>
-<%--                 style="margin-top: 150px;max-width: 35rem;height:350px;padding: 0;top: 55%; left:35%">--%>
-<%--                <div class="card-header">채팅창</div>--%>
-<%--                <div class="card-body">--%>
-<%--                    <h4 class="card-title"></h4>--%>
-<%--                </div>--%>
-<%--            </div>--%>
 
             <!--강퇴버튼-->
-            <button type="button" class="btn btn-primary" id="drop-Btn" style="width:120px;height:50px;margin-left:80%; margin-top:20%;">강퇴하기</button>
+            <button type="button" class="btn btn-primary" id="drop-Btn"
+                    style="width:120px;height:50px;margin-left:80%; margin-top:20%;">강퇴하기
+            </button>
 
 
             <!-- 수정버튼-->
@@ -215,25 +159,24 @@
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title">Modal title</h5>
+                    <h5 class="modal-title">수정창</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true"></span>
                     </button>
                 </div>
                 <div class="modal-body">
-                    <p>Modal body text goes here.</p>
                     <fieldset style="padding-left:40px">
                         <div class="form-group">
                             <label for="InputTitle" class="form-label mt-4">제목</label>
                             <input type="text" class="form-control rooms-title" id="InputTitle"
                                    value="${roomDto.title}">
                         </div>
-<%--                        <div class="form-group">--%>
-<%--                            <label for="InputPic" class="form-label mt-4">사진</label>--%>
-<%--                            <input class="form-control rooms-picture" type="file" id="InputPic"--%>
-<%--                                   value="${roomDto.picture}" accept="image/*" placeholder="입력해주세요">--%>
+                        <div class="form-group">
+                            <label for="img_file" class="form-label mt-4">사진</label>
+                            <input class="form-control rooms-picture" type="file" name="file" id="img_file"
+                                   placeholder="입력해주세요">
 
-<%--                        </div>--%>
+                        </div>
 
                         <div class="form-group">
                             <label for="InputDate" class="form-label mt-4">만날 시간</label>
@@ -245,7 +188,6 @@
                             <label for="InputPlace" class="form-label mt-4">만날 장소</label>
                             <input type="text" class="form-control rooms-meet_place" id="InputPlace"
                                    value="${roomDto.meet_place}">
-                            <%--                        <div id="map" style="width:100%;height:350px;"></div>--%>
                         </div>
                         <div class="form-group">
                             <label for="InputNotice" class="form-label mt-4">공지사항</label>
@@ -266,7 +208,6 @@
                         </div>
                         <div class="form-group">
                             <label for="InputLimit" class="form-label mt-4">제한 인원</label>
-                            <%--                <input type="text" class="form-control rooms-user_limit" id="InputLimit" placeholder="입력해주세요">--%>
                             <select name="limit" id="InputLimit" class="form-group rooms-user_limit">
                                 <option value="2">2명</option>
                                 <option value="3">3명</option>
@@ -280,11 +221,7 @@
                     </fieldset>
                 </div>
                 <div class="modal-footer">
-<%--                    <form action ="/CtProj/room/in-host-mod" method = "post">--%>
-<%--                        <input type ="hidden" name="room_num" value = "${roomDto.bno}"/>--%>
-<%--                        <input type ="submit" value = "변경하기" class = "btn btn-primary"/>--%>
-<%--                    </form>--%>
-                    <button type="button" class="btn btn-primary" id="Mod-Btn" >변경하기</button>
+                    <button type="button" class="btn btn-primary" id="Mod-Btn">변경하기</button>
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">취소하기</button>
                 </div>
             </div>
@@ -309,30 +246,17 @@
 <!-- Core theme JS-->
 <script>
 
-    // const emailInputEl = document.querySelector("#exampleInputEmail1");
-    // const modelEl = document.querySelector("#exampleModal");
-    //
-    // modelEl.addEventListener("shown.bs.modal", function() {
-    //     emailInputEl.focus();
-    // })
-
-
-    // $('#btn-mod').click(function(e){
-    //     e.preventDefault();
-    //     $('#staticBackdrop').modal("show");
-    // });
-
 
     let showList = function () {
 
         $.ajax({
             type: 'GET',       // 요청 메서드
-            url: '/CtProj/room?bno='+${roomDto.bno},  // 요청 URI
-            async : false,
+            url: '/CtProj/room?bno=' +${roomDto.bno},  // 요청 URI
+            async: false,
             success: function (result) {
                 console.log("카운트!")
                 console.log(result.user_cnt)
-                 cnt = result.user_cnt // 수정할때를 위해서 전역변수로 넘겨준다
+                cnt = result.user_cnt // 수정할때를 위해서 전역변수로 넘겨준다
                 $("#roomInfo").html(toHtmlRoomInfo(result));    // 서버로부터 응답이 도착하면 호출될 함수
             },
             error: function () {
@@ -342,7 +266,7 @@
 
         $.ajax({
             type: 'GET',       // 요청 메서드
-            url: '/CtProj/room/get-mem-list?bno='+${roomDto.bno},  // 요청 URI
+            url: '/CtProj/room_in/list/mem?bno=' +${roomDto.bno},  // 요청 URI
             success: function (result) {
 
                 console.log(result)
@@ -355,7 +279,7 @@
 
         $.ajax({
             type: 'GET',       // 요청 메서드
-            url: '/CtProj/room?bno='+${roomDto.bno},  // 요청 URI
+            url: '/CtProj/room?bno=' +${roomDto.bno},  // 요청 URI
             success: function (result) {
 
                 $("#list-num").html(toHtmlListNum(result));
@@ -365,10 +289,8 @@
             } // 에러가 발생했을 때, 호출될 함수
         }); // $.ajax()
 
-        <%--$("#list-mem").html(toHtmlMem(${list}));--%>
-        // $("#list-num").html(toHtmlListNum());
-        $("#room-out").html(toHtmlRoomOut());    // 서버로부터 응답이 도착하면 호출될 함수
 
+        $("#room-out").html(toHtmlRoomOut());    // 서버로부터 응답이 도착하면 호출될 함수
 
 
     }
@@ -378,7 +300,6 @@
 
         $("#Mod-Btn").click(function () {
             let title = $(".rooms-title").val();
-            // let picture = $(".rooms-picture").val();
             let meet_Date = $(".rooms-meet_Date").val();
             let meet_place = $(".rooms-meet_place").val();
             let notice = $(".rooms-notice").val();
@@ -386,6 +307,21 @@
             let user_limit = $(".rooms-user_limit").val();
             let user_cnt = cnt
             let bno = ${roomDto.bno};
+            let formData = new FormData();
+            console.log(formData)
+            let input_file = $("input[name='file']")[0].files[0];
+
+            console.log(input_file)
+            formData.append("bno", bno)
+            formData.append("meet_Date", meet_Date)
+            formData.append("meet_place", meet_place)
+            formData.append("notice", notice)
+            formData.append("category", category)
+            formData.append("user_limit", user_limit)
+            formData.append("title", title)
+            formData.append("user_cnt", user_cnt)
+            formData.append("uploadFile", input_file);
+
             console.log("유저카운트")
             console.log(user_cnt)
 
@@ -398,57 +334,76 @@
                 return;
             }
 
+            if (input_file == null) {
+                $.ajax({
+                    type: 'PATCH',       // 요청 메서드
+                    url: '/CtProj/rooms/' + bno,  // 요청 URI /ch4/comments?bno=1085 POST
+                    headers: {"content-type": "application/json"}, // 요청 헤더
+                    data: JSON.stringify({
+                        title: title,
+                        meet_Date: meet_Date,
+                        meet_place: meet_place,
+                        notice: notice,
+                        category: category,
+                        user_cnt: user_cnt,
+                        user_limit: user_limit,
+                    }),  // 서버로 전송할 데이터. stringify()로 직렬화 필요.
+                    success: function (result) {
+                        console.log("방 변경후")
+                        alert("수정이 완료하였습니다.");
+                        showList();
 
-            $.ajax({
-                type: 'PATCH',       // 요청 메서드
-                url: '/CtProj/rooms/' + bno,  // 요청 URI /ch4/comments?bno=1085 POST
-                headers: {"content-type": "application/json"}, // 요청 헤더
-                data: JSON.stringify({
-                    title: title,
-                    // picture: picture,
-                    meet_Date: meet_Date,
-                    meet_place: meet_place,
-                    notice: notice,
-                    category: category,
-                    user_cnt: user_cnt,
-                    user_limit: user_limit,
-                }),  // 서버로 전송할 데이터. stringify()로 직렬화 필요.
-                success: function (result) {
-                    console.log("방 변경후")
-                    alert("방 변경완료하였습니다.");
-                    showList();
+                    },
+                    error: function () {
 
-                },
-                error: function () {
+                        alert("다시 입력해주세요.")
 
-                    alert("다시 입력해주세요.")
+                    } // 에러가 발생했을 때, 호출될 함수
+                }); // $.ajax()
+            } else {
+                $.ajax({
+                    type: 'POST',       // 요청 메서드
+                    url: '/CtProj/room_in/upload',  // 요청 URI /ch4/comments?bno=1085 POST
+                    processData: false,
+                    contentType: false,
+                    data: formData,
+                    success: function (result) {
+                        alert("수정이 완료되었습니다.");
+                        showList();
 
-                } // 에러가 발생했을 때, 호출될 함수
-            }); // $.ajax()
+                    },
+                    error: function () {
+
+                        alert("실패요..")
+
+                    } // 에러가 발생했을 때, 호출될 함수
+                }); // $.ajax()
+            }
+
             // 모달 창 닫기
-             $('#staticBackdrop').modal('hide');
+            $('#staticBackdrop').modal('hide');
         });
 
         $('#drop-Btn').click(function () {
             let bno = ${roomDto.bno};
             user_id = []
-            if($("input:checkbox[name='flexCheckChecked']:checked").length === 0){
+            if ($("input:checkbox[name='flexCheckChecked']:checked").length === 0) {
                 alert("강퇴할 인원이 없습니다.")
                 return;
             }
             if (confirm("정말로 강퇴하시겠습니까?")) {
                 $("input:checkbox[name='flexCheckChecked']:checked").each(function () {
-                     user_id.push($(this).val());
+                    user_id.push($(this).val());
                 });
             } else {
                 return false;
             }
 
-            for(const val in Object.values(user_id)) {
+            for (const val in Object.values(user_id)) {
                 console.log(val)
                 $.ajax({
                     type: 'DELETE',       // 요청 메서드
-                    url: '/CtProj/room/mem-drop/' + bno + '/' + user_id[val]+'/'+user_id.length,  // 요청 URI
+                    url: '/CtProj/room_in/drop/mem/' + bno + '/' + user_id[val] + '/' + user_id.length,  // 요청 URI
                     success: function (result) {
                         showList();          // 삭제된 이후에 목록에 다시 갱신해주며 보여주기
                     },
@@ -473,18 +428,14 @@
                 "monthNames": ["1월", "2월", "3월", "4월", "5월", "6월", "7월", "8월", "9월", "10월", "11월", "12월"],
             },
         });
-
     });
 
     let toHtmlRoomOut = function () {
-        let tmp = '<form action = "/CtProj/delete-room-host" onsubmit="return btnCheck()" method = "post">'
+        let tmp = '<form action = "/CtProj/room_in/delete/host" onsubmit="return btnCheck()" method = "post">'
         tmp += '<input type = "hidden" name = "room_num" value ="' + ${roomDto.bno}+'" />'
         tmp += '<input type = "submit"  class="btn btn-outline-primary" value="나가기"/>'
         return tmp + '</form>';
 
-        // tmp += '</li>'
-
-        // return tmp + "</ul>";
     }
 
     function btnCheck() {
@@ -501,7 +452,7 @@
         tmp += '<!-- 방 제목 -->'
         tmp += ' <div class="card-header">방제목</div>'
         tmp += '<div class="card-body">'
-        tmp += '<h4 class="card-title">'+ room.title+'</h4>'
+        tmp += '<h4 class="card-title">' + room.title + '</h4>'
         tmp += '</div>'
         tmp += ' </div>'
 
@@ -509,32 +460,22 @@
         tmp += '<div class="card border-primary mb-3 wrapInfo" style="margin-top: 150px; max-width: 50rem;height:100px;padding: 0">'
         tmp += '<div class="card-header">공지사항</div>'
         tmp += '<div class="card-body">'
-        tmp += '<h4 class="card-title">'+room.notice+'</h4>'
+        tmp += '<h4 class="card-title">' + room.notice + '</h4>'
         tmp += ' </div>'
         tmp += '</div>'
         tmp += '<div class="card border-primary mb-3 wrapInfo" style="margin-top: 150px;max-width: 20rem;height:100px;padding: 0;top:36%">'
         tmp += '<div class="card-header">장소</div>'
         tmp += '<div class="card-body">'
-        tmp += '<h4 class="card-title">'+room.meet_place+'</h4>'
+        tmp += '<h4 class="card-title">' + room.meet_place + '</h4>'
         tmp += '</div>'
         tmp += '</div>'
         tmp += '<div class="card border-primary mb-3 wrapInfo" style="margin-top: 150px;max-width: 20rem;height:100px;padding: 0;top:36%;left:35%">'
         tmp += '<div class="card-header">시간</div>'
         tmp += '<div class="card-body">'
-        tmp += '<h4 class="card-title">'+ room.meet_Date+'</h4>'
+        tmp += '<h4 class="card-title">' + room.meet_Date + '</h4>'
         tmp += '</div>'
         tmp += '</div>'
-        tmp += '<div class = "rooms-user_cnt" style="display:none;">'+room.user_cnt+'</div>'
-        // tmp += '<!-- 방장 + 인원 -->'
-        // tmp += '<ul class="list-group border-primary" style="width:auto;position: absolute;left: 75%;top: 58%;">'
-        // tmp += '<div id="list-mem"></div>'
-        // tmp += '</ul>'
-        //
-        // tmp += '<!-- 현재 인원 / 제한인원 -->'
-        // tmp += '<ul class="list-group border-primary" style="width:auto;position: absolute;left: 89%;top: 58%;">'
-        // tmp += '<div id="list-num"></div>'
-        // tmp += '</ul>'
-
+        tmp += '<div class = "rooms-user_cnt" style="display:none;">' + room.user_cnt + '</div>'
         tmp += '<!-- 지도 보여주기-->'
         tmp += '<div class="card border-primary mb-3 wrapInfo" style="margin-top: 150px;max-width: 20rem;padding: 0;height:200px;top: 55%">'
         tmp += '<div class="card-header">지도</div>'
@@ -551,30 +492,20 @@
         return tmp + '</div>';
     }
 
-<%--let tmp = "<ul>";--%>
-<%--tmp += '<li class="list-group-item d-flex justify-content-between align-items-center list-group-item-danger">방장: ' + ${roomDto.writer} +'</li>'--%>
-<%--tmp += '<c:forEach items=' + list + ' var="list">'--%>
-<%--    tmp += '<c:for items=' + room.bno + ' var="list-style-type:none;">'--%>
-<%--        tmp += '<li data-bno=' + room.bno + ' style="list-style-type:none;">'--%>
-<%--        tmp += '<li class="list-group-item d-flex justify-content-between align-items-center">'--%>
-<%--        tmp += list +'<input class="form-check-input" type="checkbox" name="flexCheckChecked"  value="'+list+'"> </li> ';--%>
-<%--        tmp += '</c:for ></ul>'--%>
-<%--    return tmp + '<button type="button" class="btn btn-primary" id="drop-Btn">강퇴하기</button>';--%>
-
     let toHtmlMem = function (list) {
         let tmp = "<ul>";
         tmp += '<li class="list-group-item d-flex justify-content-between align-items-center list-group-item-danger">방장: ' + ${roomDto.writer} +'</li>'
-        for(const val in Object.keys(list)){
+        for (const val in Object.keys(list)) {
             tmp += '<li class="list-group-item d-flex justify-content-between align-items-center">'
-            tmp += list[val] +'<input class="form-check-input" type="checkbox" name="flexCheckChecked"  value="'+list[val]+'"> </li> ';
+            tmp += list[val] + '<input class="form-check-input" type="checkbox" name="flexCheckChecked"  value="' + list[val] + '"> </li> ';
         }
-        return tmp +  '</ul>';
+        return tmp + '</ul>';
     }
 
     let toHtmlListNum = function (room) {
         let tmp = '<li class="list-group-item d-flex justify-content-between align-items-center">'
-        tmp +=  room.user_cnt;
-        tmp += ' / ' +room.user_limit
+        tmp += room.user_cnt;
+        tmp += ' / ' + room.user_limit
         return tmp + "</li> ";
 
     }

@@ -28,9 +28,10 @@ public class EnterServiceImpl implements EnterService {
     }
 
 
+    // 방 나가기
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public int remove(Integer room_bno, String user_id) throws Exception {
+    public int removeMem(Integer room_bno, String user_id) throws Exception {
         RoomDto dto = roomDao.select(room_bno);
         EnterDto enterDto = new EnterDto(user_id,room_bno);
         try {
