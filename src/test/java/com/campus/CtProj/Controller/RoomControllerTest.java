@@ -32,9 +32,10 @@ public class RoomControllerTest {
     @Autowired
     EnterDao EnterDao;
 
-    @Test
-    public void write() {
-    }
+//    @Test
+//    public void write() {
+//        RoomDto dto = roomDao.
+//    }
 
     @Test
     public void remove() throws Exception {

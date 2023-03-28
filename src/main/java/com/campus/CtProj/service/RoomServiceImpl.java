@@ -62,11 +62,6 @@ public class RoomServiceImpl implements RoomService {
         return roomDto;
     }
 
-//    @Override
-//    public List<BoardDto> getPage(Map map) throws Exception {
-//        return boardDao.selectPage(map);
-//    }
-
     @Override           // 방 안에 내용 변경
     public int modify(RoomDto roomDto) throws Exception {
         return roomDao.update(roomDto);

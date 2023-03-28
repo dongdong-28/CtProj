@@ -11,7 +11,6 @@ public interface RoomInService {
 
     RoomDto read(int bno) throws Exception;
 
-    int leaveMem(Integer room_bno, String user_id) throws Exception;
 
     int leaveHost(Integer room_bno, String writer) throws Exception;
 

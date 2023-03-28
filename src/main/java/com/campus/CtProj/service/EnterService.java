@@ -7,7 +7,7 @@ import java.util.List;
 public interface EnterService {
     int getCount(String user_id) throws Exception;
 
-    int remove(Integer room_bno, String user_id) throws Exception;
+    int removeMem(Integer room_bno, String user_id) throws Exception;
 
     List<EnterDto> getList() throws Exception;
 

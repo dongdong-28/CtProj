@@ -12,9 +12,9 @@ import javax.servlet.http.HttpSession;
 import java.util.ArrayList;
 import java.util.List;
 
-//@Controller
-//@ResponseBody
+
 @RestController
+@RequestMapping("/list")
 public class RoomListController {
     @Autowired
     RoomListService service;
@@ -22,34 +22,25 @@ public class RoomListController {
     EnterService enterService;
 
     // 회원에 따른 방들을 전부 보여주는 메서드
-    @RequestMapping("/list-mem")
-//      @ResponseBody
+    @GetMapping("/mem")
     public ResponseEntity<List<RoomDto>> listmem(HttpSession session)  {
         List<RoomDto> list_Mem = null;
         String user_id = (String)session.getAttribute("id");
         try {
             list_Mem =  service.readMem(user_id);
-            // return 으로 그냥 list 를 보내는 것이 아니라 ResponseEntity<List<CommentDto>>(list, HttpStatus.OK) 를 쓴 이유는
-            // 그냥 list 로 보내면 오류가 나도 응답은 200번대로 나온다 그래서 responseEntity를 사용해서 list 에다가 + 상태코드도 같이 보내주게 한다.
             return new ResponseEntity<>(list_Mem, HttpStatus.OK);   // 200
         } catch (Exception e) {
             e.printStackTrace();
             return new ResponseEntity<List<RoomDto>>(list_Mem, HttpStatus.BAD_REQUEST);      //400
         }
-
-
-
     }
 
-    @RequestMapping("/list-host")
-//      @ResponseBody
+    @GetMapping("/host")
     public ResponseEntity<List<RoomDto>> listhost(HttpSession session)  {
         List<RoomDto> list_Host = null;
         String user_id = (String)session.getAttribute("id");
         try {
             list_Host =  service.readHost(user_id);
-            // return 으로 그냥 list 를 보내는 것이 아니라 ResponseEntity<List<CommentDto>>(list, HttpStatus.OK) 를 쓴 이유는
-            // 그냥 list 로 보내면 오류가 나도 응답은 200번대로 나온다 그래서 responseEntity를 사용해서 list 에다가 + 상태코드도 같이 보내주게 한다.
             return new ResponseEntity<>(list_Host, HttpStatus.OK);   // 200
         } catch (Exception e) {
             e.printStackTrace();
@@ -61,14 +52,12 @@ public class RoomListController {
 
 
 
-//    @ResponseBody
-    // /comments/1?bno=1085         // 이 bno 는 그냥 쿼리스트링
-    @DeleteMapping("/list-mem/{bno}")
+    @DeleteMapping("/mem/{bno}")
     public ResponseEntity<String> removeMem(@PathVariable Integer bno, HttpSession session) throws Exception {
         String user_id = (String) session.getAttribute("id");
 
         try {
-            int rowCnt = enterService.remove(bno, user_id);
+            int rowCnt = enterService.removeMem(bno, user_id);
 
             if(rowCnt != 1)
                 throw new Exception("Delete Failed");
@@ -82,7 +71,7 @@ public class RoomListController {
 
 
 
-    @DeleteMapping("/list-host/{bno}")
+    @DeleteMapping("/host/{bno}")
     public ResponseEntity<String> removeHost(@PathVariable Integer bno, HttpSession session) throws Exception {
         String user_id = (String) session.getAttribute("id");
 
@@ -102,8 +91,7 @@ public class RoomListController {
 
 
     // 회원이 입장+ 생성한 방 총 수를 보여준다.
-    @RequestMapping("/list-num")            // comments?bno=1080 GET
-//      @ResponseBody
+    @GetMapping("/num")            // comments?bno=1080 GET
         public ResponseEntity<Integer> listNum( HttpSession session)  {
         Integer listNum = null;
         String user_id = (String) session.getAttribute("id");

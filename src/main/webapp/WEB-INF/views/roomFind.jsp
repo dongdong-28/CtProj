@@ -9,8 +9,8 @@
 <c:set var="loginOutLink" value="${loginId=='' ? '/login/login' : '/login/logout'}"/>
 <c:set var="loginOut" value="${loginId=='' ? 'Login' : 'ID='+=loginId}"/>
 <c:set var="sd" value="${loginId=='' ? 'Login' : 'ID='+=loginId}"/>
-<c:set var="userInfoVal"
-       value="${userInfo=='' ? '로그인을 해주세요' : '닉네임= '+= userInfo.nickname += '<br> 포인트= '+=userInfo.point+='<br> 레벨= '+=userInfo.level}"/>
+<c:set var="userInfoVal" value="${userInfo=='' ? '로그인을 해주세요' : '닉네임= '+= userInfo.id += '<br> 포인트= '+=userInfo.coin+='<br> 레벨= '+=userInfo.level}"/>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -316,7 +316,7 @@
             tmp += '<div class="col mb-3">'
             tmp += '  <div class="card h-70">'
             tmp += '      <!-- Product image-->'
-            // tmp += '      <img class="card-img-top" src="'+ room.picture +'" alt="연습" />'
+            tmp += '      <img class="card-img-top" src="${pageContext.request.contextPath}'+room.filepath+'" alt="연습" />'
             tmp += '      <!-- Product details--> '
             tmp += '      <div class="card-body p-4">'
             tmp += '          <div class="text-left">'
@@ -325,7 +325,6 @@
             tmp += '<li data-bno=' + room.bno + '>'
             // tmp += '방번호= ' + room.bno + '<br>'
             tmp += ' 제목= <span class="title">' + room.title + '</span><br>'
-            tmp += ' 사진= <span class="picture">' + room.picture + '</span><br>'
             tmp += ' 시간= <span class="meet_Date">' + meet_date + '</span><br>'
             tmp += ' 장소= <span class="meet_place">' + room.meet_place + '</span><br>'
             tmp += ' 카테고리= <span class="category">' + room.category + '</span><br>'

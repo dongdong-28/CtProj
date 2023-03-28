@@ -60,16 +60,6 @@ public class EnterDaoImpl implements EnterDao {
     } // T selectOne(String statement, Object parameter)
 
 
-//    @Override
-//    public int update(RoomDto dto) throws Exception {
-//        return session.update(namespace + "update", dto);
-//    } // int update(String statement, Object parameter)
-////
-//    @Override
-//    public int increaseViewCnt(Integer bno) throws Exception {
-//        return session.update(namespace+"increaseViewCnt", bno);
-//    } // int update(String statement, Object parameter)
-//
 
 
 }
