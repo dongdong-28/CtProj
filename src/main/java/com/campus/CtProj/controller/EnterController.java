@@ -50,7 +50,7 @@ public class EnterController {
         try {
             System.out.println(bno);
             System.out.println(user_id);
-            int rowCnt = service.remove(bno, user_id);
+            int rowCnt = service.removeMem(bno, user_id);
             System.out.println(rowCnt);
 
             if(rowCnt != 1)

@@ -28,7 +28,7 @@ public class EnterServiceImplTest {
     public void remove() throws Exception{
 
 
-        assertTrue(service.remove(219,"17100123") == 1);
+        assertTrue(service.removeMem(219,"17100123") == 1);
 
     }
 

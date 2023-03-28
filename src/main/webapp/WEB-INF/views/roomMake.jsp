@@ -33,7 +33,6 @@
     <!-- SimpleLightbox plugin CSS-->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/SimpleLightbox/2.1.0/simpleLightbox.min.css" rel="stylesheet"/>
     <!-- Core theme CSS (includes Bootstrap)-->
-    <%--    <link rel="stylesheet" type="text/css" href="<c:url value="/css/stylesmainpage.css"/>">--%>
 
     <%--    map 생성--%>
     <script type="text/javascript"
@@ -47,6 +46,7 @@
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css"/>
 
     <link rel="stylesheet" type="text/css" href="<c:url value="/css/stylesmainpage.css"/>">
+<%--    <link rel="stylesheet" type="text/css" href="<c:url value="/css/stylesmaintest.css"/>">--%>
 
     <style>
         .form-group {

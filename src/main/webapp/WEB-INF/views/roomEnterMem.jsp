@@ -33,6 +33,8 @@
     <%--    <link rel="stylesheet" type="text/css" href="<c:url value="/css/stylesmainpage.css"/>">--%>
 
     <link rel="stylesheet" type="text/css" href="<c:url value="/css/stylesmainpage.css"/>">
+<%--    <link rel="stylesheet" type="text/css" href="<c:url value="/css/stylesmaintest.css"/>">--%>
+
     <style>
         ul > li {
             display:table-row-group;
