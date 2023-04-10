@@ -307,7 +307,8 @@
     //     return tmp + "</ul>";
     //
     // }
-
+    // <img src="원래 이미지 주소.jpg" onerror="this.onerror=null; this.src='대체 이미지 주소';">
+    // onerror="this.src=\'https://dummyimage.com/150x150/6c757d/dee2e6.jpg\';"
     let toHtml = function (rooms) {
         let tmp = '<div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">'
 
@@ -318,7 +319,7 @@
             tmp += '<div class="col mb-3">'
             tmp += '  <div class="card h-70">'
             tmp += '      <!-- Product image-->'
-            tmp += '      <img class="card-img-top" src="${pageContext.request.contextPath}'+room.filepath+'" alt="연습" />'
+            tmp += '      <img class="card-img-top" src="${pageContext.request.contextPath}'+room.filepath+'" alt="대체" />'
             tmp += '      <!-- Product details--> '
             tmp += '      <div class="card-body p-4">'
             tmp += '          <div class="text-left">'
