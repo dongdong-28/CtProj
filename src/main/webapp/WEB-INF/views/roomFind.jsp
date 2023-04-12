@@ -4,12 +4,8 @@
 <%@ page session="true" %>
 <c:set var="loginId"
        value="${pageContext.request.getSession(false)==null ? '' : pageContext.request.session.getAttribute('id')}"/>
-<c:set var="userInfo"
-       value="${pageContext.request.getSession(false)==null ? '' : pageContext.request.session.getAttribute('userDto')}"/>
 <c:set var="loginOutLink" value="${loginId=='' ? '/login/login' : '/login/logout'}"/>
 <c:set var="loginOut" value="${loginId=='' ? 'Login' : 'ID='+=loginId}"/>
-<c:set var="sd" value="${loginId=='' ? 'Login' : 'ID='+=loginId}"/>
-<c:set var="userInfoVal" value="${userInfo=='' ? '로그인을 해주세요' : '닉네임= '+= userInfo.id += '<br> 포인트= '+=userInfo.coin+='<br> 레벨= '+=userInfo.level}"/>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -89,8 +85,8 @@
                     <img class="img-fluid rounded-circle mb-4" src="https://dummyimage.com/150x150/6c757d/dee2e6.jpg"
                          alt="..."/>
                     <!-- 유저정보-->
-                    <div><p class="text-white-50 mb-0"
-                            style="width: 182px;height: 72px;font-size: inherit;">${userInfoVal}</p></div>
+                    <div><p id = userInformation class="text-white-50 mb-0"
+                            style="width: 182px;height: 72px;font-size: inherit;"></p></div>
                 </div>
             </div>
         </div>
@@ -147,6 +143,24 @@
 <script>
 
     let showList = function () {
+        let userId = "${loginId}";
+        if(userId == ''){
+            $("#userInformation").html("로그인해주세요");
+        }
+        else {
+            $.ajax({
+                type: 'GET',       // 요청 메서드
+                url: '/CtProj/login/user',  // 요청 URI
+                success: function (result) {
+                    console.log(result);
+                    $("#userInformation").html(toUserHtml(result));    // 서버로부터 응답이 도착하면 호출될 함수
+                },
+                error: function () {
+                    alert("error")
+                } // 에러가 발생했을 때, 호출될 함수
+            }); // $.ajax()
+        }
+
         let maincate = "${maintocate}";
         if (maincate == "") {
             $.ajax({
@@ -234,6 +248,7 @@
                 }),  // 서버로 전송할 데이터. stringify()로 직렬화 필요.
                 success: function (result) {
                     alert("입장 완료했습니다.");
+                    showList();
                     // formTest(result);
                 },
                 error: function () {
@@ -298,17 +313,17 @@
 
     });
 
-    // let formTest = function (room) {
-    //     let tmp = "<ul>";
-    //     tmp += '<form action = "/CtProj/room/in-mem" method = "post">'
-    //     tmp += '<input type = "text" name = "room_num" value =' + room.bno + ' "/>"'
-    //     tmp += '<input type = "submit" value="입장"/>'
-    //     tmp += '</form>'
-    //     return tmp + "</ul>";
-    //
-    // }
-    // <img src="원래 이미지 주소.jpg" onerror="this.onerror=null; this.src='대체 이미지 주소';">
-    // onerror="this.src=\'https://dummyimage.com/150x150/6c757d/dee2e6.jpg\';"
+    let toUserHtml = function(userInfo){
+        let tmp = '<div>'
+        tmp += '닉네임 ='+ userInfo.id+'<br>'
+        tmp += '포인트 ='+ userInfo.coin+'<br>'
+        tmp += '레벨 =22'+ userInfo.level+'<br>'
+
+
+        return tmp + '</div>';
+    }
+
+
     let toHtml = function (rooms) {
         let tmp = '<div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">'
 

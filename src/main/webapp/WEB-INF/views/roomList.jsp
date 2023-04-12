@@ -4,13 +4,8 @@
 <%@ page session="true" %>
 <c:set var="loginId"
        value="${pageContext.request.getSession(false)==null ? '' : pageContext.request.session.getAttribute('id')}"/>
-<c:set var="userInfo"
-       value="${pageContext.request.getSession(false)==null ? '' : pageContext.request.session.getAttribute('userDto')}"/>
 <c:set var="loginOutLink" value="${loginId=='' ? '/login/login' : '/login/logout'}"/>
 <c:set var="loginOut" value="${loginId=='' ? 'Login' : 'ID='+=loginId}"/>
-<c:set var="sd" value="${loginId=='' ? 'Login' : 'ID='+=loginId}"/>
-<c:set var="userInfoVal"
-       value="${userInfo=='' ? '로그인을 해주세요' : '닉네임= '+= userInfo.id += '<br> 포인트= '+=userInfo.coin+='<br> 레벨= '+=userInfo.level}"/>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -84,8 +79,8 @@
                     <img class="img-fluid rounded-circle mb-4" src="https://dummyimage.com/150x150/6c757d/dee2e6.jpg"
                          alt="..."/>
                     <!-- 유저정보-->
-                    <div><p class="text-white-50 mb-0"
-                            style="width: 182px;height: 72px;font-size: inherit;">${userInfoVal}</p></div>
+                    <div><p id = userInformation class="text-white-50 mb-0"
+                            style="width: 182px;height: 72px;font-size: inherit;"></p></div>
                 </div>
             </div>
         </div>
@@ -128,6 +123,23 @@
 <script>
 
     let showList = function () {
+        let userId = "${loginId}";
+        if(userId == ''){
+            $("#userInformation").html("로그인해주세요");
+        }
+        else {
+            $.ajax({
+                type: 'GET',       // 요청 메서드
+                url: '/CtProj/login/user',  // 요청 URI
+                success: function (result) {
+                    $("#userInformation").html(toUserHtml(result));    // 서버로부터 응답이 도착하면 호출될 함수
+                },
+                error: function () {
+                    alert("error")
+                } // 에러가 발생했을 때, 호출될 함수
+            }); // $.ajax()
+        }
+
         $.ajax({
             type: 'GET',       // 요청 메서드
             url: '/CtProj/list/mem',  // 요청 URI
@@ -222,6 +234,16 @@
 
 
     });
+
+    let toUserHtml = function(userInfo){
+        let tmp = '<div>'
+        tmp += '닉네임 ='+ userInfo.id+'<br>'
+        tmp += '포인트 ='+ userInfo.coin+'<br>'
+        tmp += '레벨 =22'+ userInfo.level+'<br>'
+
+
+        return tmp + '</div>';
+    }
 
 
     let toHtmlMem = function (rooms) {
@@ -322,6 +344,7 @@
         return tmp + "</ul>";
 
     }
+
 
 
     window.addEventListener('DOMContentLoaded', event => {

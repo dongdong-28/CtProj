@@ -2,8 +2,10 @@ package com.campus.CtProj.service;
 
 import com.campus.CtProj.dao.EnterDao;
 import com.campus.CtProj.dao.RoomDao;
+import com.campus.CtProj.dao.UserDao;
 import com.campus.CtProj.domain.EnterDto;
 import com.campus.CtProj.domain.RoomDto;
+import com.campus.CtProj.domain.UserDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -15,11 +17,13 @@ import java.util.Objects;
 public class EnterServiceImpl implements EnterService {
     EnterDao enterDao;
     RoomDao roomDao;
+    UserDao userDao;
 
     @Autowired
-    EnterServiceImpl(EnterDao enterDao, RoomDao roomDao) {
+    EnterServiceImpl(EnterDao enterDao, RoomDao roomDao, UserDao userDao) {
         this.enterDao = enterDao;
         this.roomDao = roomDao;
+        this.userDao = userDao;
     }
 
     @Override
@@ -33,42 +37,45 @@ public class EnterServiceImpl implements EnterService {
     @Transactional(rollbackFor = Exception.class)
     public int removeMem(Integer room_bno, String user_id) throws Exception {
         RoomDto dto = roomDao.select(room_bno);
-        EnterDto enterDto = new EnterDto(user_id,room_bno);
+        EnterDto enterDto = new EnterDto(user_id, room_bno);
+        UserDto userdto = userDao.selectUser(user_id);
+        int coin = userdto.getCoin() +2;
         try {
             Integer dtoVal = enterDao.selectBno(enterDto);
-            int cnt =  dto.getUser_cnt()-1;
-            System.out.println("삭제완료 : "+cnt);
+            int cnt = dto.getUser_cnt() - 1;
+            System.out.println("삭제완료 : " + cnt);
 
-            if(dtoVal == null || cnt == 0)
+            if (dtoVal == null || cnt == 0)
                 throw new Exception(" no enter mem ");
+            userdto.setCoin(coin);
             dto.setUser_cnt(cnt);
+            userDao.updateUser(userdto);
             roomDao.update(dto);
             return enterDao.delete(room_bno, user_id);
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             e.printStackTrace();
             return 0;
         }
 
     }
+
     // 강퇴하기
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public int dropOut(Integer room_bno, String user_id,Integer drop_num) throws Exception {
+    public int dropOut(Integer room_bno, String user_id, Integer drop_num) throws Exception {
         RoomDto dto = roomDao.select(room_bno);
-        EnterDto enterDto = new EnterDto(user_id,room_bno);
+        EnterDto enterDto = new EnterDto(user_id, room_bno);
         try {
             Integer dtoVal = enterDao.selectBno(enterDto);
-            int cnt =  dto.getUser_cnt()-drop_num;
-            System.out.println("삭제완료 : "+cnt);
+            int cnt = dto.getUser_cnt() - drop_num;
+            System.out.println("삭제완료 : " + cnt);
 
-            if(dtoVal == null || cnt == 0)
+            if (dtoVal == null || cnt == 0)
                 throw new Exception(" no enter mem ");
             dto.setUser_cnt(cnt);
             roomDao.update(dto);
             return enterDao.delete(room_bno, user_id);
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             e.printStackTrace();
             return 0;
         }
@@ -90,21 +97,26 @@ public class EnterServiceImpl implements EnterService {
     @Transactional(rollbackFor = Exception.class)
     public Integer enter(EnterDto dto) throws Exception {
         RoomDto roomdto = roomDao.select(dto.getRoom_bno());
-
+        UserDto userdto = userDao.selectUser(dto.getUser_id());
+        int cnt = roomdto.getUser_cnt() + 1;
+        int coin = userdto.getCoin() -2;
+        System.out.println(coin);
         try {
             Integer dtoVal = enterDao.selectBno(dto);
-            int cnt =   roomdto.getUser_cnt()+1;
-            if(dtoVal != null || dto.getUser_id().equals(roomdto.getWriter()))              // 이미 입장한 방일 경우
+            if (dtoVal != null || dto.getUser_id().equals(roomdto.getWriter()))              // 이미 입장한 방일 경우
                 throw new Exception("already used");
-         if(cnt > roomdto.getUser_limit())                                                  // 최대인원인데 입장하려는 경우
-             throw new Exception("over user_limit");
-         roomdto.setUser_cnt(cnt);
-        }
-        catch (Exception e) {
+            if (cnt > roomdto.getUser_limit())                                                  // 최대인원인데 입장하려는 경우
+                throw new Exception("over user_limit");
+            if (coin < 0)
+                throw new Exception("no coin");
+            roomdto.setUser_cnt(cnt);
+            userdto.setCoin(coin);
+        } catch (Exception e) {
             e.printStackTrace();
             return 0;
         }
 
+        userDao.updateUser(userdto);
         roomDao.update(roomdto);
 
 

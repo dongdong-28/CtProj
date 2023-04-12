@@ -3,12 +3,9 @@
 <%@ page session="false" %>
 <c:set var="loginId"
        value="${pageContext.request.getSession(false)==null ? '' : pageContext.request.session.getAttribute('id')}"/>
-<c:set var="userInfo"
-       value="${pageContext.request.getSession(false)==null ? '' : pageContext.request.session.getAttribute('userDto')}"/>
 <c:set var="loginOutLink" value="${loginId=='' ? '/login/login' : '/login/logout'}"/>
 <c:set var="loginOut" value="${loginId=='' ? 'Login' : 'ID='+=loginId}"/>
-<c:set var="sd" value="${loginId=='' ? 'Login' : 'ID='+=loginId}"/>
-<c:set var="userInfoVal" value="${userInfo=='' ? '로그인을 해주세요' : '닉네임= '+= userInfo.id += '<br> 포인트= '+=userInfo.coin+='<br> 레벨= '+=userInfo.level}"/>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -19,6 +16,7 @@
     <title>With Us</title>
     <!-- ajax -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.8.2/css/all.min.css"/>
+    <script src="https://code.jquery.com/jquery-1.11.3.js"></script>
     <!-- Favicon-->
     <link rel="icon" type="image/x-icon" href="assets/favicon.ico"/>
     <!-- Bootstrap Icons-->
@@ -116,8 +114,8 @@
                     <img class="img-fluid rounded-circle mb-4" src="https://dummyimage.com/150x150/6c757d/dee2e6.jpg"
                          alt="..."/>
                     <!-- 유저정보-->
-                    <div><p class="text-white-50 mb-0"
-                            style="width: 182px;height: 72px;font-size: inherit;">${userInfoVal}</p></div>
+                    <div><p id = userInformation class="text-white-50 mb-0"
+                            style="width: 182px;height: 72px;font-size: inherit;"></p></div>
                 </div>
             </div>
 
@@ -216,6 +214,43 @@
 
 <!-- Core theme JS-->
 <script>
+    let showList = function () {
+
+        let userId = "${loginId}";
+        if(userId == ''){
+            $("#userInformation").html("로그인해주세요");
+        }
+        else {
+            $.ajax({
+                type: 'GET',       // 요청 메서드
+                url: '/CtProj/login/user',  // 요청 URI
+                success: function (result) {
+                    $("#userInformation").html(toUserHtml(result));    // 서버로부터 응답이 도착하면 호출될 함수
+                },
+                error: function () {
+                    alert("error")
+                } // 에러가 발생했을 때, 호출될 함수
+            }); // $.ajax()
+        }
+
+
+    }
+
+        $(document).ready(function () {
+        showList();
+
+
+        });
+
+    let toUserHtml = function(userInfo){
+        let tmp = '<div>'
+        tmp += '닉네임 ='+ userInfo.id+'<br>'
+        tmp += '포인트 ='+ userInfo.coin+'<br>'
+        tmp += '레벨 =22'+ userInfo.level+'<br>'
+
+
+        return tmp + '</div>';
+    }
 
     window.addEventListener('DOMContentLoaded', event => {
 
