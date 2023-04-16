@@ -28,7 +28,7 @@ public class RoomInController {
     @Autowired
     RoomService roomService;
     @Autowired
-    RoomInService service;
+    RoomInService roomInService;
     @Autowired
     EnterService enterService;
 
@@ -38,7 +38,7 @@ public class RoomInController {
     public String RemoveMem(HttpSession session, HttpServletRequest request) throws Exception {
         String user_id = (String)session.getAttribute("id");
         Integer room_bno = Integer.parseInt(request.getParameter("room_num"));
-        int rowCnt = enterService.removeMem(room_bno, user_id);
+        int rowCnt = roomInService.removeMem(room_bno, user_id);
         return "redirect:/";
     }
 
@@ -47,7 +47,7 @@ public class RoomInController {
     public String RemoveHost(HttpSession session, HttpServletRequest request) throws Exception {
         String user_id = (String)session.getAttribute("id");
         Integer room_bno = Integer.parseInt(request.getParameter("room_num"));
-        int rowCnt = service.leaveHost(room_bno, user_id);
+        int rowCnt = roomInService.removeHost(room_bno, user_id);
         return "redirect:/";
     }
 
@@ -94,7 +94,7 @@ public class RoomInController {
 
         System.out.println("담기지도 않나..?");
         String writer = (String)session.getAttribute("id");
-        RoomDto roomDto = service.read(dto.getBno());
+        RoomDto roomDto = roomInService.read(dto.getBno());
 
             System.out.println("사진지정");
             String path ="/upload";    // 저장할 경로지정

@@ -204,9 +204,8 @@
             alert("다시 입력해주세요");
             return false;
         }
-        alert("방이 생성되었습니다.")
-
     }
+
     let showList = function () {
 
         let userId = "${loginId}";

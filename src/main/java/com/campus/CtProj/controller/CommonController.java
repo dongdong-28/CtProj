@@ -38,6 +38,12 @@ public class CommonController {
         return "roomMake";
     }
 
+    // 방 생성 페이지 이동
+    @GetMapping("/index")
+    public String ViewIndex(HttpServletRequest request) {
+        return "index";
+    }
+
 
 
     // 로그인전 방 입장시에는 로그인 화면 + 최초 로그인 후 방 입장을 누르면 방 찾기로 이동

@@ -38,30 +38,30 @@ public class EnterController {
         }
     }
 
-    // 방을 나가기
-    // {cno} 이거는 밑에 그냥 쿼리스트링으로 한게 아니고 rest 방식으로 한 url의 일부이므로 @PathVariable 을 붙여준다.
-    @DeleteMapping("/enter/{bno}")       // /comments/1 <-- 삭제할 방 번호
-//    @ResponseBody
-    // /comments/1?bno=1085         // 이 bno 는 그냥 쿼리스트링
-    public ResponseEntity<String> remove(@PathVariable Integer bno, HttpSession session) throws Exception {
-        String user_id = (String) session.getAttribute("id");
-
-
-        try {
-            System.out.println(bno);
-            System.out.println(user_id);
-            int rowCnt = service.removeMem(bno, user_id);
-            System.out.println(rowCnt);
-
-            if(rowCnt != 1)
-                throw new Exception("Delete Failed");
-            return new ResponseEntity<>("DEL_OK",HttpStatus.OK);
-
-        } catch (Exception e) {
-            e.printStackTrace();
-            return new ResponseEntity<>("DEL_ERR",HttpStatus.BAD_REQUEST);
-        }
-    }
+//    // 방을 나가기
+//    // {cno} 이거는 밑에 그냥 쿼리스트링으로 한게 아니고 rest 방식으로 한 url의 일부이므로 @PathVariable 을 붙여준다.
+//    @DeleteMapping("/enter/{bno}")       // /comments/1 <-- 삭제할 방 번호
+////    @ResponseBody
+//    // /comments/1?bno=1085         // 이 bno 는 그냥 쿼리스트링
+//    public ResponseEntity<String> remove(@PathVariable Integer bno, HttpSession session) throws Exception {
+//        String user_id = (String) session.getAttribute("id");
+//
+//
+//        try {
+//            System.out.println(bno);
+//            System.out.println(user_id);
+//            int rowCnt = service.removeMem(bno, user_id);
+//            System.out.println(rowCnt);
+//
+//            if(rowCnt != 1)
+//                throw new Exception("Delete Failed");
+//            return new ResponseEntity<>("DEL_OK",HttpStatus.OK);
+//
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//            return new ResponseEntity<>("DEL_ERR",HttpStatus.BAD_REQUEST);
+//        }
+//    }
 
 
 }

@@ -9,9 +9,9 @@ public interface RoomListService {
     int getCount(String user_id) throws Exception;
 
 
-    int removeMem(Integer room_bno, String user_id) throws Exception;
+//    int removeMem(Integer room_bno, String user_id) throws Exception;
 
-    int removeHost(Integer room_bno, String writer) throws Exception;
+//    int removeHost(Integer room_bno, String writer) throws Exception;
 
     List<RoomDto> readMem(String user_id) throws Exception;
 

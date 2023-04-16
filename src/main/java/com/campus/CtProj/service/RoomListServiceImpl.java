@@ -26,17 +26,17 @@ public class RoomListServiceImpl implements RoomListService {
         return  roomDao.countId(user_id)+enterDao.countId(user_id);
     }
 
-    @Override
-    public int removeMem(Integer room_bno, String user_id) throws Exception {
-        return enterDao.delete(room_bno, user_id);
-    }
+//    @Override
+//    public int removeMem(Integer room_bno, String user_id) throws Exception {
+//        return enterDao.delete(room_bno, user_id);
+//    }
 
-    @Override
-    @Transactional(rollbackFor = Exception.class)
-    public int removeHost(Integer room_bno, String writer) throws Exception {
-        enterDao.deleteAll(room_bno);
-        return roomDao.delete(room_bno, writer);
-    }
+//    @Override
+//    @Transactional(rollbackFor = Exception.class)
+//    public int removeHost(Integer room_bno, String writer) throws Exception {
+//        enterDao.deleteAll(room_bno);
+//        return roomDao.delete(room_bno, writer);
+//    }
 
 
     @Override

@@ -8,9 +8,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.commons.CommonsMultipartFile;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.imageio.ImageIO;
 import javax.servlet.http.HttpServletRequest;
@@ -68,14 +70,14 @@ public class RoomController {
 
     // 방 생성하는 메서드
     @PostMapping("/room")
-    public String write(RoomDto roomDto, MultipartFile file, HttpSession session, HttpServletRequest request) throws Exception {    // 입력한 내용을 받아와야하니깐 CommentDto dto 해줘야한다.
+    public String write(RoomDto roomDto, MultipartFile file, HttpSession session, HttpServletRequest request,Model m,RedirectAttributes rattr) throws Exception {
 
         String writer = (String) session.getAttribute("id");
 
         String path = "/upload";    // 저장할 경로지정
         String filename = null;
         String savePath = request.getServletContext().getRealPath("/resources" + path);
-        String imageUrl = "https://source.unsplash.com/category/nature/150x150";
+        String imageUrl = "https://picsum.photos/150/150";
         System.out.println(savePath);
         UUID uuid = UUID.randomUUID();      // 파일 이름앞에 붙일 랜덤 이름 생성
         System.out.println(file);
@@ -109,12 +111,17 @@ public class RoomController {
             if (service.write(roomDto) != 1)
                 throw new Exception("Write failed. ");
 
-            return "index";
+            rattr.addFlashAttribute("msg","WRT_OK");
+
 
         } catch (Exception e) {
             e.printStackTrace();
-            return "roomFind";
+
+            rattr.addFlashAttribute("msg","WRT_ERR");
+
         }
+        return "redirect:/room/index";
+
 
     }
 

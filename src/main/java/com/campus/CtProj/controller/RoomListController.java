@@ -2,6 +2,7 @@ package com.campus.CtProj.controller;
 
 import com.campus.CtProj.domain.RoomDto;
 import com.campus.CtProj.service.EnterService;
+import com.campus.CtProj.service.RoomInService;
 import com.campus.CtProj.service.RoomListService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -19,7 +20,7 @@ public class RoomListController {
     @Autowired
     RoomListService service;
     @Autowired
-    EnterService enterService;
+    RoomInService roomInService;
 
     // 회원에 따른 방들을 전부 보여주는 메서드
     @GetMapping("/mem")
@@ -57,7 +58,7 @@ public class RoomListController {
         String user_id = (String) session.getAttribute("id");
 
         try {
-            int rowCnt = enterService.removeMem(bno, user_id);
+            int rowCnt = roomInService.removeMem(bno, user_id);
 
             if(rowCnt != 1)
                 throw new Exception("Delete Failed");
@@ -76,7 +77,7 @@ public class RoomListController {
         String user_id = (String) session.getAttribute("id");
 
         try {
-            int rowCnt = service.removeHost(bno, user_id);
+            int rowCnt = roomInService.removeHost(bno, user_id);
 
             if(rowCnt != 1)
                 throw new Exception("Delete Failed");

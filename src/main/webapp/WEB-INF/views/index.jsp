@@ -214,6 +214,10 @@
 
 <!-- Core theme JS-->
 <script>
+    let msg = "${msg}";
+    if(msg == "WRT_OK") alert("방을 생성하였습니다.");
+    else if(msg == "WRT_ERR")
+        alert("방생성에 실패하였습니다.");
     let showList = function () {
 
         let userId = "${loginId}";

@@ -32,32 +32,32 @@ public class EnterServiceImpl implements EnterService {
     }
 
 
-    // 방 나가기
-    @Override
-    @Transactional(rollbackFor = Exception.class)
-    public int removeMem(Integer room_bno, String user_id) throws Exception {
-        RoomDto dto = roomDao.select(room_bno);
-        EnterDto enterDto = new EnterDto(user_id, room_bno);
-        UserDto userdto = userDao.selectUser(user_id);
-        int coin = userdto.getCoin() +2;
-        try {
-            Integer dtoVal = enterDao.selectBno(enterDto);
-            int cnt = dto.getUser_cnt() - 1;
-            System.out.println("삭제완료 : " + cnt);
-
-            if (dtoVal == null || cnt == 0)
-                throw new Exception(" no enter mem ");
-            userdto.setCoin(coin);
-            dto.setUser_cnt(cnt);
-            userDao.updateUser(userdto);
-            roomDao.update(dto);
-            return enterDao.delete(room_bno, user_id);
-        } catch (Exception e) {
-            e.printStackTrace();
-            return 0;
-        }
-
-    }
+//    // 멤버가 방 나가기
+//    @Override
+//    @Transactional(rollbackFor = Exception.class)
+//    public int removeMem(Integer room_bno, String user_id) throws Exception {
+//        RoomDto dto = roomDao.select(room_bno);
+//        EnterDto enterDto = new EnterDto(user_id, room_bno);
+//        UserDto userdto = userDao.selectUser(user_id);
+//        int coin = userdto.getCoin() +2;
+//        try {
+//            Integer dtoVal = enterDao.selectBno(enterDto);
+//            int cnt = dto.getUser_cnt() - 1;
+//            System.out.println("삭제완료 : " + cnt);
+//
+//            if (dtoVal == null || cnt == 0)
+//                throw new Exception(" no enter mem ");
+//            userdto.setCoin(coin);
+//            dto.setUser_cnt(cnt);
+//            userDao.updateUser(userdto);
+//            roomDao.update(dto);
+//            return enterDao.delete(room_bno, user_id);
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//            return 0;
+//        }
+//
+//    }
 
     // 강퇴하기
     @Override
@@ -107,7 +107,7 @@ public class EnterServiceImpl implements EnterService {
                 throw new Exception("already used");
             if (cnt > roomdto.getUser_limit())                                                  // 최대인원인데 입장하려는 경우
                 throw new Exception("over user_limit");
-            if (coin < 0)
+            if (coin < 0)                                                                    // 코인이 부족한경우
                 throw new Exception("no coin");
             roomdto.setUser_cnt(cnt);
             userdto.setCoin(coin);

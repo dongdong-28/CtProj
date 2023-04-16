@@ -3,6 +3,7 @@ package com.campus.CtProj.dao;
 import com.campus.CtProj.domain.BoardDto;
 import com.campus.CtProj.domain.EnterDto;
 import com.campus.CtProj.domain.RoomDto;
+import com.campus.CtProj.domain.UserDto;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,6 +14,7 @@ import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 import static org.junit.Assert.*;
 
@@ -26,9 +28,11 @@ public class RoomDaoImplTest {
 
     @Autowired
     EnterDao enterDao;
+    @Autowired
+    UserDao userDao;
 
     @Test
-    public void count() throws Exception{
+    public void count() throws Exception {
         System.out.println(roomDao.count());
 
     }
@@ -38,6 +42,45 @@ public class RoomDaoImplTest {
         System.out.println(roomDao.countId("7100725"));
     }
 
+    @Test
+    public void updateUser() throws Exception {
+        UserDto userdto = userDao.selectUser("17100456");
+        userdto.setCoin(30);
+        userDao.updateUser(userdto);
+    }
+
+    @Test
+    public void meetDate() throws Exception {
+        RoomDto roomDto = roomDao.select(370);
+        System.out.println(roomDto.getMeet_Date());
+        System.out.println(roomDto.getMeet_Date().getTime());
+        Date date = new Date();
+        Timestamp st = new Timestamp(System.currentTimeMillis());
+        SimpleDateFormat sdf = new SimpleDateFormat("yy-MM-dd HH:mm", Locale.KOREA);
+        SimpleDateFormat datef = new SimpleDateFormat("yy-MM-dd HH:mm", Locale.KOREA);
+        String str = sdf.format(new Date(st.getTime()));
+        SimpleDateFormat aaa = new SimpleDateFormat("yy-MM-dd HH:mm", Locale.KOREA);
+
+        String datefr = datef.format(date);
+
+        long te = roomDto.getMeet_Date().getTime()-date.getTime();
+
+        System.out.println("시간 차이: "+te/(1000*60*60));
+        System.out.println("분 차이: "+te/(1000*60));
+        System.out.println("분 차이: "+te/(1000*60)%60);
+
+
+
+        System.out.println(date);
+        System.out.println(date.getTime());
+
+        System.out.println(st);
+        System.out.println(str);
+        System.out.println(datefr);
+        System.out.println(aaa.format(roomDto.getMeet_Date()));
+
+
+    }
 
 
 //    @Test
@@ -62,9 +105,7 @@ public class RoomDaoImplTest {
 //    }
 
 
-
-
-//    @Test
+    //    @Test
 //    public void delete() throws Exception {
 //        RoomDto roomDto = roomDao.select(59,"17100999");
 //        assertTrue(roomDao.delete(roomDto.getBno(), roomDto.getWriter()) == 1);
