@@ -4,11 +4,14 @@ package com.campus.CtProj.service;
 import com.campus.CtProj.dao.RoomDao;
 import com.campus.CtProj.dao.EnterDao;
 import com.campus.CtProj.dao.UserDao;
+import com.campus.CtProj.dao.BoolDao;
+import com.campus.CtProj.domain.BoolDto;
 import com.campus.CtProj.domain.RoomDto;
 import com.campus.CtProj.domain.SearchCondition;
 import com.campus.CtProj.domain.UserDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -18,11 +21,14 @@ public class RoomServiceImpl implements RoomService {
     RoomDao roomDao;
     EnterDao enterDao;
     UserDao userDao;
+    BoolDao boolDao;
     @Autowired
-    public RoomServiceImpl(RoomDao roomDao, EnterDao enterDao,UserDao userDao) {
+    public RoomServiceImpl(RoomDao roomDao, EnterDao enterDao,UserDao userDao, BoolDao boolDao) {
         this.roomDao = roomDao;
         this.enterDao = enterDao;
         this.userDao = userDao;
+        this.boolDao = boolDao;
+
     }
 
 
@@ -48,6 +54,7 @@ public class RoomServiceImpl implements RoomService {
 
 
     @Override           // 방 생성
+    @Transactional(rollbackFor = Exception.class)
     public int write(RoomDto roomDto) throws Exception {
         UserDto userdto = userDao.selectUser(roomDto.getWriter());
         int coin = userdto.getCoin() -2;
@@ -56,12 +63,17 @@ public class RoomServiceImpl implements RoomService {
                 throw new Exception("no Coin");
             userdto.setCoin(coin);
             userDao.updateUser(userdto);
+            roomDao.insert(roomDto);
         } catch(Exception e){
             e.printStackTrace();
             return 0;
         }
-
-        return roomDao.insert(roomDto);
+        //  작성자도 user_bool 에 추가될 수 있게 만들기 위해서
+        List<RoomDto> hostList = roomDao.selectHostRoom(roomDto.getWriter());
+        RoomDto dto = hostList.get(hostList.size()-1);
+        BoolDto boolDto = new BoolDto(dto.getWriter(),dto.getBno());
+        System.out.println(boolDto);
+        return boolDao.insert(boolDto);
     }
 
     @Override       // 방 읽기
@@ -85,5 +97,6 @@ public class RoomServiceImpl implements RoomService {
     public List<RoomDto> getSearchSelectPage(SearchCondition sc) throws Exception{
         return roomDao.searchSelectPage(sc);
     }
+
 
 }

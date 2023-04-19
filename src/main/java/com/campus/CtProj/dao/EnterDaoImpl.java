@@ -34,6 +34,12 @@ public class EnterDaoImpl implements EnterDao {
         return session.delete(namespace + "delete", map);
     } // int delete(String statement, Object parameter)
 
+//    @Override
+//    public int update(EnterDto dto) throws Exception {
+//        return session.insert(namespace + "update", dto);
+//    }
+
+
     @Override
     public int insert(EnterDto dto) throws Exception {
         return session.insert(namespace + "insert", dto);

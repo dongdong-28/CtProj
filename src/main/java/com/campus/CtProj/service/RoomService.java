@@ -34,4 +34,5 @@ public interface RoomService {
     // 검색으로 방 읽기
      List<RoomDto> getSearchSelectPage(SearchCondition sc) throws Exception;
 
+
     }

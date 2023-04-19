@@ -13,7 +13,7 @@ public interface EnterService {
 
 //    List<EnterDto> read(String user_id) throws Exception;
 
-    Integer enter(EnterDto dto) throws Exception;
+     Integer enter(EnterDto dto) throws Exception;
 
      List<String> selectRoomId(Integer room_bno) throws Exception ;
 

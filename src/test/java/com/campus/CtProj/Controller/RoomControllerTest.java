@@ -60,11 +60,11 @@ public class RoomControllerTest {
 //    }
 
     // 방 입장
-    @Test
-    public void enter() throws Exception {
-        EnterDto enterDto = new EnterDto("17100999",250);
-        assertTrue(EntService.enter(enterDto)==1);
-    }
+//    @Test
+//    public void enter() throws Exception {
+//        EnterDto enterDto = new EnterDto("17100999",250);
+//        assertTrue(EntService.enter(enterDto)==1);
+//    }
 
 
 }

@@ -1,8 +1,10 @@
 package com.campus.CtProj.service;
 
+import com.campus.CtProj.dao.BoolDao;
 import com.campus.CtProj.dao.EnterDao;
 import com.campus.CtProj.dao.RoomDao;
 import com.campus.CtProj.dao.UserDao;
+import com.campus.CtProj.domain.BoolDto;
 import com.campus.CtProj.domain.EnterDto;
 import com.campus.CtProj.domain.RoomDto;
 import com.campus.CtProj.domain.UserDto;
@@ -18,12 +20,15 @@ public class RoomInServiceImpl implements RoomInService {
     EnterDao enterDao;
     RoomDao roomDao;
     UserDao userDao;
+    BoolDao boolDao;
+
 
     @Autowired
-    RoomInServiceImpl(EnterDao enterDao, RoomDao roomDao,UserDao userDao) {
+    RoomInServiceImpl(EnterDao enterDao, RoomDao roomDao,UserDao userDao,BoolDao boolDao) {
         this.enterDao = enterDao;
         this.roomDao = roomDao;
         this.userDao = userDao;
+        this.boolDao = boolDao;
     }
 
     @Override
@@ -44,6 +49,7 @@ public class RoomInServiceImpl implements RoomInService {
     @Transactional(rollbackFor = Exception.class)
     public int removeHost(Integer room_bno, String writer) throws Exception {
         enterDao.deleteAll(room_bno);
+        boolDao.deleteAll(room_bno);
         return roomDao.delete(room_bno, writer);
     }
 
@@ -54,9 +60,7 @@ public class RoomInServiceImpl implements RoomInService {
         RoomDto dto = roomDao.select(room_bno);
         EnterDto enterDto = new EnterDto(user_id, room_bno);
         UserDto userdto = userDao.selectUser(user_id);
-        Date date = new Date();
-        long leftTime = dto.getMeet_Date().getTime()-date.getTime();
-        long leftTimeHour = leftTime /(1000*60*60);
+        BoolDto boolDto = boolDao.select(room_bno,user_id);
         int coin = userdto.getCoin();
         try {
             Integer dtoVal = enterDao.selectBno(enterDto);
@@ -64,9 +68,8 @@ public class RoomInServiceImpl implements RoomInService {
             System.out.println("삭제완료 : " + cnt);
             if (dtoVal == null || cnt == 0)
                 throw new Exception(" no enter mem ");
-            if (leftTimeHour > 1)                           // 2시간 이전에 나가야만 다시 환급 가능
+            if (boolDto.getis_coin_return() == 1)
                 coin += 2;
-
             userdto.setCoin(coin);
             dto.setUser_cnt(cnt);
             userDao.updateUser(userdto);

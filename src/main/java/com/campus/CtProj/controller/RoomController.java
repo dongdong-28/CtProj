@@ -2,6 +2,7 @@ package com.campus.CtProj.controller;
 
 import com.campus.CtProj.domain.RoomDto;
 import com.campus.CtProj.domain.SearchCondition;
+import com.campus.CtProj.service.RoomListService;
 import com.campus.CtProj.service.RoomService;
 import org.apache.commons.io.FileUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,6 +33,7 @@ import java.util.UUID;
 public class RoomController {
     @Autowired
     RoomService service;
+
 
     // 방 읽기
     @GetMapping("/room")
@@ -110,9 +112,7 @@ public class RoomController {
         try {
             if (service.write(roomDto) != 1)
                 throw new Exception("Write failed. ");
-
             rattr.addFlashAttribute("msg","WRT_OK");
-
 
         } catch (Exception e) {
             e.printStackTrace();

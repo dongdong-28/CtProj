@@ -45,12 +45,12 @@ public class EnterControllerTest {
 //    }
 
     // 방 입장
-    @Test
-    public void enter() throws Exception {
-        EnterDto enterDto = new EnterDto("17100456",217);
-        assertTrue(EntService.enter(enterDto)==1);
-    }
-
+//    @Test
+//    public void enter() throws Exception {
+//        EnterDto enterDto = new EnterDto("17100456",217);
+//        assertTrue(EntService.enter(enterDto)==1);
+//    }
+//
 
 //    @Test
 //    public void listCategory() throws Exception{

@@ -197,21 +197,22 @@
 
         $("#list-mem").on("click", ".delBtn-Mem", function () {
             let bno = $(this).parent().parent().attr("data-bno");
-            // let title = $(this).parent().attr("title");
 
-            if (confirm("삭제하시겠습니까?")) {
-                $.ajax({
-                    type: 'DELETE',       // 요청 메서드
-                    url: '/CtProj/list/mem/' + bno,  // 요청 URI
-                    success: function (result) {
-                        alert("삭제되었습니다.");
-                        showList();          // 삭제된 이후에 목록에 다시 갱신해주며 보여주기
-                    },
-                    error: function () {
-                        alert("삭제에 실패하였습니다.")
-                    } // 에러가 발생했을 때, 호출될 함수
-                }); // $.ajax()
-            }
+
+                if (confirm("삭제하시겠습니까?")) {
+                    $.ajax({
+                        type: 'DELETE',       // 요청 메서드
+                        url: '/CtProj/list/mem/' + bno,  // 요청 URI
+                        success: function (result) {
+                            alert("삭제되었습니다.");
+                            showList();          // 삭제된 이후에 목록에 다시 갱신해주며 보여주기
+                        },
+                        error: function () {
+                            alert("삭제에 실패하였습니다.")
+                        } // 에러가 발생했을 때, 호출될 함수
+                    }); // $.ajax()
+                }
+
         });
 
         $("#list-host").on("click", ".delBtn-Host", function () {
@@ -254,6 +255,7 @@
         rooms.forEach(function (room) {
             const dateFormat = new Date(room.meet_Date);
             const meet_date = dateFormat.getFullYear() + '년 ' + (dateFormat.getMonth() + 1) + '월 ' + dateFormat.getDate() + '일';
+            const meetDateFormat = dateFormat.getTime();
 
             tmp += '<div class="col " style="width:100%">'
             tmp += ' <div class="card border-danger mb-3" style="max-width: 100rem;height: 115px;">'
@@ -261,7 +263,7 @@
             tmp += '     <div class="card-body">'
             tmp += '              <!-- Product name-->'
             tmp += '<ul>'
-            tmp += '<li data-bno=' + room.bno + ' style="list-style-type:none;">'
+            tmp += '<li data-bno=' + room.bno + ' ' + 'data-meet_date =' + meetDateFormat + ' style="list-style-type:none;">'
             // tmp += '방번호= ' + room.bno
             tmp += ' <h4 class="card-title">' + '제목: <span class="title">' + room.title + '</span>' + '</h4>'
             tmp += '<p class="card-text" style="display: inline-block">'
@@ -297,7 +299,8 @@
 
         rooms.forEach(function (room) {
             const dateFormat = new Date(room.meet_Date);
-            const meet_date = dateFormat.getFullYear() + '년 ' + (dateFormat.getMonth() + 1) + '월 ' + dateFormat.getDate() + '일';
+            const meet_date = dateFormat.getFullYear() + '년 ' + (dateFormat.getMonth() + 1) + '월 ' + dateFormat.getDate() + '일 ' + dateFormat.getHours()+'시 '+dateFormat.getMinutes()+'분';
+            const meetDateFormat = dateFormat.getDate();
 
             tmp += '<div class="col " style="width:100%">'
             tmp += ' <div class="card border-danger mb-3" style="max-width: 100rem;height: 115px;">'
@@ -310,7 +313,9 @@
             tmp += ' <h4 class="card-title">' + '제목: <span class="title">' + room.title + '</span>' + '</h4>'
             tmp += '<p class="card-text" style="display: inline-block">'
             tmp += '날짜: <span class="meet_Date">' + meet_date + '</span><br>'
+            tmp += '<div data-meetDate="meet_Place" style="display: none">' + meetDateFormat+ '</div><br>'
             tmp += '장소: <span class="meet_Place">' + room.meet_place + '</span><br>'
+
             <%--tmp +=  '인원수: '+${list.size()+1} + ' / '+ room.user_limit;--%>
             tmp += '</p>'
             tmp += '      <!-- Product actions-->'

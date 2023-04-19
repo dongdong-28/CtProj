@@ -44,8 +44,8 @@ public class RoomDaoImplTest {
 
     @Test
     public void updateUser() throws Exception {
-        UserDto userdto = userDao.selectUser("17100456");
-        userdto.setCoin(30);
+        UserDto userdto = userDao.selectUser("17100123");
+        userdto.setCoin(50);
         userDao.updateUser(userdto);
     }
 

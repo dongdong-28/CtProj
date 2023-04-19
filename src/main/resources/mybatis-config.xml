@@ -9,6 +9,7 @@
         <typeAlias alias="UserDto" type="com.campus.CtProj.domain.UserDto"/>
         <typeAlias alias="RoomDto" type="com.campus.CtProj.domain.RoomDto"/>
         <typeAlias alias="EnterDto" type="com.campus.CtProj.domain.EnterDto"/>
+        <typeAlias alias="BoolDto" type="com.campus.CtProj.domain.BoolDto"/>
         <typeAlias alias="SearchCondition" type="com.campus.CtProj.domain.SearchCondition"/>
     </typeAliases>
 </configuration>

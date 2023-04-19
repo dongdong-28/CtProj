@@ -33,7 +33,7 @@
     <%--    <link rel="stylesheet" type="text/css" href="<c:url value="/css/stylesmainpage.css"/>">--%>
 
     <link rel="stylesheet" type="text/css" href="<c:url value="/css/stylesmainpage.css"/>">
-<%--    <link rel="stylesheet" type="text/css" href="<c:url value="/css/stylesmaintest.css"/>">--%>
+    <%--    <link rel="stylesheet" type="text/css" href="<c:url value="/css/stylesmaintest.css"/>">--%>
 
     <style>
         ul > li {
@@ -85,7 +85,7 @@
                     <img class="img-fluid rounded-circle mb-4" src="https://dummyimage.com/150x150/6c757d/dee2e6.jpg"
                          alt="..."/>
                     <!-- 유저정보-->
-                    <div><p id = userInformation class="text-white-50 mb-0"
+                    <div><p id=userInformation class="text-white-50 mb-0"
                             style="width: 182px;height: 72px;font-size: inherit;"></p></div>
                 </div>
             </div>
@@ -144,15 +144,13 @@
 
     let showList = function () {
         let userId = "${loginId}";
-        if(userId == ''){
+        if (userId == '') {
             $("#userInformation").html("로그인해주세요");
-        }
-        else {
+        } else {
             $.ajax({
                 type: 'GET',       // 요청 메서드
                 url: '/CtProj/login/user',  // 요청 URI
                 success: function (result) {
-                    console.log(result);
                     $("#userInformation").html(toUserHtml(result));    // 서버로부터 응답이 도착하면 호출될 함수
                 },
                 error: function () {
@@ -232,29 +230,32 @@
                 } // 에러가 발생했을 때, 호출될 함수
             }); // $.ajax()
         });
+
         $("#roomList").on("click", ".entBtn", function () {
             let bno = $(this).parent().parent().attr("data-bno");
             let id = null;
-            // let title = $(this).parent().attr("title");
+            if (confirm("입장하시겠습니까?")) {
+                $.ajax({
+                    type: 'POST',       // 요청 메서드
+                    url: '/CtProj/enter/' + bno,  // 요청 URI
+                    headers: {"content-type": "application/json"}, // 요청 헤더
+                    data: JSON.stringify({
+                        user_id: id,
+                        room_bno: bno
 
-            $.ajax({
-                type: 'POST',       // 요청 메서드
-                url: '/CtProj/enter/' + bno,  // 요청 URI
-                headers: {"content-type": "application/json"}, // 요청 헤더
-                data: JSON.stringify({
-                    user_id: id,
-                    room_bno: bno
+                    }),  // 서버로 전송할 데이터. stringify()로 직렬화 필요.
+                    success: function (result) {
+                        alert("입장 완료했습니다.");
+                        showList();
+                        // formTest(result);
+                    },
+                    error: function () {
+                        alert("입장에 실패했습니다..!")
+                    } // 에러가 발생했을 때, 호출될 함수
+                }); // $.ajax()
+            }
 
-                }),  // 서버로 전송할 데이터. stringify()로 직렬화 필요.
-                success: function (result) {
-                    alert("입장 완료했습니다.");
-                    showList();
-                    // formTest(result);
-                },
-                error: function () {
-                    alert("입장에 실패했습니다..!")
-                } // 에러가 발생했을 때, 호출될 함수
-            }); // $.ajax()
+
         });
 
         /* 카테고리 왜 다시..??다시..!*/
@@ -297,7 +298,7 @@
             let keyword = $('#search-input').val();
             $.ajax({
                 type: 'GET',
-                url: '/CtProj/rooms-search?keyword='+keyword+'&option='+option,
+                url: '/CtProj/rooms-search?keyword=' + keyword + '&option=' + option,
                 success: function (result) {
                     console.log(keyword);
                     console.log(option);
@@ -313,11 +314,11 @@
 
     });
 
-    let toUserHtml = function(userInfo){
+    let toUserHtml = function (userInfo) {
         let tmp = '<div>'
-        tmp += '닉네임 ='+ userInfo.id+'<br>'
-        tmp += '포인트 ='+ userInfo.coin+'<br>'
-        tmp += '레벨 =22'+ userInfo.level+'<br>'
+        tmp += '닉네임 =' + userInfo.id + '<br>'
+        tmp += '포인트 =' + userInfo.coin + '<br>'
+        tmp += '레벨 =22' + userInfo.level + '<br>'
 
 
         return tmp + '</div>';
@@ -330,17 +331,18 @@
         rooms.forEach(function (room) {
             // var pic =  document.getElementById('InputPic').files[0].name;
             const dateFormat = new Date(room.meet_Date);
+            const meet_date_format = dateFormat.getTime()
             const meet_date = dateFormat.getFullYear() + '년 ' + (dateFormat.getMonth() + 1) + '월 ' + dateFormat.getDate() + '일' + dateFormat.getHours() + '시 ' + dateFormat.getMinutes() + '분';
             tmp += '<div class="col mb-3">'
             tmp += '  <div class="card h-70">'
             tmp += '      <!-- Product image-->'
-            tmp += '      <img class="card-img-top" src="${pageContext.request.contextPath}'+room.filepath+'" alt="대체" />'
+            tmp += '      <img class="card-img-top" src="${pageContext.request.contextPath}' + room.filepath + '" alt="대체" />'
             tmp += '      <!-- Product details--> '
             tmp += '      <div class="card-body p-4">'
             tmp += '          <div class="text-left">'
             tmp += '              <!-- Product name-->'
             tmp += '<ul>'
-            tmp += '<li data-bno=' + room.bno + '>'
+            tmp += '<li data-bno=' + room.bno +'>'
             // tmp += '방번호= ' + room.bno + '<br>'
             tmp += ' 제목= <span class="title">' + room.title + '</span><br>'
             tmp += ' 시간= <span class="meet_Date">' + meet_date + '</span><br>'

@@ -292,7 +292,7 @@
     let toHtmlRoomInfo = function () {
         let tmp = '<form action = "/CtProj/room_in/delete/mem" onsubmit="return btnCheck()" method = "post">'
         tmp += '<input type = "hidden" name = "room_num" value ="' + ${roomDto.bno}+ '" />'
-        tmp += '<input type = "submit"  class="btn btn-outline-primary" value="나가기"/>'
+        tmp += '<input type = "submit"  class="btn bFtn-outline-primary" value="나가기"/>'
         return tmp + '</form>';
 
     }

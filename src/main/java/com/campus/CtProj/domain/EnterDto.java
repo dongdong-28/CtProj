@@ -7,35 +7,19 @@ public class EnterDto {
     private int bno;
     private String user_id;
     private int room_bno;
-
+    @Override
+    public String toString() {
+        return "EnterDto{" +
+                "bno=" + bno +
+                ", user_id='" + user_id + '\'' +
+                ", room_bno=" + room_bno;
+    }
     public EnterDto() {}
-
     public EnterDto(String user_id, int room_bno) {
         this.user_id = user_id;
         this.room_bno = room_bno;
     }
 
-    @Override
-    public String toString() {
-        return "UserNumDto{" +
-                "bno=" + bno +
-                ", user_id='" + user_id + '\'' +
-                ", room_bno=" + room_bno +
-                '}';
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        EnterDto that = (EnterDto) o;
-        return bno == that.bno && room_bno == that.room_bno && Objects.equals(user_id, that.user_id);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(bno, user_id, room_bno);
-    }
 
     public int getBno() {
         return bno;
@@ -60,4 +44,6 @@ public class EnterDto {
     public void setRoom_bno(int room_bno) {
         this.room_bno = room_bno;
     }
+
+
 }

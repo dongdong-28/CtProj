@@ -21,12 +21,10 @@ public class EnterController {
 //    @ResponseBody
     @PostMapping("/enter/{bno}")   // /ch4/comments?bno=1085 POST
     // CommentDto 그대로 하면 안들어간다! 그래서 앞에 @RequestBody 를 붙여줘야한다
-    public ResponseEntity<String> write(@RequestBody EnterDto dto, @PathVariable Integer bno, String user_id, HttpSession session) {    // 입력한 내용을 받아와야하니깐 CommentDto dto 해줘야한다.
-        user_id = (String)session.getAttribute("id");
+    public ResponseEntity<String> write(@RequestBody EnterDto dto, @PathVariable Integer bno, HttpSession session) {    // 입력한 내용을 받아와야하니깐 CommentDto dto 해줘야한다.
+        String user_id = (String)session.getAttribute("id");
         dto.setRoom_bno(bno);
         dto.setUser_id(user_id);
-        System.out.println(dto);
-
         try {
             if(service.enter(dto) != 1)
                 throw new Exception("Enter failed. ");

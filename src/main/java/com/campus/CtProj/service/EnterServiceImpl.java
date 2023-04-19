@@ -1,8 +1,10 @@
 package com.campus.CtProj.service;
 
+import com.campus.CtProj.dao.BoolDao;
 import com.campus.CtProj.dao.EnterDao;
 import com.campus.CtProj.dao.RoomDao;
 import com.campus.CtProj.dao.UserDao;
+import com.campus.CtProj.domain.BoolDto;
 import com.campus.CtProj.domain.EnterDto;
 import com.campus.CtProj.domain.RoomDto;
 import com.campus.CtProj.domain.UserDto;
@@ -18,12 +20,14 @@ public class EnterServiceImpl implements EnterService {
     EnterDao enterDao;
     RoomDao roomDao;
     UserDao userDao;
+    BoolDao boolDao;
 
     @Autowired
-    EnterServiceImpl(EnterDao enterDao, RoomDao roomDao, UserDao userDao) {
+    EnterServiceImpl(EnterDao enterDao, RoomDao roomDao, UserDao userDao, BoolDao boolDao) {
         this.enterDao = enterDao;
         this.roomDao = roomDao;
         this.userDao = userDao;
+        this.boolDao = boolDao;
     }
 
     @Override
@@ -98,9 +102,11 @@ public class EnterServiceImpl implements EnterService {
     public Integer enter(EnterDto dto) throws Exception {
         RoomDto roomdto = roomDao.select(dto.getRoom_bno());
         UserDto userdto = userDao.selectUser(dto.getUser_id());
+        BoolDto boolDto = new BoolDto(dto.getUser_id(),dto.getRoom_bno());
         int cnt = roomdto.getUser_cnt() + 1;
         int coin = userdto.getCoin() -2;
         System.out.println(coin);
+
         try {
             Integer dtoVal = enterDao.selectBno(dto);
             if (dtoVal != null || dto.getUser_id().equals(roomdto.getWriter()))              // 이미 입장한 방일 경우
@@ -111,14 +117,13 @@ public class EnterServiceImpl implements EnterService {
                 throw new Exception("no coin");
             roomdto.setUser_cnt(cnt);
             userdto.setCoin(coin);
+            userDao.updateUser(userdto);
+            roomDao.update(roomdto);
+            boolDao.insert(boolDto);
         } catch (Exception e) {
             e.printStackTrace();
             return 0;
         }
-
-        userDao.updateUser(userdto);
-        roomDao.update(roomdto);
-
 
         return enterDao.insert(dto);
     }
