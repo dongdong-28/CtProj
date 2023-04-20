@@ -51,7 +51,7 @@
           , is_coin_return = #{is_coin_return}
           , is_drop        = #{is_drop}
           , is_review      = #{is_review}
-        WHERE bno = #{bno}
+        WHERE user_id = #{user_id} and room_bno = #{room_bno}
     </update>
 
 
