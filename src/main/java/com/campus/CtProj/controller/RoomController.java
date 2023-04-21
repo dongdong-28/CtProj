@@ -1,5 +1,6 @@
 package com.campus.CtProj.controller;
 
+import com.campus.CtProj.domain.BoolDto;
 import com.campus.CtProj.domain.RoomDto;
 import com.campus.CtProj.domain.SearchCondition;
 import com.campus.CtProj.service.RoomListService;
@@ -33,7 +34,6 @@ import java.util.UUID;
 public class RoomController {
     @Autowired
     RoomService service;
-
 
     // 방 읽기
     @GetMapping("/room")
@@ -151,18 +151,18 @@ public class RoomController {
     @PatchMapping("/rooms/{bno}")   // /ch4/comments/bno PATCH
     // CommentDto 그대로 하면 안들어간다! 그래서 앞에 @RequestBody 를 붙여줘야한다
     @ResponseBody
-    public ResponseEntity<String> modify(@PathVariable Integer bno, @RequestBody RoomDto ndto, HttpSession session) throws Exception {    // 입력한 내용을 받아와야하니깐 CommentDto dto 해줘야한다.
+    public ResponseEntity<String> modify(@PathVariable Integer bno, @RequestBody RoomDto roomDto, HttpSession session) throws Exception {    // 입력한 내용을 받아와야하니깐 CommentDto dto 해줘야한다.
         String writer = (String) session.getAttribute("id");
 
         RoomDto dto = service.read(bno);
-        ndto.setWriter(writer);
-        ndto.setBno(bno);
-        ndto.setFilepath(dto.getFilepath());
-        ndto.setFilename(dto.getFilename());
-        System.out.println("dto = " + dto);
+        roomDto.setWriter(writer);
+        roomDto.setBno(bno);
+        roomDto.setFilepath(dto.getFilepath());
+        roomDto.setFilename(dto.getFilename());
+        System.out.println("dto = " + roomDto);
 
         try {
-            if (service.modify(ndto) != 1)
+            if (service.modify(roomDto) != 1)
                 throw new Exception("Write failed. ");
             return new ResponseEntity<>("MOD_OK", HttpStatus.OK);
 
@@ -216,6 +216,23 @@ public class RoomController {
             return new ResponseEntity<List<RoomDto>>(list, HttpStatus.BAD_REQUEST);      //400
         }
     }
+
+
+    // 후기 기능 켤지 안켤지 확인하기
+    @GetMapping("/room/review")
+    public ResponseEntity<BoolDto> userReview(HttpServletRequest request,HttpSession session) throws Exception {
+        Integer roomBno = Integer.parseInt(request.getParameter("bno"));
+        String userName = (String) session.getAttribute("id");
+        BoolDto boolDto = null;
+        try {
+            boolDto = service.selectReview(roomBno,userName);
+            return new ResponseEntity<BoolDto>(boolDto, HttpStatus.OK);   // 200
+        } catch (Exception e) {
+            e.printStackTrace();
+            return new ResponseEntity<BoolDto>(boolDto, HttpStatus.BAD_REQUEST);      //400
+        }
+    }
+
 
 }
 

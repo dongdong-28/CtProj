@@ -44,7 +44,7 @@
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css"/>
 
     <link rel="stylesheet" type="text/css" href="<c:url value="/css/stylesmainpage.css"/>">
-<%--    <link rel="stylesheet" type="text/css" href="<c:url value="/css/stylesmaintest.css"/>">--%>
+    <%--    <link rel="stylesheet" type="text/css" href="<c:url value="/css/stylesmaintest.css"/>">--%>
 
     <style>
         ul > li {
@@ -114,7 +114,7 @@
                     <img class="img-fluid rounded-circle mb-4" src="https://dummyimage.com/150x150/6c757d/dee2e6.jpg"
                          alt="..."/>
                     <!-- 유저정보-->
-                    <div><p id = userInformation class="text-white-50 mb-0"
+                    <div><p id=userInformation class="text-white-50 mb-0"
                             style="width: 182px;height: 72px;font-size: inherit;"></p></div>
                 </div>
 
@@ -139,16 +139,24 @@
             </button>
 
 
+            <!--모임확인버튼-->
+            <button type="button" class="btn btn-primary" id="confirmBtn"
+                    style="width:120px;height:50px;margin-left:80%; margin-top:20%;">모임확인
+            </button>
+
+
             <!-- 수정버튼-->
             <button type="button" id="btn-mod" class="btn btn-outline-primary wrapInfo" data-bs-toggle="modal"
                     data-bs-target="#staticBackdrop" style="width:80px;height:50px;left:80%; top:96%;">수정
             </button>
 
+
             <!-- 나가기버튼-->
-            <div id="room-out" class="wrapInfo" style="left:40%;top:96%"></div>
+            <div id="roomOutIsCoin" class="wrapInfo" style="left:40%;top:96%"></div>
 
         </div>
     </div>
+
 
     <!-- Modal(수정화면) -->
     <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
@@ -179,7 +187,7 @@
                         <div class="form-group">
                             <label for="InputDate" class="form-label mt-4">만날 시간</label>
                             <input type="text" class="form-control rooms-meet_Date" id="InputDate"
-                                   aria-describedby="emailHelp" value="${roomDto.meet_Date}"/>
+                                   aria-describedby="emailHelp" value=""/>
                             <small id="emailHelp" class="form-text text-muted">ex) 2022-12-10 </small>
                         </div>
                         <div class="form-group">
@@ -226,6 +234,35 @@
         </div>
     </div>
 
+
+    <!-- Modal(후기 남기기 화면) -->
+    <div class="modal fade" id="staticBackdropReview" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+         aria-labelledby="staticBackdropReviewLabel" aria-hidden="true"
+         style="display: block;background: transparent;margin-left: 35%;box-shadow:none;">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content" style="height:700px">
+                <div class="modal-header">
+                    <h5 class="modal-title">후기창1</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true"></span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <fieldset style="padding-left:40px">
+
+
+                        <div id="roomReviewList" class="wrapInfo"></div>
+
+                    </fieldset>
+                </div>
+                <div class="modal-footer" style="padding-left:40px">
+                    <button type="button" id="reviewBtn" class="btn btn-primary">확인</button>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">취소하기</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
 </section>
 
 
@@ -247,10 +284,9 @@
 
     let showList = function () {
         let userId = "${loginId}";
-        if(userId == ''){
+        if (userId == '') {
             $("#userInformation").html("로그인해주세요");
-        }
-        else {
+        } else {
             $.ajax({
                 type: 'GET',       // 요청 메서드
                 url: '/CtProj/login/user',  // 요청 URI
@@ -263,6 +299,19 @@
             }); // $.ajax()
         }
 
+        $.ajax({
+            type: 'GET',       // 요청 메서드
+            url: '/CtProj/room/review/?bno=' +${roomDto.bno},  // 요청 URI
+            async: false,
+            success: function (result) {
+                console.log(result.is_coin_return);
+                $("#roomOutIsCoin").html(toHtmlIsCoinReturn(result));    // 서버로부터 응답이 도착하면 호출될 함수
+            },
+            error: function () {
+                alert("error")
+            } // 에러가 발생했을 때, 호출될 함수
+        }); // $.ajax()
+
 
         $.ajax({
             type: 'GET',       // 요청 메서드
@@ -271,6 +320,7 @@
             success: function (result) {
                 console.log("카운트!")
                 console.log(result.user_cnt)
+                console.log(result.meet_Date)
                 cnt = result.user_cnt // 수정할때를 위해서 전역변수로 넘겨준다
                 $("#roomInfo").html(toHtmlRoomInfo(result));    // 서버로부터 응답이 도착하면 호출될 함수
             },
@@ -278,6 +328,7 @@
                 alert("error")
             } // 에러가 발생했을 때, 호출될 함수
         }); // $.ajax()
+
 
         $.ajax({
             type: 'GET',       // 요청 메서드
@@ -294,6 +345,17 @@
 
         $.ajax({
             type: 'GET',       // 요청 메서드
+            url: '/CtProj/room_in/list/mem/review?bno=' +${roomDto.bno},  // 요청 URI
+            success: function (result) {
+                $("#roomReviewList").html(toHtmlroomReviewList(result));
+            },
+            error: function () {
+                alert("안됨..")
+            } // 에러가 발생했을 때, 호출될 함수
+        }); // $.ajax()
+
+        $.ajax({
+            type: 'GET',       // 요청 메서드
             url: '/CtProj/room?bno=' +${roomDto.bno},  // 요청 URI
             success: function (result) {
                 $("#list-num").html(toHtmlListNum(result));
@@ -304,13 +366,14 @@
         }); // $.ajax()
 
 
-        $("#room-out").html(toHtmlRoomOut());    // 서버로부터 응답이 도착하면 호출될 함수
+        $(".room-out").html(toHtmlRoomOut());    // 서버로부터 응답이 도착하면 호출될 함수
 
 
     }
 
     $(document).ready(function () {
         showList();
+
 
         $("#Mod-Btn").click(function () {
             let title = $(".rooms-title").val();
@@ -321,6 +384,9 @@
             let user_limit = $(".rooms-user_limit").val();
             let user_cnt = cnt
             let bno = ${roomDto.bno};
+            const meetDate = new Date(meet_Date); // meet_Date Date 객체로 변환
+            // let roomMeetDate = meetDate.toISOString(); // meet_Date room.meet_Date 값으로 변환
+
             let formData = new FormData();
             console.log(formData)
             let input_file = $("input[name='file']")[0].files[0];
@@ -355,7 +421,7 @@
                     headers: {"content-type": "application/json"}, // 요청 헤더
                     data: JSON.stringify({
                         title: title,
-                        meet_Date: meet_Date,
+                        meet_Date: meetDate,
                         meet_place: meet_place,
                         notice: notice,
                         category: category,
@@ -398,6 +464,71 @@
             $('#staticBackdrop').modal('hide');
         });
 
+
+        $('#reviewBtn').click(function(){
+            let userNum = $("#totalUserNum").text();
+            let reviewArr = []
+            console.log(userNum);
+            for(let i =0;i < userNum;i++){
+                let nameSelect = "chk_info"+i+"";
+                console.log(nameSelect)
+                if($("input:radio[name="+nameSelect+"]:checked")){
+                    reviewArr.push($("input:radio[name="+nameSelect+"]:checked").val());
+                    console.log(reviewArr[i]);
+                }
+
+            }
+
+            new Promise((succ, fail) => {
+                for (const val in Object.values(user_id)) {
+                    $.ajax({
+                        type: 'POST',       // 요청 메서드
+                        url: '/CtProj/room_in/mem/confirm',  // 요청 URI /ch4/comments?bno=1085 POST
+                        headers: {"content-type": "application/json"}, // 요청 헤더
+                        data: JSON.stringify({
+                            user_id: user_id[val],
+                            room_bno: bno,
+                        }),  // 서버로 전송할 데이터. stringify()로 직렬화 필요.
+                        success: function (result) {
+                            succ(result);
+                            alert("확인이 완료하였습니다.");
+                            showList();
+
+                        },
+                        error: function () {
+                            alert("다시 입력해주세요.")
+                        } // 에러가 발생했을 때, 호출될 함수
+                    }); // $.ajax()
+                }
+            }).then((arg) => {    // 두번째 ajax를 실행한다.
+                console.log(writer)
+                $.ajax({
+                    type: 'POST',       // 요청 메서드
+                    url: '/CtProj/room_in/mem/confirm',  // 요청 URI /ch4/comments?bno=1085 POST
+                    headers: {"content-type": "application/json"}, // 요청 헤더
+                    data: JSON.stringify({
+                        user_id: writer,
+                        room_bno: bno,
+                    }),  // 서버로 전송할 데이터. stringify()로 직렬화 필요.
+                    success: function (result) {
+                        succ(result);
+                        alert("작성자도 확인이 완료하였습니다.");
+                        showList();
+
+                    },
+                    error: function () {
+                        alert("다시 입력해주세요.")
+                    } // 에러가 발생했을 때, 호출될 함수
+                }); // $.ajax()
+                alert("모두 확인이 완료되었습니다.")
+
+            });
+
+
+        });
+
+
+
         $('#drop-Btn').click(function () {
             let bno = ${roomDto.bno};
             user_id = []
@@ -430,6 +561,77 @@
             alert("삭제되었습니다.")
         });
 
+        $('#confirmBtn').click(function () {
+            let bno = ${roomDto.bno};
+            let writer = ${roomDto.writer}
+                let
+            meet_Date = $(".rooms-meet_Date").val();
+            const now = new Date();
+            const dateFormat = new Date(meet_Date); // meet_Date Date 객체로 변환
+            console.log(dateFormat)
+            console.log(now)
+            let meetDateComparison = (dateFormat - now) / (60 * 60 * 1000);
+            console.log(meetDateComparison)
+            user_id = []
+            if (meetDateComparison > 0) {
+                return;
+            }
+            if ($("input:checkbox[name='flexCheckChecked']:checked").length === 0) {
+                return;
+            }
+            if (confirm("해당인원들이 모임에 참석하였습니까?")) {
+                $("input:checkbox[name='flexCheckChecked']:checked").each(function () {
+                    user_id.push($(this).val());
+                });
+            } else {
+                return false;
+            }
+            new Promise((succ, fail) => {
+                for (const val in Object.values(user_id)) {
+                    $.ajax({
+                        type: 'POST',       // 요청 메서드
+                        url: '/CtProj/room_in/mem/confirm',  // 요청 URI /ch4/comments?bno=1085 POST
+                        headers: {"content-type": "application/json"}, // 요청 헤더
+                        data: JSON.stringify({
+                            user_id: user_id[val],
+                            room_bno: bno,
+                        }),  // 서버로 전송할 데이터. stringify()로 직렬화 필요.
+                        success: function (result) {
+                            succ(result);
+                            alert("확인이 완료하였습니다.");
+                            showList();
+
+                        },
+                        error: function () {
+                            alert("다시 입력해주세요.")
+                        } // 에러가 발생했을 때, 호출될 함수
+                    }); // $.ajax()
+                }
+            }).then((arg) => {    // 두번째 ajax를 실행한다.
+                console.log(writer)
+                $.ajax({
+                    type: 'POST',       // 요청 메서드
+                    url: '/CtProj/room_in/mem/confirm',  // 요청 URI /ch4/comments?bno=1085 POST
+                    headers: {"content-type": "application/json"}, // 요청 헤더
+                    data: JSON.stringify({
+                        user_id: writer,
+                        room_bno: bno,
+                    }),  // 서버로 전송할 데이터. stringify()로 직렬화 필요.
+                    success: function (result) {
+                        succ(result);
+                        alert("작성자도 확인이 완료하였습니다.");
+                        showList();
+
+                    },
+                    error: function () {
+                        alert("다시 입력해주세요.")
+                    } // 에러가 발생했을 때, 호출될 함수
+                }); // $.ajax()
+                alert("모두 확인이 완료되었습니다.")
+
+            });
+        });
+
         $('#InputDate').daterangepicker({
             "singleDatePicker": true,
             "timePicker": true,
@@ -437,18 +639,18 @@
             "locale": {
                 "applyLabel": "확인",
                 "cancelLabel": "취소",
-                "format": 'YYYY-MM-DD hh:mm',
+                "format": 'YYYY-MM-DD HH:mm',
                 "daysOfWeek": ["일", "월", "화", "수", "목", "금", "토"],
                 "monthNames": ["1월", "2월", "3월", "4월", "5월", "6월", "7월", "8월", "9월", "10월", "11월", "12월"],
             },
         });
     });
 
-    let toUserHtml = function(userInfo){
+    let toUserHtml = function (userInfo) {
         let tmp = '<div>'
-        tmp += '닉네임 ='+ userInfo.id+'<br>'
-        tmp += '포인트 ='+ userInfo.coin+'<br>'
-        tmp += '레벨 =22'+ userInfo.level+'<br>'
+        tmp += '닉네임 =' + userInfo.id + '<br>'
+        tmp += '포인트 =' + userInfo.coin + '<br>'
+        tmp += '레벨 =' + Math.floor(userInfo.level) + '<br>'
 
 
         return tmp + '</div>';
@@ -462,6 +664,43 @@
 
     }
 
+
+    let toHtmlroomReviewList = function (list) {
+        let tmp = "<ul>";
+
+        for (const val in Object.keys(list)) {
+            tmp += '<div class="form-group">'
+            tmp += list[val].user_id + '<br>'
+            tmp += ' <input type="radio" name="chk_info' + val + '" value="1">별로에요'
+            tmp += ' <input type="radio" name="chk_info' + val + '" value="2">아쉬워요'
+            tmp += ' <input type="radio" name="chk_info' + val + '" value="3">보통이에요'
+            tmp += ' <input type="radio" name="chk_info' + val + '" value="4">좋았어요'
+            tmp += ' <input type="radio" name="chk_info' + val + '" value="5">최고에요!'
+            tmp += '</br></div>'
+        }
+
+
+        <%--tmp += '<li class="list-group-item d-flex justify-content-between align-items-center list-group-item-danger">방장: ' + ${roomDto.writer} +'</li>'--%>
+        <%--for (const val in Object.keys(list)) {--%>
+        <%--    tmp += '<li class="list-group-item d-flex justify-content-between align-items-center">'--%>
+        <%--    tmp += list[val].user_id--%>
+        <%--    tmp += list[val] + '<input class="form-check-input" type="checkbox" name="flexCheckChecked"  value="' + list[val] + '"> </li> ';--%>
+        <%--}--%>
+        return tmp + '</ul>';
+    }
+
+    let toHtmlIsCoinReturn = function (user) {
+        if (user.is_coin_return == 1) {
+            let tmp = '<button type="button" class="btn btn-outline-primary wrapInfo" data-bs-toggle="modal" data-bs-target="#staticBackdropReview" style="left:40%;top:96%">나가기'
+            return tmp + '</button>';
+
+        } else {
+            let tmp = '<div class="wrapInfo room-out" style="left:40%;top:96%">'
+            return tmp + '</div>';
+        }
+
+    }
+
     function btnCheck() {
         if (confirm("정말로 나가시겠습니까?")) {
             alert("완료되었습니다.");
@@ -471,6 +710,14 @@
     }
 
     let toHtmlRoomInfo = function (room) {
+
+        const dateFormat = new Date(room.meet_Date);
+        const meet_date = dateFormat.getFullYear() + '년 ' + (dateFormat.getMonth() + 1) + '월 ' + dateFormat.getDate() + '일 ' + (dateFormat.getHours() > 9 ? dateFormat.getHours() : '0' + dateFormat.getHours()) + '시 ' + (dateFormat.getMinutes() > 9 ? dateFormat.getMinutes() : '0' + dateFormat.getMinutes()) + '분';
+        meetDateFormat = dateFormat.getFullYear() + '-' + (dateFormat.getMonth() + 1) + '-' + dateFormat.getDate() + ' ' + (dateFormat.getHours() > 9 ? dateFormat.getHours() : '0' + dateFormat.getHours()) + ':' + (dateFormat.getMinutes() > 9 ? dateFormat.getMinutes() : '0' + dateFormat.getMinutes());
+        $('input[id=InputDate]').attr('value', meetDateFormat);
+        console.log(meetDateFormat)
+        console.log(room.meet_Date);
+        console.log(dateFormat);
         let tmp = ' <div class="card border-primary mb-3 wrapInfo" style="max-width: 50rem;height:100px;padding: 0">';
 
         tmp += '<!-- 방 제목 -->'
@@ -496,7 +743,7 @@
         tmp += '<div class="card border-primary mb-3 wrapInfo" style="margin-top: 150px;max-width: 20rem;height:100px;padding: 0;top:36%;left:35%">'
         tmp += '<div class="card-header">시간</div>'
         tmp += '<div class="card-body">'
-        tmp += '<h4 class="card-title">' + room.meet_Date + '</h4>'
+        tmp += '<h4 class="card-title" data-meet_date =' + room.meet_Date + '>' + meet_date + '</h4>'
         tmp += '</div>'
         tmp += '</div>'
         tmp += '<div class = "rooms-user_cnt" style="display:none;">' + room.user_cnt + '</div>'
@@ -516,6 +763,17 @@
         return tmp + '</div>';
     }
 
+
+    let toHtmlModal = function (list) {
+        let tmp = "<ul>";
+        tmp += '<li class="list-group-item d-flex justify-content-between align-items-center list-group-item-danger">방장: ' + ${roomDto.writer} +'</li>'
+        for (const val in Object.keys(list)) {
+            tmp += '<li class="list-group-item d-flex justify-content-between align-items-center">'
+            tmp += list[val] + '<input class="form-check-input" type="checkbox" name="flexCheckChecked"  value="' + list[val] + '"> </li> ';
+        }
+        return tmp + '</ul>';
+    }
+
     let toHtmlMem = function (list) {
         let tmp = "<ul>";
         tmp += '<li class="list-group-item d-flex justify-content-between align-items-center list-group-item-danger">방장: ' + ${roomDto.writer} +'</li>'
@@ -528,7 +786,7 @@
 
     let toHtmlListNum = function (room) {
         let tmp = '<li class="list-group-item d-flex justify-content-between align-items-center">'
-        tmp += room.user_cnt;
+        tmp += '<div id="totalUserNum">' + room.user_cnt + '</div>';
         tmp += ' / ' + room.user_limit
         return tmp + "</li> ";
 

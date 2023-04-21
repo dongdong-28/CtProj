@@ -25,4 +25,7 @@ public interface BoolDao {
 
     Integer selectBno(BoolDto dto) throws Exception // T selectOne(String statement, Object parameter)
     ;
+
+    List<BoolDto> selectRoomId(Integer room_bno) throws Exception;
+
 }

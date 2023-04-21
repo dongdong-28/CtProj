@@ -237,7 +237,7 @@
             if (confirm("입장하시겠습니까?")) {
                 $.ajax({
                     type: 'POST',       // 요청 메서드
-                    url: '/CtProj/enter/' + bno,  // 요청 URI
+                    url: '/CtProj/enter/',  // 요청 URI
                     headers: {"content-type": "application/json"}, // 요청 헤더
                     data: JSON.stringify({
                         user_id: id,
@@ -314,11 +314,11 @@
 
     });
 
-    let toUserHtml = function (userInfo) {
+    let toUserHtml = function(userInfo){
         let tmp = '<div>'
-        tmp += '닉네임 =' + userInfo.id + '<br>'
-        tmp += '포인트 =' + userInfo.coin + '<br>'
-        tmp += '레벨 =22' + userInfo.level + '<br>'
+        tmp += '닉네임 ='+ userInfo.id+'<br>'
+        tmp += '포인트 ='+ userInfo.coin+'<br>'
+        tmp += '레벨 ='+ Math.floor(userInfo.level)+'<br>'
 
 
         return tmp + '</div>';

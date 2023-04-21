@@ -93,6 +93,13 @@ public class RoomServiceImpl implements RoomService {
     public int modify(RoomDto roomDto) throws Exception {
         return roomDao.update(roomDto);
     }
+
+    @Override       // 나갈때 후기 생성할지 안할지
+    public BoolDto selectReview(Integer roomBno,String userId) throws Exception {
+       return boolDao.select(roomBno,userId);
+
+    }
+
     @Override
     public List<RoomDto> getSearchSelectPage(SearchCondition sc) throws Exception{
         return roomDao.searchSelectPage(sc);

@@ -66,5 +66,9 @@ public class BoolDaoImpl implements BoolDao {
         return session.selectOne(namespace + "selectBno", dto);
     } // T selectOne(String statement, Object parameter)
 
+    @Override
+    public List<BoolDto> selectRoomId(Integer room_bno) throws Exception {
+        return session.selectList(namespace+"selectRoomId",room_bno);
+    }
 
 }

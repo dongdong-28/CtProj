@@ -240,7 +240,7 @@
         let tmp = '<div>'
         tmp += '닉네임 ='+ userInfo.id+'<br>'
         tmp += '포인트 ='+ userInfo.coin+'<br>'
-        tmp += '레벨 =22'+ userInfo.level+'<br>'
+        tmp += '레벨 ='+ Math.floor(userInfo.level)+'<br>'
 
 
         return tmp + '</div>';
@@ -254,7 +254,7 @@
 
         rooms.forEach(function (room) {
             const dateFormat = new Date(room.meet_Date);
-            const meet_date = dateFormat.getFullYear() + '년 ' + (dateFormat.getMonth() + 1) + '월 ' + dateFormat.getDate() + '일';
+            const meet_date = dateFormat.getFullYear() + '년 ' + (dateFormat.getMonth() + 1) + '월 ' + dateFormat.getDate() + '일 '+ dateFormat.getHours()+'시 '+dateFormat.getMinutes()+'분';
             const meetDateFormat = dateFormat.getTime();
 
             tmp += '<div class="col " style="width:100%">'

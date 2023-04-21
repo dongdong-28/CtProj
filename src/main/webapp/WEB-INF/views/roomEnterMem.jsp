@@ -283,7 +283,7 @@
         let tmp = '<div>'
         tmp += '닉네임 ='+ userInfo.id+'<br>'
         tmp += '포인트 ='+ userInfo.coin+'<br>'
-        tmp += '레벨 =22'+ userInfo.level+'<br>'
+        tmp += '레벨 ='+ Math.floor(userInfo.level)+'<br>'
 
 
         return tmp + '</div>';

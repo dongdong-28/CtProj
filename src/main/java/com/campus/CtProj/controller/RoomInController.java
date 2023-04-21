@@ -1,5 +1,6 @@
 package com.campus.CtProj.controller;
 
+import com.campus.CtProj.domain.BoolDto;
 import com.campus.CtProj.domain.RoomDto;
 import com.campus.CtProj.service.EnterService;
 import com.campus.CtProj.service.RoomInService;
@@ -32,7 +33,6 @@ public class RoomInController {
     @Autowired
     EnterService enterService;
 
-
     // 방 입장 상태에서 나가기를 누르면 메인 홈으로 이동하게 한다.
     @PostMapping("/delete/mem")
     public String RemoveMem(HttpSession session, HttpServletRequest request) throws Exception {
@@ -57,6 +57,23 @@ public class RoomInController {
         List<String> list = null;
         try {
             list = enterService.selectRoomId(bno);
+            System.out.println(list);
+            return new ResponseEntity<>(list, HttpStatus.OK);   // 200
+        } catch (Exception e) {
+            e.printStackTrace();
+            return new ResponseEntity<>(list, HttpStatus.BAD_REQUEST);      //400
+        }
+
+    }
+
+    // 후기를 위해서 방안의 유저정보가져옴
+    @GetMapping("/list/mem/review")
+    @ResponseBody public ResponseEntity<List<BoolDto>> getReviewMemList(HttpServletRequest request) throws Exception {
+        Integer roomBno = Integer.parseInt(request.getParameter("bno"));
+        System.out.println("여기도 안드가져?");
+        List<BoolDto> list = null;
+        try {
+            list = roomInService.readReviewUser(roomBno);
             System.out.println(list);
             return new ResponseEntity<>(list, HttpStatus.OK);   // 200
         } catch (Exception e) {
@@ -123,4 +140,23 @@ public class RoomInController {
             return new ResponseEntity<>("MOD_ERR", HttpStatus.BAD_REQUEST);
         }
     }
+
+    // 모임이 끝나고 실제 참여한 인원들 확인버튼 누르기
+    @ResponseBody
+    @PostMapping("/mem/confirm")
+    public ResponseEntity<String> confirm(@RequestBody BoolDto boolDto) throws Exception {
+
+        try {
+            int rowCnt = roomInService.confirmMem(boolDto.getRoom_bno(),boolDto.getUser_id(),1,1);
+
+            if(rowCnt != 1)
+                throw new Exception("Confirm Failed");
+            return new ResponseEntity<>(HttpStatus.OK);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            return new ResponseEntity<>("DEL_ERR",HttpStatus.BAD_REQUEST);
+        }
+    }
+
 }

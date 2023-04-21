@@ -82,12 +82,38 @@ public class RoomInServiceImpl implements RoomInService {
 
     }
 
+    // 모임이 끝나고 실제 참여한 인원들 확인버튼 누르기
+    @Override
+    public int confirmMem(Integer room_bno, String user_id, Integer isReview,Integer isCoinReturn) throws Exception {
+        BoolDto boolDto = boolDao.select(room_bno,user_id);
+        System.out.println(boolDto);
+        try {
+            boolDto.setis_coin_return(isCoinReturn);
+            System.out.println(boolDto);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return 0;
+        }
+
+        return boolDao.update(boolDto);
+
+    }
+
     // 방 번호를 읽으면 입장한 인원들을 보여주는 메서드
     @Override
-    @Transactional(rollbackFor = Exception.class)
     public List<String> readMemId(Integer room_bno) throws Exception {
         return  enterDao.selectRoomId(room_bno);
     }
+
+
+
+    // 방 번호를 읽으면 입장한 인원들을 보여주는 메서드
+    @Override
+    public List<BoolDto> readReviewUser(Integer room_bno) throws Exception {
+        return  boolDao.selectRoomId(room_bno);
+    }
+
+
 
 
     }

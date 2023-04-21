@@ -12,7 +12,7 @@
     </select>
 
     <select id="select" parameterType="map" resultType="BoolDto">
-        SELECT user_id, room_bno, is_coin_return, is_drop, is_review
+        SELECT user_id, room_bno, is_coin_return, is_drop
         FROM user_bool  WHERE user_id = #{user_id} and room_bno = #{room_bno};
     </select>
 
@@ -39,7 +39,7 @@
     </insert>
 
     <select id="selectAll" resultType="BoolDto">
-        SELECT user_id, room_bno, is_coin_return, is_drop, is_review
+        SELECT user_id, room_bno, is_coin_return, is_drop
         FROM user_bool;
     </select>
 
@@ -50,7 +50,6 @@
           , room_bno       = #{room_bno}
           , is_coin_return = #{is_coin_return}
           , is_drop        = #{is_drop}
-          , is_review      = #{is_review}
         WHERE user_id = #{user_id} and room_bno = #{room_bno}
     </update>
 
@@ -60,6 +59,12 @@
         FROM user_bool
         WHERE user_id = #{user_id}
           and room_bno = #{room_bno};
+    </select>
+
+
+    <select id="selectRoomId" parameterType="Integer" resultType="BoolDto">
+        SELECT user_id, room_bno, is_drop, is_coin_return
+        FROM user_bool  WHERE room_bno = #{room_bno};
     </select>
 
 

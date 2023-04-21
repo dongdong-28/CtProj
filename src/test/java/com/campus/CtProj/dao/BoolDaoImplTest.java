@@ -1,7 +1,6 @@
 package com.campus.CtProj.dao;
 
-import com.campus.CtProj.domain.BoardDto;
-import com.campus.CtProj.domain.EnterDto;
+import com.campus.CtProj.domain.BoolDto;
 import com.campus.CtProj.domain.RoomDto;
 import com.campus.CtProj.domain.UserDto;
 import org.junit.Test;
@@ -16,12 +15,12 @@ import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertTrue;
 
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = {"file:src/main/webapp/WEB-INF/spring/root-context.xml"})
-public class RoomDaoImplTest {
+public class BoolDaoImplTest {
 
     @Autowired
     RoomDao roomDao;
@@ -30,6 +29,8 @@ public class RoomDaoImplTest {
     EnterDao enterDao;
     @Autowired
     UserDao userDao;
+    @Autowired
+    BoolDao boolDao;
 
     @Test
     public void count() throws Exception {
@@ -107,11 +108,13 @@ public class RoomDaoImplTest {
 
         @Test
     public void ttest() throws Exception {
-            UserDto userDto = userDao.selectUser("17100999");
-            UserDto userDto2 = userDao.selectUser("17100987");
-            System.out.println(userDto.getLevel());
-            System.out.println(userDto2.getLevel());
+            List<BoolDto> li = boolDao.selectRoomId(401);
+            List<String> lii = enterDao.selectRoomId(401);
+            System.out.println(lii);
+            System.out.println(lii.get(0));
 
+            System.out.println(li);
+            System.out.println(li.get(0));
 
     }
 //

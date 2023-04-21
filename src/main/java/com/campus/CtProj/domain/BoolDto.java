@@ -7,7 +7,6 @@ public class BoolDto {
     private int room_bno;
     private int is_coin_return;
     private int is_drop;
-    private int is_review;
 
     public BoolDto() {}
 
@@ -24,7 +23,6 @@ public class BoolDto {
                 ", room_bno=" + room_bno +
                 ", is_coin_return=" + is_coin_return +
                 ", is_drop=" + is_drop +
-                ", is_review=" + is_review +
                 '}';
     }
 
@@ -66,13 +64,5 @@ public class BoolDto {
 
     public void setis_drop(int is_drop) {
         this.is_drop = is_drop;
-    }
-
-    public int getis_review() {
-        return is_review;
-    }
-
-    public void setis_review(int is_review) {
-        this.is_review = is_review;
     }
 }

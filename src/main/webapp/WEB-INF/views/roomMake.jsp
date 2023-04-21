@@ -199,6 +199,7 @@
         let notice = $(".rooms-notice").val();
         let category = $(".rooms-category").val();
         let user_limit = $(".rooms-user_limit").val();
+        console.log(meet_Date)
 
         if (title.trim() == '' || meet_Date.trim() == '' || meet_place.trim() == '' || notice.trim() == '' || category.trim() == ''|| category.trim() == ''|| user_limit.trim() == '') {     // 공백을 입력할때 주의 주기!!
             alert("다시 입력해주세요");
@@ -280,11 +281,12 @@
 
 
     });
+
     let toUserHtml = function(userInfo){
         let tmp = '<div>'
         tmp += '닉네임 ='+ userInfo.id+'<br>'
         tmp += '포인트 ='+ userInfo.coin+'<br>'
-        tmp += '레벨 =22'+ userInfo.level+'<br>'
+        tmp += '레벨 ='+ Math.floor(userInfo.level)+'<br>'
 
 
         return tmp + '</div>';

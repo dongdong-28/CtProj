@@ -1,5 +1,6 @@
 package com.campus.CtProj.service;
 
+import com.campus.CtProj.domain.BoolDto;
 import com.campus.CtProj.domain.RoomDto;
 import com.campus.CtProj.domain.SearchCondition;
 import org.springframework.web.multipart.MultipartFile;
@@ -31,7 +32,11 @@ public interface RoomService {
     // 방 안에 내용 변경
     int modify(RoomDto roomDto) throws Exception;
 
-    // 검색으로 방 읽기
+    // 방 나갈시에 후기 나올지 안나올지 확인하기
+     BoolDto selectReview(Integer roomBno, String userId) throws Exception;
+
+
+        // 검색으로 방 읽기
      List<RoomDto> getSearchSelectPage(SearchCondition sc) throws Exception;
 
 
