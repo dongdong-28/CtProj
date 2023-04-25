@@ -139,10 +139,7 @@
             </button>
 
 
-            <!--모임확인버튼-->
-            <button type="button" class="btn btn-primary" id="confirmBtn"
-                    style="width:120px;height:50px;margin-left:80%; margin-top:20%;">모임확인
-            </button>
+
 
 
             <!-- 수정버튼-->
@@ -235,33 +232,33 @@
     </div>
 
 
-    <!-- Modal(후기 남기기 화면) -->
-    <div class="modal fade" id="staticBackdropReview" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
-         aria-labelledby="staticBackdropReviewLabel" aria-hidden="true"
-         style="display: block;background: transparent;margin-left: 35%;box-shadow:none;">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content" style="height:700px">
-                <div class="modal-header">
-                    <h5 class="modal-title">후기창1</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true"></span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <fieldset style="padding-left:40px">
+<%--    <!-- Modal(후기 남기기 화면) -->--%>
+<%--    <div class="modal fade" id="staticBackdropReview" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"--%>
+<%--         aria-labelledby="staticBackdropReviewLabel" aria-hidden="true"--%>
+<%--         style="display: block;background: transparent;margin-left: 35%;box-shadow:none;">--%>
+<%--        <div class="modal-dialog" role="document">--%>
+<%--            <div class="modal-content" style="height:700px">--%>
+<%--                <div class="modal-header">--%>
+<%--                    <h5 class="modal-title">후기창1</h5>--%>
+<%--                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">--%>
+<%--                        <span aria-hidden="true"></span>--%>
+<%--                    </button>--%>
+<%--                </div>--%>
+<%--                <div class="modal-body">--%>
+<%--                    <fieldset style="padding-left:40px">--%>
 
 
-                        <div id="roomReviewList" class="wrapInfo"></div>
+<%--                        <div id="roomReviewList" class="wrapInfo"></div>--%>
 
-                    </fieldset>
-                </div>
-                <div class="modal-footer" style="padding-left:40px">
-                    <button type="button" id="reviewBtn" class="btn btn-primary">확인</button>
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">취소하기</button>
-                </div>
-            </div>
-        </div>
-    </div>
+<%--                    </fieldset>--%>
+<%--                </div>--%>
+<%--                <div class="modal-footer" style="padding-left:40px">--%>
+<%--                    <button type="button" id="reviewBtn" class="btn btn-primary">확인</button>--%>
+<%--                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">취소하기</button>--%>
+<%--                </div>--%>
+<%--            </div>--%>
+<%--        </div>--%>
+<%--    </div>--%>
 
 </section>
 
@@ -299,18 +296,18 @@
             }); // $.ajax()
         }
 
-        $.ajax({
-            type: 'GET',       // 요청 메서드
-            url: '/CtProj/room/review/?bno=' +${roomDto.bno},  // 요청 URI
-            async: false,
-            success: function (result) {
-                console.log(result.is_coin_return);
-                $("#roomOutIsCoin").html(toHtmlIsCoinReturn(result));    // 서버로부터 응답이 도착하면 호출될 함수
-            },
-            error: function () {
-                alert("error")
-            } // 에러가 발생했을 때, 호출될 함수
-        }); // $.ajax()
+        <%--$.ajax({--%>
+        <%--    type: 'GET',       // 요청 메서드--%>
+        <%--    url: '/CtProj/room/review/?bno=' +${roomDto.bno},  // 요청 URI--%>
+        <%--    async: false,--%>
+        <%--    success: function (result) {--%>
+        <%--        console.log(result.is_coin_return);--%>
+        <%--        $("#roomOutIsCoin").html(toHtmlIsCoinReturn(result));    // 서버로부터 응답이 도착하면 호출될 함수--%>
+        <%--    },--%>
+        <%--    error: function () {--%>
+        <%--        alert("error")--%>
+        <%--    } // 에러가 발생했을 때, 호출될 함수--%>
+        <%--}); // $.ajax()--%>
 
 
         $.ajax({
@@ -323,6 +320,7 @@
                 console.log(result.meet_Date)
                 cnt = result.user_cnt // 수정할때를 위해서 전역변수로 넘겨준다
                 $("#roomInfo").html(toHtmlRoomInfo(result));    // 서버로부터 응답이 도착하면 호출될 함수
+                $("#roomOutIsCoin").html(toHtmlIsCoinReturn(result));    // 서버로부터 응답이 도착하면 호출될 함수
             },
             error: function () {
                 alert("error")
@@ -343,16 +341,16 @@
             } // 에러가 발생했을 때, 호출될 함수
         }); // $.ajax()
 
-        $.ajax({
-            type: 'GET',       // 요청 메서드
-            url: '/CtProj/room_in/list/mem/review?bno=' +${roomDto.bno},  // 요청 URI
-            success: function (result) {
-                $("#roomReviewList").html(toHtmlroomReviewList(result));
-            },
-            error: function () {
-                alert("안됨..")
-            } // 에러가 발생했을 때, 호출될 함수
-        }); // $.ajax()
+        <%--$.ajax({--%>
+        <%--    type: 'GET',       // 요청 메서드--%>
+        <%--    url: '/CtProj/room_in/list/mem/review?bno=' +${roomDto.bno},  // 요청 URI--%>
+        <%--    success: function (result) {--%>
+        <%--        $("#roomReviewList").html(toHtmlroomReviewList(result));--%>
+        <%--    },--%>
+        <%--    error: function () {--%>
+        <%--        alert("안됨..")--%>
+        <%--    } // 에러가 발생했을 때, 호출될 함수--%>
+        <%--}); // $.ajax()--%>
 
         $.ajax({
             type: 'GET',       // 요청 메서드
@@ -465,68 +463,51 @@
         });
 
 
-        $('#reviewBtn').click(function(){
-            let userNum = $("#totalUserNum").text();
-            let reviewArr = []
-            console.log(userNum);
-            for(let i =0;i < userNum;i++){
-                let nameSelect = "chk_info"+i+"";
-                console.log(nameSelect)
-                if($("input:radio[name="+nameSelect+"]:checked")){
-                    reviewArr.push($("input:radio[name="+nameSelect+"]:checked").val());
-                    console.log(reviewArr[i]);
-                }
+        <%--$('#reviewBtn').click(function () {--%>
+        <%--    let userNum = $("#totalUserNum").text();--%>
+        <%--    let bno = ${roomDto.bno};--%>
+        <%--    let reviewKey = []--%>
+        <%--    let reviewValue = []--%>
+        <%--    console.log(userNum);--%>
+        <%--    for (let i = 0; i < userNum - 1; i++) {--%>
+        <%--        let reviewIdArr = {}--%>
+        <%--        let idSelect = "#radioCheckUserId" + i + "";--%>
+        <%--        let nameSelect = "chk_info" + i + "";--%>
+        <%--        console.log(nameSelect)--%>
+        <%--        if ($("input:radio[name=" + nameSelect + "]:checked")) {--%>
+        <%--            reviewKey.push($(idSelect).text());--%>
+        <%--            reviewValue.push($("input:radio[name=" + nameSelect + "]:checked").val());--%>
+        <%--        }--%>
 
-            }
+        <%--    }--%>
 
-            new Promise((succ, fail) => {
-                for (const val in Object.values(user_id)) {
-                    $.ajax({
-                        type: 'POST',       // 요청 메서드
-                        url: '/CtProj/room_in/mem/confirm',  // 요청 URI /ch4/comments?bno=1085 POST
-                        headers: {"content-type": "application/json"}, // 요청 헤더
-                        data: JSON.stringify({
-                            user_id: user_id[val],
-                            room_bno: bno,
-                        }),  // 서버로 전송할 데이터. stringify()로 직렬화 필요.
-                        success: function (result) {
-                            succ(result);
-                            alert("확인이 완료하였습니다.");
-                            showList();
-
-                        },
-                        error: function () {
-                            alert("다시 입력해주세요.")
-                        } // 에러가 발생했을 때, 호출될 함수
-                    }); // $.ajax()
-                }
-            }).then((arg) => {    // 두번째 ajax를 실행한다.
-                console.log(writer)
-                $.ajax({
-                    type: 'POST',       // 요청 메서드
-                    url: '/CtProj/room_in/mem/confirm',  // 요청 URI /ch4/comments?bno=1085 POST
-                    headers: {"content-type": "application/json"}, // 요청 헤더
-                    data: JSON.stringify({
-                        user_id: writer,
-                        room_bno: bno,
-                    }),  // 서버로 전송할 데이터. stringify()로 직렬화 필요.
-                    success: function (result) {
-                        succ(result);
-                        alert("작성자도 확인이 완료하였습니다.");
-                        showList();
-
-                    },
-                    error: function () {
-                        alert("다시 입력해주세요.")
-                    } // 에러가 발생했을 때, 호출될 함수
-                }); // $.ajax()
-                alert("모두 확인이 완료되었습니다.")
-
-            });
+        <%--    console.log(reviewKey)--%>
+        <%--    console.log(reviewValue)--%>
 
 
-        });
+        <%--    $.ajax({--%>
+        <%--        type: 'POST',       // 요청 메서드--%>
+        <%--        url: '/CtProj/room_in/mem/drop/review/' + bno,  // 요청 URI /ch4/comments?bno=1085 POST--%>
+        <%--        // headers: {"content-type": "application/json"}, // 요청 헤더--%>
+        <%--        traditional: true,--%>
+        <%--        data:--%>
+        <%--            {--%>
+        <%--                "reviewKey": reviewKey,--%>
+        <%--                "reviewValue": reviewValue--%>
+        <%--            },  // 서버로 전송할 데이터. stringify()로 직렬화 필요.--%>
+        <%--        success: function (result) {--%>
+        <%--            alert("완료하였습니다.");--%>
+        <%--            window.location.href = 'http://localhost:8080/CtProj/';--%>
 
+
+        <%--        },--%>
+        <%--        error: function () {--%>
+        <%--            alert("왜 실패하지..?")--%>
+        <%--        } // 에러가 발생했을 때, 호출될 함수--%>
+        <%--    });--%>
+
+
+        <%--});--%>
 
 
         $('#drop-Btn').click(function () {
@@ -586,6 +567,8 @@
             } else {
                 return false;
             }
+            user_id.push(writer);
+
             new Promise((succ, fail) => {
                 for (const val in Object.values(user_id)) {
                     $.ajax({
@@ -603,33 +586,25 @@
 
                         },
                         error: function () {
+                            fail("failed..");
                             alert("다시 입력해주세요.")
                         } // 에러가 발생했을 때, 호출될 함수
                     }); // $.ajax()
                 }
             }).then((arg) => {    // 두번째 ajax를 실행한다.
-                console.log(writer)
-                $.ajax({
-                    type: 'POST',       // 요청 메서드
-                    url: '/CtProj/room_in/mem/confirm',  // 요청 URI /ch4/comments?bno=1085 POST
-                    headers: {"content-type": "application/json"}, // 요청 헤더
-                    data: JSON.stringify({
-                        user_id: writer,
-                        room_bno: bno,
-                    }),  // 서버로 전송할 데이터. stringify()로 직렬화 필요.
-                    success: function (result) {
-                        succ(result);
-                        alert("작성자도 확인이 완료하였습니다.");
-                        showList();
-
-                    },
-                    error: function () {
-                        alert("다시 입력해주세요.")
-                    } // 에러가 발생했을 때, 호출될 함수
-                }); // $.ajax()
-                alert("모두 확인이 완료되었습니다.")
-
-            });
+            $.ajax({
+                type: 'DELETE',       // 요청 메서드
+                url: '/CtProj/room_in/mem/confirm/' + bno,  // 요청 URI
+                success: function (result) {
+                    console.log("확인후 나갑니다.")
+                    window.location.href = 'http://localhost:8080/CtProj/';
+                },
+                error: function () {
+                    alert("삭제에 실패하였습니다.")
+                    return false;
+                } // 에러가 발생했을 때, 호출될 함수
+            }); // $.ajax()
+        });
         });
 
         $('#InputDate').daterangepicker({
@@ -646,9 +621,11 @@
         });
     });
 
+
+
     let toUserHtml = function (userInfo) {
         let tmp = '<div>'
-        tmp += '닉네임 =' + userInfo.id + '<br>'
+        tmp += '닉네임 =<div id="userIdInfo">' + userInfo.id + '</div><br>'
         tmp += '포인트 =' + userInfo.coin + '<br>'
         tmp += '레벨 =' + Math.floor(userInfo.level) + '<br>'
 
@@ -665,35 +642,42 @@
     }
 
 
-    let toHtmlroomReviewList = function (list) {
-        let tmp = "<ul>";
+    <%--let toHtmlroomReviewList = function (list) {--%>
+    <%--    let userIdInfo = $("#userIdInfo").text()--%>
+    <%--    let tmp = "<ul>";--%>
+    <%--    console.log(userIdInfo);--%>
+    <%--    for (const val in Object.keys(list)) {--%>
+    <%--        if (list[val].user_id != userIdInfo) {--%>
+    <%--            tmp += '<div class="form-group">'--%>
+    <%--            tmp += '<div id="radioCheckUserId' + val + '">' + list[val].user_id + '</div><br>'--%>
+    <%--            tmp += ' <input type="radio" name="chk_info' + val + '" value="1">별로에요'--%>
+    <%--            tmp += ' <input type="radio" name="chk_info' + val + '" value="2">아쉬워요'--%>
+    <%--            tmp += ' <input type="radio" name="chk_info' + val + '" value="3">보통이에요'--%>
+    <%--            tmp += ' <input type="radio" name="chk_info' + val + '" value="4">좋았어요'--%>
+    <%--            tmp += ' <input type="radio" name="chk_info' + val + '" value="5">최고에요!'--%>
+    <%--            tmp += '</br></div>'--%>
+    <%--        }--%>
 
-        for (const val in Object.keys(list)) {
-            tmp += '<div class="form-group">'
-            tmp += list[val].user_id + '<br>'
-            tmp += ' <input type="radio" name="chk_info' + val + '" value="1">별로에요'
-            tmp += ' <input type="radio" name="chk_info' + val + '" value="2">아쉬워요'
-            tmp += ' <input type="radio" name="chk_info' + val + '" value="3">보통이에요'
-            tmp += ' <input type="radio" name="chk_info' + val + '" value="4">좋았어요'
-            tmp += ' <input type="radio" name="chk_info' + val + '" value="5">최고에요!'
-            tmp += '</br></div>'
-        }
+    <%--    }--%>
 
 
-        <%--tmp += '<li class="list-group-item d-flex justify-content-between align-items-center list-group-item-danger">방장: ' + ${roomDto.writer} +'</li>'--%>
-        <%--for (const val in Object.keys(list)) {--%>
-        <%--    tmp += '<li class="list-group-item d-flex justify-content-between align-items-center">'--%>
-        <%--    tmp += list[val].user_id--%>
-        <%--    tmp += list[val] + '<input class="form-check-input" type="checkbox" name="flexCheckChecked"  value="' + list[val] + '"> </li> ';--%>
-        <%--}--%>
-        return tmp + '</ul>';
-    }
+    <%--    &lt;%&ndash;tmp += '<li class="list-group-item d-flex justify-content-between align-items-center list-group-item-danger">방장: ' + ${roomDto.writer} +'</li>'&ndash;%&gt;--%>
+    <%--    &lt;%&ndash;for (const val in Object.keys(list)) {&ndash;%&gt;--%>
+    <%--    &lt;%&ndash;    tmp += '<li class="list-group-item d-flex justify-content-between align-items-center">'&ndash;%&gt;--%>
+    <%--    &lt;%&ndash;    tmp += list[val].user_id&ndash;%&gt;--%>
+    <%--    &lt;%&ndash;    tmp += list[val] + '<input class="form-check-input" type="checkbox" name="flexCheckChecked"  value="' + list[val] + '"> </li> ';&ndash;%&gt;--%>
+    <%--    &lt;%&ndash;}&ndash;%&gt;--%>
+    <%--    return tmp + '</ul>';--%>
+    <%--}--%>
 
-    let toHtmlIsCoinReturn = function (user) {
-        if (user.is_coin_return == 1) {
-            let tmp = '<button type="button" class="btn btn-outline-primary wrapInfo" data-bs-toggle="modal" data-bs-target="#staticBackdropReview" style="left:40%;top:96%">나가기'
+    let toHtmlIsCoinReturn = function (roomInfo) {
+        const now = new Date();
+        console.log("모임시간"+roomInfo.meet_Date);
+        console.log("현재시간"+now.getTime());
+
+        if (roomInfo.meet_Date < now.getTime()) {
+            let tmp = '<button type="button" class="btn btn-primary" id="confirmBtn" style="width:120px;height:50px;">모임확인'
             return tmp + '</button>';
-
         } else {
             let tmp = '<div class="wrapInfo room-out" style="left:40%;top:96%">'
             return tmp + '</div>';
@@ -764,15 +748,15 @@
     }
 
 
-    let toHtmlModal = function (list) {
-        let tmp = "<ul>";
-        tmp += '<li class="list-group-item d-flex justify-content-between align-items-center list-group-item-danger">방장: ' + ${roomDto.writer} +'</li>'
-        for (const val in Object.keys(list)) {
-            tmp += '<li class="list-group-item d-flex justify-content-between align-items-center">'
-            tmp += list[val] + '<input class="form-check-input" type="checkbox" name="flexCheckChecked"  value="' + list[val] + '"> </li> ';
-        }
-        return tmp + '</ul>';
-    }
+    <%--let toHtmlModal = function (list) {--%>
+    <%--    let tmp = "<ul>";--%>
+    <%--    tmp += '<li class="list-group-item d-flex justify-content-between align-items-center list-group-item-danger">방장: ' + ${roomDto.writer} +'</li>'--%>
+    <%--    for (const val in Object.keys(list)) {--%>
+    <%--        tmp += '<li class="list-group-item d-flex justify-content-between align-items-center">'--%>
+    <%--        tmp += list[val] + '<input class="form-check-input" type="checkbox" name="flexCheckChecked"  value="' + list[val] + '"> </li> ';--%>
+    <%--    }--%>
+    <%--    return tmp + '</ul>';--%>
+    <%--}--%>
 
     let toHtmlMem = function (list) {
         let tmp = "<ul>";
@@ -814,9 +798,8 @@
 
         // Shrink the navbar when page is scrolled
         document.addEventListener('scroll', navbarShrink);
-
-
     });
+
 
 </script>
 <!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *-->

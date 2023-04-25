@@ -17,8 +17,8 @@
 
 
 
-    <delete id="delete" parameterType="map">
-        DELETE FROM room_info WHERE bno = #{bno} and writer = #{writer}
+    <delete id="delete" parameterType="Integer">
+        DELETE FROM room_info WHERE bno = #{bno}
     </delete>
 
     <insert id="insert" parameterType="RoomDto">

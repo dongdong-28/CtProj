@@ -126,7 +126,7 @@ public class RoomController {
     }
 
 
-    // 방을 삭제하는 메서드
+    // 확인 전에 방을 삭제하는 메서드
     // /comments/1?bno=1085         // 이 bno 는 그냥 쿼리스트링
     // {cno} 이거는 밑에 그냥 쿼리스트링으로 한게 아니고 rest 방식으로 한 url의 일부이므로 @PathVariable 을 붙여준다.
     @DeleteMapping("/rooms/{bno}")       // /comments/1 <-- 삭제할 방 번호
@@ -135,7 +135,7 @@ public class RoomController {
         String writer = (String) session.getAttribute("id");
 
         try {
-            int rowCnt = service.remove(bno, writer);
+            int rowCnt = service.remove(bno);
 
             if (rowCnt != 1)
                 throw new Exception("Delete Failed");
@@ -146,6 +146,9 @@ public class RoomController {
             return new ResponseEntity<>("DEL_ERR", HttpStatus.BAD_REQUEST);
         }
     }
+
+
+
 
     //  방안에 내용들을 수정하는 메서드
     @PatchMapping("/rooms/{bno}")   // /ch4/comments/bno PATCH

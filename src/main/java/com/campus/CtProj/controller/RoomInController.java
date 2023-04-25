@@ -19,9 +19,7 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.io.File;
-import java.util.List;
-import java.util.Objects;
-import java.util.UUID;
+import java.util.*;
 
 @Controller
 @RequestMapping("/room_in")
@@ -47,7 +45,7 @@ public class RoomInController {
     public String RemoveHost(HttpSession session, HttpServletRequest request) throws Exception {
         String user_id = (String)session.getAttribute("id");
         Integer room_bno = Integer.parseInt(request.getParameter("room_num"));
-        int rowCnt = roomInService.removeHost(room_bno, user_id);
+        int rowCnt = roomInService.removeHost(room_bno);
         return "redirect:/";
     }
 
@@ -147,7 +145,7 @@ public class RoomInController {
     public ResponseEntity<String> confirm(@RequestBody BoolDto boolDto) throws Exception {
 
         try {
-            int rowCnt = roomInService.confirmMem(boolDto.getRoom_bno(),boolDto.getUser_id(),1,1);
+            int rowCnt = roomInService.confirmMem(boolDto.getRoom_bno(),boolDto.getUser_id(),1);
 
             if(rowCnt != 1)
                 throw new Exception("Confirm Failed");
@@ -156,6 +154,58 @@ public class RoomInController {
         } catch (Exception e) {
             e.printStackTrace();
             return new ResponseEntity<>("DEL_ERR",HttpStatus.BAD_REQUEST);
+        }
+    }
+
+//    // 후기 체크하기
+//    @PostMapping("/mem/drop/review/{bno}")
+//    @ResponseBody
+//    public ResponseEntity<String> modifyReview(@PathVariable Integer bno,String[] reviewKey,String[] reviewValue, HttpSession session) throws Exception {    // 입력한 내용을 받아와야하니깐 CommentDto dto 해줘야한다.
+//        String writer = (String)session.getAttribute("id");
+//        System.out.println(bno+"번호");
+//        System.out.println(reviewKey);
+//        System.out.println(reviewValue);
+//
+//
+//
+//        try {
+//            for(int i =0; i< reviewKey.length;i++){
+//                System.out.println(reviewKey[i] + " : " + reviewValue[i]);
+//                if (roomInService.modifyMemLevel(reviewKey[i],Integer.parseInt(reviewValue[i])) != 1)
+//                    throw new Exception("Modify failed. ");
+//                if (roomInService.removeHost(bno) != 1)
+//                    throw new Exception("Delete failed");
+//            }
+//
+//            return new ResponseEntity<>("MOD_OK", HttpStatus.OK);
+//
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//            return new ResponseEntity<>("MOD_ERR", HttpStatus.BAD_REQUEST);
+//        }
+//    }
+
+
+
+    // 확인 후에 방을 삭제하는 메서드
+    // /comments/1?bno=1085         // 이 bno 는 그냥 쿼리스트링
+    // {cno} 이거는 밑에 그냥 쿼리스트링으로 한게 아니고 rest 방식으로 한 url의 일부이므로 @PathVariable 을 붙여준다.
+    @DeleteMapping("/mem/confirm/{bno}")       // /comments/1 <-- 삭제할 방 번호
+    @ResponseBody
+    public ResponseEntity<String> removeAterConfirm(@PathVariable Integer bno, HttpSession session) throws Exception {
+        System.out.println("확인 후 삭제");
+        String writer = (String) session.getAttribute("id");
+
+        try {
+            int rowCnt = roomInService.removeHostAterConfirm(bno);
+
+            if (rowCnt != 1)
+                throw new Exception("Delete Failed");
+            return new ResponseEntity<>("DEL_OK", HttpStatus.OK);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            return new ResponseEntity<>("DEL_ERR", HttpStatus.BAD_REQUEST);
         }
     }
 

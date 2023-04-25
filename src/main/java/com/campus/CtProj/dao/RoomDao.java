@@ -10,7 +10,7 @@ public interface RoomDao {
     int count() throws Exception;
 
 
-    int delete(Integer bno, String writer) throws Exception;
+    int delete(Integer bno) throws Exception;
 
     int insert(RoomDto dto) throws Exception;
 

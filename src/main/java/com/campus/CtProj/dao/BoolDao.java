@@ -28,4 +28,6 @@ public interface BoolDao {
 
     List<BoolDto> selectRoomId(Integer room_bno) throws Exception;
 
+     List<BoolDto> selectRoomBno(String userId) throws Exception;
+
 }

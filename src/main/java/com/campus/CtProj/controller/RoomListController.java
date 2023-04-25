@@ -1,5 +1,6 @@
 package com.campus.CtProj.controller;
 
+import com.campus.CtProj.domain.BoolDto;
 import com.campus.CtProj.domain.RoomDto;
 import com.campus.CtProj.service.EnterService;
 import com.campus.CtProj.service.RoomInService;
@@ -9,6 +10,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.util.ArrayList;
 import java.util.List;
@@ -18,7 +20,7 @@ import java.util.List;
 @RequestMapping("/list")
 public class RoomListController {
     @Autowired
-    RoomListService service;
+    RoomListService roomListService;
     @Autowired
     RoomInService roomInService;
 
@@ -28,7 +30,7 @@ public class RoomListController {
         List<RoomDto> list_Mem = null;
         String user_id = (String)session.getAttribute("id");
         try {
-            list_Mem =  service.readMem(user_id);
+            list_Mem =  roomListService.readMem(user_id);
             return new ResponseEntity<>(list_Mem, HttpStatus.OK);   // 200
         } catch (Exception e) {
             e.printStackTrace();
@@ -41,7 +43,7 @@ public class RoomListController {
         List<RoomDto> list_Host = null;
         String user_id = (String)session.getAttribute("id");
         try {
-            list_Host =  service.readHost(user_id);
+            list_Host =  roomListService.readHost(user_id);
             return new ResponseEntity<>(list_Host, HttpStatus.OK);   // 200
         } catch (Exception e) {
             e.printStackTrace();
@@ -77,7 +79,7 @@ public class RoomListController {
         String user_id = (String) session.getAttribute("id");
 
         try {
-            int rowCnt = roomInService.removeHost(bno, user_id);
+            int rowCnt = roomInService.removeHost(bno);
 
             if(rowCnt != 1)
                 throw new Exception("Delete Failed");
@@ -97,11 +99,30 @@ public class RoomListController {
         Integer listNum = null;
         String user_id = (String) session.getAttribute("id");
         try {
-            listNum =  service.getCount(user_id);
+            listNum =  roomListService.getCount(user_id);
             return new ResponseEntity<Integer>(listNum, HttpStatus.OK);   // 200
         } catch (Exception e) {
                     e.printStackTrace();
             return new ResponseEntity<Integer>(listNum, HttpStatus.BAD_REQUEST);      //400
+        }
+
+    }
+
+    // 후기를 위해서 방안의 유저정보가져옴
+    @PostMapping("/mem/review")
+    @ResponseBody public ResponseEntity<List<BoolDto>> getReviewList(@RequestBody Integer roomBno,HttpSession session) throws Exception {
+        String userId = (String) session.getAttribute("id");
+
+        System.out.println("여기도 안드가져?");
+        System.out.println(roomBno);
+        List<BoolDto> list = null;
+        try {
+            list = roomListService.readReviewList(roomBno);
+            System.out.println(list);
+            return new ResponseEntity<>(list, HttpStatus.OK);   // 200
+        } catch (Exception e) {
+            e.printStackTrace();
+            return new ResponseEntity<>(list, HttpStatus.BAD_REQUEST);      //400
         }
 
     }

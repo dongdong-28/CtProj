@@ -1,5 +1,6 @@
 package com.campus.CtProj.service;
 
+import com.campus.CtProj.domain.BoolDto;
 import com.campus.CtProj.domain.EnterDto;
 import com.campus.CtProj.domain.RoomDto;
 
@@ -16,4 +17,7 @@ public interface RoomListService {
     List<RoomDto> readMem(String user_id) throws Exception;
 
     List<RoomDto> readHost(String user_id) throws Exception;
-}
+
+     List<BoolDto> readReviewList(Integer roomBno) throws Exception;
+
+    }

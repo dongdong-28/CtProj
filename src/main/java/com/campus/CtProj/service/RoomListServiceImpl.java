@@ -1,7 +1,9 @@
 package com.campus.CtProj.service;
 
+import com.campus.CtProj.dao.BoolDao;
 import com.campus.CtProj.dao.EnterDao;
 import com.campus.CtProj.dao.RoomDao;
+import com.campus.CtProj.domain.BoolDto;
 import com.campus.CtProj.domain.RoomDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -13,11 +15,13 @@ import java.util.List;
 public class RoomListServiceImpl implements RoomListService {
     EnterDao enterDao;
     RoomDao roomDao;
+    BoolDao boolDao;
 
     @Autowired
-    RoomListServiceImpl(EnterDao enterDao, RoomDao roomDao) {
+    RoomListServiceImpl(EnterDao enterDao, RoomDao roomDao,BoolDao boolDao) {
         this.enterDao = enterDao;
         this.roomDao = roomDao;
+        this.boolDao = boolDao;
     }
 
     @Override
@@ -49,6 +53,11 @@ public class RoomListServiceImpl implements RoomListService {
     @Override
     public List<RoomDto> readHost(String user_id) throws Exception {
         return roomDao.selectHostRoom(user_id);
+    }
+
+    @Override
+    public List<BoolDto> readReviewList(Integer roomBno) throws Exception {
+        return boolDao.selectRoomId(roomBno);
     }
 
 

@@ -1,14 +1,8 @@
 package com.campus.CtProj.service;
 
 
-import com.campus.CtProj.dao.RoomDao;
-import com.campus.CtProj.dao.EnterDao;
-import com.campus.CtProj.dao.UserDao;
-import com.campus.CtProj.dao.BoolDao;
-import com.campus.CtProj.domain.BoolDto;
-import com.campus.CtProj.domain.RoomDto;
-import com.campus.CtProj.domain.SearchCondition;
-import com.campus.CtProj.domain.UserDto;
+import com.campus.CtProj.dao.*;
+import com.campus.CtProj.domain.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -29,6 +23,7 @@ public class RoomServiceImpl implements RoomService {
         this.userDao = userDao;
         this.boolDao = boolDao;
 
+
     }
 
 
@@ -40,8 +35,8 @@ public class RoomServiceImpl implements RoomService {
     }
 
     @Override       // 방 삭제
-    public int remove(Integer bno, String writer) throws Exception {
-        return roomDao.delete(bno, writer);
+    public int remove(Integer bno) throws Exception {
+        return roomDao.delete(bno);
     }
 
 

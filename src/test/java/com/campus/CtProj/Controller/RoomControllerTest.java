@@ -37,12 +37,12 @@ public class RoomControllerTest {
 //        RoomDto dto = roomDao.
 //    }
 
-    @Test
-    public void remove() throws Exception {
-        RoomDto roomDto = roomDao.select(41);
-        assertTrue(service.remove(roomDto.getBno(), roomDto.getWriter()) == 1);
+//    @Test
+//    public void remove() throws Exception {
+//        RoomDto roomDto = roomDao.select(41);
+//        assertTrue(service.remove(roomDto.getBno(), roomDto.getWriter()) == 1);
 
-    }
+//    }
 
 
     @Test

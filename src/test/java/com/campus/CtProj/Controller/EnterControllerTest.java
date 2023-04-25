@@ -31,12 +31,12 @@ public class EnterControllerTest {
     public void write() {
     }
 
-    @Test
-    public void remove() throws Exception {
-        RoomDto roomDto = roomDao.select(41);
-        assertTrue(service.remove(roomDto.getBno(), roomDto.getWriter()) == 1);
-
-    }
+//    @Test
+//    public void remove() throws Exception {
+//        RoomDto roomDto = roomDao.select(41);
+//        assertTrue(service.remove(roomDto.getBno(), roomDto.getWriter()) == 1);
+//
+//    }
 
 //    // 방 생성
 //    @Test

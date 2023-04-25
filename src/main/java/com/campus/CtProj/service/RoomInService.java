@@ -14,13 +14,18 @@ public interface RoomInService {
 
     int removeMem(Integer room_bno, String user_id) throws Exception;
 
-    int removeHost(Integer room_bno, String writer) throws Exception;
+    int removeHost(Integer room_bno) throws Exception;
 
     @Transactional(rollbackFor = Exception.class)
     List<String> readMemId(Integer room_bno) throws Exception;
 
-    int confirmMem(Integer room_bno, String user_id, Integer isReview, Integer isCoinReturn) throws Exception;
+    int confirmMem(Integer room_bno, String user_id, Integer isCoinReturn) throws Exception;
 
     List<BoolDto> readReviewUser(Integer room_bno) throws Exception;
+
+    int modifyMemLevel(String user_id, Integer reviewPoint) throws Exception;
+
+     int removeHostAterConfirm(Integer room_bno) throws Exception;
+
 
     }

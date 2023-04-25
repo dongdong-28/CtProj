@@ -71,4 +71,9 @@ public class BoolDaoImpl implements BoolDao {
         return session.selectList(namespace+"selectRoomId",room_bno);
     }
 
+    @Override
+    public List<BoolDto> selectRoomBno(String userId) throws Exception {
+        return session.selectList(namespace+"selectRoomBno",userId);
+    }
+
 }

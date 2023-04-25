@@ -13,7 +13,7 @@ public class UserDto {
     private String password;
     private String nickname;
     private int coin;
-    private float level;
+    private double level;
     private String filename;
     private String filepath;
     @JsonFormat(pattern ="yyyy-MM-dd hh:mm", timezone="Asia/Seoul")
@@ -78,11 +78,11 @@ public class UserDto {
         this.coin = coin;
     }
 
-    public float getLevel() {
+    public double getLevel() {
         return level;
     }
 
-    public void setLevel(float level) {
+    public void setLevel(double level) {
         this.level = level;
     }
 
