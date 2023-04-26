@@ -18,6 +18,8 @@ public interface ReviewDao {
     List<ReviewDto> selectAll() throws Exception // List<E> selectList(String statement)
     ;
 
-    ReviewDto select(Integer bno) throws Exception // T selectOne(String statement, Object parameter)
+     ReviewDto select(Integer room_bno, String user_id) throws Exception;
     ;
+     List<ReviewDto> selectreviewId(Integer bno) throws Exception;
+
 }

@@ -1,5 +1,6 @@
 package com.campus.CtProj.dao;
 
+import com.campus.CtProj.domain.BoolDto;
 import com.campus.CtProj.domain.ReviewDto;
 import com.campus.CtProj.domain.RoomDto;
 import com.campus.CtProj.domain.SearchCondition;
@@ -38,11 +39,19 @@ public class ReviewDaoImpl implements ReviewDao {
         return session.selectList(namespace+"selectAll");
     } // List<E> selectList(String statement)
 
+
     @Override
-    public ReviewDto select(Integer bno) throws Exception {
-        return session.selectOne(namespace + "select", bno);
+    public ReviewDto select(Integer room_bno, String user_id) throws Exception {
+        Map map = new HashMap();
+        map.put("bno", room_bno);
+        map.put("userId", user_id);
+        return session.selectOne(namespace + "select", map);
     } // T selectOne(String statement, Object parameter)
 
+    @Override
+    public List<ReviewDto> selectreviewId(Integer bno) throws Exception {
+        return session.selectList(namespace+"selectreviewId",bno);
+    }
 
 
 }

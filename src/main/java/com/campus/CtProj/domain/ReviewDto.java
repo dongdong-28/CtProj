@@ -9,8 +9,8 @@ import java.util.Objects;
 
 public class ReviewDto {
     private Integer bno;
-    private String UserId;
-    private String title;
+    private String userId;
+    private String reviewTitle;
 
     @DateTimeFormat(pattern = "yyyy-MM-dd hh:mm")
     private Date reviewDate;
@@ -19,9 +19,10 @@ public class ReviewDto {
     private Timestamp reviewRegDate;
 
 
-    public ReviewDto( String userId, String title, Date reviewDate, String reviewPlace) {
-        UserId = userId;
-        this.title = title;
+    public ReviewDto(Integer bno, String userId, String reviewTitle, Date reviewDate, String reviewPlace) {
+        this.bno = bno;
+        this.userId = userId;
+        this.reviewTitle = reviewTitle;
         this.reviewDate = reviewDate;
         this.reviewPlace = reviewPlace;
     }
@@ -30,8 +31,8 @@ public class ReviewDto {
     public String toString() {
         return "ReviewDto{" +
                 "bno=" + bno +
-                ", UserId='" + UserId + '\'' +
-                ", title='" + title + '\'' +
+                ", userId='" + userId + '\'' +
+                ", reviewTitle='" + reviewTitle + '\'' +
                 ", reviewDate=" + reviewDate +
                 ", reviewPlace='" + reviewPlace + '\'' +
                 ", reviewRegDate=" + reviewRegDate +
@@ -47,19 +48,19 @@ public class ReviewDto {
     }
 
     public String getUserId() {
-        return UserId;
+        return userId;
     }
 
     public void setUserId(String userId) {
-        UserId = userId;
+        this.userId = userId;
     }
 
-    public String getTitle() {
-        return title;
+    public String getReviewTitle() {
+        return reviewTitle;
     }
 
-    public void setTitle(String title) {
-        this.title = title;
+    public void setReviewTitle(String reviewTitle) {
+        this.reviewTitle = reviewTitle;
     }
 
     public Date getReviewDate() {

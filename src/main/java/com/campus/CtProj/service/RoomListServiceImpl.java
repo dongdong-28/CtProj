@@ -1,10 +1,10 @@
 package com.campus.CtProj.service;
 
-import com.campus.CtProj.dao.BoolDao;
-import com.campus.CtProj.dao.EnterDao;
-import com.campus.CtProj.dao.RoomDao;
+import com.campus.CtProj.dao.*;
 import com.campus.CtProj.domain.BoolDto;
+import com.campus.CtProj.domain.ReviewDto;
 import com.campus.CtProj.domain.RoomDto;
+import com.campus.CtProj.domain.UserDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -16,12 +16,15 @@ public class RoomListServiceImpl implements RoomListService {
     EnterDao enterDao;
     RoomDao roomDao;
     BoolDao boolDao;
-
+    UserDao userDao;
+    ReviewDao reviewDao;
     @Autowired
-    RoomListServiceImpl(EnterDao enterDao, RoomDao roomDao,BoolDao boolDao) {
+    RoomListServiceImpl(EnterDao enterDao, RoomDao roomDao,BoolDao boolDao,UserDao userDao,ReviewDao reviewDao) {
         this.enterDao = enterDao;
         this.roomDao = roomDao;
         this.boolDao = boolDao;
+        this.userDao = userDao;
+        this.reviewDao = reviewDao;
     }
 
     @Override
@@ -30,10 +33,20 @@ public class RoomListServiceImpl implements RoomListService {
         return  roomDao.countId(user_id)+enterDao.countId(user_id);
     }
 
-//    @Override
-//    public int removeMem(Integer room_bno, String user_id) throws Exception {
-//        return enterDao.delete(room_bno, user_id);
-//    }
+    @Override
+    @Transactional(rollbackFor = Exception.class)
+    public int removeReview(Integer room_bno, String user_id) throws Exception {
+        UserDto userDto = userDao.selectUser(user_id);
+        Integer coin = userDto.getCoin() + 2;
+        userDto.setCoin(coin);
+        try {
+            userDao.updateUser(userDto);
+            return boolDao.delete(room_bno,user_id);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return 0;
+        }
+    }
 
 //    @Override
 //    @Transactional(rollbackFor = Exception.class)
@@ -56,10 +69,16 @@ public class RoomListServiceImpl implements RoomListService {
     }
 
     @Override
-    public List<BoolDto> readReviewList(Integer roomBno) throws Exception {
-        return boolDao.selectRoomId(roomBno);
+    public List<BoolDto> readReviewList(String user_id) throws Exception {
+        return boolDao.selectRoomBno(user_id);
     }
 
+
+    // 방 번호를 읽으면 입장한 인원들을 보여주는 메서드
+    @Override
+    public List<ReviewDto> readReviewUser(Integer room_bno) throws Exception {
+        return reviewDao.selectreviewId(room_bno);
+    }
 
 
 }

@@ -80,23 +80,28 @@ public class RoomInServiceImpl implements RoomInService {
 
     // 모임이 끝나고 실제 참여한 인원들 확인버튼 누르기
     @Override
+    @Transactional(rollbackFor = Exception.class)
     public int confirmMem(Integer room_bno, String user_id, Integer isCoinReturn) throws Exception {
         BoolDto boolDto = boolDao.select(room_bno, user_id);
         RoomDto roomDto = roomDao.select(room_bno);
+        ReviewDto reviewDto = new ReviewDto(room_bno,user_id,roomDto.getTitle(),roomDto.getMeet_Date(),roomDto.getMeet_place());
         System.out.println(boolDto);
+        System.out.println("reviewDto = " + reviewDto);
         try {
             boolDto.setIs_coin_return(isCoinReturn);
             boolDto.setReview_title(roomDto.getTitle());
             boolDto.setReview_date(roomDto.getMeet_Date());
             boolDto.setReview_place(roomDto.getMeet_place());
+
             System.out.println(boolDto);
+            reviewDao.insert(reviewDto);
+            return boolDao.update(boolDto);
 
         } catch (Exception e) {
             e.printStackTrace();
             return 0;
         }
 
-        return boolDao.update(boolDto);
 
     }
 
