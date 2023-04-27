@@ -143,10 +143,9 @@
 
 
             <!-- 수정버튼-->
-            <button type="button" id="btn-mod" class="btn btn-outline-primary wrapInfo" data-bs-toggle="modal"
-                    data-bs-target="#staticBackdrop" style="width:80px;height:50px;left:80%; top:96%;">수정
-            </button>
+<%--            <button type="button" id="openModalBtn" class="btn btn-outline-primary wrapInfo" style="width:80px;height:50px;left:80%; top:96%;">수정</button>--%>
 
+            <button type="button" id="openModalBtn" class="btn btn-outline-primary"  style="width:120px;height:50px;margin-left:80%; top:96%;">수정하기</button>
 
             <!-- 나가기버튼-->
             <div id="roomOutIsCoin" class="wrapInfo" style="left:40%;top:96%"></div>
@@ -155,74 +154,72 @@
     </div>
 
 
-    <!-- Modal(수정화면) -->
-    <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
-         aria-labelledby="staticBackdropLabel" aria-hidden="true"
-         style="display: block;background: transparent;margin-left: 35%;box-shadow:none;">
-        <div class="modal-dialog" role="document">
+
+    <!-- Modal -->
+    <div class="modal fade" id="modModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+         aria-hidden="true">
+        <div class="modal-dialog " role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title">수정창</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
+                    <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                    <button type="button" class="btn-close closeModalBtn" data-bs-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true"></span>
                     </button>
                 </div>
-                <div class="modal-body">
-                    <fieldset style="padding-left:40px">
-                        <div class="form-group">
-                            <label for="InputTitle" class="form-label mt-4">제목</label>
-                            <input type="text" class="form-control rooms-title" id="InputTitle"
-                                   value="${roomDto.title}">
-                        </div>
-                        <div class="form-group">
-                            <label for="img_file" class="form-label mt-4">사진</label>
-                            <input class="form-control rooms-picture" type="file" name="file" id="img_file"
-                                   placeholder="입력해주세요">
+                    <div class="modal-body">
+                            <div class="form-group">
+                                <label for="InputTitle" class="form-label mt-4">제목</label>
+                                <input type="text" class="form-control rooms-title" id="InputTitle"
+                                       value="${roomDto.title}">
+                            </div>
+                            <div class="form-group">
+                                <label for="img_file" class="form-label mt-4">사진</label>
+                                <input class="form-control rooms-picture" type="file" name="file" id="img_file"
+                                       placeholder="입력해주세요">
 
-                        </div>
+                            </div>
 
-                        <div class="form-group">
-                            <label for="InputDate" class="form-label mt-4">만날 시간</label>
-                            <input type="text" class="form-control rooms-meet_Date" id="InputDate"
-                                   aria-describedby="emailHelp" value=""/>
-                            <small id="emailHelp" class="form-text text-muted">ex) 2022-12-10 </small>
-                        </div>
-                        <div class="form-group">
-                            <label for="InputPlace" class="form-label mt-4">만날 장소</label>
-                            <input type="text" class="form-control rooms-meet_place" id="InputPlace"
-                                   value="${roomDto.meet_place}">
-                        </div>
-                        <div class="form-group">
-                            <label for="InputNotice" class="form-label mt-4">공지사항</label>
-                            <input type="text" class="form-control rooms-notice" id="InputNotice"
-                                   value="${roomDto.notice}">
-                        </div>
-                        <div class="form-group">
-                            <label for="InputCategory" class="form-label mt-4">카테고리</label>
-                            <select name="Category" id="InputCategory" class="form-group rooms-category">
-                                <option value="식사">식사</option>
-                                <option value="공부" selected>공부</option>
-                                <option value="운동">운동</option>
-                                <option value="여행">여행</option>
-                                <option value="거래">거래</option>
-                                <option value="기타">기타</option>
-                            </select>
+                            <div class="form-group">
+                                <label for="InputDate" class="form-label mt-4">만날 시간</label>
+                                <input type="text" class="form-control rooms-meet_Date" id="InputDate"
+                                       aria-describedby="emailHelp" value=""/>
+                                <small id="emailHelp" class="form-text text-muted">ex) 2022-12-10 </small>
+                            </div>
+                            <div class="form-group">
+                                <label for="InputPlace" class="form-label mt-4">만날 장소</label>
+                                <input type="text" class="form-control rooms-meet_place" id="InputPlace"
+                                       value="${roomDto.meet_place}">
+                            </div>
+                            <div class="form-group">
+                                <label for="InputNotice" class="form-label mt-4">공지사항</label>
+                                <input type="text" class="form-control rooms-notice" id="InputNotice"
+                                       value="${roomDto.notice}">
+                            </div>
+                            <div class="form-group">
+                                <label for="InputCategory" class="form-label mt-4">카테고리</label>
+                                <select name="Category" id="InputCategory" class="form-group rooms-category">
+                                    <option value="식사">식사</option>
+                                    <option value="공부" selected>공부</option>
+                                    <option value="운동">운동</option>
+                                    <option value="여행">여행</option>
+                                    <option value="거래">거래</option>
+                                    <option value="기타">기타</option>
+                                </select>
 
-                        </div>
-                        <div class="form-group">
-                            <label for="InputLimit" class="form-label mt-4">제한 인원</label>
-                            <select name="limit" id="InputLimit" class="form-group rooms-user_limit">
-                                <option value="2">2명</option>
-                                <option value="3">3명</option>
-                                <option value="4">4명</option>
-                                <option value="5">5명</option>
-                                <option value="6">6명</option>
-                                <option value="7">7명</option>
-                                <option value="8">8명</option>
-                            </select>
-                        </div>
-                    </fieldset>
-                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="InputLimit" class="form-label mt-4">제한 인원</label>
+                                <select name="limit" id="InputLimit" class="form-group rooms-user_limit">
+                                    <option value="2">2명</option>
+                                    <option value="3">3명</option>
+                                    <option value="4">4명</option>
+                                    <option value="5">5명</option>
+                                    <option value="6">6명</option>
+                                    <option value="7">7명</option>
+                                    <option value="8">8명</option>
+                                </select>
+                            </div>
+                    </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-primary" id="Mod-Btn">변경하기</button>
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">취소하기</button>
@@ -230,6 +227,82 @@
             </div>
         </div>
     </div>
+
+<%--    <!-- Modal(수정화면) -->--%>
+<%--    <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"--%>
+<%--         aria-labelledby="staticBackdropLabel" aria-hidden="true"--%>
+<%--         style="display: block;background: transparent;margin-left: 35%;box-shadow:none;">--%>
+<%--        <div class="modal-dialog" role="document">--%>
+<%--            <div class="modal-content">--%>
+<%--                <div class="modal-header">--%>
+<%--                    <h5 class="modal-title">수정창</h5>--%>
+<%--                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">--%>
+<%--                        <span aria-hidden="true"></span>--%>
+<%--                    </button>--%>
+<%--                </div>--%>
+<%--                <div class="modal-body">--%>
+<%--                    <fieldset style="padding-left:40px">--%>
+<%--                        <div class="form-group">--%>
+<%--                            <label for="InputTitle" class="form-label mt-4">제목</label>--%>
+<%--                            <input type="text" class="form-control rooms-title" id="InputTitle"--%>
+<%--                                   value="${roomDto.title}">--%>
+<%--                        </div>--%>
+<%--                        <div class="form-group">--%>
+<%--                            <label for="img_file" class="form-label mt-4">사진</label>--%>
+<%--                            <input class="form-control rooms-picture" type="file" name="file" id="img_file"--%>
+<%--                                   placeholder="입력해주세요">--%>
+
+<%--                        </div>--%>
+
+<%--                        <div class="form-group">--%>
+<%--                            <label for="InputDate" class="form-label mt-4">만날 시간</label>--%>
+<%--                            <input type="text" class="form-control rooms-meet_Date" id="InputDate"--%>
+<%--                                   aria-describedby="emailHelp" value=""/>--%>
+<%--                            <small id="emailHelp" class="form-text text-muted">ex) 2022-12-10 </small>--%>
+<%--                        </div>--%>
+<%--                        <div class="form-group">--%>
+<%--                            <label for="InputPlace" class="form-label mt-4">만날 장소</label>--%>
+<%--                            <input type="text" class="form-control rooms-meet_place" id="InputPlace"--%>
+<%--                                   value="${roomDto.meet_place}">--%>
+<%--                        </div>--%>
+<%--                        <div class="form-group">--%>
+<%--                            <label for="InputNotice" class="form-label mt-4">공지사항</label>--%>
+<%--                            <input type="text" class="form-control rooms-notice" id="InputNotice"--%>
+<%--                                   value="${roomDto.notice}">--%>
+<%--                        </div>--%>
+<%--                        <div class="form-group">--%>
+<%--                            <label for="InputCategory" class="form-label mt-4">카테고리</label>--%>
+<%--                            <select name="Category" id="InputCategory" class="form-group rooms-category">--%>
+<%--                                <option value="식사">식사</option>--%>
+<%--                                <option value="공부" selected>공부</option>--%>
+<%--                                <option value="운동">운동</option>--%>
+<%--                                <option value="여행">여행</option>--%>
+<%--                                <option value="거래">거래</option>--%>
+<%--                                <option value="기타">기타</option>--%>
+<%--                            </select>--%>
+
+<%--                        </div>--%>
+<%--                        <div class="form-group">--%>
+<%--                            <label for="InputLimit" class="form-label mt-4">제한 인원</label>--%>
+<%--                            <select name="limit" id="InputLimit" class="form-group rooms-user_limit">--%>
+<%--                                <option value="2">2명</option>--%>
+<%--                                <option value="3">3명</option>--%>
+<%--                                <option value="4">4명</option>--%>
+<%--                                <option value="5">5명</option>--%>
+<%--                                <option value="6">6명</option>--%>
+<%--                                <option value="7">7명</option>--%>
+<%--                                <option value="8">8명</option>--%>
+<%--                            </select>--%>
+<%--                        </div>--%>
+<%--                    </fieldset>--%>
+<%--                </div>--%>
+<%--                <div class="modal-footer">--%>
+<%--                    <button type="button" class="btn btn-primary" id="Mod-Btn">변경하기</button>--%>
+<%--                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">취소하기</button>--%>
+<%--                </div>--%>
+<%--            </div>--%>
+<%--        </div>--%>
+<%--    </div>--%>
 
 
 <%--    <!-- Modal(후기 남기기 화면) -->--%>
@@ -280,6 +353,15 @@
 
 
     let showList = function () {
+        $('#openModalBtn').click(function (e) {
+            e.preventDefault();
+            $('#modModal').modal("show");
+        });
+        $('.closeModalBtn').on('click', function () {
+            $('#modModal').modal('hide');
+        });
+
+
         let userId = "${loginId}";
         if (userId == '') {
             $("#userInformation").html("로그인해주세요");
@@ -459,7 +541,8 @@
             }
 
             // 모달 창 닫기
-            $('#staticBackdrop').modal('hide');
+            $('#modModal').modal('hide');
+
         });
 
 
