@@ -5500,6 +5500,8 @@ textarea.form-control-lg {
   overflow-x: hidden;
   overflow-y: auto;
   outline: 0;
+  max-width : 800px;
+  height:60%;
 }
 
 .modal-dialog {
@@ -5507,6 +5509,7 @@ textarea.form-control-lg {
   width: auto;
   margin: 0.5rem;
   pointer-events: none;
+  max-width: 800px;
 }
 .modal.fade .modal-dialog {
   transition: transform 0.3s ease-out;
@@ -5615,7 +5618,7 @@ textarea.form-control-lg {
 
 @media (min-width: 576px) {
   .modal-dialog {
-    max-width: 500px;
+    max-width: 800px;
     margin: 1.75rem auto;
   }
 
@@ -5634,7 +5637,7 @@ textarea.form-control-lg {
 @media (min-width: 992px) {
   .modal-lg,
   .modal-xl {
-    max-width: 800px;
+    max-width: 600px;
   }
 }
 @media (min-width: 1200px) {

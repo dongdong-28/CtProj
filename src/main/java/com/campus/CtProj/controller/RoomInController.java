@@ -44,7 +44,7 @@ public class RoomInController {
     @PostMapping("/delete/host")
     public String RemoveHost(HttpSession session, HttpServletRequest request) throws Exception {
         String user_id = (String)session.getAttribute("id");
-        Integer room_bno = Integer.parseInt(request.getParameter("room_num"));
+        Integer room_bno = Integer.parseInt(request.getParameter("room-bno"));
         int rowCnt = roomInService.removeHost(room_bno);
         return "redirect:/";
     }

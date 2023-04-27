@@ -31,7 +31,7 @@
 
     <%--    map 생성--%>
     <script type="text/javascript"
-            src="//dapi.kakao.com/v2/maps/sdk.js?appkey=db8b2358629d0f1e73331408000d8bfd"></script>
+            src="//dapi.kakao.com/v2/maps/sdk.js?appkey=db8b2358629d0f1e73331408000d8bfd&libraries=services"></script>
 
 
     <!-- date range picker 사용위해서-->
@@ -41,7 +41,7 @@
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css"/>
 
     <link rel="stylesheet" type="text/css" href="<c:url value="/css/stylesmainpage.css"/>">
-<%--    <link rel="stylesheet" type="text/css" href="<c:url value="/css/stylesmaintest.css"/>">--%>
+    <%--    <link rel="stylesheet" type="text/css" href="<c:url value="/css/stylesmaintest.css"/>">--%>
 
     <style>
         .form-group {
@@ -93,7 +93,7 @@
                     <img class="img-fluid rounded-circle mb-4" src="https://dummyimage.com/150x150/6c757d/dee2e6.jpg"
                          alt="..."/>
                     <!-- 유저정보-->
-                    <div><p id = userInformation class="text-white-50 mb-0"
+                    <div><p id=userInformation class="text-white-50 mb-0"
                             style="width: 182px;height: 72px;font-size: inherit;"></p></div>
                 </div>
             </div>
@@ -104,8 +104,8 @@
 </header>
 <!-- Section-->
 <section class="py-5 page-section">
-<%--    enctype="multipart/form-data"--%>
-    <form action="/CtProj/room" method="post" onsubmit="return sub()"  enctype="multipart/form-data" >
+    <%--    enctype="multipart/form-data"--%>
+    <form action="/CtProj/room" method="post" onsubmit="return inputData()" enctype="multipart/form-data">
         <fieldset style="padding-left:40px">
             <div class="form-group">
                 <label for="InputTitle" class="form-label mt-4">제목</label>
@@ -127,15 +127,18 @@
             </div>
 
             <div class="form-group">
-<%--                <label for="InputPlace" class="form-label mt-4">만날 장소</label>--%>
-<%--                <input type="text" class="form-control rooms-meet_place" name="meet_place" id="InputPlace"--%>
-<%--                       placeholder="입력해주세요">--%>
-<%--                <div id="map" style="width:100%;height:350px;"></div>--%>
+                <%--                <label for="InputPlace" class="form-label mt-4">만날 장소</label>--%>
+                <%--                <input type="text" class="form-control rooms-meet_place" name="meet_place" id="InputPlace"--%>
+                <%--                       placeholder="입력해주세요">--%>
+                <%--                <div id="map" style="width:100%;height:350px;"></div>--%>
 
-                <label for="InputPlace" class="form-label mt-4">만날 지역</label>
-                <input type="text" class="form-control rooms-meet_place" name="meet_place" id="InputPlace" placeholder="입력해주세요">
-                <label for="InputPlaceRoad" class="form-label mt-4">만날 장소</label>
-                <input type="text" class="form-control rooms-meet_place" name="meet_place" id="InputPlaceRoad" placeholder="입력해주세요">
+                <label for="InputPlaceRoad" class="form-label mt-4">모임 주소</label>
+                <input type="text" class="form-control rooms-meet_place_road" name="meet_place_road" id="InputPlaceRoad"
+                       placeholder="입력해주세요">
+                <label for="InputPlace" class="form-label mt-4">모임 장소</label>
+                <input type="text" class="form-control rooms-meet_place" name="meet_place" id="InputPlace"
+                       placeholder="입력해주세요">
+
             </div>
             <div class="form-group">
                 <label for="InputNotice" class="form-label mt-4">공지사항</label>
@@ -174,7 +177,7 @@
             <%--            <button id="sendBtn" class ="btn btn-primary" type="button">등록하기</button>--%>
 
         </fieldset>
-        <input type = "submit" value = "등록하기" class="btn btn-primary"/>
+        <input type="submit" value="등록하기" class="btn btn-primary"/>
     </form>
 
     <div class="map_wrap">
@@ -184,7 +187,7 @@
             <div class="option">
                 <div>
                     <form onsubmit="searchPlaces(); return false;">
-                        키워드 : <input type="text" value="이태원 맛집" id="keyword" size="15">
+                        키워드 : <input type="text" value="" id="keyword" size="15">
                         <button type="submit">검색하기</button>
                     </form>
                 </div>
@@ -213,17 +216,18 @@
 <!-- Core theme JS-->
 <script>
 
-    function sub() {
+    function inputData() {
         let title = $(".rooms-title").val();
         let meet_Date = $(".rooms-meet_Date").val();
         console.log(meet_Date);
         let meet_place = $(".rooms-meet_place").val();
+        let meet_place_road = $(".rooms-meet_place_road").val();
         let notice = $(".rooms-notice").val();
         let category = $(".rooms-category").val();
         let user_limit = $(".rooms-user_limit").val();
         console.log(meet_Date)
 
-        if (title.trim() == '' || meet_Date.trim() == '' || meet_place.trim() == '' || notice.trim() == '' || category.trim() == ''|| category.trim() == ''|| user_limit.trim() == '') {     // 공백을 입력할때 주의 주기!!
+        if (title.trim() == '' || meet_Date.trim() == '' || meet_place.trim() == '' || notice.trim() == '' || category.trim() == '' || category.trim() == '' || user_limit.trim() == '') {     // 공백을 입력할때 주의 주기!!
             alert("다시 입력해주세요");
             return false;
         }
@@ -232,10 +236,9 @@
     let showList = function () {
 
         let userId = "${loginId}";
-        if(userId == ''){
+        if (userId == '') {
             $("#userInformation").html("로그인해주세요");
-        }
-        else {
+        } else {
             $.ajax({
                 type: 'GET',       // 요청 메서드
                 url: '/CtProj/login/user',  // 요청 URI
@@ -252,10 +255,11 @@
     }
 
 
-        $(document).ready(function () {
-            showList();
+    $(document).ready(function () {
+        showList();
 
-            // $("#sendBtn").click(function () {
+
+        // $("#sendBtn").click(function () {
 
         //     $.ajax({
         //         type: 'POST',       // 요청 메서드
@@ -304,11 +308,11 @@
 
     });
 
-    let toUserHtml = function(userInfo){
+    let toUserHtml = function (userInfo) {
         let tmp = '<div>'
-        tmp += '닉네임 ='+ userInfo.id+'<br>'
-        tmp += '포인트 ='+ userInfo.coin+'<br>'
-        tmp += '레벨 ='+ Math.floor(userInfo.level)+'<br>'
+        tmp += '닉네임 =' + userInfo.id + '<br>'
+        tmp += '포인트 =' + userInfo.coin + '<br>'
+        tmp += '레벨 =' + Math.floor(userInfo.level) + '<br>'
 
 
         return tmp + '</div>';
@@ -340,32 +344,34 @@
 
     });
 
+    <!--for Map-->
 
     // 마커를 담을 배열입니다
-    let markers = [];
+    var markers = [];
 
-    const mapContainer = document.getElementById('map'), // 지도를 표시할 div
+    var mapContainer = document.getElementById('map'), // 지도를 표시할 div
         mapOption = {
             center: new kakao.maps.LatLng(37.566826, 126.9786567), // 지도의 중심좌표
             level: 3 // 지도의 확대 레벨
         };
 
     // 지도를 생성합니다
-    const map = new kakao.maps.Map(mapContainer, mapOption);
+    var map = new kakao.maps.Map(mapContainer, mapOption);
 
     // 장소 검색 객체를 생성합니다
-    const ps = new kakao.maps.services.Places();
+    var ps = new kakao.maps.services.Places();
 
     // 검색 결과 목록이나 마커를 클릭했을 때 장소명을 표출할 인포윈도우를 생성합니다
-    const infowindow = new kakao.maps.InfoWindow({zIndex: 1});
+    var infowindow = new kakao.maps.InfoWindow({zIndex: 1});
 
     // 키워드로 장소를 검색합니다
-    searchPlaces();
+    // searchPlaces();
 
     // 키워드 검색을 요청하는 함수입니다
     function searchPlaces() {
 
-        var keyword = document.getElementById('keyword').value;
+        var keyword = $("#keyword").val();
+        var keyword2 = document.getElementById('keyword').value;
 
         if (!keyword.replace(/^\s+|\s+$/g, '')) {
             alert('키워드를 입력해주세요!');
@@ -373,7 +379,7 @@
         }
 
         // 장소검색 객체를 통해 키워드로 장소검색을 요청합니다
-        ps.keywordSearch( keyword, placesSearchCB);
+        ps.keywordSearch(keyword, placesSearchCB);
     }
 
     // 장소검색이 완료됐을 때 호출되는 콜백함수 입니다
@@ -415,7 +421,7 @@
         // 지도에 표시되고 있는 마커를 제거합니다
         removeMarker();
 
-        for ( var i=0; i<places.length; i++ ) {
+        for (var i = 0; i < places.length; i++) {
 
             // 마커를 생성하고 지도에 표시합니다
             var placePosition = new kakao.maps.LatLng(places[i].y, places[i].x),
@@ -429,14 +435,14 @@
             // 마커와 검색결과 항목에 mouseover 했을때
             // 해당 장소에 인포윈도우에 장소명을 표시합니다
             // mouseout 했을 때는 인포윈도우를 닫습니다
-            (function(marker, title) {
-                kakao.maps.event.addListener(marker, 'click', function() {
+            (function (marker, title) {
+                kakao.maps.event.addListener(marker, 'click', function () {
                     displayInfowindow(marker, title);
                     // document.getElementById('InputPlace').value = places[i].place_name;
                     // document.getElementById('InputPlaceRoad').value = places[i].road_address_name;
                 });
 
-                kakao.maps.event.addListener(marker, 'mouseout', function() {
+                kakao.maps.event.addListener(marker, 'mouseout', function () {
                     infowindow.close();
                 });
 
@@ -446,13 +452,35 @@
                 // });
                 // });
 
-                itemEl.onclick =  function () {
+                itemEl.onclick = function () {
                     displayInfowindow(marker, title);
-                    document.getElementById('InputPlace').value = places[1].place_name;
-                    document.getElementById('InputPlaceRoad').value = places[1].road_address_name;
+
+                    console.log("hello")
+                    let placeInfo = $(this).children().attr("class");
+                    let inx = placeInfo.charAt(placeInfo.length - 1) - 1;
+                    let inxt = placeInfo.substring(placeInfo.length - 2, placeInfo.length - 1);
+                    console.log(placeInfo)
+                    console.log(inx)
+                    console.log(inxt)
+                    if (inxt == '1') {
+                        let inxO = placeInfo.substring(placeInfo.length - 2, placeInfo.length) - 1;
+                        document.getElementById('InputPlace').value = places[inxO].place_name;
+                        if (places[inxO].road_address_name)
+                            document.getElementById('InputPlaceRoad').value = places[inxO].road_address_name;
+                        else
+                            document.getElementById('InputPlaceRoad').value = places[inxO].address_name;
+
+                    } else {
+                        document.getElementById('InputPlace').value = places[inx].place_name;
+                        if (places[inx].road_address_name)
+                            document.getElementById('InputPlaceRoad').value = places[inx].road_address_name;
+                        else
+                            document.getElementById('InputPlaceRoad').value = places[inx].address_name;
+                    }
+
                 };
 
-                itemEl.onmouseout =  function () {
+                itemEl.onmouseout = function () {
                     infowindow.close();
                 };
             })(marker, places[i].place_name);
@@ -471,19 +499,32 @@
     // 검색결과 항목을 Element로 반환하는 함수입니다
     function getListItem(index, places) {
 
+        // let tmp = '<li class="item">'
+        // tmp+=  '<span class="markerbg marker_' + (index+1) + '"></span>' +
+        //     '<div class="info">' +
+        //     '   <h5>' + places.place_name + '</h5>';
+        // if (places.road_address_name) {
+        // tmp+= '    <span>' + places.road_address_name + '</span>' +
+        //     '   <span class="jibun gray">' +  places.address_name  + '</span>';
+        // } else {
+        // tmp+='    <span>' +  places.address_name  + '</span>';
+        // }
+        // tmp+= '  <span class="tel">' + places.phone  + '</span>' + '</div>';
+        //
+        // return tmp + '</li>';
+
         var el = document.createElement('li'),
-            itemStr = '<span class="markerbg marker_' + (index+1) + '"></span>' +
-                '<div class="info">' +
+            itemStr = '<span class="markerbg marker_' + (index + 1) + '"></span>' + '<div class="info">' +
                 '   <h5>' + places.place_name + '</h5>';
 
         if (places.road_address_name) {
             itemStr += '    <span>' + places.road_address_name + '</span>' +
-                '   <span class="jibun gray">' +  places.address_name  + '</span>';
+                '   <span class="jibun gray">' + places.address_name + '</span>';
         } else {
-            itemStr += '    <span>' +  places.address_name  + '</span>';
+            itemStr += '    <span>' + places.address_name + '</span>';
         }
 
-        itemStr += '  <span class="tel">' + places.phone  + '</span>' +
+        itemStr += '  <span class="tel">' + places.phone + '</span>' +
             '</div>';
 
         el.innerHTML = itemStr;
@@ -498,9 +539,9 @@
     function addMarker(position, idx, title) {
         var imageSrc = 'https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/marker_number_blue.png', // 마커 이미지 url, 스프라이트 이미지를 씁니다
             imageSize = new kakao.maps.Size(36, 37),  // 마커 이미지의 크기
-            imgOptions =  {
-                spriteSize : new kakao.maps.Size(36, 691), // 스프라이트 이미지의 크기
-                spriteOrigin : new kakao.maps.Point(0, (idx*46)+10), // 스프라이트 이미지 중 사용할 영역의 좌상단 좌표
+            imgOptions = {
+                spriteSize: new kakao.maps.Size(36, 691), // 스프라이트 이미지의 크기
+                spriteOrigin: new kakao.maps.Point(0, (idx * 46) + 10), // 스프라이트 이미지 중 사용할 영역의 좌상단 좌표
                 offset: new kakao.maps.Point(13, 37) // 마커 좌표에 일치시킬 이미지 내에서의 좌표
             },
             markerImage = new kakao.maps.MarkerImage(imageSrc, imageSize, imgOptions),
@@ -518,7 +559,7 @@
 
     // 지도 위에 표시되고 있는 마커를 모두 제거합니다
     function removeMarker() {
-        for ( var i = 0; i < markers.length; i++ ) {
+        for (var i = 0; i < markers.length; i++) {
             markers[i].setMap(null);
         }
         markers = [];
@@ -532,19 +573,19 @@
 
         // 기존에 추가된 페이지번호를 삭제합니다
         while (paginationEl.hasChildNodes()) {
-            paginationEl.removeChild (paginationEl.lastChild);
+            paginationEl.removeChild(paginationEl.lastChild);
         }
 
-        for (i=1; i<=pagination.last; i++) {
+        for (i = 1; i <= pagination.last; i++) {
             var el = document.createElement('a');
             el.href = "#";
             el.innerHTML = i;
 
-            if (i===pagination.current) {
+            if (i === pagination.current) {
                 el.className = 'on';
             } else {
-                el.onclick = (function(i) {
-                    return function() {
+                el.onclick = (function (i) {
+                    return function () {
                         pagination.gotoPage(i);
                     }
                 })(i);
@@ -567,15 +608,10 @@
     // 검색결과 목록의 자식 Element를 제거하는 함수입니다
     function removeAllChildNods(el) {
         while (el.hasChildNodes()) {
-            el.removeChild (el.lastChild);
+            el.removeChild(el.lastChild);
         }
+
     }
-</script>
-
-<!--for Map-->
-
-<script>
-
 </script>
 
 
