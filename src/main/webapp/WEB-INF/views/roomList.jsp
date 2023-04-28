@@ -252,26 +252,25 @@
         showList();
 
 
-            $("#reviewList").on("click", ".reveiwMemBtn", function () {
-                $('#reviewModal').modal("show");
-                let reviewRoomBno = $(this).parent().parent().attr("data-reviewBno");
-                console.log(reviewRoomBno);
+        $("#reviewList").on("click", ".reveiwMemBtn", function () {
+            $('#reviewModal').modal("show");
+            let reviewRoomBno = $(this).parent().parent().attr("data-reviewBno");
+            console.log(reviewRoomBno);
 
-                $.ajax({
-                    type: 'GET',       // 요청 메서드
-                    url: '/CtProj/list/review/mem?bno='+reviewRoomBno,   // 요청 URI /ch4/comments?bno=1085 POST
-                    headers: {"content-type": "application/json"}, // 요청 헤더
-                    success: function (result) {
-                        alert("확인이 완료하였습니다.");
-                        $("#roomReviewList").html(toHtmlroomReviewList(result,reviewRoomBno));
+            $.ajax({
+                type: 'GET',       // 요청 메서드
+                url: '/CtProj/list/review/mem?bno=' + reviewRoomBno,   // 요청 URI /ch4/comments?bno=1085 POST
+                headers: {"content-type": "application/json"}, // 요청 헤더
+                success: function (result) {
+                    $("#roomReviewList").html(toHtmlroomReviewList(result, reviewRoomBno));
 
-                    },
-                    error: function () {
-                        fail("failed..");
-                    } // 에러가 발생했을 때, 호출될 함수
-                }); // $.ajax()
+                },
+                error: function () {
+                    fail("failed..");
+                } // 에러가 발생했을 때, 호출될 함수
+            }); // $.ajax()
 
-            });
+        });
         // }
 
 
@@ -281,7 +280,7 @@
             let reviewKey = []
             let reviewValue = []
             console.log(userNum);
-            for (let i = 0; i < userNum - 1; i++) {
+            for (let i = 1; i < userNum; i++) {
                 let idSelect = "#radioCheckUserId" + i + "";
                 let nameSelect = "chk_info" + i + "";
                 console.log(nameSelect)
@@ -295,23 +294,23 @@
             console.log(reviewValue)
             new Promise((succ, fail) => {
                 $.ajax({
-                type: 'POST',       // 요청 메서드
-                url: '/CtProj/list/review/mem',  // 요청 URI /ch4/comments?bno=1085 POST
-                // headers: {"content-type": "application/json"}, // 요청 헤더
-                traditional: true,
-                data:
-                    {
-                        "reviewKey": reviewKey,
-                        "reviewValue": reviewValue
-                    },  // 서버로 전송할 데이터. stringify()로 직렬화 필요.
-                success: function (result) {
-                    succ(result);
-                    alert("후기 완료하였습니다..!!");
-                },
-                error: function () {
-                    alert("왜 실패하지..?")
-                } // 에러가 발생했을 때, 호출될 함수
-            });
+                    type: 'POST',       // 요청 메서드
+                    url: '/CtProj/list/review/mem',  // 요청 URI /ch4/comments?bno=1085 POST
+                    // headers: {"content-type": "application/json"}, // 요청 헤더
+                    traditional: true,
+                    data:
+                        {
+                            "reviewKey": reviewKey,
+                            "reviewValue": reviewValue
+                        },  // 서버로 전송할 데이터. stringify()로 직렬화 필요.
+                    success: function (result) {
+                        succ(result);
+                        alert("후기 완료하였습니다..!!");
+                    },
+                    error: function () {
+                        alert("왜 실패하지..?")
+                    } // 에러가 발생했을 때, 호출될 함수
+                });
             }).then((arg) => {    // 두번째 ajax를 실행한다.
                 $.ajax({
                     type: 'DELETE',       // 요청 메서드
@@ -329,7 +328,7 @@
 
             });
 
-            });
+        });
 
 
         $("#list-mem").on("click", ".delBtn-Mem", function () {
@@ -435,36 +434,36 @@
         let tmp = '<div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">'
 
         reviews.forEach(function (room) {
-            if(room.is_coin_return == 1) {
+            if (room.is_coin_return == 1) {
 
-            const dateFormat = new Date(room.review_date);
-            const meet_date = dateFormat.getFullYear() + '년 ' + (dateFormat.getMonth() + 1) + '월 ' + dateFormat.getDate() + '일 ' + dateFormat.getHours() + '시 ' + dateFormat.getMinutes() + '분';
-            const meetDateFormat = dateFormat.getDate();
+                const dateFormat = new Date(room.review_date);
+                const meet_date = dateFormat.getFullYear() + '년 ' + (dateFormat.getMonth() + 1) + '월 ' + dateFormat.getDate() + '일 ' + dateFormat.getHours() + '시 ' + dateFormat.getMinutes() + '분';
+                const meetDateFormat = dateFormat.getDate();
 
-            tmp += '<div class="col " style="width:100%">'
-            tmp += ' <div class="card border-danger mb-3" style="max-width: 100rem;height: 115px;">'
-            tmp += '      <!-- Product details--> '
-            tmp += '     <div class="card-body">'
-            tmp += '              <!-- Product name-->'
-            tmp += '<ul>'
-            tmp += '<li data-reviewBno=' + room.room_bno + ' style="list-style-type:none;">'
-            // tmp += '방번호= ' + room.bno
-            tmp += ' <h4 class="card-title">' + '제목: <span class="title">' + room.review_title + '</span>' + '</h4>'
-            tmp += '<p class="card-text" style="display: inline-block">'
-            tmp += '날짜: <span class="meet_Date">' + meet_date + '</span><br>'
-            // tmp += '<div data-meetDate="meet_Place" style="display: none">' + meetDateFormat+ '</div><br>'
-            tmp += '장소: <span class="meet_Place">' + room.review_place + '</span><br>'
+                tmp += '<div class="col " style="width:100%">'
+                tmp += ' <div class="card border-danger mb-3" style="max-width: 100rem;height: 115px;">'
+                tmp += '      <!-- Product details--> '
+                tmp += '     <div class="card-body">'
+                tmp += '              <!-- Product name-->'
+                tmp += '<ul>'
+                tmp += '<li data-reviewBno=' + room.room_bno + ' style="list-style-type:none;">'
+                // tmp += '방번호= ' + room.bno
+                tmp += ' <h4 class="card-title">' + '제목: <span class="title">' + room.review_title + '</span>' + '</h4>'
+                tmp += '<p class="card-text" style="display: inline-block">'
+                tmp += '날짜: <span class="meet_Date">' + meet_date + '</span><br>'
+                // tmp += '<div data-meetDate="meet_Place" style="display: none">' + meetDateFormat+ '</div><br>'
+                tmp += '장소: <span class="meet_Place">' + room.review_place + '</span><br>'
 
-            tmp += '</p>'
-            tmp += '      <!-- Product actions-->'
-            tmp += '   <div class="sub" style="position:absolute;top:50%;left:84%">'
-            tmp += ' <button type="button"  class="btn btn-primary reveiwMemBtn" data-bs-toggle="modal" data-bs-target="#reviewModal">후기남기기</button>'
-            tmp += '      </div>'
-            tmp += '</li>'
-            tmp += '</ul>'
-            tmp += '    </div>'
-            tmp += '  </div>'
-            tmp += ' </div>'
+                tmp += '</p>'
+                tmp += '      <!-- Product actions-->'
+                tmp += '   <div class="sub" style="position:absolute;top:50%;left:84%">'
+                tmp += ' <button type="button"  class="btn btn-primary reveiwMemBtn" data-bs-toggle="modal" data-bs-target="#reviewModal">후기남기기</button>'
+                tmp += '      </div>'
+                tmp += '</li>'
+                tmp += '</ul>'
+                tmp += '    </div>'
+                tmp += '  </div>'
+                tmp += ' </div>'
 
             }
         })
@@ -529,13 +528,13 @@
 
     }
 
-    let toHtmlroomReviewList = function (list,reviewRoomBno) {
+    let toHtmlroomReviewList = function (list, reviewRoomBno) {
         let userIdInfo = $("#userIdInfo").text();
         console.log(userIdInfo);
         console.log(reviewRoomBno)
         console.log(list.length)
-        let tmp = '<ul><div class="reviewMemNum" style="display: none">'+list.length+'</div>';
-         tmp += '<div class="reviewRoomBno" style="display: none">'+reviewRoomBno+'</div>';
+        let tmp = '<ul><div class="reviewMemNum" style="display: none">' + list.length + '</div>';
+        tmp += '<div class="reviewRoomBno" style="display: none">' + reviewRoomBno + '</div>';
         for (const val in Object.keys(list)) {
             if (list[val].userId != userIdInfo) {
                 tmp += '<div class="form-group">'

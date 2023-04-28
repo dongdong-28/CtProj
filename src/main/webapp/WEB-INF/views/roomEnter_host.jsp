@@ -61,7 +61,7 @@
         }
 
         .page-section {
-            height: 800px;
+            height: 1300px;
         }
 
         .login-card {
@@ -138,8 +138,8 @@
             </ul>
 
             <!--강퇴버튼-->
-            <button type="button" class="btn btn-primary" id="drop-Btn"
-                    style="width:120px;height:50px;margin-left:80%; margin-top:20%;">강퇴하기
+            <button type="button" class="btn btn-primary wrapInfo" id="drop-Btn"
+                    style="width:120px;height:50px;left:89%;top:66%;">강퇴
             </button>
 
 
@@ -149,10 +149,10 @@
             <!-- 수정버튼-->
 <%--            <button type="button" id="openModalBtn" class="btn btn-outline-primary wrapInfo" style="width:80px;height:50px;left:80%; top:96%;">수정</button>--%>
 
-            <button type="button" id="openModalBtn" class="btn btn-outline-primary"  style="width:120px;height:50px;margin-left:80%; top:96%;">수정하기</button>
+            <button type="button" id="openModalBtn" class="btn btn-outline-primary wrapInfo"  style="width:120px;height:50px;left:89%;top:76%;">수정하기</button>
 
             <!-- 나가기버튼-->
-            <div id="roomOutIsCoin" class="wrapInfo" style="left:40%;top:96%"></div>
+            <div id="roomOutIsCoin" class="wrapInfo" style="left:24%;top:105%"></div>
 
         </div>
     </div>
@@ -261,116 +261,9 @@
         </div>
     </div>
 
-<%--    <!-- Modal(수정화면) -->--%>
-<%--    <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"--%>
-<%--         aria-labelledby="staticBackdropLabel" aria-hidden="true"--%>
-<%--         style="display: block;background: transparent;margin-left: 35%;box-shadow:none;">--%>
-<%--        <div class="modal-dialog" role="document">--%>
-<%--            <div class="modal-content">--%>
-<%--                <div class="modal-header">--%>
-<%--                    <h5 class="modal-title">수정창</h5>--%>
-<%--                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">--%>
-<%--                        <span aria-hidden="true"></span>--%>
-<%--                    </button>--%>
-<%--                </div>--%>
-<%--                <div class="modal-body">--%>
-<%--                    <fieldset style="padding-left:40px">--%>
-<%--                        <div class="form-group">--%>
-<%--                            <label for="InputTitle" class="form-label mt-4">제목</label>--%>
-<%--                            <input type="text" class="form-control rooms-title" id="InputTitle"--%>
-<%--                                   value="${roomDto.title}">--%>
-<%--                        </div>--%>
-<%--                        <div class="form-group">--%>
-<%--                            <label for="img_file" class="form-label mt-4">사진</label>--%>
-<%--                            <input class="form-control rooms-picture" type="file" name="file" id="img_file"--%>
-<%--                                   placeholder="입력해주세요">--%>
-
-<%--                        </div>--%>
-
-<%--                        <div class="form-group">--%>
-<%--                            <label for="InputDate" class="form-label mt-4">만날 시간</label>--%>
-<%--                            <input type="text" class="form-control rooms-meet_Date" id="InputDate"--%>
-<%--                                   aria-describedby="emailHelp" value=""/>--%>
-<%--                            <small id="emailHelp" class="form-text text-muted">ex) 2022-12-10 </small>--%>
-<%--                        </div>--%>
-<%--                        <div class="form-group">--%>
-<%--                            <label for="InputPlace" class="form-label mt-4">만날 장소</label>--%>
-<%--                            <input type="text" class="form-control rooms-meet_place" id="InputPlace"--%>
-<%--                                   value="${roomDto.meet_place}">--%>
-<%--                        </div>--%>
-<%--                        <div class="form-group">--%>
-<%--                            <label for="InputNotice" class="form-label mt-4">공지사항</label>--%>
-<%--                            <input type="text" class="form-control rooms-notice" id="InputNotice"--%>
-<%--                                   value="${roomDto.notice}">--%>
-<%--                        </div>--%>
-<%--                        <div class="form-group">--%>
-<%--                            <label for="InputCategory" class="form-label mt-4">카테고리</label>--%>
-<%--                            <select name="Category" id="InputCategory" class="form-group rooms-category">--%>
-<%--                                <option value="식사">식사</option>--%>
-<%--                                <option value="공부" selected>공부</option>--%>
-<%--                                <option value="운동">운동</option>--%>
-<%--                                <option value="여행">여행</option>--%>
-<%--                                <option value="거래">거래</option>--%>
-<%--                                <option value="기타">기타</option>--%>
-<%--                            </select>--%>
-
-<%--                        </div>--%>
-<%--                        <div class="form-group">--%>
-<%--                            <label for="InputLimit" class="form-label mt-4">제한 인원</label>--%>
-<%--                            <select name="limit" id="InputLimit" class="form-group rooms-user_limit">--%>
-<%--                                <option value="2">2명</option>--%>
-<%--                                <option value="3">3명</option>--%>
-<%--                                <option value="4">4명</option>--%>
-<%--                                <option value="5">5명</option>--%>
-<%--                                <option value="6">6명</option>--%>
-<%--                                <option value="7">7명</option>--%>
-<%--                                <option value="8">8명</option>--%>
-<%--                            </select>--%>
-<%--                        </div>--%>
-<%--                    </fieldset>--%>
-<%--                </div>--%>
-<%--                <div class="modal-footer">--%>
-<%--                    <button type="button" class="btn btn-primary" id="Mod-Btn">변경하기</button>--%>
-<%--                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">취소하기</button>--%>
-<%--                </div>--%>
-<%--            </div>--%>
-<%--        </div>--%>
-<%--    </div>--%>
-
-
-<%--    <!-- Modal(후기 남기기 화면) -->--%>
-<%--    <div class="modal fade" id="staticBackdropReview" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"--%>
-<%--         aria-labelledby="staticBackdropReviewLabel" aria-hidden="true"--%>
-<%--         style="display: block;background: transparent;margin-left: 35%;box-shadow:none;">--%>
-<%--        <div class="modal-dialog" role="document">--%>
-<%--            <div class="modal-content" style="height:700px">--%>
-<%--                <div class="modal-header">--%>
-<%--                    <h5 class="modal-title">후기창1</h5>--%>
-<%--                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">--%>
-<%--                        <span aria-hidden="true"></span>--%>
-<%--                    </button>--%>
-<%--                </div>--%>
-<%--                <div class="modal-body">--%>
-<%--                    <fieldset style="padding-left:40px">--%>
-
-
-<%--                        <div id="roomReviewList" class="wrapInfo"></div>--%>
-
-<%--                    </fieldset>--%>
-<%--                </div>--%>
-<%--                <div class="modal-footer" style="padding-left:40px">--%>
-<%--                    <button type="button" id="reviewBtn" class="btn btn-primary">확인</button>--%>
-<%--                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">취소하기</button>--%>
-<%--                </div>--%>
-<%--            </div>--%>
-<%--        </div>--%>
-<%--    </div>--%>
+<%--    <div style="width: 60%;" id="ww_1f8f1284a9686" v='1.3' loc='id' a='{"t":"responsive","lang":"ko","sl_lpl":1,"ids":["wl4479"],"font":"Arial","sl_ics":"one_a","sl_sot":"celsius","cl_bkg":"rgba(246,247,243,1)","cl_font":"#000000","cl_cloud":"#d4d4d4","cl_persp":"#2196F3","cl_sun":"#FFC107","cl_moon":"#FFC107","cl_thund":"#FF5722","sl_tof":"7","cl_odd":"#00000000","el_nme":3}'>Weather Data Source: <a href="https://wetterlang.de/seoul_wetter_30_tage/" id="ww_1f8f1284a9686_u" target="_blank">wetterlang.de/seoul_wetter_30_tage/</a></div><script async src="https://app1.weatherwidget.org/js/?id=ww_1f8f1284a9686"></script>--%>
 
 </section>
-
-
-<!-- About-->
-
 <footer class="bg-light py-5">
     <div class="container px-4 px-lg-5">
         <div class="small text-center text-muted">Copyright &copy; 2022 - Company Name</div>
@@ -757,7 +650,7 @@
 
     let toUserHtml = function (userInfo) {
         let tmp = '<div>'
-        tmp += '닉네임 =<div id="userIdInfo">' + userInfo.id + '</div><br>'
+        tmp += '닉네임 =' + userInfo.id + '<br>'
         tmp += '포인트 =' + userInfo.coin + '<br>'
         tmp += '레벨 =' + Math.floor(userInfo.level) + '<br>'
 
@@ -768,7 +661,7 @@
     let toHtmlRoomOut = function () {
         let tmp = '<form action = "/CtProj/room_in/delete/host" onsubmit="return btnCheck()" method = "post">'
         tmp += '<input type = "hidden" name = "room-bno" value ="' + ${roomDto.bno}+'" />'
-        tmp += '<input type = "submit"  class="btn btn-outline-primary" value="나가기"/>'
+        tmp += '<input type = "submit" style="width:120px;height:50px;"  class="btn btn-outline-primary" value="나가기"/>'
         return tmp + '</form>';
 
     }
@@ -808,10 +701,10 @@
         console.log("현재시간"+now.getTime());
 
         if (roomInfo.meet_Date < now.getTime()) {
-            let tmp = '<button type="button" class="btn btn-primary" id="confirmBtn" style="width:120px;height:50px;">모임확인'
+            let tmp = '<button type="button" class="btn btn-outline-primary" id="confirmBtn" style="width:120px;height:50px;">모임확인'
             return tmp + '</button>';
         } else {
-            let tmp = '<div class="wrapInfo room-out" style="left:40%;top:96%">'
+            let tmp = '<div class="wrapInfo room-out" style="left:45%;top:96%">'
             return tmp + '</div>';
         }
 
@@ -842,37 +735,51 @@
         tmp += '<h4 class="card-title">' + room.title + '</h4>'
         tmp += '</div>'
         tmp += ' </div>'
-
         tmp += '<!-- 공지 사항 -->'
-        tmp += '<div class="card border-primary mb-3 wrapInfo" style="margin-top: 150px; max-width: 50rem;height:100px;padding: 0">'
+        tmp += '<div class="card border-primary mb-3 wrapInfo" style=" width: 30rem;height:100px;padding: 0;margin-left:400px;">'
         tmp += '<div class="card-header">공지사항</div>'
         tmp += '<div class="card-body">'
         tmp += '<h4 class="card-title">' + room.notice + '</h4>'
         tmp += ' </div>'
         tmp += '</div>'
-        tmp += '<div class="card border-primary mb-3 wrapInfo" style="margin-top: 150px;max-width: 20rem;height:100px;padding: 0;top:36%">'
+        tmp += '      <img class="card-img-top" style="width:60%;height:50%;margin-top:140px;margin-right:500px" src="${pageContext.request.contextPath}' + room.filepath + '" alt="대체" />'
+
+        // tmp += '<!-- 공지 사항 -->'
+        // tmp += '<div class="card border-primary mb-3 wrapInfo" style=" max-width: 50rem;height:100px;padding: 0">'
+        // tmp += '<div class="card-header">공지사항</div>'
+        // tmp += '<div class="card-body">'
+        // tmp += '<h4 class="card-title">' + room.notice + '</h4>'
+        // tmp += ' </div>'
+        // tmp += '</div>'
+        tmp += '<div class="card border-primary mb-3 wrapInfo" style="margin-top: 630px;max-width: 20rem;height:100px;padding: 0;top:36%">'
+        tmp += '<div class="card-header">주소</div>'
+        tmp += '<div class="card-body">'
+        tmp += '<h4 class="card-title">' + room.meet_place_road + '</h4>'
+        tmp += '</div>'
+        tmp += '</div>'
+        tmp += '<div class="card border-primary mb-3 wrapInfo" style="margin-top: 630px;max-width: 20rem;height:100px;padding: 0;top:36%;left:27%">'
         tmp += '<div class="card-header">장소</div>'
         tmp += '<div class="card-body">'
         tmp += '<h4 class="card-title">' + room.meet_place + '</h4>'
         tmp += '</div>'
         tmp += '</div>'
-        tmp += '<div class="card border-primary mb-3 wrapInfo" style="margin-top: 150px;max-width: 20rem;height:100px;padding: 0;top:36%;left:35%">'
+        tmp += '<div class="card border-primary mb-3 wrapInfo" style="margin-top: 630px;width: 25rem;height:100px;padding: 0;top:36%;left:50%">'
         tmp += '<div class="card-header">시간</div>'
         tmp += '<div class="card-body">'
         tmp += '<h4 class="card-title" data-meet_date =' + room.meet_Date + '>' + meet_date + '</h4>'
         tmp += '</div>'
         tmp += '</div>'
         tmp += '<div class = "rooms-user_cnt" style="display:none;">' + room.user_cnt + '</div>'
-        tmp += '<!-- 지도 보여주기-->'
-        tmp += '<div class="card border-primary mb-3 wrapInfo" style="margin-top: 150px;max-width: 20rem;padding: 0;height:200px;top: 55%">'
-        tmp += '<div class="card-header">지도</div>'
-        tmp += '<div class="card-body">'
-        tmp += '<h4 class="card-title"></h4>'
-        tmp += '</div>'
-        tmp += '</div>'
+        // tmp += '<!-- 지도 보여주기-->'
+        // tmp += '<div class="card border-primary mb-3 wrapInfo" style="margin-top: 150px;max-width: 20rem;padding: 0;height:200px;top: 55%">'
+        // tmp += '<div class="card-header">지도</div>'
+        // tmp += '<div class="card-body">'
+        // tmp += '<h4 class="card-title"></h4>'
+        // tmp += '</div>'
+        // tmp += '</div>'
 
         tmp += '<!-- 채팅창-->'
-        tmp += '<div class="card border-primary mb-3 wrapInfo" style="margin-top: 150px;max-width: 35rem;height:350px;padding: 0;top: 55%; left:35%">'
+        tmp += '<div class="card border-primary mb-3 wrapInfo" style="margin-top: 800px;width: 60rem;height:300px;padding: 0;top: 30%; left:3%">'
         tmp += '<div class="card-header">채팅창</div>'
         tmp += '<h4 class="card-title"></h4>'
         tmp += '</div>'

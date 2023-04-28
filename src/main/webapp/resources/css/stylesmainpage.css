@@ -11545,4 +11545,42 @@ header.masthead h1, header.masthead .h1 {
 #placesList .item .marker_15 {background-position: 0 -654px;}
 #pagination {margin:10px auto;text-align: center;}
 #pagination a {display:inline-block;margin-right:10px;}
-#pagination .on {font-weight: bold; cursor: default;color:#777;}
+#pagination .on {font-weight: bold; cursor: default;color:#777;
+
+
+
+
+/* Box */
+
+.box {
+  background: #0dcaf0;
+  border-bottom: solid 1px #ccc;
+  padding: 2.75em 1.75em 2.75em 1.75em;
+}
+
+.box .image.featured {
+  position: relative;
+  width: auto;
+  left: 1.75em;
+  top: 1.75em;
+  margin: -4.5em 0 4.25em -3.5em;
+}
+
+.box.post header {
+  padding-top: 1em;
+  margin: 0 0 2em 0;
+}
+
+.box.post h2 {
+  font-size: 2.5em;
+  letter-spacing: -0.015em;
+}
+
+.box.post header > p {
+  margin-top: 1.25em;
+  font-size: 1.25em;
+}
+
+.box footer ul.actions {
+  margin-bottom: 0;
+}
