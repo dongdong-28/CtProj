@@ -47,7 +47,7 @@
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css"/>
 
-    <link rel="stylesheet" type="text/css" href="<c:url value="/css/stylesmainpage.css"/>">
+    <link rel="stylesheet" type="text/css" href="<c:url value="/css/stylesmaintest.css"/>">
     <%--    <link rel="stylesheet" type="text/css" href="<c:url value="/css/stylesmaintest.css"/>">--%>
 
     <style>
@@ -73,42 +73,34 @@
 
 </head>
 <body id="page-top">
-
-<!-- Navigation-->
-<nav class="navbar navbar-expand-lg navbar-light fixed-top py-3" id="mainNav">
-    <div class="container px-4 px-lg-5">
-        <a class="navbar-brand" href="#page-top">With us</a>
-        <button class="navbar-toggler navbar-toggler-right" type="button" data-bs-toggle="collapse"
-                data-bs-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false"
-                aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
-        <div class="collapse navbar-collapse mx-auto" id="navbarResponsive">
-            <ul class="navbar-nav m-auto my-2 my-lg-0">
-                <li class="nav-item"><a class="nav-link nav-menu" href="<c:url value='/'/>">홈</a></li>
-                <li class="nav-item"><a class="nav-link nav-menu" href="<c:url value='/room/in-mem'/>">방 입장</a></li>
-                <li class="nav-item"><a class="nav-link nav-menu" href="<c:url value='/room/find'/>">방 찾기</a></li>
-                <li class="nav-item"><a class="nav-link nav-menu" href="<c:url value='/room/make'/>">방 생성</a></li>
-                <li class="nav-item"><a class="nav-link nav-menu" href="<c:url value='/room/list'/>">나의 방</a></li>
-            </ul>
-
+<!-- Header -->
+<header id="header">
+    <div class="logo container">
+        <div>
+            <h1><a href="index.jsp" id="logo">With Us</a></h1>
+            <%--            <p>A responsive site template by HTML5 UP</p>--%>
         </div>
-        <!-- 로그인-->
-        <a href="<c:url value='${loginOutLink}'/>">
-            <button type="button" class="btn btn-outline-danger">${loginOut}</button>
-        </a>
-        <a href="<c:url value='/register/add'/>">
-            <button type="button" class="btn btn-outline-danger">회원가입</button>
-        </a>
-
-
     </div>
-</nav>
-<!-- Masthead-->
-<header class="masthead" style="height: 82.8px; padding-top: 0px;">
-
 </header>
-<!-- Section-->
 
-<section class="py-5 page-section">
+
+<!-- Nav -->
+<nav id="nav">
+    <ul>
+        <li class="current"><a href="<c:url value='/'/>">홈</a></li>
+        <li><a href="<c:url value='/room/in-mem'/>">방 입장</a></li>
+        <li><a href="<c:url value='/room/find'/>">방 찾기</a></li>
+        <li><a href="<c:url value='/room/make'/>">방 생성</a></li>
+        <li><a href="<c:url value='/room/list'/>">나의 방</a></li>
+    </ul>
+</nav>
+
+<!-- Main -->
+<section id="main">
+    <div class="container">
+        <div class="row gtr-200">
+            <div class="col-12">
+
     <div class="container px-4 px-lg-5 h-100">
         <div class="row h-100 text-center">
 
@@ -262,8 +254,11 @@
     </div>
 
 <%--    <div style="width: 60%;" id="ww_1f8f1284a9686" v='1.3' loc='id' a='{"t":"responsive","lang":"ko","sl_lpl":1,"ids":["wl4479"],"font":"Arial","sl_ics":"one_a","sl_sot":"celsius","cl_bkg":"rgba(246,247,243,1)","cl_font":"#000000","cl_cloud":"#d4d4d4","cl_persp":"#2196F3","cl_sun":"#FFC107","cl_moon":"#FFC107","cl_thund":"#FF5722","sl_tof":"7","cl_odd":"#00000000","el_nme":3}'>Weather Data Source: <a href="https://wetterlang.de/seoul_wetter_30_tage/" id="ww_1f8f1284a9686_u" target="_blank">wetterlang.de/seoul_wetter_30_tage/</a></div><script async src="https://app1.weatherwidget.org/js/?id=ww_1f8f1284a9686"></script>--%>
-
+            </div>
+        </div>
+    </div>
 </section>
+
 <footer class="bg-light py-5">
     <div class="container px-4 px-lg-5">
         <div class="small text-center text-muted">Copyright &copy; 2022 - Company Name</div>
