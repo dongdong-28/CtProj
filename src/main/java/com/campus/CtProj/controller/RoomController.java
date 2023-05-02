@@ -79,7 +79,7 @@ public class RoomController {
         String path = "/upload";    // 저장할 경로지정
         String filename = null;
         String savePath = request.getServletContext().getRealPath("/resources" + path);
-        String imageUrl = "https://picsum.photos/150/150";
+        String imageUrl = "https://picsum.photos/500/400";
         System.out.println(savePath);
         UUID uuid = UUID.randomUUID();      // 파일 이름앞에 붙일 랜덤 이름 생성
         System.out.println(file);

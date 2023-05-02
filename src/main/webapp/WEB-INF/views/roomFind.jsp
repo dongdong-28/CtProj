@@ -56,7 +56,6 @@
 </header>
 
 
-
 <!-- Nav -->
 <nav id="nav">
     <ul>
@@ -75,31 +74,31 @@
         <div class="row gtr-200">
             <div class="col-12">
                 <h1>방 정보</h1>
-        <%--        키워드로 제목 검색--%>
-        <div class="search">
-            <select id="search-option" name="option">
-                <option value="T" selected> 제목</option>
-                <option value="C">작성자</option>
-            </select>
-            <input type="text" id="search-input" placeholder="Keyword...!" value=''>
-            <input type="button" value="선택" id="searchBtn">
-            <%--            <label for="searchBtn"></label>--%>
+                <%--        키워드로 제목 검색--%>
+                <div class="search">
+                    <select id="search-option" name="option">
+                        <option value="T" selected> 제목</option>
+                        <option value="C">작성자</option>
+                    </select>
+                    <input type="text" id="search-input" placeholder="Keyword...!" value=''>
+                    <input type="button" value="선택" id="searchBtn">
+                    <%--            <label for="searchBtn"></label>--%>
 
-        </div>
-        <%--카테고리 선택--%>
-        <label for="InputCategory" class="form-label mt-4">카테고리</label>
-        <select name="Category" id="InputCategory" class="form-group rooms-category">
-            <option value="전체">전체</option>
-            <option value="식사">식사</option>
-            <option value="공부">공부</option>
-            <option value="운동">운동</option>
-            <option value="여행">여행</option>
-            <option value="거래">거래</option>
-            <option value="기타">기타</option>
-        </select>
-        <button type="button" id="categoryBtn" class="rooms-category">선택</button>
+                </div>
+                <%--카테고리 선택--%>
+                <label for="InputCategory" class="form-label mt-4">카테고리</label>
+                <select name="Category" id="InputCategory" class="form-group rooms-category">
+                    <option value="전체">전체</option>
+                    <option value="식사">식사</option>
+                    <option value="공부">공부</option>
+                    <option value="운동">운동</option>
+                    <option value="여행">여행</option>
+                    <option value="거래">거래</option>
+                    <option value="기타">기타</option>
+                </select>
+                <button type="button" id="categoryBtn" class="rooms-category">선택</button>
 
-        <div id="roomList"></div>        <!-- 방 정보를 가져와서 집어넣을 예정이다-->
+                <div id="roomList"></div>        <!-- 방 정보를 가져와서 집어넣을 예정이다-->
 
 
             </div>
@@ -295,58 +294,105 @@
 
     });
 
-    let toUserHtml = function(userInfo){
+    let toUserHtml = function (userInfo) {
         let tmp = '<div>'
-        tmp += '닉네임 ='+ userInfo.id+'<br>'
-        tmp += '포인트 ='+ userInfo.coin+'<br>'
-        tmp += '레벨 ='+ Math.floor(userInfo.level)+'<br>'
+        tmp += '닉네임 =' + userInfo.id + '<br>'
+        tmp += '포인트 =' + userInfo.coin + '<br>'
+        tmp += '레벨 =' + Math.floor(userInfo.level) + '<br>'
 
 
         return tmp + '</div>';
     }
 
+    
+    <%--let toHtml = function (rooms) {--%>
+    <%--    let tmp = '<div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">'--%>
+    
+    <%--    rooms.forEach(function (room) {--%>
+    <%--        // var pic =  document.getElementById('InputPic').files[0].name;--%>
+    <%--        const dateFormat = new Date(room.meet_Date);--%>
+    <%--        const meet_date_format = dateFormat.getTime()--%>
+    <%--        const meet_date = dateFormat.getFullYear() + '년 ' + (dateFormat.getMonth() + 1) + '월 ' + dateFormat.getDate() + '일' + dateFormat.getHours() + '시 ' + dateFormat.getMinutes() + '분';--%>
+    <%--        tmp += '<div class="col mb-3">'--%>
+    <%--        tmp += '  <div class="card h-70">'--%>
+    <%--        tmp += '      <!-- Product image-->'--%>
+    <%--        tmp += '      <img class="card-img-top" src="${pageContext.request.contextPath}' + room.filepath + '" alt="대체" />'--%>
+    <%--        tmp += '      <!-- Product details--> '--%>
+    <%--        tmp += '      <div class="card-body p-4">'--%>
+    <%--        tmp += '          <div class="text-left">'--%>
+    <%--        tmp += '              <!-- Product name-->'--%>
+    <%--        tmp += '<ul>'--%>
+    <%--        tmp += '<li data-bno=' + room.bno + '>'--%>
+    <%--        // tmp += '방번호= ' + room.bno + '<br>'--%>
+    <%--        tmp += ' 제목= <span class="title">' + room.title + '</span><br>'--%>
+    <%--        tmp += ' 시간= <span class="meet_Date">' + meet_date + '</span><br>'--%>
+    <%--        tmp += ' 장소= <span class="meet_place">' + room.meet_place + '</span><br>'--%>
+    <%--        tmp += ' 카테고리= <span class="category">' + room.category + '</span><br>'--%>
+    <%--        &lt;%&ndash;tmp +=  '인원수: '+${list.size()+1} + ' / '+ room.user_limit+'<br>';&ndash;%&gt;--%>
+    <%--        tmp += ' 작성자=<span class="writer">' + room.writer + '</span>'--%>
+    <%--        tmp += '      <!-- Product actions-->'--%>
+    <%--        tmp += '   <div class="card-footer mx-auto pt-0 border-top-0 bg-transparent" style="position: absolute;top: 85%;left: 63%;">'--%>
+    <%--        tmp += '  <button type="button" class="btn btn-outline-danger btn-myroom entBtn">입장</button>'--%>
+    <%--        tmp += '      </div>'--%>
+    <%--        tmp += '</li>'--%>
+    <%--        tmp += '</ul>'--%>
+    <%--        tmp += '    </div>'--%>
+    <%--        tmp += '      </div>'--%>
+    
+    <%--        tmp += '  </div>'--%>
+    <%--        tmp += ' </div>'--%>
+    
+    
+    <%--    })--%>
+    
+    <%--    return tmp + "</div>";--%>
+    
+    <%--}--%>
+
 
     let toHtml = function (rooms) {
-        let tmp = '<div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">'
+
+        let tmp = ' <section id="courses" class="courses">'
+        tmp += ' <div class="container" data-aos="fade-up">'
+        tmp += ' <div class="row" data-aos="zoom-in" data-aos-delay="100">'
 
         rooms.forEach(function (room) {
             // var pic =  document.getElementById('InputPic').files[0].name;
             const dateFormat = new Date(room.meet_Date);
             const meet_date_format = dateFormat.getTime()
             const meet_date = dateFormat.getFullYear() + '년 ' + (dateFormat.getMonth() + 1) + '월 ' + dateFormat.getDate() + '일' + dateFormat.getHours() + '시 ' + dateFormat.getMinutes() + '분';
-            tmp += '<div class="col mb-3">'
-            tmp += '  <div class="card h-70">'
-            tmp += '      <!-- Product image-->'
-            tmp += '      <img class="card-img-top" src="${pageContext.request.contextPath}' + room.filepath + '" alt="대체" />'
-            tmp += '      <!-- Product details--> '
-            tmp += '      <div class="card-body p-4">'
-            tmp += '          <div class="text-left">'
-            tmp += '              <!-- Product name-->'
-            tmp += '<ul>'
-            tmp += '<li data-bno=' + room.bno +'>'
-            // tmp += '방번호= ' + room.bno + '<br>'
-            tmp += ' 제목= <span class="title">' + room.title + '</span><br>'
-            tmp += ' 시간= <span class="meet_Date">' + meet_date + '</span><br>'
-            tmp += ' 장소= <span class="meet_place">' + room.meet_place + '</span><br>'
-            tmp += ' 카테고리= <span class="category">' + room.category + '</span><br>'
-            <%--tmp +=  '인원수: '+${list.size()+1} + ' / '+ room.user_limit+'<br>';--%>
-            tmp += ' 작성자=<span class="writer">' + room.writer + '</span>'
-            tmp += '      <!-- Product actions-->'
-            tmp += '   <div class="card-footer mx-auto pt-0 border-top-0 bg-transparent" style="position: absolute;top: 85%;left: 63%;">'
-            tmp += '  <button type="button" class="btn btn-outline-danger btn-myroom entBtn">입장</button>'
-            tmp += '      </div>'
-            tmp += '</li>'
-            tmp += '</ul>'
-            tmp += '    </div>'
-            tmp += '      </div>'
 
+            // ' <section id="courses" class="courses">'
+            //     ' <div class="container" data-aos="fade-up">'
+            //         ' <div class="row" data-aos="zoom-in" data-aos-delay="100">'
+
+            tmp += ' <div class="col-lg-4 col-md-6 d-flex align-items-stretch">'
+            tmp += '    <div class="course-item">'
+            tmp += '      <img class="img-fluid" src="${pageContext.request.contextPath}' + room.filepath + '" alt="대체" />'
+            tmp += '           <div class="course-content">'
+            tmp += '<div class="d-flex justify-content-between align-items-center mb-3">'
+            tmp += '   <h4>' + room.category + '</h4>'
+            tmp += '             <p class="price">1/4</p>'
             tmp += '  </div>'
+            tmp += '  <h3 style="padding-top:15px">' + room.title + '</h3>'
+            tmp += '  장소: ' + room.meet_place + '</br>'
+            tmp += ' 시간: ' + meet_date + '</br>'
+            tmp += '    공지사항:' + room.notice + '</br>'
+            tmp += '     <div class="trainer d-flex justify-content-between align-items-center">'
+            tmp += '     <div class="trainer-profile d-flex align-items-center">'
+            tmp += ' <span>' + room.writer + '</span>'
+            tmp += ' <span>레벨</span>'
             tmp += ' </div>'
+            tmp += '<div class="trainer-rank d-flex align-items-center">'
+            tmp += '<button type="button" class="btn btn-outline-danger btn-myroom entBtn" style="width: 120px;height:50px;font-size:17px">입장</button>'
+
+            tmp += '</div></div></div></div></div> <!-- End Course Item-->'
 
 
         })
+        tmp += '</div></div>'
 
-        return tmp + "</div>";
+        return tmp + "</section>";
 
     }
 
