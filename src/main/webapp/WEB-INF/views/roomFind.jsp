@@ -139,6 +139,7 @@
             }); // $.ajax()
         }
 
+
         let maincate = "${maintocate}";
         if (maincate == "") {
             $.ajax({
