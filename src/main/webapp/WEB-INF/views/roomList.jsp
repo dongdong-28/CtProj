@@ -40,12 +40,13 @@
 </head>
 <body id="page-top">
 
+
 <!-- Header -->
 <header id="header">
     <div class="logo container">
         <div>
-            <h1><a href="index.jsp" id="logo">TXT</a></h1>
-            <p>A responsive site template by HTML5 UP</p>
+            <h1><a href="<c:url value='/'/>">With Us</a></h1>
+            <%--            <p>A responsive site template by HTML5 UP</p>--%>
         </div>
     </div>
 </header>

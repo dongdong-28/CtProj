@@ -49,11 +49,12 @@
 <header id="header">
     <div class="logo container">
         <div>
-            <h1><a href="index.jsp" id="logo">TXT</a></h1>
-            <p>A responsive site template by HTML5 UP</p>
+            <h1><a href="<c:url value='/'/>">With Us</a></h1>
+            <%--            <p>A responsive site template by HTML5 UP</p>--%>
         </div>
     </div>
 </header>
+
 
 
 <!-- Nav -->
@@ -71,9 +72,21 @@
 <!-- Section-->
 <section id="main">
     <div class="container">
-        <div class="row gtr-200">
-            <div class="col-12">
-                <h1>방 정보</h1>
+        <div class="row gtr-200" style="margin-left: 0px;">
+            <h1>방 정보</h1>
+            <%--카테고리 선택--%>
+            <label for="InputCategory" class="form-label mt-4">카테고리</label>
+            <select name="Category" id="InputCategory" class="form-group rooms-category">
+                <option value="전체">전체</option>
+                <option value="식사">식사</option>
+                <option value="공부">공부</option>
+                <option value="운동">운동</option>
+                <option value="여행">여행</option>
+                <option value="거래">거래</option>
+                <option value="기타">기타</option>
+            </select>
+            <button type="button" id="categoryBtn" class="rooms-category">선택</button>
+            <div class="col-12" style="padding: 100px;border: solid 2px;">
                 <%--        키워드로 제목 검색--%>
                 <div class="search">
                     <select id="search-option" name="option">
@@ -85,22 +98,33 @@
                     <%--            <label for="searchBtn"></label>--%>
 
                 </div>
-                <%--카테고리 선택--%>
-                <label for="InputCategory" class="form-label mt-4">카테고리</label>
-                <select name="Category" id="InputCategory" class="form-group rooms-category">
-                    <option value="전체">전체</option>
-                    <option value="식사">식사</option>
-                    <option value="공부">공부</option>
-                    <option value="운동">운동</option>
-                    <option value="여행">여행</option>
-                    <option value="거래">거래</option>
-                    <option value="기타">기타</option>
-                </select>
-                <button type="button" id="categoryBtn" class="rooms-category">선택</button>
+                <div id="roomList" style="padding: 100px;border: solid 2px;"></div>        <!-- 방 정보를 가져와서 집어넣을 예정이다-->
 
-                <div id="roomList"></div>        <!-- 방 정보를 가져와서 집어넣을 예정이다-->
-
-
+                    <div >
+                        <ul class="pagination pagination-lg">
+                            <li class="page-item disabled">
+                                <a class="page-link" href="#">&laquo;</a>
+                            </li>
+                            <li class="page-item active">
+                                <a class="page-link" href="#">1</a>
+                            </li>
+                            <li class="page-item">
+                                <a class="page-link" href="#">2</a>
+                            </li>
+                            <li class="page-item">
+                                <a class="page-link" href="#">3</a>
+                            </li>
+                            <li class="page-item">
+                                <a class="page-link" href="#">4</a>
+                            </li>
+                            <li class="page-item">
+                                <a class="page-link" href="#">5</a>
+                            </li>
+                            <li class="page-item">
+                                <a class="page-link" href="#">&raquo;</a>
+                            </li>
+                        </ul>
+                    </div>
             </div>
         </div>
     </div>
@@ -305,10 +329,10 @@
         return tmp + '</div>';
     }
 
-    
+
     <%--let toHtml = function (rooms) {--%>
     <%--    let tmp = '<div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">'--%>
-    
+
     <%--    rooms.forEach(function (room) {--%>
     <%--        // var pic =  document.getElementById('InputPic').files[0].name;--%>
     <%--        const dateFormat = new Date(room.meet_Date);--%>
@@ -339,15 +363,15 @@
     <%--        tmp += '</ul>'--%>
     <%--        tmp += '    </div>'--%>
     <%--        tmp += '      </div>'--%>
-    
+
     <%--        tmp += '  </div>'--%>
     <%--        tmp += ' </div>'--%>
-    
-    
+
+
     <%--    })--%>
-    
+
     <%--    return tmp + "</div>";--%>
-    
+
     <%--}--%>
 
 
@@ -355,7 +379,7 @@
 
         let tmp = ' <section id="courses" class="courses">'
         tmp += ' <div class="container" data-aos="fade-up">'
-        tmp += ' <div class="row" data-aos="zoom-in" data-aos-delay="100">'
+        tmp += ' <div class="row" data-aos="zoom-in" data-aos-delay="100" >'
 
         rooms.forEach(function (room) {
             // var pic =  document.getElementById('InputPic').files[0].name;
