@@ -4,7 +4,7 @@
 <c:set var="loginId"
        value="${pageContext.request.getSession(false)==null ? '' : pageContext.request.session.getAttribute('id')}"/>
 <c:set var="loginOutLink" value="${loginId=='' ? '/login/login' : '/login/logout'}"/>
-<c:set var="loginOut" value="${loginId=='' ? 'Login' : 'ID='+=loginId}"/>
+<c:set var="loginOut" value="${loginId=='' ? 'Login' : 'Logout'}"/>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -92,13 +92,6 @@
 
 <%--        </div>--%>
 
-<%--        <!-- 로그인-->--%>
-<%--        <a href="<c:url value='${loginOutLink}'/>">--%>
-<%--            <button type="button" class="btn btn-outline-danger">${loginOut}</button>--%>
-<%--        </a>--%>
-<%--        <a href="<c:url value='/register/add'/>">--%>
-<%--            <button type="button" class="btn btn-outline-danger">회원가입</button>--%>
-<%--        </a>--%>
 
 
 <%--    </div>--%>
@@ -119,13 +112,26 @@
 
 <!-- Nav -->
 <nav id="nav">
-    <ul>
+    <ul >
         <li class="current"><a href="<c:url value='/'/>">홈</a></li>
         <li><a href="<c:url value='/room/in-mem'/>">방 입장</a></li>
         <li><a href="<c:url value='/room/find'/>">방 찾기</a></li>
         <li><a href="<c:url value='/room/make'/>">방 생성</a></li>
         <li><a href="<c:url value='/room/list'/>">나의 방</a></li>
+
+
+
+        <div id="userInformation"></div>
+        <!-- 로그인-->
+        <a href="<c:url value='${loginOutLink}'/>">
+            <button type="button" class="btn btn-outline-danger loginBtn">${loginOut}</button></a>
+        <a href="<c:url value='/register/add'/>">
+            <button type="button" class="btn btn-outline-danger loginBtn">회원가입</button>
+        </a>
+
+
     </ul>
+
 </nav>
 
 <!-- Banner -->
@@ -193,6 +199,7 @@
                             </form>
                             <h3>기타</h3>
                         </li>
+
                     </ul>
                 </section>
             </div>
@@ -345,9 +352,9 @@
 
     let toUserHtml = function (userInfo) {
         let tmp = '<div>'
-        tmp += '닉네임 =' + userInfo.id + '<br>'
-        tmp += '포인트 =' + userInfo.coin + '<br>'
-        tmp += '레벨 =' + Math.floor(userInfo.level) + '<br>'
+        tmp +=  userInfo.nickname + '    Coin: <tab>'
+        tmp +=  userInfo.coin +  '    Lv:    '
+        tmp +=  Math.floor(userInfo.level)
 
 
         return tmp + '</div>';

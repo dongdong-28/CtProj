@@ -1,6 +1,7 @@
 package com.campus.CtProj.controller;
 
 import com.campus.CtProj.domain.BoolDto;
+import com.campus.CtProj.domain.PageHandler;
 import com.campus.CtProj.domain.RoomDto;
 import com.campus.CtProj.domain.SearchCondition;
 import com.campus.CtProj.service.RoomListService;
@@ -27,7 +28,9 @@ import java.io.InputStream;
 import java.net.URL;
 import java.nio.file.Files;
 import java.sql.Timestamp;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 
 @Controller
@@ -192,6 +195,53 @@ public class RoomController {
         }
 
     }
+
+
+    // 모든 방을 가져온다
+    @GetMapping("/rooms/list")
+    @ResponseBody
+    public ResponseEntity<List<RoomDto>> list(Integer page) throws Exception {
+        List<RoomDto> list = null;
+        int roomCnt = service.getCount();
+        if(page == null) page = 1;
+        try {
+            PageHandler ph = new PageHandler(roomCnt,page);
+            Map map = new HashMap();
+            map.put("offset",(page-1)*ph.getPageSize());
+            map.put("pageSize",ph.getPageSize());
+            list = service.getPageList(map);
+            return new ResponseEntity<List<RoomDto>>(list, HttpStatus.OK);   // 200
+        } catch (Exception e) {
+            e.printStackTrace();
+            return new ResponseEntity<List<RoomDto>>(list, HttpStatus.BAD_REQUEST);      //400
+        }
+
+    }
+
+
+//    // 모든 방을 가져온다
+//    @GetMapping("/rooms/list")
+//    public String listPage(Integer page,Model m) throws Exception {
+//        List<RoomDto> list = null;
+//        int roomCnt = service.getCount();
+//        if(page == null) page = 1;
+//        try {
+//            PageHandler ph = new PageHandler(roomCnt,page);
+//            Map map = new HashMap();
+//            map.put("offset",(page-1)*ph.getPageSize());
+//            map.put("pageSize",ph.getPageSize());
+//             list = service.getPageList(map);
+//             m.addAttribute("roomList",list);
+//             m.addAttribute("ph",ph);
+//            // return 으로 그냥 list 를 보내는 것이 아니라 ResponseEntity<List<CommentDto>>(list, HttpStatus.OK) 를 쓴 이유는
+//            // 그냥 list 로 보내면 오류가 나도 응답은 200번대로 나온다 그래서 responseEntity를 사용해서 list 에다가 + 상태코드도 같이 보내주게 한다.
+//            return "roomFind";
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//            return "index";
+//        }
+//
+//    }
 
     // 방찾기 페이지에서 카테고리 선택하면 그에 맞는 방읽기
     @GetMapping("/rooms-category")

@@ -44,6 +44,11 @@ public class RoomDaoImpl implements RoomDao {
     } // List<E> selectList(String statement)
 
     @Override
+    public List<RoomDto> selectPage(Map map) throws Exception {
+        return session.selectList(namespace+"selectPage",map);
+    } // List<E> selectList(String statement)
+
+    @Override
     public RoomDto select(Integer bno) throws Exception {
         return session.selectOne(namespace + "select", bno);
     } // T selectOne(String statement, Object parameter)

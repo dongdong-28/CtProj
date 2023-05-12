@@ -5,6 +5,7 @@ import com.campus.CtProj.domain.RoomDto;
 import com.campus.CtProj.domain.SearchCondition;
 
 import java.util.List;
+import java.util.Map;
 
 public interface RoomDao {
     int count() throws Exception;
@@ -33,4 +34,7 @@ public interface RoomDao {
 
     List<RoomDto> searchSelectPage(SearchCondition sc) throws Exception;
 
-}
+     List<RoomDto> selectPage(Map map) throws Exception;
+
+
+    }

@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Map;
 
 @Service
 public class RoomServiceImpl implements RoomService {
@@ -45,6 +46,12 @@ public class RoomServiceImpl implements RoomService {
         return roomDao.selectAll();
 
     }
+    @Override
+    public List<RoomDto> getPageList(Map map) throws Exception {
+        return roomDao.selectPage(map);
+
+    }
+
 
 
 

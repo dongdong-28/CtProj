@@ -3,6 +3,7 @@ package com.campus.CtProj.Controller;
 import com.campus.CtProj.dao.EnterDao;
 import com.campus.CtProj.dao.RoomDao;
 import com.campus.CtProj.domain.EnterDto;
+import com.campus.CtProj.domain.PageHandler;
 import com.campus.CtProj.domain.RoomDto;
 import com.campus.CtProj.service.EnterService;
 import com.campus.CtProj.service.RoomService;
@@ -15,7 +16,9 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.web.bind.annotation.GetMapping;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import static org.junit.Assert.*;
 
@@ -51,6 +54,22 @@ public class RoomControllerTest {
         System.out.println(roomDto);
 //        assertTrue(service.read(216)== 1);
 
+    }
+
+    @Test
+    public void readPage() throws Exception {
+        List<RoomDto> list = null;
+        int roomCnt = service.getCount();
+        int page = 1;
+        System.out.println("roomCnt = " + roomCnt);
+        PageHandler ph = new PageHandler(roomCnt, page);
+        Map map = new HashMap();
+        map.put("offset", (page - 1) * ph.getPageSize());
+        map.put("pageSize", ph.getPageSize());
+
+        list = service.getPageList(map);
+        System.out.println("cnt = "+list.size());
+        System.out.println(list);
     }
 
 //    // 방 생성

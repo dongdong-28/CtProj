@@ -103,6 +103,7 @@ public class EnterServiceImpl implements EnterService {
         RoomDto roomdto = roomDao.select(dto.getRoom_bno());
         UserDto userdto = userDao.selectUser(dto.getUser_id());
         BoolDto boolDto = new BoolDto(dto.getUser_id(),dto.getRoom_bno());
+        System.out.println("roomdto11 = " + roomdto);
         int cnt = roomdto.getUser_cnt() + 1;
         int coin = userdto.getCoin() -2;
         System.out.println(coin);

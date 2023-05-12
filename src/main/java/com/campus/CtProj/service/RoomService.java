@@ -8,6 +8,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
+import java.util.Map;
 
 public interface RoomService {
     // 방의 수 세기
@@ -41,6 +42,9 @@ public interface RoomService {
     // 검색으로 방 읽기
     List<RoomDto> getSearchSelectPage(SearchCondition sc) throws Exception;
 
+    List<RoomDto> getPageList(Map map) throws Exception;
 
 
-}
+
+
+    }

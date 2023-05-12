@@ -5,7 +5,7 @@
 <c:set var="loginId"
        value="${pageContext.request.getSession(false)==null ? '' : pageContext.request.session.getAttribute('id')}"/>
 <c:set var="loginOutLink" value="${loginId=='' ? '/login/login' : '/login/logout'}"/>
-<c:set var="loginOut" value="${loginId=='' ? 'Login' : 'ID='+=loginId}"/>
+<c:set var="loginOut" value="${loginId=='' ? 'Login' : 'Logout'}"/>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -23,6 +23,8 @@
     <link rel="icon" type="image/x-icon" href="assets/favicon.ico"/>
     <!-- Bootstrap Icons-->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css" rel="stylesheet"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.8.2/css/all.min.css"/>
+
     <!-- Google fonts-->
     <link href="https://fonts.googleapis.com/css?family=Merriweather+Sans:400,700" rel="stylesheet"/>
     <link href="https://fonts.googleapis.com/css?family=Merriweather:400,300,300italic,400italic,700,700italic"
@@ -56,75 +58,132 @@
 </header>
 
 
-
 <!-- Nav -->
 <nav id="nav">
-    <ul>
-        <li class="current"><a href="<c:url value='/'/>">홈</a></li>
+    <ul >
+        <li><a href="<c:url value='/'/>">홈</a></li>
         <li><a href="<c:url value='/room/in-mem'/>">방 입장</a></li>
-        <li><a href="<c:url value='/room/find'/>">방 찾기</a></li>
+        <li  class="current"><a href="<c:url value='/room/find'/>">방 찾기</a></li>
         <li><a href="<c:url value='/room/make'/>">방 생성</a></li>
         <li><a href="<c:url value='/room/list'/>">나의 방</a></li>
+
+
+
+        <div id="userInformation"></div>
+        <!-- 로그인-->
+        <a href="<c:url value='${loginOutLink}'/>">
+            <button type="button" class="btn btn-outline-danger loginBtn">${loginOut}</button></a>
+        <a href="<c:url value='/register/add'/>">
+            <button type="button" class="btn btn-outline-danger loginBtn">회원가입</button>
+        </a>
+
+
     </ul>
+
 </nav>
 
 
 <!-- Section-->
 <section id="main">
     <div class="container">
+
         <div class="row gtr-200" style="margin-left: 0px;">
-            <h1>방 정보</h1>
+            <div id="category-icon">
+                <ul style="display: flex">
+                    <li class="categoryBtn active">
+                        <div class="icon solid fa-globe cate-small"><span>전체</span></div>
+                    </li>
+                    <li class="categoryBtn">
+                        <div class="icon solid fa-book-reader cate-small"><span>공부</span></div>
+                    </li>
+                    <li class="categoryBtn">
+                        <div class="icon solid fa-utensils cate-small"><span>식사</span></div>
+                    </li>
+                    <li class="categoryBtn">
+                        <div class="icon solid fa-dumbbell cate-small "><span>운동</span></div>
+                    </li>
+                    <li class="categoryBtn">
+                        <div class="icon solid fa-passport cate-small "><span>여행</span></div>
+                    </li>
+                    <li class="categoryBtn">
+                        <div class="icon solid fa-dollar-sign cate-small "><span>거래</span></div>
+                    </li>
+                    <li class="categoryBtn">
+                        <div class="icon solid fa-cog cate-small "><span>기타</span></div>
+                    </li>
+
+
+                </ul>
+            </div>
             <%--카테고리 선택--%>
-            <label for="InputCategory" class="form-label mt-4">카테고리</label>
-            <select name="Category" id="InputCategory" class="form-group rooms-category">
-                <option value="전체">전체</option>
-                <option value="식사">식사</option>
-                <option value="공부">공부</option>
-                <option value="운동">운동</option>
-                <option value="여행">여행</option>
-                <option value="거래">거래</option>
-                <option value="기타">기타</option>
-            </select>
-            <button type="button" id="categoryBtn" class="rooms-category">선택</button>
-            <div class="col-12" style="padding: 100px;border: solid 2px;">
+            <%--            <label for="InputCategory" class="form-label mt-4">카테고리</label>--%>
+            <%--            <select name="Category" id="InputCategory" class="form-group rooms-category">--%>
+            <%--                <option value="전체">전체</option>--%>
+            <%--                <option value="식사">식사</option>--%>
+            <%--                <option value="공부">공부</option>--%>
+            <%--                <option value="운동">운동</option>--%>
+            <%--                <option value="여행">여행</option>--%>
+            <%--                <option value="거래">거래</option>--%>
+            <%--                <option value="기타">기타</option>--%>
+            <%--            </select>--%>
+            <%--            <button type="button" id="categoryBtn" class="rooms-category">선택</button>--%>
+            <div class="col-12" style="padding: 10px;border: solid 2px;">
+
                 <%--        키워드로 제목 검색--%>
-                <div class="search">
-                    <select id="search-option" name="option">
+                <div class="search d-flex">
+
+                    <select id="search-option" style="margin-right: 0.5rem !important;" name="option">
                         <option value="T" selected> 제목</option>
                         <option value="C">작성자</option>
                     </select>
-                    <input type="text" id="search-input" placeholder="Keyword...!" value=''>
-                    <input type="button" value="선택" id="searchBtn">
+                    <input type="text" id="search-input" class="form-search-control" placeholder="Keyword...!" value=''>
+                    <button id="searchBtn" class="btn btn-secondary my-2 my-sm-0">선택</button>
+                    <%--                    <input type="button" value="선택" id="searchBtn">--%>
                     <%--            <label for="searchBtn"></label>--%>
 
                 </div>
-                <div id="roomList" style="padding: 100px;border: solid 2px;"></div>        <!-- 방 정보를 가져와서 집어넣을 예정이다-->
+                <div id="roomList" style="padding: 20px;border: solid 2px;">
+                    <%--                    <c:forEach var="room" items="${roomList}">--%>
+                    <%--                        <tr>--%>
+                    <%--                            <td>${room.bno}</td>--%>
 
-                    <div >
-                        <ul class="pagination pagination-lg">
-                            <li class="page-item disabled">
-                                <a class="page-link" href="#">&laquo;</a>
-                            </li>
-                            <li class="page-item active">
-                                <a class="page-link" href="#">1</a>
-                            </li>
-                            <li class="page-item">
-                                <a class="page-link" href="#">2</a>
-                            </li>
-                            <li class="page-item">
-                                <a class="page-link" href="#">3</a>
-                            </li>
-                            <li class="page-item">
-                                <a class="page-link" href="#">4</a>
-                            </li>
-                            <li class="page-item">
-                                <a class="page-link" href="#">5</a>
-                            </li>
-                            <li class="page-item">
-                                <a class="page-link" href="#">&raquo;</a>
-                            </li>
-                        </ul>
-                    </div>
+
+                    <%--                        </tr>--%>
+
+
+                    <%--                    </c:forEach>--%>
+
+
+                </div>        <!-- 방 정보를 가져와서 집어넣을 예정이다-->
+
+                <div>
+                    <ul class="pagination pagination-lg page-style">
+                        <li class="page-item">
+                            <button class="page-link" href="#">&laquo;</button>
+                        </li>
+                        <li class="page-item active">
+                            <button class="page-link" value="1">1</button>
+                        </li>
+                        <li class="page-item ">
+                            <button class="page-link" value="2">2</button>
+                        </li>
+                        <li class="page-item">
+                            <button class="page-link" value="3">3</button>
+                        </li>
+                        <li class="page-item">
+                            <button class="page-link" value="4">4</button>
+                        </li>
+                        <li class="page-item">
+                            <button class="page-link" value="5">5</button>
+                        </li>
+                        <li class="page-item">
+                            <button class="page-link" value="6">6</button>
+                        </li>
+                        <li class="page-item">
+                            <button class="page-link" href="#">&raquo;</button>
+                        </li>
+                    </ul>
+                </div>
             </div>
         </div>
     </div>
@@ -163,15 +222,16 @@
             }); // $.ajax()
         }
 
-
+        <%--$("#roomList").html(toHtml(${roomList}));    // 서버로부터 응답이 도착하면 호출될 함수--%>
+        <%--console.log(${roomList})--%>
         let maincate = "${maintocate}";
+        let page = 1;
         if (maincate == "") {
             $.ajax({
                 type: 'GET',       // 요청 메서드
-                url: '/CtProj/rooms',  // 요청 URI
+                url: '/CtProj/rooms/list?page=' + page,  // 요청 URI
                 success: function (result) {
                     $("#roomList").html(toHtml(result));    // 서버로부터 응답이 도착하면 호출될 함수
-                    console.log(maincate);
 
                 },
                 error: function () {
@@ -188,8 +248,16 @@
                 //     category: categoryOption
                 // }),  // 서버로 전송할 데이터. stringify()로 직렬화 필요.
                 success: function (result) {
-                    $("#roomList").html(toHtml(result));    // 서버로부터 응답이 도착하면 호출될 함수
                     console.log(maincate);
+                    $(".categoryBtn").removeClass("active");
+                    $(".categoryBtn").each(function () {
+                        console.log($(this).children().children().text())
+                        if ($(this).children().children().text() == maincate) {
+                            $(this).addClass("active");
+                        }
+                    });
+
+                    $("#roomList").html(toHtml(result));    // 서버로부터 응답이 도착하면 호출될 함수
                 },
                 error: function () {
 
@@ -219,6 +287,21 @@
     $(document).ready(function () {
         showList();
 
+        $(".page-link").on("click", function () {
+            let page = $(this).val();
+            $.ajax({
+                type: 'GET',       // 요청 메서드
+                url: '/CtProj/rooms/list?page=' + page,  // 요청 URI
+                success: function (result) {
+                    $("#roomList").html(toHtml(result));    // 서버로부터 응답이 도착하면 호출될 함수
+
+                },
+                error: function () {
+                    alert("error")
+                } // 에러가 발생했을 때, 호출될 함수
+            }); // $.ajax()
+        })
+
         $("#roomList").on("click", ".delBtn", function () {
             let bno = $(this).parent().attr("data-bno");
             // let title = $(this).parent().attr("title");
@@ -237,8 +320,9 @@
         });
 
         $("#roomList").on("click", ".entBtn", function () {
-            let bno = $(this).parent().parent().attr("data-bno");
+            let bno = $(this).parent().attr("data-bno");
             let id = null;
+            console.log(bno)
             if (confirm("입장하시겠습니까?")) {
                 $.ajax({
                     type: 'POST',       // 요청 메서드
@@ -264,8 +348,9 @@
         });
 
         /* 카테고리 왜 다시..??다시..!*/
-        $("#categoryBtn").on("click", function () {
-            let categoryOption = $("#InputCategory").val();
+        $(".categoryBtn").on("click", function () {
+            let categoryOption = $(this).children().children().text();
+            console.log(categoryOption)
 
             if (categoryOption == "전체") {
                 $.ajax({
@@ -301,12 +386,11 @@
         $("#searchBtn").on("click", function () {
             let option = $('#search-option').val();
             let keyword = $('#search-input').val();
+            let category = $('.categoryBtn.active').children().children().text();
             $.ajax({
                 type: 'GET',
-                url: '/CtProj/rooms-search?keyword=' + keyword + '&option=' + option,
+                url: '/CtProj/rooms-search?keyword=' + keyword + '&option=' + option + '&category=' + category,
                 success: function (result) {
-                    console.log(keyword);
-                    console.log(option);
                     $("#roomList").html(toHtml(result));    // 서버로부터 응답이 도착하면 호출될 함수
                 },
                 error: function () {
@@ -321,9 +405,9 @@
 
     let toUserHtml = function (userInfo) {
         let tmp = '<div>'
-        tmp += '닉네임 =' + userInfo.id + '<br>'
-        tmp += '포인트 =' + userInfo.coin + '<br>'
-        tmp += '레벨 =' + Math.floor(userInfo.level) + '<br>'
+        tmp +=  userInfo.nickname + '    Coin: <tab>'
+        tmp +=  userInfo.coin +  '    Lv:    '
+        tmp +=  Math.floor(userInfo.level)
 
 
         return tmp + '</div>';
@@ -408,7 +492,7 @@
             tmp += ' <span>' + room.writer + '</span>'
             tmp += ' <span>레벨</span>'
             tmp += ' </div>'
-            tmp += '<div class="trainer-rank d-flex align-items-center">'
+            tmp += '<div class="trainer-rank d-flex align-items-center"  data-bno=' + room.bno + '>'
             tmp += '<button type="button" class="btn btn-outline-danger btn-myroom entBtn" style="width: 120px;height:50px;font-size:17px">입장</button>'
 
             tmp += '</div></div></div></div></div> <!-- End Course Item-->'
@@ -420,6 +504,41 @@
         return tmp + "</section>";
 
     }
+
+    $(".page-item").on("click", function (e) {
+        let pastActive = $(e.target).closest('li');
+        pastActive.siblings('li').removeClass("active");
+        pastActive.addClass("active");
+
+    });
+
+    $(".categoryBtn").on("click", function (e) {
+        let pastActive = $(e.target).closest('li');
+        pastActive.siblings('li').removeClass("active");
+        pastActive.addClass("active");
+
+    });
+
+    //
+    //     $(".page-item").off("click").on("click", function() {
+    //
+    // // test class를 포함하는 DOM 객체가 active class를 포함하면 true 아니면 false를 반환
+    //
+    //         if ($(".page-item").hasClass("active")) {
+    //
+    // // active class 제거
+    //
+    //             $(".page-item").removeClass("active");
+    //
+    //         }
+    //
+    //         else {
+    //
+    //             $(".page-item").addClass("active");
+    //
+    //         }
+    //
+    //     });
 
 
     window.addEventListener('DOMContentLoaded', event => {
@@ -453,5 +572,7 @@
 <!-- * * Activate your form at https://startbootstrap.com/solution/contact-forms * *-->
 <!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *-->
 <script src="<c:url value="https://cdn.startbootstrap.com/sb-forms-latest.js"/>"></script>
+<!-- Scripts -->
+
 </body>
 </html>

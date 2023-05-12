@@ -7,99 +7,186 @@
 
     <!--전체 방 수 카운트 -->
     <select id="count" resultType="int">
-        SELECT count(*) FROM room_info;
+        SELECT count(*)
+        FROM room_info;
     </select>
 
     <!--전체 writer 아이디로 방 수 카운트 -->
     <select id="countId" parameterType="String" resultType="int">
-        SELECT count(*) FROM room_info WHERE writer = #{writer};
+        SELECT count(*)
+        FROM room_info
+        WHERE writer = #{writer};
     </select>
 
 
-
     <delete id="delete" parameterType="Integer">
-        DELETE FROM room_info WHERE bno = #{bno}
+        DELETE
+        FROM room_info
+        WHERE bno = #{bno}
     </delete>
 
     <insert id="insert" parameterType="RoomDto">
         INSERT INTO room_info
-            (title, filename,filepath,meet_Date,meet_place,meet_place_road,notice,category,writer,user_limit,user_cnt)
-        VALUES
-            (#{title}, #{filename},#{filepath}, #{meet_Date}, #{meet_place}, #{meet_place_road}, #{notice}, #{category}, #{writer}, #{user_limit}, #{user_cnt})
+        (title, filename, filepath, meet_Date, meet_place, meet_place_road, notice, category, writer, user_limit,
+         user_cnt)
+        VALUES (#{title}, #{filename}, #{filepath}, #{meet_Date}, #{meet_place}, #{meet_place_road}, #{notice},
+                #{category}, #{writer}, #{user_limit}, #{user_cnt})
     </insert>
 
     <select id="selectAll" resultType="RoomDto">
-        SELECT bno, title, filename,filepath,meet_Date,meet_place,meet_place_road,notice,category,writer,user_limit,user_cnt
-        FROM room_info ORDER BY writer ASC;
+        SELECT bno,
+               title,
+               filename,
+               filepath,
+               meet_Date,
+               meet_place,
+               meet_place_road,
+               notice,
+               category,
+               writer,
+               user_limit,
+               user_cnt
+        FROM room_info
+        ORDER BY writer ASC;
+    </select>
+
+    <select id="selectPage" parameterType="map" resultType="RoomDto">
+        SELECT bno,
+               title,
+               filename,
+               filepath,
+               meet_Date,
+               meet_place,
+               meet_place_road,
+               notice,
+               category,
+               writer,
+               user_limit,
+               user_cnt
+        FROM room_info
+        ORDER BY writer ASC
+            LIMIT #{offset}, #{pageSize}
     </select>
 
     <!-- 카테고리별로 선택해서 보여준다-->
     <select id="selectCategory" resultType="RoomDto">
-        SELECT bno, title, filename,filepath,meet_Date,meet_place,meet_place_road,notice,category,writer,user_limit,user_cnt
-        FROM room_info WHERE category = #{category}
+        SELECT bno,
+               title,
+               filename,
+               filepath,
+               meet_Date,
+               meet_place,
+               meet_place_road,
+               notice,
+               category,
+               writer,
+               user_limit,
+               user_cnt
+        FROM room_info
+        WHERE category = #{category}
     </select>
 
     <select id="select" parameterType="Integer" resultType="RoomDto">
-        SELECT  bno, title, filename,filepath,meet_Date,meet_place,meet_place_road,notice,category,writer,user_limit,user_cnt
-        FROM room_info  WHERE bno = #{bno}
+        SELECT bno,
+               title,
+               filename,
+               filepath,
+               meet_Date,
+               meet_place,
+               meet_place_road,
+               notice,
+               category,
+               writer,
+               user_limit,
+               user_cnt
+        FROM room_info
+        WHERE bno = #{bno}
     </select>
 
 
     <select id="selectHostRoom" parameterType="String" resultType="RoomDto">
-        SELECT  bno, title, filename,filepath,meet_Date,meet_place,meet_place_road,notice,category,writer,user_limit,user_cnt
-        FROM room_info  WHERE writer = #{writer}
+        SELECT bno,
+               title,
+               filename,
+               filepath,
+               meet_Date,
+               meet_place,
+               meet_place_road,
+               notice,
+               category,
+               writer,
+               user_limit,
+               user_cnt
+        FROM room_info
+        WHERE writer = #{writer}
     </select>
 
     <select id="selectRoom" parameterType="Integer" resultType="RoomDto">
-        SELECT bno, title, filename,filepath,meet_Date,meet_place,meet_place_road,notice,category,writer,user_limit,user_cnt
-        FROM room_info  WHERE bno  IN
+        SELECT bno, title,
+        filename,filepath,meet_Date,meet_place,meet_place_road,notice,category,writer,user_limit,user_cnt
+        FROM room_info WHERE bno IN
         <if test="list.size == 0">
             (null)
         </if>
-        <if test = "list != null">
-        <foreach collection="list" item="bno" open="(" close=")" separator=",">
-                            #{bno}
-                        </foreach>
+        <if test="list != null">
+            <foreach collection="list" item="bno" open="(" close=")" separator=",">
+                #{bno}
+            </foreach>
         </if>
 
     </select>
 
     <update id="update" parameterType="RoomDto">
         UPDATE room_info
-        SET   title = #{title}
-          , filename = #{filename}
-          , filepath = #{filepath}
-          , meet_Date = #{meet_Date}
-          , meet_place = #{meet_place}
+        SET title           = #{title}
+          , filename        = #{filename}
+          , filepath        = #{filepath}
+          , meet_Date       = #{meet_Date}
+          , meet_place      = #{meet_place}
           , meet_place_road = #{meet_place_road}
-          , notice = #{notice}
-          , category = #{category}
-          , up_date = now()
-          , user_limit = #{user_limit}
-          , user_cnt = #{user_cnt}
+          , notice          = #{notice}
+          , category        = #{category}
+          , up_date         = now()
+          , user_limit      = #{user_limit}
+          , user_cnt        = #{user_cnt}
         WHERE bno = #{bno}
     </update>
 
     <!--검색하기 -->
-    <select id="searchSelectPage" parameterType="SearchCondition" resultType ="RoomDto">
-        SELECT  bno, title, filename,filepath,meet_Date,meet_place,meet_place_road,notice,category,writer,user_limit,user_cnt
+    <select id="searchSelectPage" parameterType="SearchCondition" resultType="RoomDto">
+        SELECT bno, title,
+        filename,filepath,meet_Date,meet_place,meet_place_road,notice,category,writer,user_limit,user_cnt
         FROM room_info
         WHERE true
         <choose>
-            <when test='option=="T"'>
-            AND title LIKE concat('%',#{keyword},'%');
+            <when test='category =="전체"'>
+                <choose>
+                    <when test='option=="T"'>
+                        AND title LIKE concat('%',#{keyword},'%');
+                    </when>
+                    <when test='option=="C"'>
+                        AND writer LIKE concat('%',#{keyword},'%');
+                    </when>
+                </choose>
             </when>
-            <when test='option=="C"'>
-                AND writer LIKE concat('%',#{keyword},'%');
-            </when>
+            <otherwise>
+                <choose>
+                    <when test='option=="T"'>
+                        AND category = #{category}
+                        AND title LIKE concat('%',#{keyword},'%');
+
+                    </when>
+                    <when test='option=="C"'>
+                        AND category = #{category}
+                        AND writer LIKE concat('%',#{keyword},'%');
+                    </when>
+                </choose>
+
+            </otherwise>
+
+
         </choose>
     </select>
-
-
-
-
-
-
 
 
 </mapper>

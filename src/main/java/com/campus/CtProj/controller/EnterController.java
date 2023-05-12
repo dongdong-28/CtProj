@@ -24,6 +24,7 @@ public class EnterController {
     public ResponseEntity<String> write(@RequestBody EnterDto dto, HttpSession session) {    // 입력한 내용을 받아와야하니깐 CommentDto dto 해줘야한다.
         String user_id = (String)session.getAttribute("id");
         dto.setUser_id(user_id);
+        System.out.println("why?"+dto);
         try {
             if(service.enter(dto) != 1)
                 throw new Exception("Enter failed. ");
