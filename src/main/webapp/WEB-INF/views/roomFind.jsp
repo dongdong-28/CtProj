@@ -61,9 +61,9 @@
 <!-- Nav -->
 <nav id="nav">
     <ul >
-        <li><a href="<c:url value='/'/>">홈</a></li>
-        <li><a href="<c:url value='/room/in-mem'/>">방 입장</a></li>
-        <li  class="current"><a href="<c:url value='/room/find'/>">방 찾기</a></li>
+        <li ><a href="<c:url value='/'/>">홈</a></li>
+        <li ><a href="<c:url value='/room/in-mem'/>">방 입장</a></li>
+        <li class="current"><a href="<c:url value='/room/find'/>">방 찾기</a></li>
         <li><a href="<c:url value='/room/make'/>">방 생성</a></li>
         <li><a href="<c:url value='/room/list'/>">나의 방</a></li>
 
@@ -81,7 +81,6 @@
     </ul>
 
 </nav>
-
 
 <!-- Section-->
 <section id="main">
@@ -347,7 +346,6 @@
 
         });
 
-        /* 카테고리 왜 다시..??다시..!*/
         $(".categoryBtn").on("click", function () {
             let categoryOption = $(this).children().children().text();
             console.log(categoryOption)

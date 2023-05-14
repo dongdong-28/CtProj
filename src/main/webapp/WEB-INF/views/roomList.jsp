@@ -5,7 +5,7 @@
 <c:set var="loginId"
        value="${pageContext.request.getSession(false)==null ? '' : pageContext.request.session.getAttribute('id')}"/>
 <c:set var="loginOutLink" value="${loginId=='' ? '/login/login' : '/login/logout'}"/>
-<c:set var="loginOut" value="${loginId=='' ? 'Login' : 'ID='+=loginId}"/>
+<c:set var="loginOut" value="${loginId=='' ? 'Login' : 'Logout'}"/>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -16,7 +16,8 @@
     <title>With Us</title>
 
 
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.8.2/css/all.min.css"/>
+
     <script src="https://code.jquery.com/jquery-1.11.3.js"></script>
 
 
@@ -54,92 +55,287 @@
 
 <!-- Nav -->
 <nav id="nav">
-    <ul>
-        <li class="current"><a href="<c:url value='/'/>">홈</a></li>
+    <ul >
+        <li ><a href="<c:url value='/'/>">홈</a></li>
         <li><a href="<c:url value='/room/in-mem'/>">방 입장</a></li>
         <li><a href="<c:url value='/room/find'/>">방 찾기</a></li>
         <li><a href="<c:url value='/room/make'/>">방 생성</a></li>
-        <li><a href="<c:url value='/room/list'/>">나의 방</a></li>
+        <li class="current"><a href="<c:url value='/room/list'/>">나의 방</a></li>
+
+
+
+        <div id="userInformation"></div>
+        <!-- 로그인-->
+        <a href="<c:url value='${loginOutLink}'/>">
+            <button type="button" class="btn btn-outline-danger loginBtn">${loginOut}</button></a>
+        <a href="<c:url value='/register/add'/>">
+            <button type="button" class="btn btn-outline-danger loginBtn">회원가입</button>
+        </a>
+
+
     </ul>
+
 </nav>
 
 
+<div id="main" style="padding-top:50px">
+    <!-- ======= Menu Section ======= -->
+    <section id="menu" class="menu section-bg">
+        <div class="container" data-aos="fade-up">
 
-<!-- Main -->
-<section id="main">
-    <div class="container">
-        <div class="row gtr-200">
-            <div class="col-12">
-    <h2>
-        <div id="list-num"></div>
-    </h2>    <!-- 방 정보를 가져와서 집어넣을 예정이다-->
-
-    <div class="container px-4 px-lg-5 mt-5">
-        <h1>방장인 방</h1>
-        <div id="list-host"></div>        <!-- 방 정보를 가져와서 집어넣을 예정이다-->
-
-    </div>
-
-    <div class="container px-4 px-lg-5 mt-5">
-        <h1>회원인 방</h1>
-        <div id="list-mem"></div>        <!-- 방 정보를 가져와서 집어넣을 예정이다-->
-
-    </div>
-
-    <div class="container px-4 px-lg-5 mt-5">
-        <h1>후기</h1>
-        <div id="reviewList"></div>        <!-- 방 정보를 가져와서 집어넣을 예정이다-->
-
-    </div>
-
-
-    <!-- Modal -->
-    <div class="modal fade" id="reviewModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-         aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
-                    <button type="button" class="btn-close closeModalBtn" data-bs-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true"></span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <div id="roomReviewList" class="wrapInfo"></div>
-                </div>
-                <div class="modal-footer">
-
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">취소하기</button>
-                    <button type="button" id="reviewConfirmBtn" class="btn btn-primary ">저장하기</button>
-                </div>
+            <%--            <div class="section-title">--%>
+            <%--                <h2>Menu</h2>--%>
+            <%--                <p>Check Our Tasty Menu</p>--%>
+            <%--            </div>--%>
+            <div class="col-lg-12 d-flex justify-content-center">
+                <ul id="menu-flters">
+                    <%--            <li data-filter="*" class="filter-active">All</li>--%>
+                    <li  class=" cate-list filter-active">방장</li>
+                    <li class="cate-list">회원</li>
+                    <li class="cate-list">후기</li>
+                </ul>
             </div>
-        </div>
-    </div>
 
-    <%--    <!-- Modal -->--%>
-    <%--    <div class="modal fade" id="exampleModalLong" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">--%>
-    <%--        <div class="modal-dialog" role="document">--%>
-    <%--            <div class="modal-content">--%>
-    <%--                <div class="modal-header">--%>
-    <%--                    <h5 class="modal-title" id="exampleModalLongTitle">Modal title</h5>--%>
-    <%--                    <button type="button" class="close closeModalBtn" data-dismiss="modal" aria-label="Close">--%>
-    <%--                        <span aria-hidden="true">&times;</span>--%>
-    <%--                    </button>--%>
-    <%--                </div>--%>
-    <%--                <div class="modal-body">--%>
-    <%--                    ...--%>
-    <%--                </div>--%>
-    <%--                <div class="modal-footer">--%>
-    <%--                    <button type="button" class="btn btn-secondary closeModalBtn" data-dismiss="modal">Close</button>--%>
-    <%--                    <button type="button" class="btn btn-primary">Save changes</button>--%>
-    <%--                </div>--%>
+            <div class="row" data-aos="fade-up" data-aos-delay="100">
+
+            </div>
+
+            <%--            <div class="row menu-container" data-aos="fade-up" data-aos-delay="200">--%>
+<%--            <div id="list-host"></div>        <!-- 방장 정보를 가져와서 집어넣을 예정이다-->--%>
+
+                <div class="list-mem"></div>        <!-- 회원 정보를 가져와서 집어넣을 예정이다-->
+<%--                        <div id="reviewList"></div>        <!--  리뷰 정보를 가져와서 집어넣을 예정이다-->--%>
+
+
+
+            <%--                <div class="col-lg-6 menu-item filter-starters">--%>
+            <%--&lt;%&ndash;                    <img src="assets/img/menu/lobster-bisque.jpg" class="menu-img" alt="">&ndash;%&gt;--%>
+            <%--                    <div class="menu-content">--%>
+            <%--                        <a href="#">Lobster Bisque</a><span>$5.95</span>--%>
+            <%--                    </div>--%>
+            <%--                    <div class="menu-ingredients">--%>
+            <%--                        Lorem, deren, trataro, filede, neradaasdasasdasdssssssss--%>
+            <%--                    </div>--%>
+            <%--                </div>--%>
+
+            <%--                <div class="col-lg-6 menu-item filter-specialty">--%>
+            <%--&lt;%&ndash;                    <img src="assets/img/menu/bread-barrel.jpg" class="menu-img" alt="">&ndash;%&gt;--%>
+            <%--                    <div class="menu-content">--%>
+            <%--                        <a href="#">Bread Barrel</a><span>$6.95</span>--%>
+            <%--                    </div>--%>
+            <%--                    <div class="menu-ingredients">--%>
+            <%--                        Lorem, deren, trataro, filede, nerada--%>
+            <%--                    </div>--%>
+            <%--                </div>--%>
+
+            <%--                <div class="col-lg-6 menu-item filter-starters">--%>
+            <%--                    <img src="assets/img/menu/cake.jpg" class="menu-img" alt="">--%>
+            <%--                    <div class="menu-content">--%>
+            <%--                        <a href="#">Crab Cake</a><span>$7.95</span>--%>
+            <%--                    </div>--%>
+            <%--                    <div class="menu-ingredients">--%>
+            <%--                        A delicate crab cake served on a toasted roll with lettuce and tartar sauce--%>
+            <%--                    </div>--%>
+            <%--                </div>--%>
+
+            <%--                <div class="col-lg-6 menu-item filter-salads">--%>
+            <%--                    <img src="assets/img/menu/caesar.jpg" class="menu-img" alt="">--%>
+            <%--                    <div class="menu-content">--%>
+            <%--                        <a href="#">Caesar Selections</a><span>$8.95</span>--%>
+            <%--                    </div>--%>
+            <%--                    <div class="menu-ingredients">--%>
+            <%--                        Lorem, deren, trataro, filede, nerada--%>
+            <%--                    </div>--%>
+            <%--                </div>--%>
+
+            <%--                <div class="col-lg-6 menu-item filter-specialty">--%>
+            <%--                    <img src="assets/img/menu/tuscan-grilled.jpg" class="menu-img" alt="">--%>
+            <%--                    <div class="menu-content">--%>
+            <%--                        <a href="#">Tuscan Grilled</a><span>$9.95</span>--%>
+            <%--                    </div>--%>
+            <%--                    <div class="menu-ingredients">--%>
+            <%--                        Grilled chicken with provolone, artichoke hearts, and roasted red pesto--%>
+            <%--                    </div>--%>
+            <%--                </div>--%>
+
+            <%--                <div class="col-lg-6 menu-item filter-starters">--%>
+            <%--                    <img src="assets/img/menu/mozzarella.jpg" class="menu-img" alt="">--%>
+            <%--                    <div class="menu-content">--%>
+            <%--                        <a href="#">Mozzarella Stick</a><span>$4.95</span>--%>
+            <%--                    </div>--%>
+            <%--                    <div class="menu-ingredients">--%>
+            <%--                        Lorem, deren, trataro, filede, nerada--%>
+            <%--                    </div>--%>
+            <%--                </div>--%>
+
+            <%--                <div class="col-lg-6 menu-item filter-salads">--%>
+            <%--                    <img src="assets/img/menu/greek-salad.jpg" class="menu-img" alt="">--%>
+            <%--                    <div class="menu-content">--%>
+            <%--                        <a href="#">Greek Salad</a><span>$9.95</span>--%>
+            <%--                    </div>--%>
+            <%--                    <div class="menu-ingredients">--%>
+            <%--                        Fresh spinach, crisp romaine, tomatoes, and Greek olives--%>
+            <%--                    </div>--%>
+            <%--                </div>--%>
+
+            <%--                <div class="col-lg-6 menu-item filter-salads">--%>
+            <%--                    <img src="assets/img/menu/spinach-salad.jpg" class="menu-img" alt="">--%>
+            <%--                    <div class="menu-content">--%>
+            <%--                        <a href="#">Spinach Salad</a><span>$9.95</span>--%>
+            <%--                    </div>--%>
+            <%--                    <div class="menu-ingredients">--%>
+            <%--                        Fresh spinach with mushrooms, hard boiled egg, and warm bacon vinaigrette--%>
+            <%--                    </div>--%>
+            <%--                </div>--%>
+
+            <%--                <div class="col-lg-6 menu-item filter-specialty">--%>
+            <%--                    <img src="assets/img/menu/lobster-roll.jpg" class="menu-img" alt="">--%>
+            <%--                    <div class="menu-content">--%>
+            <%--                        <a href="#">Lobster Roll</a><span>$12.95</span>--%>
+            <%--                    </div>--%>
+            <%--                    <div class="menu-ingredients">--%>
+            <%--                        Plump lobster meat, mayo and crisp lettuce on a toasted bulky roll--%>
+            <%--                    </div>--%>
+            <%--                </div>--%>
+
+        </div>
+
+        <%--        </div>--%>
+    </section><!-- End Menu Section -->
+
+
+    <%--<div id="main-list">--%>
+
+    <%--    <!-- Post -->--%>
+    <%--    <article class="post-list">--%>
+    <%--        <ul>--%>
+    <%--            <li style="border-bottom:solid 2px #c1cac5">--%>
+    <%--                <p class="date-list">--%>
+    <%--                   "5월"<br>--%>
+    <%--                    <b>24일</b>--%>
+    <%--                </p>--%>
+    <%--                <p>hello</p>--%>
+    <%--                <p>나머지</p>--%>
+
+    <%--            </li>--%>
+    <%--        </ul>--%>
+    <%--        <div id="list-host"></div>        <!-- 방 정보를 가져와서 집어넣을 예정이다-->--%>
+
+    <%--        <header>--%>
+    <%--            <div class="title">--%>
+    <%--                <h2><a href="single.html">Magna sed adipiscing</a></h2>--%>
+    <%--                <p>Lorem ipsum dolor amet nullam consequat etiam feugiat</p>--%>
     <%--            </div>--%>
-    <%--        </div>--%>
-    <%--    </div>--%>
+    <%--            <div class="meta">--%>
+    <%--                <time class="published" datetime="2015-11-01">November 1, 2015</time>--%>
+    <%--                <a href="#" class="author"><span class="name">Jane Doe</span><img src="images/avatar.jpg" alt="" /></a>--%>
+    <%--            </div>--%>
+    <%--        </header>--%>
+    <%--        <a href="single.html" class="image featured"><img src="images/pic01.jpg" alt="" /></a>--%>
+    <%--        <p>Mauris neque quam, fermentum ut nisl vitae, convallis maximus nisl. Sed mattis nunc id lorem euismod placerat. Vivamus porttitor magna enim, ac accumsan tortor cursus at. Phasellus sed ultricies mi non congue ullam corper. Praesent tincidunt sed tellus ut rutrum. Sed vitae justo condimentum, porta lectus vitae, ultricies congue gravida diam non fringilla.</p>--%>
+    <%--        <footer>--%>
+    <%--            <ul class="actions">--%>
+    <%--                <li><a href="single.html" class="button large">Continue Reading</a></li>--%>
+    <%--            </ul>--%>
+    <%--            <ul class="stats">--%>
+    <%--                <li><a href="#">General</a></li>--%>
+    <%--                <li><a href="#" class="icon solid fa-heart">28</a></li>--%>
+    <%--                <li><a href="#" class="icon solid fa-comment">128</a></li>--%>
+    <%--            </ul>--%>
+    <%--        </footer>--%>
+    <%--    </article>--%>
+    <%--    --%>
+    <%--</div>--%>
+</div>
 
-            </div>
-        </div>
-    </div>
+
+<%--<!-- Sidebar --> --%>
+<%--<section id="sidebar-list">--%>
+
+<%--    <!-- Intro -->--%>
+<%--    <section id="intro">--%>
+<%--        <a href="#" class="logo"><img src="images/logo.jpg" alt="" /></a>--%>
+<%--        <header>--%>
+<%--            <h2>Future Imperfect</h2>--%>
+<%--            <p>Another fine responsive site template by <a href="http://html5up.net">HTML5 UP</a></p>--%>
+<%--        </header>--%>
+<%--    </section>--%>
+
+<%--<!-- Main -->--%>
+<%--<section id="main">--%>
+<%--    <div class="container">--%>
+<%--        <div class="row gtr-200">--%>
+<%--            <div class="col-12">--%>
+<%--    <h2>--%>
+<%--        <div id="list-num"></div>--%>
+<%--    </h2>    <!-- 방 정보를 가져와서 집어넣을 예정이다-->--%>
+
+<%--    <div class="container px-4 px-lg-5 mt-5">--%>
+<%--        <h1>방장인 방</h1>--%>
+<%--        <div id="list-host"></div>        <!-- 방 정보를 가져와서 집어넣을 예정이다-->--%>
+
+<%--    </div>--%>
+
+<%--    <div class="container px-4 px-lg-5 mt-5">--%>
+<%--        <h1>회원인 방</h1>--%>
+<%--        <div id="list-mem"></div>        <!-- 방 정보를 가져와서 집어넣을 예정이다-->--%>
+
+<%--    </div>--%>
+
+<%--    <div class="container px-4 px-lg-5 mt-5">--%>
+<%--        <h1>후기</h1>--%>
+<%--        <div id="reviewList"></div>        <!-- 방 정보를 가져와서 집어넣을 예정이다-->--%>
+
+<%--    </div>--%>
+
+
+<%--    <!-- Modal -->--%>
+<%--    <div class="modal fade" id="reviewModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"--%>
+<%--         aria-hidden="true">--%>
+<%--        <div class="modal-dialog" role="document">--%>
+<%--            <div class="modal-content">--%>
+<%--                <div class="modal-header">--%>
+<%--                    <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>--%>
+<%--                    <button type="button" class="btn-close closeModalBtn" data-bs-dismiss="modal" aria-label="Close">--%>
+<%--                        <span aria-hidden="true"></span>--%>
+<%--                    </button>--%>
+<%--                </div>--%>
+<%--                <div class="modal-body">--%>
+<%--                    <div id="roomReviewList" class="wrapInfo"></div>--%>
+<%--                </div>--%>
+<%--                <div class="modal-footer">--%>
+
+<%--                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">취소하기</button>--%>
+<%--                    <button type="button" id="reviewConfirmBtn" class="btn btn-primary ">저장하기</button>--%>
+<%--                </div>--%>
+<%--            </div>--%>
+<%--        </div>--%>
+<%--    </div>--%>
+
+<%--    <!-- Modal -->--%>
+<%--    <div class="modal fade" id="exampleModalLong" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">--%>
+<%--        <div class="modal-dialog" role="document">--%>
+<%--            <div class="modal-content">--%>
+<%--                <div class="modal-header">--%>
+<%--                    <h5 class="modal-title" id="exampleModalLongTitle">Modal title</h5>--%>
+<%--                    <button type="button" class="close closeModalBtn" data-dismiss="modal" aria-label="Close">--%>
+<%--                        <span aria-hidden="true">&times;</span>--%>
+<%--                    </button>--%>
+<%--                </div>--%>
+<%--                <div class="modal-body">--%>
+<%--                    ...--%>
+<%--                </div>--%>
+<%--                <div class="modal-footer">--%>
+<%--                    <button type="button" class="btn btn-secondary closeModalBtn" data-dismiss="modal">Close</button>--%>
+<%--                    <button type="button" class="btn btn-primary">Save changes</button>--%>
+<%--                </div>--%>
+<%--            </div>--%>
+<%--        </div>--%>
+<%--    </div>--%>
+
+</div>
+</div>
+</div>
 </section>
 
 <!-- About-->
@@ -157,7 +353,7 @@
 <!-- Core theme JS-->
 <script>
 
-    let showList = function () {
+    let showList = function (cate) {
         //
         // $('.openModalBtn').click(function (e) {
         //     e.preventDefault();
@@ -184,58 +380,73 @@
             }); // $.ajax()
         }
 
-        $.ajax({
-            type: 'GET',       // 요청 메서드
-            url: '/CtProj/list/mem',  // 요청 URI
-            success: function (result) {
-                $("#list-mem").html(toHtmlMem(result));    // 서버로부터 응답이 도착하면 호출될 함수
-            },
-            error: function () {
-                alert("error")
-            } // 에러가 발생했을 때, 호출될 함수
-        }); // $.ajax()
 
-        $.ajax({
-            type: 'GET',       // 요청 메서드
-            url: '/CtProj/list/host',  // 요청 URI
-            success: function (result) {
-                $("#list-host").html(toHtmlHost(result));    // 서버로부터 응답이 도착하면 호출될 함수
-            },
-            error: function () {
-                alert("error")
-            } // 에러가 발생했을 때, 호출될 함수
-        }); // $.ajax()
+        if(cate == "방장"){
 
-        $.ajax({
-            type: 'GET',       // 요청 메서드
-            url: '/CtProj/list/num',  // 요청 URI
-            success: function (result) {
-                $("#list-num").html(toHtmlListNum(result));    // 서버로부터 응답이 도착하면 호출될 함수
-            },
-            error: function () {
-                alert("error")
-            } // 에러가 발생했을 때, 호출될 함수
-        }); // $.ajax()
+            $.ajax({
+                type: 'GET',       // 요청 메서드
+                url: '/CtProj/list/host',  // 요청 URI
+                success: function (result) {
+                    $(".list-mem").html(toHtmlHost(result));    // 서버로부터 응답이 도착하면 호출될 함수
+                },
+                error: function () {
+                    alert("error")
+                } // 에러가 발생했을 때, 호출될 함수
+            }); // $.ajax()
+        } else if(cate == "회원"){
+            $.ajax({
+                type: 'GET',       // 요청 메서드
+                url: '/CtProj/list/mem',  // 요청 URI
+                success: function (result) {
+                    $(".list-mem").html(toHtmlMem(result));    // 서버로부터 응답이 도착하면 호출될 함수
+                },
+                error: function () {
+                    alert("error")
+                } // 에러가 발생했을 때, 호출될 함수
+            }); // $.ajax()
+            
+        }
+         else {
+
+            $.ajax({
+                type: 'GET',       // 요청 메서드
+                url: '/CtProj/list/review',  // 요청 URI
+                success: function (result) {
+                    $(".reviewList").html(toHtmlReviewList(result));
+                },
+                error: function () {
+                    alert("안됨..")
+                } // 에러가 발생했을 때, 호출될 함수
+            }); // $.ajax()
+
+        }
+
+         
 
 
-        $.ajax({
-            type: 'GET',       // 요청 메서드
-            url: '/CtProj/list/review',  // 요청 URI
-            success: function (result) {
-                $("#reviewList").html(toHtmlReviewList(result));
-            },
-            error: function () {
-                alert("안됨..")
-            } // 에러가 발생했을 때, 호출될 함수
-        }); // $.ajax()
+
+
+        // $.ajax({
+        //     type: 'GET',       // 요청 메서드
+        //     url: '/CtProj/list/num',  // 요청 URI
+        //     success: function (result) {
+        //         $("#list-num").html(toHtmlListNum(result));    // 서버로부터 응답이 도착하면 호출될 함수
+        //     },
+        //     error: function () {
+        //         alert("error")
+        //     } // 에러가 발생했을 때, 호출될 함수
+        // }); // $.ajax()
+
+
     }
 
 
     $(document).ready(function () {
-        showList();
+        listCate = "방장"
+        showList(listCate);
 
 
-        $("#reviewList").on("click", ".reveiwMemBtn", function () {
+        $(".list-mem").on("click", ".reveiwMemBtn", function () {
             $('#reviewModal').modal("show");
             let reviewRoomBno = $(this).parent().parent().attr("data-reviewBno");
             console.log(reviewRoomBno);
@@ -300,7 +511,7 @@
                     url: '/CtProj/list/review/mem/' + reviewRoomBno,  // 요청 URI
                     success: function (result) {
                         console.log("후기 삭제하고 나갑니다.")
-                        showList();
+                        showList(listCate);
                         $('#reviewModal').modal("hide");
                     },
                     error: function () {
@@ -314,8 +525,8 @@
         });
 
 
-        $("#list-mem").on("click", ".delBtn-Mem", function () {
-            let bno = $(this).parent().parent().attr("data-bno");
+        $(".list-mem").on("click", ".delBtn-Mem", function () {
+            let bno = $(this).attr("data-bno");
 
 
             if (confirm("삭제하시겠습니까?")) {
@@ -324,7 +535,7 @@
                     url: '/CtProj/list/mem/' + bno,  // 요청 URI
                     success: function (result) {
                         alert("삭제되었습니다.");
-                        showList();          // 삭제된 이후에 목록에 다시 갱신해주며 보여주기
+                        showList(listCate);          // 삭제된 이후에 목록에 다시 갱신해주며 보여주기
                     },
                     error: function () {
                         alert("삭제에 실패하였습니다.")
@@ -334,8 +545,9 @@
 
         });
 
-        $("#list-host").on("click", ".delBtn-Host", function () {
-            let bno = $(this).parent().parent().attr("data-bno");
+        $(".list-mem").on("click", ".delBtn-Host", function () {
+            let bno = $(this).attr("data-bno");
+            console.log(bno);
             // let title = $(this).parent().attr("title");
             if (confirm("삭제하시겠습니까?")) {
                 $.ajax({
@@ -343,7 +555,7 @@
                     url: '/CtProj/list/host/' + bno,  // 요청 URI
                     success: function (result) {
                         alert("삭제되었습니다");
-                        showList();          // 삭제된 이후에 목록에 다시 갱신해주며 보여주기
+                        showList(listCate);          // 삭제된 이후에 목록에 다시 갱신해주며 보여주기
                     },
                     error: function () {
                         alert("삭제에 실패하였습니다.")
@@ -352,19 +564,63 @@
             }
         });
 
+        $(".cate-list").on("click", function (e) {
+            let pastActive = $(e.target).closest('li');
+            pastActive.siblings('li').removeClass("filter-active");
+            pastActive.addClass("filter-active");
+
+           listCate = $(this).text();
+            console.log(listCate)
+            if(listCate == "방장") {
+                $.ajax({
+                    type: 'GET',       // 요청 메서드
+                    url: '/CtProj/list/host',  // 요청 URI
+                    success: function (result) {
+                        $(".list-mem").html(toHtmlHost(result));    // 서버로부터 응답이 도착하면 호출될 함수
+                    },
+                    error: function () {
+                        alert("error")
+                    } // 에러가 발생했을 때, 호출될 함수
+                }); // $.ajax()
+            } else if(listCate == "회원"){
+                $.ajax({
+                    type: 'GET',       // 요청 메서드
+                    url: '/CtProj/list/mem',  // 요청 URI
+                    success: function (result) {
+                        $(".list-mem").html(toHtmlMem(result));    // 서버로부터 응답이 도착하면 호출될 함수
+                    },
+                    error: function () {
+                        alert("error")
+                    } // 에러가 발생했을 때, 호출될 함수
+                }); // $.ajax()
+            } else{
+
+                $.ajax({
+                    type: 'GET',       // 요청 메서드
+                    url: '/CtProj/list/review',  // 요청 URI
+                    success: function (result) {
+                        $(".list-mem").html(toHtmlReviewList(result));
+                    },
+                    error: function () {
+                        alert("안됨..")
+                    } // 에러가 발생했을 때, 호출될 함수
+                }); // $.ajax()
+            }
+        });
+
+
 
     });
 
     let toUserHtml = function (userInfo) {
         let tmp = '<div>'
-        tmp += '닉네임 =<div id="userIdInfo">' + userInfo.id + '</div><br>'
-        tmp += '포인트 =' + userInfo.coin + '<br>'
-        tmp += '레벨 =' + Math.floor(userInfo.level) + '<br>'
+        tmp += userInfo.nickname + '    Coin: <tab>'
+        tmp += userInfo.coin + '    Lv:    '
+        tmp += Math.floor(userInfo.level)
 
 
         return tmp + '</div>';
     }
-
 
     let toHtmlMem = function (rooms) {
 
@@ -374,40 +630,40 @@
         rooms.forEach(function (room) {
             const dateFormat = new Date(room.meet_Date);
             const meet_date = dateFormat.getFullYear() + '년 ' + (dateFormat.getMonth() + 1) + '월 ' + dateFormat.getDate() + '일 ' + dateFormat.getHours() + '시 ' + dateFormat.getMinutes() + '분';
-            const meetDateFormat = dateFormat.getTime();
+            const meetDateFormat = dateFormat.getDate();
 
-            tmp += '<div class="col " style="width:100%">'
-            tmp += ' <div class="card border-danger mb-3" style="max-width: 100rem;height: 115px;">'
             tmp += '      <!-- Product details--> '
-            tmp += '     <div class="card-body">'
+            tmp += '   <div class="col-lg-6 menu-item filter-starters">'
             tmp += '              <!-- Product name-->'
-            tmp += '<ul>'
-            tmp += '<li data-bno=' + room.bno + ' ' + 'data-meet_date =' + meetDateFormat + ' style="list-style-type:none;">'
+            tmp += ' <div class="menu-content">'
+            // tmp += '<div data-bno=' + room.bno + 'style="display:hidden;">'
             // tmp += '방번호= ' + room.bno
-            tmp += ' <h4 class="card-title">' + '제목: <span class="title">' + room.title + '</span>' + '</h4>'
-            tmp += '<p class="card-text" style="display: inline-block">'
+            // tmp += '</div>'
+            // tmp += '<div>'
+            tmp += '<div class="title">' + room.title + '</div><span>$5.95</span>'
+            tmp += '</div>'
+
+            tmp += ' <div class="menu-ingredients">'
+            tmp += '장소:' + room.meet_place + '</span><br>'
             tmp += '날짜: <span class="meet_Date">' + meet_date + '</span><br>'
-            tmp += '장소: <span class="meet_Place">' + room.meet_place + '</span><br>'
+            tmp += '공지사항: <span>' + room.notice + '</span>'
             <%--tmp +=  '인원수: '+${list.size()+1} + ' / '+ room.user_limit;--%>
-            tmp += '</p>'
+            tmp += '</div>'
             tmp += '      <!-- Product actions-->'
-            tmp += '   <div class="sub" style="position:absolute;top:50%;left:84%">'
-            tmp += '<form action = "/CtProj/room/in-mem" method = "post" style="display: inline-block">'
+            tmp += '   <div class="sub" style="float:right;">'
+            tmp += '<form action = "/CtProj/room/in-host" method = "post" style="display: inline-block">'
             tmp += '<input type = "hidden" name = "room_num" value ="' + room.bno + '"/>'
-            tmp += ' <input type = "submit" value = "입장하기" class="btn btn-outline-danger btn-myroom"/>'
+            tmp += ' <input type = "submit" value = "입장하기" class="btn-myroom" style="margin-right:10px;  padding: 0.35em 0.5em;font-size: 1.1em;font-weight: 600;"/>'
             tmp += '</form>'
-            tmp += '  <button type="button" class="btn btn-outline-primary btn-myroom delBtn-Mem">나가기</button>'
+            tmp += '  <button type="button" data-bno="'+room.bno+'" class="btn-myroom delBtn-Mem">나가기</button>'
             tmp += '      </div>'
-            tmp += '</li>'
-            tmp += '</ul>'
+
             tmp += '    </div>'
-            tmp += '  </div>'
-            tmp += ' </div>'
+
 
 
         })
-
-        return tmp + "</div>";
+        return tmp + '</div>';
 
     }
 
@@ -456,49 +712,47 @@
 
     }
 
-
     let toHtmlHost = function (rooms) {
 
-        let tmp = '<div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">'
+        let tmp = '<div class="row menu-container" data-aos="fade-up" data-aos-delay="200">'
 
         rooms.forEach(function (room) {
             const dateFormat = new Date(room.meet_Date);
             const meet_date = dateFormat.getFullYear() + '년 ' + (dateFormat.getMonth() + 1) + '월 ' + dateFormat.getDate() + '일 ' + dateFormat.getHours() + '시 ' + dateFormat.getMinutes() + '분';
             const meetDateFormat = dateFormat.getDate();
 
-            tmp += '<div class="col " style="width:100%">'
-            tmp += ' <div class="card border-danger mb-3" style="max-width: 100rem;height: 115px;">'
             tmp += '      <!-- Product details--> '
-            tmp += '     <div class="card-body">'
+            tmp += '   <div class="col-lg-6 menu-item filter-starters">'
             tmp += '              <!-- Product name-->'
-            tmp += '<ul>'
-            tmp += '<li data-bno=' + room.bno + ' style="list-style-type:none;">'
-            // tmp += '방번호= ' + room.bno
-            tmp += ' <h4 class="card-title">' + '제목: <span class="title">' + room.title + '</span>' + '</h4>'
-            tmp += '<p class="card-text" style="display: inline-block">'
-            tmp += '날짜: <span class="meet_Date">' + meet_date + '</span><br>'
-            tmp += '<div data-meetDate="meet_Place" style="display: none">' + meetDateFormat + '</div><br>'
-            tmp += '장소: <span class="meet_Place">' + room.meet_place + '</span><br>'
+            tmp += ' <div class="menu-content">'
+            // tmp += '<div data-bno=' + room.bno + 'style="display:none;">'
+            // tmp += '</div>'
+            tmp += '<div class="title">' + room.title + '</div><span>$5.95</span>'
+            tmp += '</div>'
 
+            tmp += ' <div class="menu-ingredients">'
+            tmp += '장소:' + room.meet_place + '</span><br>'
+            tmp += '날짜: <span class="meet_Date">' + meet_date + '</span><br>'
+            tmp += '공지사항: <span>' + room.notice + '</span>'
             <%--tmp +=  '인원수: '+${list.size()+1} + ' / '+ room.user_limit;--%>
-            tmp += '</p>'
+            tmp += '</div>'
             tmp += '      <!-- Product actions-->'
-            tmp += '   <div class="sub" style="position:absolute;top:50%;left:84%">'
+            tmp += '   <div class="sub" style="float:right;">'
+            // tmp += '<div data-bno=' + room.bno + '>'+room.bno
+            // tmp += '</div>'
             tmp += '<form action = "/CtProj/room/in-host" method = "post" style="display: inline-block">'
             tmp += '<input type = "hidden" name = "room_num" value ="' + room.bno + '"/>'
-            tmp += ' <input type = "submit" value = "입장하기" class="btn btn-outline-danger btn-myroom"/>'
+            tmp += ' <input type = "submit" value = "입장하기" class="btn-myroom" style="margin-right:10px;  padding: 0.35em 0.5em;font-size: 1.1em;font-weight: 600;"/>'
             tmp += '</form>'
-            tmp += '  <button type="button" class="btn btn-outline-primary btn-myroom delBtn-Host">나가기</button>'
+            tmp += '  <button type="button" data-bno="'+room.bno+'" class="btn-myroom delBtn-Host">나가기</button>'
             tmp += '      </div>'
-            tmp += '</li>'
-            tmp += '</ul>'
+
             tmp += '    </div>'
-            tmp += '  </div>'
-            tmp += ' </div>'
+
 
 
         })
-        return tmp + "</div>";
+        return tmp + '</div>';
     }
 
     let toHtmlListNum = function (roomNum) {
@@ -567,5 +821,6 @@
 <!-- * * Activate your form at https://startbootstrap.com/solution/contact-forms * *-->
 <!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *-->
 <script src="<c:url value="https://cdn.startbootstrap.com/sb-forms-latest.js"/>"></script>
+<script src="assets/js/main.js"></script>
 </body>
 </html>
