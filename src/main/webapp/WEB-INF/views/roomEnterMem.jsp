@@ -5,7 +5,7 @@
 <c:set var="loginId"
        value="${pageContext.request.getSession(false)==null ? '' : pageContext.request.session.getAttribute('id')}"/>
 <c:set var="loginOutLink" value="${loginId=='' ? '/login/login' : '/login/logout'}"/>
-<c:set var="loginOut" value="${loginId=='' ? 'Login' : 'ID='+=loginId}"/>
+<c:set var="loginOut" value="${loginId=='' ? 'Login' : 'Logout'}"/>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -34,26 +34,26 @@
     <link rel="stylesheet" type="text/css" href="<c:url value="/css/stylesmaintest.css"/>">
     <%--    <link rel="stylesheet" type="text/css" href="<c:url value="/css/stylesmaintest.css"/>">--%>
 
-    <style>
-        ul > li {
-            display: table-row-group;
-            color: black;
-        }
+<%--    <style>--%>
+<%--        ul > li {--%>
+<%--            display: table-row-group;--%>
+<%--            color: black;--%>
+<%--        }--%>
 
-        .wrapInfo {
-            position: absolute;
-        }
+<%--        .wrapInfo {--%>
+<%--            position: absolute;--%>
+<%--        }--%>
 
-        .page-section {
-            height: 800px;
-        }
+<%--        .page-section {--%>
+<%--            height: 800px;--%>
+<%--        }--%>
 
-        .login-card {
-            background-color: #4f5050;
-            left: 1097px;
-            top: 119px;
-        }
-    </style>
+<%--        .login-card {--%>
+<%--            background-color: #4f5050;--%>
+<%--            left: 1097px;--%>
+<%--            top: 119px;--%>
+<%--        }--%>
+<%--    </style>--%>
 
 </head>
 <body id="page-top">
@@ -74,102 +74,91 @@
 <!-- Nav -->
 <nav id="nav">
     <ul>
-        <li class="current"><a href="<c:url value='/'/>">홈</a></li>
-        <li><a href="<c:url value='/room/in-mem'/>">방 입장</a></li>
+        <li><a href="<c:url value='/'/>">홈</a></li>
+        <li class="current"><a href="<c:url value='/room/in-mem'/>">방 입장</a></li>
         <li><a href="<c:url value='/room/find'/>">방 찾기</a></li>
         <li><a href="<c:url value='/room/make'/>">방 생성</a></li>
         <li><a href="<c:url value='/room/list'/>">나의 방</a></li>
+
+
+        <div id="userInformation"></div>
+        <!-- 로그인-->
+        <a href="<c:url value='${loginOutLink}'/>">
+            <button type="button" class="btn btn-outline-danger loginBtn">${loginOut}</button>
+        </a>
+        <a href="<c:url value='/register/add'/>">
+            <button type="button" class="btn btn-outline-danger loginBtn">회원가입</button>
+        </a>
+
+
     </ul>
+
 </nav>
 
 <!-- Section-->
 
+
 <!-- Main -->
-<section id="main">
-    <div class="container">
-        <div class="row gtr-200">
-            <div class="col-12">
-                <div class="container px-4 px-lg-5 h-100">
-                    <div class="row h-100 text-center">
-
-                        <!-- 공지 사항 -->
-                        <div class="card border-primary mb-3 wrapInfo" style="max-width: 50rem;height:100px;padding: 0">
-                            <div class="card-header">공지사항</div>
-                            <div class="card-body">
-                                <h4 class="card-title"> ${roomDto.notice}</h4>
-                            </div>
-                        </div>
-
-                        <!-- 로그인한 유저 정보 -->
-                        <div class="card login-card" style="position : absolute; right: 120px;">
-                            <div class="text-center my-3">
-                                <img class="img-fluid rounded-circle mb-4"
-                                     src="https://dummyimage.com/150x150/6c757d/dee2e6.jpg" alt="..."/>
-                                <!-- 유저정보-->
-                                <div><p id=userInformation class="text-white-50 mb-0"
-                                        style="width: 182px;height: 72px;font-size: inherit;"></p></div>
-                            </div>
-
-                        </div>
-
-
-                        <div class="card border-primary mb-3 wrapInfo"
-                             style="max-width: 20rem;height:100px;padding: 0;top:36%">
-                            <div class="card-header">장소</div>
-                            <div class="card-body">
-                                <h4 class="card-title">${roomDto.meet_place}</h4>
-                            </div>
-                        </div>
-
-
-                        <div class="card border-primary mb-3 wrapInfo"
-                             style="max-width: 20rem;height:100px;padding: 0;top:36%;left:35%">
-                            <div class="card-header">시간</div>
-                            <div class="card-body">
-                                <h4 class="card-title"> ${roomDto.meet_Date}</h4>
-                            </div>
-                        </div>
-
-
-                        <!-- 방장 + 인원 -->
-                        <ul class="list-group border-primary" style="width:auto;position: absolute;left: 75%;top: 58%;">
-                            <div id="list-mem"></div>
-                        </ul>
-
-                        <!-- 현재 인원 / 제한인원 -->
-                        <ul class="list-group border-primary" style="width:auto;position: absolute;left: 89%;top: 58%;">
-                            <div id="list-num"></div>
-                        </ul>
-
-                        <!-- 지도 보여주기-->
-                        <div class="card border-primary mb-3 wrapInfo"
-                             style="max-width: 20rem;padding: 0;height:200px;top: 55%">
-                            <div class="card-header">지도</div>
-                            <div class="card-body">
-                                <h4 class="card-title"></h4>
-                            </div>
-                        </div>
-
-                        <!-- 채팅창-->
-                        <div class="card border-primary mb-3 wrapInfo"
-                             style="max-width: 35rem;height:350px;padding: 0;top: 55%; left:35%">
-                            <div class="card-header">채팅창</div>
-                            <div class="card-body">
-                                <h4 class="card-title"></h4>
-                            </div>
-                        </div>
-
-                        <!-- 나가기버튼-->
-                        <div id="room-info" class="wrapInfo" style="left:40%;top:96%"></div>
-
-
+<div id="main" style="padding-top:50px;background: #f4f4f4;;">
+    <section id="menu" class="menu section-bg">
+        <div class="container row-in" data-aos="fade-up">
+            <article class="post-in">
+                <div id="roomInfo"></div>
+                <div class="chat">
+                    <div class="chat-in" style="overflow: scroll;">
+                        dsafasd<br>
+                        dsafasd<br>
+                        dsafasd<br>
+                        dsafasd<br>
+                        dsafasd<br>
+                        dsafasd<br>
+                        dsafasd<br>
+                        dsafasd<br>
+                        dsafasd<br>
+                        dsafasd<br>
+                        dsafasd<br>
+                        dsafasd<br>
+                        dsafasd<br>
+                        dsafasd<br>
+                        dsafasd<br>
+                        dsafasd<br>
+                        dsafasd<br>
+                        dsafasd<br>
+                        dsafasd<br>
                     </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
 
+                    <form>
+                        <div class="card-body">
+
+                            <li class="list-group-item"  style="list-style: none;">
+                                <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+                                <button type="button" class="btn btn-dark mt-3" onClick="javascript:addReply();">post reply</button>
+                            </li>
+
+                        </div>
+                    </form>
+                </div><!-- End Contact Form -->
+
+            </article>
+            <!-- Sidebar -->
+            <div id="sidebar-in">
+
+                <div id="list-mem"></div>
+                <div id="list-num"></div>
+
+
+                <section class="sec-btn" style="border-top:0;margin: 2em 0 0 0;">
+                    <!-- 나가기버튼-->
+                    <div id="roomOutIsCoin" class="wrapInfo"></div>
+
+                </section>
+            </div>
+
+        </div>
+    </section><!-- End Menu Section -->
+
+    <%--    <div style="width: 60%;" id="ww_1f8f1284a9686" v='1.3' loc='id' a='{"t":"responsive","lang":"ko","sl_lpl":1,"ids":["wl4479"],"font":"Arial","sl_ics":"one_a","sl_sot":"celsius","cl_bkg":"rgba(246,247,243,1)","cl_font":"#000000","cl_cloud":"#d4d4d4","cl_persp":"#2196F3","cl_sun":"#FFC107","cl_moon":"#FFC107","cl_thund":"#FF5722","sl_tof":"7","cl_odd":"#00000000","el_nme":3}'>Weather Data Source: <a href="https://wetterlang.de/seoul_wetter_30_tage/" id="ww_1f8f1284a9686_u" target="_blank">wetterlang.de/seoul_wetter_30_tage/</a></div><script async src="https://app1.weatherwidget.org/js/?id=ww_1f8f1284a9686"></script>--%>
+</div>
 
 <!-- About-->
 
@@ -203,106 +192,90 @@
             }); // $.ajax()
         }
 
-        $("#room-info").html(toHtmlRoomInfo());    // 서버로부터 응답이 도착하면 호출될 함수
-        $("#list-mem").html(toHtmlMem());
-        $("#list-num").html(toHtmlListNum());
+        $.ajax({
+            type: 'GET',       // 요청 메서드
+            url: '/CtProj/room?bno=' +${roomDto.bno},  // 요청 URI
+            async: false,
+            success: function (result) {
+                console.log("카운트!")
+                console.log(result.user_cnt)
+                console.log(result.meet_Date)
+                cnt = result.user_cnt // 수정할때를 위해서 전역변수로 넘겨준다
+                $("#roomInfo").html(toHtmlRoomInfo(result));    // 서버로부터 응답이 도착하면 호출될 함수
+            },
+            error: function () {
+                alert("error")
+            } // 에러가 발생했을 때, 호출될 함수
+        }); // $.ajax()
 
-        // $.ajax({
-        //     type: 'GET',       // 요청 메서드
-        //     url: '/CtProj/room-info',  // 요청 URI
-        //     success: function (result) {
-        //         $("#room-info").html(toHtmlRoomInfo(result));    // 서버로부터 응답이 도착하면 호출될 함수
-        //     },
-        //     error: function () {
-        //         alert("error")
-        //     } // 에러가 발생했을 때, 호출될 함수
-        // }); // $.ajax()
-        //
-        // $.ajax({
-        //     type: 'GET',       // 요청 메서드
-        //     url: '/CtProj/list-host',  // 요청 URI
-        //     success: function (result) {
-        //         $("#list-host").html(toHtmlHost(result));    // 서버로부터 응답이 도착하면 호출될 함수
-        //     },
-        //     error: function () {
-        //         alert("error")
-        //     } // 에러가 발생했을 때, 호출될 함수
-        // }); // $.ajax()
+        $.ajax({
+            type: 'GET',       // 요청 메서드
+            url: '/CtProj/room_in/list/mem?bno=' +${roomDto.bno},  // 요청 URI
+            success: function (result) {
+
+                console.log(result)
+                $("#list-mem").html(toHtmlMem(result));
+            },
+            error: function () {
+                alert("error")
+            } // 에러가 발생했을 때, 호출될 함수
+        }); // $.ajax()
+        $.ajax({
+            type: 'GET',       // 요청 메서드
+            url: '/CtProj/room?bno=' +${roomDto.bno},  // 요청 URI
+            success: function (result) {
+                $("#list-num").html(toHtmlListNum(result));
+            },
+            error: function () {
+                alert("error")
+            } // 에러가 발생했을 때, 호출될 함수
+        }); // $.ajax()
     }
 
     $(document).ready(function () {
         showList();
-
-
-        // $("#roomList").on("click", ".sendBtn", function () {
-        //     let bno = $(this).parent().attr("data-bno");
-        //
-        //     $.ajax({
-        //         type: 'DELETE',       // 요청 메서드
-        //         url: '/CtProj/rooms/' + bno,  // 요청 URI
-        //         success: function (result) {
-        //             alert(result);
-        //             showList();          // 삭제된 이후에 목록에 다시 갱신해주며 보여주기
-        //         },
-        //         error: function () {
-        //             alert("error")
-        //         } // 에러가 발생했을 때, 호출될 함수
-        //     }); // $.ajax()
-        // });
-
-
-        // $("#room-info").on("click", ".delBtn-Mem", function () {
-        //     let bno = $(this).parent().attr("data-bno");
-        //     // let title = $(this).parent().attr("title");
-        //
-        //     $.ajax({
-        //         type: 'DELETE',       // 요청 메서드
-        //         url: '/CtProj/roomin-mem/' + bno,  // 요청 URI
-        //         success: function (result) {
-        //             alert(result);
-        //             window.location.ref = "/index";
-        //         },
-        //         error: function () {
-        //             alert("error")
-        //         } // 에러가 발생했을 때, 호출될 함수
-        //     }); // $.ajax()
-        // });
-        // $("#list-host").on("click", ".delBtn-Host", function () {
-        //     let bno = $(this).parent().attr("data-bno");
-        //     // let title = $(this).parent().attr("title");
-        //
-        //     $.ajax({
-        //         type: 'DELETE',       // 요청 메서드
-        //         url: '/CtProj/list-host/' + bno,  // 요청 URI
-        //         success: function (result) {
-        //             alert(result);
-        //             showList();          // 삭제된 이후에 목록에 다시 갱신해주며 보여주기
-        //         },
-        //         error: function () {
-        //             alert("error")
-        //         } // 에러가 발생했을 때, 호출될 함수
-        //     }); // $.ajax()
-        // });
-
-
     });
 
     let toUserHtml = function (userInfo) {
         let tmp = '<div>'
-        tmp += '닉네임 =' + userInfo.id + '<br>'
-        tmp += '포인트 =' + userInfo.coin + '<br>'
-        tmp += '레벨 =' + Math.floor(userInfo.level) + '<br>'
+        tmp += userInfo.nickname + '    Coin: <tab>'
+        tmp += userInfo.coin + '    Lv:    '
+        tmp += Math.floor(userInfo.level)
 
 
         return tmp + '</div>';
     }
 
-    let toHtmlRoomInfo = function () {
-        let tmp = '<form action = "/CtProj/room_in/delete/mem" onsubmit="return btnCheck()" method = "post">'
-        tmp += '<input type = "hidden" name = "room_num" value ="' + ${roomDto.bno}+'" />'
-        tmp += '<input type = "submit"  class="btn bFtn-outline-primary" value="나가기"/>'
-        return tmp + '</form>';
 
+    let toHtmlRoomInfo = function (room) {
+
+        const dateFormat = new Date(room.meet_Date);
+        const meet_date = dateFormat.getFullYear() + '년 ' + (dateFormat.getMonth() + 1) + '월 ' + dateFormat.getDate() + '일 ' + (dateFormat.getHours() > 9 ? dateFormat.getHours() : '0' + dateFormat.getHours()) + '시 ' + (dateFormat.getMinutes() > 9 ? dateFormat.getMinutes() : '0' + dateFormat.getMinutes()) + '분';
+        meetDateFormat = dateFormat.getFullYear() + '-' + (dateFormat.getMonth() + 1) + '-' + dateFormat.getDate() + ' ' + (dateFormat.getHours() > 9 ? dateFormat.getHours() : '0' + dateFormat.getHours()) + ':' + (dateFormat.getMinutes() > 9 ? dateFormat.getMinutes() : '0' + dateFormat.getMinutes());
+        $('input[id=InputDate]').attr('value', meetDateFormat);
+        console.log(meetDateFormat)
+        console.log(room.meet_Date);
+        console.log(dateFormat);
+        let tmp = '<header>'
+        tmp += '<!-- 방 제목 -->'
+        tmp += '  <div class="title">'
+        tmp += '   <div>' + room.title + '</div>'
+        tmp += '<!-- 공지 사항 -->'
+        tmp += '   <p>' + room.notice + '</p>'
+        tmp += '</div>'
+        tmp += '  <div class="meta">'
+        tmp += '<div data-meet_date ="' + room.meet_Date + '">' + meet_date + '</div>'
+        tmp += '   </div>'
+        tmp += '  </header>'
+
+        tmp += '     <img class="image featured" src="${pageContext.request.contextPath}' + room.filepath + '" alt="대체" />'
+        tmp += '<div class="place-in">' + room.meet_place_road + '</div>'
+        tmp += '<div class="place-in">' + room.meet_place + '</div>'
+        tmp += '<div class = "rooms-user_cnt" style="display:none;">' + room.user_cnt + '</div>'
+        tmp += '  <footer>'
+        tmp += '<div>채팅창</div>'
+        tmp += '</footer>'
+        return tmp;
     }
 
     function btnCheck() {
@@ -313,29 +286,31 @@
         }
     }
 
-    let toHtmlMem = function () {
-        let tmp = "<ul>";
-        <%--tmp += '<li data-bno=' + ${roomDto.bno} + '>'--%>
-        <%--tmp += '방번호= ' + ${roomDto.bno};--%>
-        tmp += '<li class="list-group-item d-flex justify-content-between align-items-center list-group-item-danger">방장: ' + ${roomDto.writer} +'</li>'
-        tmp += ' <c:forEach items= "${list}" var="list" >'
-        tmp += '<li class="list-group-item d-flex justify-content-between align-items-center">'
-        tmp += ${list} +"</li> ";
-        tmp += '</c:forEach>'
-        // tmp += '</li>'
-        return tmp + "</ul>";
-
+    let toHtmlMem = function (list) {
+        let tmp = "  <section>";
+        tmp += '<ul class="posts">'
+        tmp += '<li style="font-size:21px;">방장: ' + '${userDto.nickname}' + '<br><div style="text-align:right;">Lv' + Math.floor(${userDto.level}) + '</div></li>';
+        for (const val in Object.keys(list)) {
+            tmp += '<li class="mem-list">'
+            tmp += '<div class="mem-list-nic">'+list[val].nickname + '</div>'
+            tmp += '<div style="text-align:right;">Lv' + Math.floor(list[val].level) + '</div></li> ';
+        }
+        for (let i = 0; i < 5 - list.length; i++) {
+            tmp += ' <li class="mem-list">'
+            tmp += ' </li>'
+        }
+        tmp += '</ul>'
+        return tmp + '</section>';
     }
 
-    let toHtmlListNum = function () {
-        // let tmp = "<ul>";
-        let tmp = '<li class="list-group-item d-flex justify-content-between align-items-center">'
-        tmp +=  ${list.size()+1};
-        tmp += ' / ' +
-        ${roomDto.user_limit}
-        return tmp + "</li> ";
-
+    let toHtmlListNum = function (room) {
+        let tmp = '<section>';
+        tmp += '<li class="posts">'
+        tmp += '<div id="totalUserNum">' + room.user_cnt + '</div>';
+        tmp += ' / ' + room.user_limit
+        return tmp + '</li></section>';
     }
+
 
 
     window.addEventListener('DOMContentLoaded', event => {

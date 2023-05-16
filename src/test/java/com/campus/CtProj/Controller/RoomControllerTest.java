@@ -5,8 +5,10 @@ import com.campus.CtProj.dao.RoomDao;
 import com.campus.CtProj.domain.EnterDto;
 import com.campus.CtProj.domain.PageHandler;
 import com.campus.CtProj.domain.RoomDto;
+import com.campus.CtProj.domain.UserDto;
 import com.campus.CtProj.service.EnterService;
 import com.campus.CtProj.service.RoomService;
+import com.campus.CtProj.service.UserService;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,6 +18,7 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.web.bind.annotation.GetMapping;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -28,6 +31,10 @@ public class RoomControllerTest {
 
     @Autowired
     RoomService service;
+    @Autowired
+    EnterService enterService;
+    @Autowired
+    UserService userService;
     @Autowired
     RoomDao roomDao;
     @Autowired
@@ -68,8 +75,24 @@ public class RoomControllerTest {
         map.put("pageSize", ph.getPageSize());
 
         list = service.getPageList(map);
-        System.out.println("cnt = "+list.size());
+        System.out.println("cnt = " + list.size());
         System.out.println(list);
+    }
+
+    @Test
+    public void getMemList() throws Exception {
+        List<String> list = null;
+        List<UserDto> userList = new ArrayList<>();
+
+        list = enterService.selectRoomId(432);
+        System.out.println("list = " + list);
+
+        for (String memId : list) {
+            userList.add(userService.getUser(memId));
+        }
+        System.out.println("userList = " + userList);
+
+
     }
 
 //    // 방 생성
@@ -78,7 +101,7 @@ public class RoomControllerTest {
 //        RoomDto roomDto = roomDao.se
 //    }
 
-    // 방 입장
+        // 방 입장
 //    @Test
 //    public void enter() throws Exception {
 //        EnterDto enterDto = new EnterDto("17100999",250);
@@ -86,4 +109,4 @@ public class RoomControllerTest {
 //    }
 
 
-}
+    }

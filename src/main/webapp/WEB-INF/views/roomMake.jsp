@@ -98,7 +98,7 @@
         <fieldset style="padding-left:40px">
             <div class="form-group">
                 <label for="InputTitle" class="form-label mt-4">제목</label>
-                <input type="text" class="form-control rooms-title" name="title" id="InputTitle" placeholder="입력해주세요">
+                <input type="text" class="form-control rooms-title" name="title" id="InputTitle" maxlength="25" placeholder="입력해주세요">
             </div>
             <div class="form-group">
                 <label for="img_file" class="form-label mt-4">사진</label>
@@ -131,7 +131,7 @@
             </div>
             <div class="form-group">
                 <label for="InputNotice" class="form-label mt-4">공지사항</label>
-                <input type="text" class="form-control rooms-notice" name="notice" id="InputNotice"
+                <input type="text" class="form-control rooms-notice" name="notice" id="InputNotice" maxlength="40"
                        placeholder="입력해주세요">
             </div>
             <div class="form-group">

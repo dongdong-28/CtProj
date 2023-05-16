@@ -1,8 +1,7 @@
 package com.campus.CtProj.controller;
 
-import com.campus.CtProj.domain.RoomDto;
 import com.campus.CtProj.domain.UserDto;
-import com.campus.CtProj.service.UserService;
+import com.campus.CtProj.service.UserServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -17,13 +16,12 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.net.URLEncoder;
-import java.util.List;
 
 @Controller
 @RequestMapping("/login")
 public class LoginController {
     @Autowired
-    UserService service;
+    UserServiceImpl service;
 
 
     @GetMapping("/login")

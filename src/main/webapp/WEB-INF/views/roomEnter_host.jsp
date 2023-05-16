@@ -66,19 +66,19 @@
 
 <!-- Nav -->
 <nav id="nav">
-    <ul >
-        <li ><a href="<c:url value='/'/>">홈</a></li>
+    <ul>
+        <li><a href="<c:url value='/'/>">홈</a></li>
         <li class="current"><a href="<c:url value='/room/in-mem'/>">방 입장</a></li>
         <li><a href="<c:url value='/room/find'/>">방 찾기</a></li>
         <li><a href="<c:url value='/room/make'/>">방 생성</a></li>
         <li><a href="<c:url value='/room/list'/>">나의 방</a></li>
 
 
-
         <div id="userInformation"></div>
         <!-- 로그인-->
         <a href="<c:url value='${loginOutLink}'/>">
-            <button type="button" class="btn btn-outline-danger loginBtn">${loginOut}</button></a>
+            <button type="button" class="btn btn-outline-danger loginBtn">${loginOut}</button>
+        </a>
         <a href="<c:url value='/register/add'/>">
             <button type="button" class="btn btn-outline-danger loginBtn">회원가입</button>
         </a>
@@ -89,159 +89,183 @@
 </nav>
 
 
-</nav>
+
 <!-- Main -->
-<section id="main">
-    <div class="container">
-        <div class="row gtr-200">
-            <div class="col-12">
+<div id="main" style="padding-top:50px;background: #f4f4f4;;">
+    <section id="menu" class="menu section-bg">
+        <div class="container row-in" data-aos="fade-up">
+            <article class="post-in">
+                <div id="roomInfo"></div>
+                <div class="chat">
+                    <div class="chat-in" style="overflow: scroll;">
+                        dsafasd<br>
+                        dsafasd<br>
+                        dsafasd<br>
+                        dsafasd<br>
+                        dsafasd<br>
+                        dsafasd<br>
+                        dsafasd<br>
+                        dsafasd<br>
+                        dsafasd<br>
+                        dsafasd<br>
+                        dsafasd<br>
+                        dsafasd<br>
+                        dsafasd<br>
+                        dsafasd<br>
+                        dsafasd<br>
+                        dsafasd<br>
+                        dsafasd<br>
+                        dsafasd<br>
+                        dsafasd<br>
+                        </div>
 
-    <div class="container px-4 px-lg-5 h-100">
-        <div class="row h-100 text-center">
+                    <form>
+                        <div class="card-body">
 
+                                <li class="list-group-item"  style="list-style: none;">
+                                    <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+                                    <button type="button" class="btn btn-dark mt-3" onClick="javascript:addReply();">post reply</button>
+                                </li>
 
-            <div id="roomInfo"></div>
+                        </div>
+                    </form>
+                </div><!-- End Contact Form -->
 
-
-            <!-- 방장 + 인원 -->
-            <ul class="list-group border-primary" style="width:auto;position: absolute;left: 75%;top: 58%;">
+            </article>
+            <!-- Sidebar -->
+            <div id="sidebar-in">
+                <%--                <!-- 방장 + 인원 -->--%>
+                <%--                <ul class="list-group border-primary">--%>
                 <div id="list-mem"></div>
-            </ul>
-
-            <!-- 현재 인원 / 제한인원 -->
-            <ul class="list-group border-primary" style="width:auto;position: absolute;left: 89%;top: 58%;">
                 <div id="list-num"></div>
-            </ul>
 
-            <!--강퇴버튼-->
-            <button type="button" class="btn btn-primary wrapInfo" id="drop-Btn"
-                    style="width:120px;height:50px;left:89%;top:66%;">강퇴
-            </button>
+                    <!--강퇴버튼-->
+                    <button type="button" class="btn btn-primary wrapInfo" id="drop-Btn">강퇴</button>
 
+                <section class="sec-btn" style="border-top:0;margin: 2em 0 0 0;">
+                    <!-- 수정버튼-->
+                    <%--                                            <button type="button" id="openModalBtn" class="btn btn-outline-primary wrapInfo" style="width:80px;height:50px;left:80%; top:96%;">수정</button>--%>
 
+                    <button type="button" id="openModalBtn" class="btn btn-outline-primary wrapInfo" style="margin-right:15px;">수정하기</button>
 
+                    <!-- 나가기버튼-->
+                    <div id="roomOutIsCoin" class="wrapInfo"></div>
 
-
-            <!-- 수정버튼-->
-<%--            <button type="button" id="openModalBtn" class="btn btn-outline-primary wrapInfo" style="width:80px;height:50px;left:80%; top:96%;">수정</button>--%>
-
-            <button type="button" id="openModalBtn" class="btn btn-outline-primary wrapInfo"  style="width:120px;height:50px;left:89%;top:76%;">수정하기</button>
-
-            <!-- 나가기버튼-->
-            <div id="roomOutIsCoin" class="wrapInfo" style="left:24%;top:105%"></div>
-
-        </div>
-    </div>
-
-
-
-    <!-- Modal -->
-    <div class="modal fade" id="modModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-         aria-hidden="true">
-        <div class="modal-dialog " role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
-                    <button type="button" class="btn-close closeModalBtn" data-bs-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true"></span>
-                    </button>
-                </div>
-                    <div class="modal-body">
-                            <div class="form-group">
-                                <label for="InputTitle" class="form-label mt-4">제목</label>
-                                <input type="text" class="form-control rooms-title" id="InputTitle"
-                                       value="${roomDto.title}">
-                            </div>
-                            <div class="form-group">
-                                <label for="img_file" class="form-label mt-4">사진</label>
-                                <input class="form-control rooms-picture" type="file" name="file" id="img_file"
-                                       placeholder="입력해주세요">
-
-                            </div>
-
-                            <div class="form-group">
-                                <label for="InputDate" class="form-label mt-4">모임 시간</label>
-                                <input type="text" class="form-control rooms-meet_Date" id="InputDate"
-                                       aria-describedby="emailHelp" value=""/>
-                                <small id="emailHelp" class="form-text text-muted">ex) 2022-12-10 </small>
-                            </div>
-
-                        <div class="map_wrap">
-                            <div id="map" style="width:80%;height:500px;position:relative;overflow:hidden;"></div>
-
-                            <div id="menu_wrap" class="bg_white">
-                                <div class="option">
-                                    <div>
-                                        <form onsubmit="searchPlaces(); return false;">
-                                            키워드 : <input type="text" value="" id="keyword" size="15">
-                                            <button type="submit">검색하기</button>
-                                        </form>
-                                    </div>
-                                </div>
-                                <hr>
-                                <ul id="placesList"></ul>
-                                <div id="pagination"></div>
-                            </div>
-                        </div>
-
-
-
-                        <div class="form-group">
-                            <label for="InputPlaceRoad" class="form-label mt-4">모임 주소</label>
-                            <input type="text" class="form-control rooms-meet_place_road" id="InputPlaceRoad"
-                                   value="${roomDto.meet_place_road}">
-                        </div>
-
-                            <div class="form-group">
-                                <label for="InputPlace" class="form-label mt-4">모임 장소</label>
-                                <input type="text" class="form-control rooms-meet_place" id="InputPlace"
-                                       value="${roomDto.meet_place}">
-                            </div>
-
-
-                            <div class="form-group">
-                                <label for="InputNotice" class="form-label mt-4">공지사항</label>
-                                <input type="text" class="form-control rooms-notice" id="InputNotice"
-                                       value="${roomDto.notice}">
-                            </div>
-                            <div class="form-group">
-                                <label for="InputCategory" class="form-label mt-4">카테고리</label>
-                                <select name="Category" id="InputCategory" class="form-group rooms-category">
-                                    <option value="식사">식사</option>
-                                    <option value="공부" selected>공부</option>
-                                    <option value="운동">운동</option>
-                                    <option value="여행">여행</option>
-                                    <option value="거래">거래</option>
-                                    <option value="기타">기타</option>
-                                </select>
-
-                            </div>
-                            <div class="form-group">
-                                <label for="InputLimit" class="form-label mt-4">제한 인원</label>
-                                <select name="limit" id="InputLimit" class="form-group rooms-user_limit">
-                                    <option value="2">2명</option>
-                                    <option value="3">3명</option>
-                                    <option value="4">4명</option>
-                                    <option value="5">5명</option>
-                                    <option value="6">6명</option>
-                                    <option value="7">7명</option>
-                                    <option value="8">8명</option>
-                                </select>
-                            </div>
-                    </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-primary" id="Mod-Btn">변경하기</button>
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">취소하기</button>
-                </div>
+                </section>
             </div>
-        </div>
-    </div>
 
-<%--    <div style="width: 60%;" id="ww_1f8f1284a9686" v='1.3' loc='id' a='{"t":"responsive","lang":"ko","sl_lpl":1,"ids":["wl4479"],"font":"Arial","sl_ics":"one_a","sl_sot":"celsius","cl_bkg":"rgba(246,247,243,1)","cl_font":"#000000","cl_cloud":"#d4d4d4","cl_persp":"#2196F3","cl_sun":"#FFC107","cl_moon":"#FFC107","cl_thund":"#FF5722","sl_tof":"7","cl_odd":"#00000000","el_nme":3}'>Weather Data Source: <a href="https://wetterlang.de/seoul_wetter_30_tage/" id="ww_1f8f1284a9686_u" target="_blank">wetterlang.de/seoul_wetter_30_tage/</a></div><script async src="https://app1.weatherwidget.org/js/?id=ww_1f8f1284a9686"></script>--%>
-            </div>
+
+            <%--            <!-- Modal -->--%>
+            <%--            <div class="modal fade" id="modModal" tabindex="-1" role="dialog"--%>
+            <%--                 aria-labelledby="exampleModalLabel"--%>
+            <%--                 aria-hidden="true">--%>
+            <%--                <div class="modal-dialog " role="document">--%>
+            <%--                    <div class="modal-content">--%>
+            <%--                        <div class="modal-header">--%>
+            <%--                            <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>--%>
+            <%--                            <button type="button" class="btn-close closeModalBtn" data-bs-dismiss="modal"--%>
+            <%--                                    aria-label="Close">--%>
+            <%--                                <span aria-hidden="true"></span>--%>
+            <%--                            </button>--%>
+            <%--                        </div>--%>
+            <%--                        <div class="modal-body">--%>
+            <%--                            <div class="form-group">--%>
+            <%--                                <label for="InputTitle" class="form-label mt-4">제목</label>--%>
+            <%--                                <input type="text" class="form-control rooms-title" id="InputTitle"--%>
+            <%--                                       value="${roomDto.title}">--%>
+            <%--                            </div>--%>
+            <%--                            <div class="form-group">--%>
+            <%--                                <label for="img_file" class="form-label mt-4">사진</label>--%>
+            <%--                                <input class="form-control rooms-picture" type="file" name="file" id="img_file"--%>
+            <%--                                       placeholder="입력해주세요">--%>
+
+            <%--                            </div>--%>
+
+            <%--                            <div class="form-group">--%>
+            <%--                                <label for="InputDate" class="form-label mt-4">모임 시간</label>--%>
+            <%--                                <input type="text" class="form-control rooms-meet_Date" id="InputDate"--%>
+            <%--                                       aria-describedby="emailHelp" value=""/>--%>
+            <%--                                <small id="emailHelp" class="form-text text-muted">ex) 2022-12-10 </small>--%>
+            <%--                            </div>--%>
+
+            <%--                            <div class="map_wrap">--%>
+            <%--                                <div id="map"--%>
+            <%--                                     style="width:80%;height:500px;position:relative;overflow:hidden;"></div>--%>
+
+            <%--                                <div id="menu_wrap" class="bg_white">--%>
+            <%--                                    <div class="option">--%>
+            <%--                                        <div>--%>
+            <%--                                            <form onsubmit="searchPlaces(); return false;">--%>
+            <%--                                                키워드 : <input type="text" value="" id="keyword" size="15">--%>
+            <%--                                                <button type="submit">검색하기</button>--%>
+            <%--                                            </form>--%>
+            <%--                                        </div>--%>
+            <%--                                    </div>--%>
+            <%--                                    <hr>--%>
+            <%--                                    <ul id="placesList"></ul>--%>
+            <%--                                    <div id="pagination"></div>--%>
+            <%--                                </div>--%>
+            <%--                            </div>--%>
+
+
+            <%--                            <div class="form-group">--%>
+            <%--                                <label for="InputPlaceRoad" class="form-label mt-4">모임 주소</label>--%>
+            <%--                                <input type="text" class="form-control rooms-meet_place_road"--%>
+            <%--                                       id="InputPlaceRoad"--%>
+            <%--                                       value="${roomDto.meet_place_road}">--%>
+            <%--                            </div>--%>
+
+            <%--                            <div class="form-group">--%>
+            <%--                                <label for="InputPlace" class="form-label mt-4">모임 장소</label>--%>
+            <%--                                <input type="text" class="form-control rooms-meet_place" id="InputPlace"--%>
+            <%--                                       value="${roomDto.meet_place}">--%>
+            <%--                            </div>--%>
+
+
+            <%--                            <div class="form-group">--%>
+            <%--                                <label for="InputNotice" class="form-label mt-4">공지사항</label>--%>
+            <%--                                <input type="text" class="form-control rooms-notice" id="InputNotice"--%>
+            <%--                                       value="${roomDto.notice}">--%>
+            <%--                            </div>--%>
+            <%--                            <div class="form-group">--%>
+            <%--                                <label for="InputCategory" class="form-label mt-4">카테고리</label>--%>
+            <%--                                <select name="Category" id="InputCategory" class="form-group rooms-category">--%>
+            <%--                                    <option value="식사">식사</option>--%>
+            <%--                                    <option value="공부" selected>공부</option>--%>
+            <%--                                    <option value="운동">운동</option>--%>
+            <%--                                    <option value="여행">여행</option>--%>
+            <%--                                    <option value="거래">거래</option>--%>
+            <%--                                    <option value="기타">기타</option>--%>
+            <%--                                </select>--%>
+
+            <%--                            </div>--%>
+            <%--                            <div class="form-group">--%>
+            <%--                                <label for="InputLimit" class="form-label mt-4">제한 인원</label>--%>
+            <%--                                <select name="limit" id="InputLimit" class="form-group rooms-user_limit">--%>
+            <%--                                    <option value="2">2명</option>--%>
+            <%--                                    <option value="3">3명</option>--%>
+            <%--                                    <option value="4">4명</option>--%>
+            <%--                                    <option value="5">5명</option>--%>
+            <%--                                    <option value="6">6명</option>--%>
+            <%--                                    <option value="7">7명</option>--%>
+            <%--                                    <option value="8">8명</option>--%>
+            <%--                                </select>--%>
+            <%--                            </div>--%>
+            <%--                        </div>--%>
+            <%--                        <div class="modal-footer">--%>
+            <%--                            <button type="button" class="btn btn-primary" id="Mod-Btn">변경하기</button>--%>
+            <%--                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">취소하기--%>
+            <%--                            </button>--%>
+            <%--                        </div>--%>
+            <%--                    </div>--%>
+            <%--                </div>--%>
+            <%--            </div>--%>
         </div>
-    </div>
-</section>
+    </section><!-- End Menu Section -->
+
+    <%--    <div style="width: 60%;" id="ww_1f8f1284a9686" v='1.3' loc='id' a='{"t":"responsive","lang":"ko","sl_lpl":1,"ids":["wl4479"],"font":"Arial","sl_ics":"one_a","sl_sot":"celsius","cl_bkg":"rgba(246,247,243,1)","cl_font":"#000000","cl_cloud":"#d4d4d4","cl_persp":"#2196F3","cl_sun":"#FFC107","cl_moon":"#FFC107","cl_thund":"#FF5722","sl_tof":"7","cl_odd":"#00000000","el_nme":3}'>Weather Data Source: <a href="https://wetterlang.de/seoul_wetter_30_tage/" id="ww_1f8f1284a9686_u" target="_blank">wetterlang.de/seoul_wetter_30_tage/</a></div><script async src="https://app1.weatherwidget.org/js/?id=ww_1f8f1284a9686"></script>--%>
+</div>
+
 
 <footer class="bg-light py-5">
     <div class="container px-4 px-lg-5">
@@ -596,19 +620,19 @@
                 }
                 alert("확인이 완료하였습니다.");
             }).then((arg) => {    // 두번째 ajax를 실행한다.
-            $.ajax({
-                type: 'DELETE',       // 요청 메서드
-                url: '/CtProj/room_in/mem/confirm/' + bno,  // 요청 URI
-                success: function (result) {
-                    console.log("확인후 나갑니다.")
-                    window.location.href = 'http://localhost:8080/CtProj/';
-                },
-                error: function () {
-                    alert("삭제에 실패하였습니다.")
-                    return false;
-                } // 에러가 발생했을 때, 호출될 함수
-            }); // $.ajax()
-        });
+                $.ajax({
+                    type: 'DELETE',       // 요청 메서드
+                    url: '/CtProj/room_in/mem/confirm/' + bno,  // 요청 URI
+                    success: function (result) {
+                        console.log("확인후 나갑니다.")
+                        window.location.href = 'http://localhost:8080/CtProj/';
+                    },
+                    error: function () {
+                        alert("삭제에 실패하였습니다.")
+                        return false;
+                    } // 에러가 발생했을 때, 호출될 함수
+                }); // $.ajax()
+            });
         });
 
         $('#InputDate').daterangepicker({
@@ -624,7 +648,6 @@
             },
         });
     });
-
 
 
     let toUserHtml = function (userInfo) {
@@ -676,8 +699,8 @@
 
     let toHtmlIsCoinReturn = function (roomInfo) {
         const now = new Date();
-        console.log("모임시간"+roomInfo.meet_Date);
-        console.log("현재시간"+now.getTime());
+        console.log("모임시간" + roomInfo.meet_Date);
+        console.log("현재시간" + now.getTime());
 
         if (roomInfo.meet_Date < now.getTime()) {
             let tmp = '<button type="button" class="btn btn-outline-primary" id="confirmBtn" style="width:120px;height:50px;">모임확인'
@@ -697,6 +720,7 @@
         }
     }
 
+
     let toHtmlRoomInfo = function (room) {
 
         const dateFormat = new Date(room.meet_Date);
@@ -706,63 +730,26 @@
         console.log(meetDateFormat)
         console.log(room.meet_Date);
         console.log(dateFormat);
-        let tmp = ' <div class="card border-primary mb-3 wrapInfo" style="max-width: 50rem;height:100px;padding: 0">';
-
+        let tmp = '<header>'
         tmp += '<!-- 방 제목 -->'
-        tmp += ' <div class="card-header">방제목</div>'
-        tmp += '<div class="card-body">'
-        tmp += '<h4 class="card-title">' + room.title + '</h4>'
-        tmp += '</div>'
-        tmp += ' </div>'
+        tmp += '  <div class="title">'
+        tmp += '   <div>' + room.title + '</div>'
         tmp += '<!-- 공지 사항 -->'
-        tmp += '<div class="card border-primary mb-3 wrapInfo" style=" width: 30rem;height:100px;padding: 0;margin-left:400px;">'
-        tmp += '<div class="card-header">공지사항</div>'
-        tmp += '<div class="card-body">'
-        tmp += '<h4 class="card-title">' + room.notice + '</h4>'
-        tmp += ' </div>'
+        tmp += '   <p>' + room.notice + '</p>'
         tmp += '</div>'
-        tmp += '      <img class="card-img-top" style="width:60%;height:50%;margin-top:140px;margin-right:500px" src="${pageContext.request.contextPath}' + room.filepath + '" alt="대체" />'
+        tmp += '  <div class="meta">'
+        tmp += '<div data-meet_date ="' + room.meet_Date + '">' + meet_date + '</div>'
+        tmp += '   </div>'
+        tmp += '  </header>'
 
-        // tmp += '<!-- 공지 사항 -->'
-        // tmp += '<div class="card border-primary mb-3 wrapInfo" style=" max-width: 50rem;height:100px;padding: 0">'
-        // tmp += '<div class="card-header">공지사항</div>'
-        // tmp += '<div class="card-body">'
-        // tmp += '<h4 class="card-title">' + room.notice + '</h4>'
-        // tmp += ' </div>'
-        // tmp += '</div>'
-        tmp += '<div class="card border-primary mb-3 wrapInfo" style="margin-top: 630px;max-width: 20rem;height:100px;padding: 0;top:36%">'
-        tmp += '<div class="card-header">주소</div>'
-        tmp += '<div class="card-body">'
-        tmp += '<h4 class="card-title">' + room.meet_place_road + '</h4>'
-        tmp += '</div>'
-        tmp += '</div>'
-        tmp += '<div class="card border-primary mb-3 wrapInfo" style="margin-top: 630px;max-width: 20rem;height:100px;padding: 0;top:36%;left:27%">'
-        tmp += '<div class="card-header">장소</div>'
-        tmp += '<div class="card-body">'
-        tmp += '<h4 class="card-title">' + room.meet_place + '</h4>'
-        tmp += '</div>'
-        tmp += '</div>'
-        tmp += '<div class="card border-primary mb-3 wrapInfo" style="margin-top: 630px;width: 25rem;height:100px;padding: 0;top:36%;left:50%">'
-        tmp += '<div class="card-header">시간</div>'
-        tmp += '<div class="card-body">'
-        tmp += '<h4 class="card-title" data-meet_date =' + room.meet_Date + '>' + meet_date + '</h4>'
-        tmp += '</div>'
-        tmp += '</div>'
+        tmp += '     <img class="image featured" src="${pageContext.request.contextPath}' + room.filepath + '" alt="대체" />'
+        tmp += '<div class="place-in">' + room.meet_place_road + '</div>'
+        tmp += '<div class="place-in">' + room.meet_place + '</div>'
         tmp += '<div class = "rooms-user_cnt" style="display:none;">' + room.user_cnt + '</div>'
-        // tmp += '<!-- 지도 보여주기-->'
-        // tmp += '<div class="card border-primary mb-3 wrapInfo" style="margin-top: 150px;max-width: 20rem;padding: 0;height:200px;top: 55%">'
-        // tmp += '<div class="card-header">지도</div>'
-        // tmp += '<div class="card-body">'
-        // tmp += '<h4 class="card-title"></h4>'
-        // tmp += '</div>'
-        // tmp += '</div>'
-
-        tmp += '<!-- 채팅창-->'
-        tmp += '<div class="card border-primary mb-3 wrapInfo" style="margin-top: 800px;width: 60rem;height:300px;padding: 0;top: 30%; left:3%">'
-        tmp += '<div class="card-header">채팅창</div>'
-        tmp += '<h4 class="card-title"></h4>'
-        tmp += '</div>'
-        return tmp + '</div>';
+        tmp += '  <footer>'
+        tmp += '<div>채팅창</div>'
+        tmp += '</footer>'
+        return tmp;
     }
 
 
@@ -776,22 +763,31 @@
     <%--    return tmp + '</ul>';--%>
     <%--}--%>
 
+
     let toHtmlMem = function (list) {
-        let tmp = "<ul>";
-        tmp += '<li class="list-group-item d-flex justify-content-between align-items-center list-group-item-danger">방장: ' + ${roomDto.writer} +'</li>'
+        let tmp = "  <section>";
+        tmp += '<ul class="posts">'
+        tmp += '<li style="font-size:21px;">방장: ' + '${userDto.nickname}' + '<br><div style="text-align:right;">Lv' + Math.floor(${userDto.level}) + '</div></li>';
         for (const val in Object.keys(list)) {
-            tmp += '<li class="list-group-item d-flex justify-content-between align-items-center">'
-            tmp += list[val] + '<input class="form-check-input" type="checkbox" name="flexCheckChecked"  value="' + list[val] + '"> </li> ';
+            tmp += '<li class="mem-list">'
+            tmp += '<div class="mem-list-nic"><input class="form-check-input"  type="checkbox" name="flexCheckChecked" style="margin-right:10px"  value="' + list[val].id + '">'+list[val].nickname + '</div>'
+            tmp += '<div style="text-align:right;">Lv' + Math.floor(list[val].level) + '</div></li> ';
         }
-        return tmp + '</ul>';
+        for (let i = 0; i < 5 - list.length; i++) {
+            tmp += ' <li class="mem-list">'
+            tmp += ' </li>'
+        }
+        tmp += '</ul>'
+        return tmp + '</section>';
     }
 
+
     let toHtmlListNum = function (room) {
-        let tmp = '<li class="list-group-item d-flex justify-content-between align-items-center">'
+        let tmp = '<section>';
+        tmp += '<li class="posts">'
         tmp += '<div id="totalUserNum">' + room.user_cnt + '</div>';
         tmp += ' / ' + room.user_limit
-        return tmp + "</li> ";
-
+        return tmp + '</li></section>';
     }
 
 

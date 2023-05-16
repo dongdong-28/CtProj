@@ -1,6 +1,7 @@
 package com.campus.CtProj.controller;
 
 import com.campus.CtProj.domain.RoomDto;
+import com.campus.CtProj.domain.UserDto;
 import com.campus.CtProj.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -18,14 +19,16 @@ public class CommonController {
     RoomService roomService;
     EnterService enterService;
     RoomListService roomListService;
+    UserService userService;
 
     CommonController() {}
 
     @Autowired
-    CommonController(RoomService roomService,EnterService enterService,RoomListService roomListService) {
+    CommonController(RoomService roomService,EnterService enterService,RoomListService roomListService,UserService userService) {
         this.roomService = roomService;
         this.enterService = enterService;
         this.roomListService = roomListService;
+        this.userService = userService;
     }
 
 
@@ -82,9 +85,11 @@ public class CommonController {
         Integer room_bno = Integer.parseInt(request.getParameter("room_num"));
         RoomDto roomDto = roomService.read(room_bno);
         List<String> list = enterService.selectRoomId(room_bno);
+        UserDto userDto = userService.getUser(roomDto.getWriter());
 
         m.addAttribute("list",list);
         m.addAttribute("roomDto",roomDto);    // view 로 넘기기
+        m.addAttribute("userDto",userDto);
         if(!loginCheck(request))
             return "redirect:/login/login?toURL="+request.getRequestURL();
         return "roomEnterMem";
@@ -96,9 +101,11 @@ public class CommonController {
         Integer room_bno = Integer.parseInt(request.getParameter("room_num"));
         RoomDto roomDto = roomService.read(room_bno);
         List<String> list = enterService.selectRoomId(room_bno);
+        UserDto userDto = userService.getUser(roomDto.getWriter());
 
         m.addAttribute("roomDto",roomDto);    // view 로 넘기기
         m.addAttribute("list",list);
+        m.addAttribute("userDto",userDto);
         if(!loginCheck(request))
             return "redirect:/login/login?toURL="+request.getRequestURL();  // 로그인을 안했으면 로그인 화면으로 이동
         return "roomEnter_host";

@@ -2,10 +2,8 @@ package com.campus.CtProj.controller;
 
 import com.campus.CtProj.domain.BoolDto;
 import com.campus.CtProj.domain.RoomDto;
-import com.campus.CtProj.service.EnterService;
-import com.campus.CtProj.service.RoomInService;
-import com.campus.CtProj.service.RoomListService;
-import com.campus.CtProj.service.RoomService;
+import com.campus.CtProj.domain.UserDto;
+import com.campus.CtProj.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -30,6 +28,9 @@ public class RoomInController {
     RoomInService roomInService;
     @Autowired
     EnterService enterService;
+    @Autowired
+    UserService userService;
+
 
     // 방 입장 상태에서 나가기를 누르면 메인 홈으로 이동하게 한다.
     @PostMapping("/delete/mem")
@@ -50,16 +51,21 @@ public class RoomInController {
     }
 
     @GetMapping("/list/mem")
-   @ResponseBody public ResponseEntity<List<String>> getMemList(HttpServletRequest request) throws Exception {
+   @ResponseBody public ResponseEntity<List<UserDto>> getMemList(HttpServletRequest request) throws Exception {
         Integer bno = Integer.parseInt(request.getParameter("bno"));
         List<String> list = null;
+        List<UserDto> userList = new ArrayList<>();
         try {
             list = enterService.selectRoomId(bno);
-            System.out.println(list);
-            return new ResponseEntity<>(list, HttpStatus.OK);   // 200
+            for(String memId: list) {
+            userList.add(userService.getUser(memId));
+            }
+
+            System.out.println(userList);
+            return new ResponseEntity<>(userList, HttpStatus.OK);   // 200
         } catch (Exception e) {
             e.printStackTrace();
-            return new ResponseEntity<>(list, HttpStatus.BAD_REQUEST);      //400
+            return new ResponseEntity<>(userList, HttpStatus.BAD_REQUEST);      //400
         }
 
     }
