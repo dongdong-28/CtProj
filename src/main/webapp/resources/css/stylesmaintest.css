@@ -3871,7 +3871,7 @@ option {
 }
 
 .post-in> #roomInfo > header .meta > div {
-    font-size: 1.3em;
+    font-size: 1.2em;
     color: #646464;
     font-family: "Source Sans Pro", Helvetica, sans-serif;
 }
@@ -3886,7 +3886,6 @@ option {
     height: 1em;
     border-radius: 0.25em;
     margin-top: 0.25em;
-    mrgin-
 }
 
 .form-check-input:checked {
@@ -4291,3 +4290,4 @@ option {
     border-radius: 0.25rem;
     transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
 }
+

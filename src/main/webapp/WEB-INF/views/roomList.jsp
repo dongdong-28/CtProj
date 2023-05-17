@@ -23,7 +23,8 @@
 
     <!-- Favicon-->
     <link rel="icon" type="image/x-icon" href="assets/favicon.ico"/>
-    <!-- Bootstrap Icons-->
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.8.2/css/all.min.css"/>
+        <!-- Bootstrap Icons-->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css" rel="stylesheet"/>
     <!-- Google fonts-->
     <link href="https://fonts.googleapis.com/css?family=Merriweather+Sans:400,700" rel="stylesheet"/>
@@ -126,14 +127,14 @@
 <script>
 
     let showList = function (cate) {
-        //
-        // $('.openModalBtn').click(function (e) {
-        //     e.preventDefault();
-        //     $('#reviewModal').modal("show");
-        // });
-        // $('.closeModalBtn').on('click', function () {
-        //     $('#reviewModal').modal('hide');
-        // });
+
+        $('.openModalBtn').click(function (e) {
+            e.preventDefault();
+            $('#reviewModal').modal("show");
+        });
+        $('.closeModalBtn').on('click', function () {
+            $('#reviewModal').modal('hide');
+        });
 
 
         let userId = "${loginId}";
@@ -412,7 +413,7 @@
             // tmp += '방번호= ' + room.bno
             // tmp += '</div>'
             // tmp += '<div>'
-            tmp += '<div class="title">' + room.title + '</div><span>$5.95</span>'
+            tmp += '<div class="title">' + room.title + '</div><span>'+room.user_cnt+'/'+room.user_limit+'</span>'
             tmp += '</div>'
 
             tmp += ' <div class="menu-ingredients">'
@@ -459,7 +460,7 @@
                 // tmp += '방번호= ' + room.bno
                 // tmp += '</div>'
                 // tmp += '<div>'
-                tmp += '<div class="title">' + room.review_title + '</div><span>None</span>'
+                tmp += '<div class="title">' + room.review_title + '</div><span class="icon solid fa-star"></span>'
                 tmp += '</div>'
 
                 tmp += ' <div class="menu-ingredients">'
@@ -482,6 +483,9 @@
 
     }
 
+
+
+
     let toHtmlHost = function (rooms) {
 
         let tmp = '<div class="row menu-container" data-aos="fade-up" data-aos-delay="200">'
@@ -497,7 +501,7 @@
             tmp += ' <div class="menu-content">'
             // tmp += '<div data-bno=' + room.bno + 'style="display:none;">'
             // tmp += '</div>'
-            tmp += '<div class="title">' + room.title + '</div><span>$5.95</span>'
+            tmp += '<div class="title">' + room.title + '</div><span>'+room.user_cnt+'/'+room.user_limit+'</span>'
             tmp += '</div>'
 
             tmp += ' <div class="menu-ingredients">'

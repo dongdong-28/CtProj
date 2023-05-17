@@ -149,8 +149,10 @@
 
                 <section class="sec-btn" style="border-top:0;margin: 2em 0 0 0;">
                     <!-- 나가기버튼-->
-                    <div id="roomOutIsCoin" class="wrapInfo"></div>
-
+               <form action = "/CtProj/room_in/delete/mem" onsubmit="return btnCheck()" method = "post">
+              <input type = "hidden" name = "room_num" value ="${roomDto.bno}" />
+                 <input type = "submit"  class="btn bFtn-outline-primary" value="나가기"/>
+              </form>
                 </section>
             </div>
 
