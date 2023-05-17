@@ -157,8 +157,6 @@
                     <option value="4">4명</option>
                     <option value="5">5명</option>
                     <option value="6">6명</option>
-                    <option value="7">7명</option>
-                    <option value="8">8명</option>
                 </select>
             </div>
 

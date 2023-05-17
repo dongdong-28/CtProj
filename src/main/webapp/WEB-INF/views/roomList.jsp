@@ -451,36 +451,34 @@
                 const meet_date = dateFormat.getFullYear() + '년 ' + (dateFormat.getMonth() + 1) + '월 ' + dateFormat.getDate() + '일 ' + dateFormat.getHours() + '시 ' + dateFormat.getMinutes() + '분';
                 const meetDateFormat = dateFormat.getDate();
 
-                tmp += '<div class="col " style="width:100%">'
-                tmp += ' <div class="card border-danger mb-3" style="max-width: 100rem;height: 115px;">'
                 tmp += '      <!-- Product details--> '
-                tmp += '     <div class="card-body">'
+                tmp += '   <div class="col-lg-6 menu-item filter-starters">'
                 tmp += '              <!-- Product name-->'
-                tmp += '<ul>'
-                tmp += '<li data-reviewBno=' + room.room_bno + ' style="list-style-type:none;">'
+                tmp += ' <div class="menu-content">'
+                // tmp += '<div data-bno=' + room.bno + 'style="display:hidden;">'
                 // tmp += '방번호= ' + room.bno
-                tmp += ' <h4 class="card-title">' + '제목: <span class="title">' + room.review_title + '</span>' + '</h4>'
-                tmp += '<p class="card-text" style="display: inline-block">'
-                tmp += '날짜: <span class="meet_Date">' + meet_date + '</span><br>'
-                // tmp += '<div data-meetDate="meet_Place" style="display: none">' + meetDateFormat+ '</div><br>'
-                tmp += '장소: <span class="meet_Place">' + room.review_place + '</span><br>'
+                // tmp += '</div>'
+                // tmp += '<div>'
+                tmp += '<div class="title">' + room.review_title + '</div><span>None</span>'
+                tmp += '</div>'
 
-                tmp += '</p>'
+                tmp += ' <div class="menu-ingredients">'
+                tmp += '장소:' + room.review_place + '</span><br>'
+                tmp += '날짜: <span class="meet_Date">' + meet_date + '</span><br>'
+                tmp += '</div>'
                 tmp += '      <!-- Product actions-->'
-                tmp += '   <div class="sub" style="position:absolute;top:50%;left:84%">'
+                tmp += '   <div class="sub" style="float:right;">'
                 tmp += ' <button type="button"  class="btn btn-primary reveiwMemBtn" data-bs-toggle="modal" data-bs-target="#reviewModal">후기남기기</button>'
                 tmp += '      </div>'
-                tmp += '</li>'
-                tmp += '</ul>'
+
                 tmp += '    </div>'
-                tmp += '  </div>'
-                tmp += ' </div>'
 
             }
         })
 
         return tmp + "</div>";
 
+        // tmp += '<li data-reviewBno=' + room.room_bno + ' style="list-style-type:none;">'
 
     }
 
