@@ -23,8 +23,8 @@
 
     <!-- Favicon-->
     <link rel="icon" type="image/x-icon" href="assets/favicon.ico"/>
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.8.2/css/all.min.css"/>
-        <!-- Bootstrap Icons-->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.8.2/css/all.min.css"/>
+    <!-- Bootstrap Icons-->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css" rel="stylesheet"/>
     <!-- Google fonts-->
     <link href="https://fonts.googleapis.com/css?family=Merriweather+Sans:400,700" rel="stylesheet"/>
@@ -101,7 +101,7 @@
 
             </div>
 
-                <div class="list-mem"></div>        <!-- 회원 정보를 가져와서 집어넣을 예정이다-->
+            <div class="list-mem"></div>        <!-- 회원 정보를 가져와서 집어넣을 예정이다-->
 
 
         </div>
@@ -177,9 +177,9 @@
                     alert("error")
                 } // 에러가 발생했을 때, 호출될 함수
             }); // $.ajax()
-            
+
         }
-         else {
+        else {
 
             $.ajax({
                 type: 'GET',       // 요청 메서드
@@ -194,7 +194,7 @@
 
         }
 
-         
+
 
 
 
@@ -342,7 +342,7 @@
             pastActive.siblings('li').removeClass("filter-active");
             pastActive.addClass("filter-active");
 
-           listCate = $(this).text();
+            listCate = $(this).text();
             console.log(listCate)
             if(listCate == "방장") {
                 $.ajax({
