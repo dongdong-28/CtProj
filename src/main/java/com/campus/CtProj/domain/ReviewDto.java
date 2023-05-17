@@ -11,6 +11,7 @@ public class ReviewDto {
     private Integer bno;
     private String userId;
     private String reviewTitle;
+    private String nickname;
 
     @DateTimeFormat(pattern = "yyyy-MM-dd hh:mm")
     private Date reviewDate;
@@ -19,9 +20,10 @@ public class ReviewDto {
     private Timestamp reviewRegDate;
 
 
-    public ReviewDto(Integer bno, String userId, String reviewTitle, Date reviewDate, String reviewPlace) {
+    public ReviewDto(Integer bno, String userId,String nickname, String reviewTitle, Date reviewDate, String reviewPlace) {
         this.bno = bno;
         this.userId = userId;
+        this.nickname = nickname;
         this.reviewTitle = reviewTitle;
         this.reviewDate = reviewDate;
         this.reviewPlace = reviewPlace;
@@ -33,10 +35,19 @@ public class ReviewDto {
                 "bno=" + bno +
                 ", userId='" + userId + '\'' +
                 ", reviewTitle='" + reviewTitle + '\'' +
+                ", nickname='" + nickname + '\'' +
                 ", reviewDate=" + reviewDate +
                 ", reviewPlace='" + reviewPlace + '\'' +
                 ", reviewRegDate=" + reviewRegDate +
                 '}';
+    }
+
+    public String getNickname() {
+        return nickname;
+    }
+
+    public void setNickname(String nickname) {
+        this.nickname = nickname;
     }
 
     public Integer getBno() {

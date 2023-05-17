@@ -137,9 +137,9 @@
 <!-- Banner -->
 <section id="banner">
     <div class="content">
-        <h2>Welcome to TXT by HTML5 UP</h2>
-        <p>A free responsive site template built on HTML5, CSS3, and some other stuff</p>
-        <a href="#main" class="button scrolly">Alright let's go</a>
+        <h2>사람들과 만나고 소통하세요</h2>
+        <p>삶 전체에 있어서 가장 참된 것은 만남이다. -마르틴 부버- </p>
+        <a href="#main" class="button scrolly">카테고리 선택</a>
     </div>
 </section>
 

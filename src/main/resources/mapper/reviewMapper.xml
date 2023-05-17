@@ -18,26 +18,26 @@
 
     <insert id="insert" parameterType="ReviewDto">
         INSERT INTO review_info
-            (bno,userId,reviewTitle,reviewDate,reviewPlace)
+            (bno,userId,nickname,reviewTitle,reviewDate,reviewPlace)
         VALUES
-            (#{bno},#{userId},#{reviewTitle},#{reviewDate},#{reviewPlace})
+            (#{bno},#{userId},#{nickname},#{reviewTitle},#{reviewDate},#{reviewPlace})
     </insert>
 
     <select id="selectAll" resultType="ReviewDto">
-        SELECT bno,userId, reviewTitle,reviewDate,reviewPlace
+        SELECT bno,userId,nickname, reviewTitle,reviewDate,reviewPlace
         FROM review_info;
     </select>
 
 
 
     <select id="select" parameterType="map" resultType="ReviewDto">
-        SELECT bno,userId, reviewTitle,reviewDate,reviewPlace
+        SELECT bno,userId,nickname,reviewTitle,reviewDate,reviewPlace
         FROM review_info  WHERE bno = #{bno} and userId = #{userId}
     </select>
 
 
     <select id="selectreviewId" parameterType="Integer" resultType="ReviewDto">
-        SELECT bno,userId, reviewTitle,reviewDate,reviewPlace
+        SELECT bno,userId,nickname,reviewTitle,reviewDate,reviewPlace
         FROM review_info  WHERE bno = #{bno};
     </select>
 

@@ -15,15 +15,13 @@
     <meta name="author" content=""/>
     <title>With Us</title>
 
-
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.8.2/css/all.min.css"/>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.8.2/css/all.min.css" />
 
     <script src="https://code.jquery.com/jquery-1.11.3.js"></script>
 
 
     <!-- Favicon-->
     <link rel="icon" type="image/x-icon" href="assets/favicon.ico"/>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.8.2/css/all.min.css"/>
     <!-- Bootstrap Icons-->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css" rel="stylesheet"/>
     <!-- Google fonts-->
@@ -91,7 +89,7 @@
             <div class="col-lg-12 d-flex justify-content-center">
                 <ul id="menu-flters">
                     <%--            <li data-filter="*" class="filter-active">All</li>--%>
-                    <li  class=" cate-list filter-active">방장</li>
+                    <li class=" cate-list filter-active">방장</li>
                     <li class="cate-list">회원</li>
                     <li class="cate-list">후기</li>
                 </ul>
@@ -102,6 +100,28 @@
             </div>
 
             <div class="list-mem"></div>        <!-- 회원 정보를 가져와서 집어넣을 예정이다-->
+            <!-- Modal -->
+            <div class="modal fade" id="reviewModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+                 aria-hidden="true" style="padding:15px 30px;background: #ffffff">
+                <div class="modal-dialog" role="document" style="margin-right:0;">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="btn-close closeModalBtn" data-bs-dismiss="modal"
+                                    aria-label="Close">
+                                <span aria-hidden="true"></span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <div id="roomReviewList" class="wrapInfo"></div>
+                        </div>
+                        <div class="modal-footer">
+
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">취소하기</button>
+                            <button type="button" id="reviewConfirmBtn" class="btn btn-primary ">저장하기</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
 
 
         </div>
@@ -154,7 +174,7 @@
         }
 
 
-        if(cate == "방장"){
+        if (cate == "방장") {
 
             $.ajax({
                 type: 'GET',       // 요청 메서드
@@ -166,7 +186,7 @@
                     alert("error")
                 } // 에러가 발생했을 때, 호출될 함수
             }); // $.ajax()
-        } else if(cate == "회원"){
+        } else if (cate == "회원") {
             $.ajax({
                 type: 'GET',       // 요청 메서드
                 url: '/CtProj/list/mem',  // 요청 URI
@@ -178,8 +198,7 @@
                 } // 에러가 발생했을 때, 호출될 함수
             }); // $.ajax()
 
-        }
-        else {
+        } else {
 
             $.ajax({
                 type: 'GET',       // 요청 메서드
@@ -193,10 +212,6 @@
             }); // $.ajax()
 
         }
-
-
-
-
 
 
         // $.ajax({
@@ -221,7 +236,7 @@
 
         $(".list-mem").on("click", ".reveiwMemBtn", function () {
             $('#reviewModal').modal("show");
-            let reviewRoomBno = $(this).parent().parent().attr("data-reviewBno");
+            let reviewRoomBno = $(this).parent().attr("data-reviewBno");
             console.log(reviewRoomBno);
 
             $.ajax({
@@ -344,7 +359,7 @@
 
             listCate = $(this).text();
             console.log(listCate)
-            if(listCate == "방장") {
+            if (listCate == "방장") {
                 $.ajax({
                     type: 'GET',       // 요청 메서드
                     url: '/CtProj/list/host',  // 요청 URI
@@ -355,7 +370,7 @@
                         alert("error")
                     } // 에러가 발생했을 때, 호출될 함수
                 }); // $.ajax()
-            } else if(listCate == "회원"){
+            } else if (listCate == "회원") {
                 $.ajax({
                     type: 'GET',       // 요청 메서드
                     url: '/CtProj/list/mem',  // 요청 URI
@@ -366,7 +381,7 @@
                         alert("error")
                     } // 에러가 발생했을 때, 호출될 함수
                 }); // $.ajax()
-            } else{
+            } else {
 
                 $.ajax({
                     type: 'GET',       // 요청 메서드
@@ -382,18 +397,18 @@
         });
 
 
-
     });
 
     let toUserHtml = function (userInfo) {
         let tmp = '<div>'
-        tmp += userInfo.nickname + '    Coin: <tab>'
-        tmp += userInfo.coin + '    Lv:    '
-        tmp += Math.floor(userInfo.level)
+        tmp +=  userInfo.nickname + '    Coin: <tab>'
+        tmp +=  userInfo.coin +  '    Lv:    '
+        tmp +=  Math.floor(userInfo.level)
 
 
         return tmp + '</div>';
     }
+
 
     let toHtmlMem = function (rooms) {
 
@@ -413,7 +428,7 @@
             // tmp += '방번호= ' + room.bno
             // tmp += '</div>'
             // tmp += '<div>'
-            tmp += '<div class="title">' + room.title + '</div><span>'+room.user_cnt+'/'+room.user_limit+'</span>'
+            tmp += '<div class="title">' + room.title + '</div><span>' + room.user_cnt + '/' + room.user_limit + '</span>'
             tmp += '</div>'
 
             tmp += ' <div class="menu-ingredients">'
@@ -428,11 +443,10 @@
             tmp += '<input type = "hidden" name = "room_num" value ="' + room.bno + '"/>'
             tmp += ' <input type = "submit" value = "입장하기" class="btn-myroom" style="margin-right:10px;  padding: 0.35em 0.5em;font-size: 1.1em;font-weight: 600;"/>'
             tmp += '</form>'
-            tmp += '  <button type="button" data-bno="'+room.bno+'" class="btn-myroom delBtn-Mem">나가기</button>'
+            tmp += '  <button type="button" data-bno="' + room.bno + '" class="btn-myroom delBtn-Mem">나가기</button>'
             tmp += '      </div>'
 
             tmp += '    </div>'
-
 
 
         })
@@ -468,7 +482,8 @@
                 tmp += '날짜: <span class="meet_Date">' + meet_date + '</span><br>'
                 tmp += '</div>'
                 tmp += '      <!-- Product actions-->'
-                tmp += '   <div class="sub" style="float:right;">'
+                tmp += '   <div class="sub" data-reviewBno="' + room.room_bno + '" style="float:right;">'
+                // tmp += '<div data-reviewBno=' + room.room_bno + ' style="list-style-type:none;"></div>'
                 tmp += ' <button type="button"  class="btn btn-primary reveiwMemBtn" data-bs-toggle="modal" data-bs-target="#reviewModal">후기남기기</button>'
                 tmp += '      </div>'
 
@@ -478,12 +493,7 @@
         })
 
         return tmp + "</div>";
-
-        // tmp += '<li data-reviewBno=' + room.room_bno + ' style="list-style-type:none;">'
-
     }
-
-
 
 
     let toHtmlHost = function (rooms) {
@@ -501,7 +511,7 @@
             tmp += ' <div class="menu-content">'
             // tmp += '<div data-bno=' + room.bno + 'style="display:none;">'
             // tmp += '</div>'
-            tmp += '<div class="title">' + room.title + '</div><span>'+room.user_cnt+'/'+room.user_limit+'</span>'
+            tmp += '<div class="title">' + room.title + '</div><span>' + room.user_cnt + '/' + room.user_limit + '</span>'
             tmp += '</div>'
 
             tmp += ' <div class="menu-ingredients">'
@@ -518,11 +528,10 @@
             tmp += '<input type = "hidden" name = "room_num" value ="' + room.bno + '"/>'
             tmp += ' <input type = "submit" value = "입장하기" class="btn-myroom" style="margin-right:10px;  padding: 0.35em 0.5em;font-size: 1.1em;font-weight: 600;"/>'
             tmp += '</form>'
-            tmp += '  <button type="button" data-bno="'+room.bno+'" class="btn-myroom delBtn-Host">나가기</button>'
+            tmp += '  <button type="button" data-bno="' + room.bno + '" class="btn-myroom delBtn-Host">나가기</button>'
             tmp += '      </div>'
 
             tmp += '    </div>'
-
 
 
         })
@@ -549,12 +558,24 @@
         for (const val in Object.keys(list)) {
             if (list[val].userId != userIdInfo) {
                 tmp += '<div class="form-group">'
-                tmp += '<div id="radioCheckUserId' + val + '">' + list[val].userId + '</div><br>'
-                tmp += ' <input type="radio" name="chk_info' + val + '" value="1">별로에요'
-                tmp += ' <input type="radio" name="chk_info' + val + '" value="2">아쉬워요'
-                tmp += ' <input type="radio" name="chk_info' + val + '" value="3">보통이에요'
-                tmp += ' <input type="radio" name="chk_info' + val + '" value="4">좋았어요'
-                tmp += ' <input type="radio" name="chk_info' + val + '" value="5">최고에요!'
+                tmp += '<div id="radioCheckUserId' + val + '" class="review-nic">' + list[val].nickname + '</div>'
+                // tmp += '<div style="display: flex"><div  class="icon solid fa-face-sad-cry"></div><div  class="icon solid fa-face-sad-sweat"></div><div  class="icon solid fa-face-mech"></div><div  class="icon solid fa-smile"></div><div class="icon solid fa-happy"></div></div>'
+                tmp += '<div style="display: flex">'
+                tmp += '<span  class="icon solid fa-tired fa-lg list-radio-icon" style="margin-left:5%;"></span>'
+                tmp += '<span  class="icon solid fa-frown fa-lg list-radio-icon"></span>'
+                tmp += '<span  class="icon solid fa-meh fa-lg list-radio-icon"></span>'
+                tmp += '<span  class="icon solid fa-smile fa-lg list-radio-icon"></span>'
+                tmp += '<span  class="icon solid fa-laugh fa-lg list-radio-icon"></span>'
+
+                tmp += '</div>'
+                // tmp += '<div class="list-radios>'
+                tmp += ' <span class="list-radio" ><input type="radio" name="chk_info' + val + '" value="1">별로에요</span>'
+                tmp += '  <span class="list-radio" ><input type="radio"  name="chk_info' + val + '" value="2">아쉬워요</span>'
+                tmp += ' <span class="list-radio" > <input type="radio" name="chk_info' + val + '" value="3">보통이에요</span>'
+                tmp += '  <span class="list-radio" ><input type="radio" name="chk_info' + val + '" value="4">좋았어요</span>'
+                tmp += ' <span class="list-radio" > <input type="radio" name="chk_info' + val + '" value="5">최고에요</span>'
+                // tmp += '</div>'
+
                 tmp += '</br></div>'
             }
 

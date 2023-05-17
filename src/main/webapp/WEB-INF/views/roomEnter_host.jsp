@@ -66,19 +66,19 @@
 
 <!-- Nav -->
 <nav id="nav">
-    <ul>
-        <li><a href="<c:url value='/'/>">홈</a></li>
+    <ul >
+        <li ><a href="<c:url value='/'/>">홈</a></li>
         <li class="current"><a href="<c:url value='/room/in-mem'/>">방 입장</a></li>
-        <li><a href="<c:url value='/room/find'/>">방 찾기</a></li>
-        <li><a href="<c:url value='/room/make'/>">방 생성</a></li>
-        <li><a href="<c:url value='/room/list'/>">나의 방</a></li>
+        <li ><a href="<c:url value='/room/find'/>">방 찾기</a></li>
+        <li  ><a href="<c:url value='/room/make'/>">방 생성</a></li>
+        <li ><a href="<c:url value='/room/list'/>">나의 방</a></li>
+
 
 
         <div id="userInformation"></div>
         <!-- 로그인-->
         <a href="<c:url value='${loginOutLink}'/>">
-            <button type="button" class="btn btn-outline-danger loginBtn">${loginOut}</button>
-        </a>
+            <button type="button" class="btn btn-outline-danger loginBtn">${loginOut}</button></a>
         <a href="<c:url value='/register/add'/>">
             <button type="button" class="btn btn-outline-danger loginBtn">회원가입</button>
         </a>
@@ -89,7 +89,7 @@
 </nav>
 
 <!-- Main -->
-<div id="main" style="padding-top:50px;background: #f4f4f4;;">
+<div id="main" style="padding-top:50px;background: #f4f4f4;">
     <section id="menu" class="menu section-bg">
         <div class="container row-in" data-aos="fade-up">
 

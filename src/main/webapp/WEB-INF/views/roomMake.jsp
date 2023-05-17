@@ -63,15 +63,14 @@
     </div>
 </header>
 
-
 <!-- Nav -->
 <nav id="nav">
     <ul >
-        <li><a href="<c:url value='/'/>">홈</a></li>
+        <li ><a href="<c:url value='/'/>">홈</a></li>
         <li><a href="<c:url value='/room/in-mem'/>">방 입장</a></li>
         <li><a href="<c:url value='/room/find'/>">방 찾기</a></li>
-        <li  class="current"><a href="<c:url value='/room/make'/>">방 생성</a></li>
-        <li><a href="<c:url value='/room/list'/>">나의 방</a></li>
+        <li class="current" ><a href="<c:url value='/room/make'/>">방 생성</a></li>
+        <li ><a href="<c:url value='/room/list'/>">나의 방</a></li>
 
 
 
@@ -89,107 +88,113 @@
 </nav>
 
 <!-- Main -->
-<section id="main">
-    <div class="container">
-        <div class="row gtr-200">
-            <div class="col-12">
-    <%--    enctype="multipart/form-data"--%>
-    <form action="/CtProj/room" method="post" onsubmit="return inputData()" enctype="multipart/form-data">
-        <fieldset style="padding-left:40px">
-            <div class="form-group">
-                <label for="InputTitle" class="form-label mt-4">제목</label>
-                <input type="text" class="form-control rooms-title" name="title" id="InputTitle" maxlength="25" placeholder="입력해주세요">
+<div id="main" style="padding-top:50px;background: #f4f4f4;">
+    <section id="menu" class="menu section-bg">
+        <div class="container row-in" data-aos="fade-up">
+            <div id="sidebar-make-in">
+
+            <%--    enctype="multipart/form-data"--%>
+                <form action="/CtProj/room" method="post" onsubmit="return inputData()" enctype="multipart/form-data">
+                    <fieldset style="padding-left:40px">
+                        <div class="form-group">
+                            <label for="InputTitle" class="form-label mt-4">제목</label>
+                            <input type="text" class="form-control rooms-title" name="title" id="InputTitle"
+                                   maxlength="25" placeholder="입력해주세요">
+                        </div>
+                        <div class="form-group">
+                            <label for="img_file" class="form-label mt-4">사진</label>
+                            <input class="form-control rooms-picture" type="file" name="file" id="img_file"
+                                   placeholder="입력해주세요">
+
+                        </div>
+
+                        <div class="form-group">
+
+                            <label for="InputDate" class="form-label mt-4">만날 시간</label>
+                            <input type="text" class="form-control rooms-meet_Date" name="meet_Date" id="InputDate"
+                                   aria-describedby="emailHelp"
+                                   placeholder="입력해주세요"/>
+                            <small id="emailHelp" class="form-text text-muted">ex) 2022-12-10 </small>
+                        </div>
+
+                        <div class="form-group">
+                            <%--                <label for="InputPlace" class="form-label mt-4">만날 장소</label>--%>
+                            <%--                <input type="text" class="form-control rooms-meet_place" name="meet_place" id="InputPlace"--%>
+                            <%--                       placeholder="입력해주세요">--%>
+                            <%--                <div id="map" style="width:100%;height:350px;"></div>--%>
+
+                            <label for="InputPlaceRoad" class="form-label mt-4">모임 주소</label>
+                            <input type="text" class="form-control rooms-meet_place_road" name="meet_place_road"
+                                   id="InputPlaceRoad"
+                                   placeholder="입력해주세요">
+                            <label for="InputPlace" class="form-label mt-4">모임 장소</label>
+                            <input type="text" class="form-control rooms-meet_place" name="meet_place" id="InputPlace"
+                                   placeholder="입력해주세요">
+
+                        </div>
+                        <div class="form-group">
+                            <label for="InputNotice" class="form-label mt-4">공지사항</label>
+                            <input type="text" class="form-control rooms-notice" name="notice" id="InputNotice"
+                                   maxlength="40"
+                                   placeholder="입력해주세요">
+                        </div>
+                        <div class="form-group">
+                            <%--                <input type="text" class="form-control rooms-category" id="InputCategory" placeholder="입력해주세요">--%>
+
+                            <label for="InputCategory" class="form-label mt-4">카테고리</label>
+                            <select name="category" id="InputCategory" class="form-group rooms-category">
+                                <option value="식사">식사</option>
+                                <option value="공부">공부</option>
+                                <option value="운동">운동</option>
+                                <option value="여행">여행</option>
+                                <option value="거래">거래</option>
+                                <option value="기타">기타</option>
+                            </select>
+
+                        </div>
+                        <div class="form-group" style="border-bottom:none;">
+                            <label for="InputLimit" class="form-label mt-4">제한 인원</label>
+                            <%--                <input type="text" class="form-control rooms-user_limit" id="InputLimit" placeholder="입력해주세요">--%>
+                            <select name="user_limit" id="InputLimit" class="form-group rooms-user_limit">
+                                <option value="2">2명</option>
+                                <option value="3">3명</option>
+                                <option value="4">4명</option>
+                                <option value="5">5명</option>
+                                <option value="6">6명</option>
+                            </select>
+                        </div>
+
+
+                        <%--            <button id="sendBtn" class ="btn btn-primary" type="button">등록하기</button>--%>
+
+                    </fieldset>
+                    <input type="submit" value="등록하기" class="btn btn-primary" style="margin:3% 0 0 92%"/>
+                </form>
             </div>
-            <div class="form-group">
-                <label for="img_file" class="form-label mt-4">사진</label>
-                <input class="form-control rooms-picture" type="file" name="file" id="img_file" placeholder="입력해주세요">
+                    <article class="post-make-in">
 
-            </div>
+            <div class="map_wrap">
+                    <div id="map" style="height:600px;position:relative;overflow:hidden;"></div>
 
-            <div class="form-group">
-
-                <label for="InputDate" class="form-label mt-4">만날 시간</label>
-                <input type="text" class="form-control rooms-meet_Date" name="meet_Date" id="InputDate"
-                       aria-describedby="emailHelp"
-                       placeholder="입력해주세요"/>
-                <small id="emailHelp" class="form-text text-muted">ex) 2022-12-10 </small>
-            </div>
-
-            <div class="form-group">
-                <%--                <label for="InputPlace" class="form-label mt-4">만날 장소</label>--%>
-                <%--                <input type="text" class="form-control rooms-meet_place" name="meet_place" id="InputPlace"--%>
-                <%--                       placeholder="입력해주세요">--%>
-                <%--                <div id="map" style="width:100%;height:350px;"></div>--%>
-
-                <label for="InputPlaceRoad" class="form-label mt-4">모임 주소</label>
-                <input type="text" class="form-control rooms-meet_place_road" name="meet_place_road" id="InputPlaceRoad"
-                       placeholder="입력해주세요">
-                <label for="InputPlace" class="form-label mt-4">모임 장소</label>
-                <input type="text" class="form-control rooms-meet_place" name="meet_place" id="InputPlace"
-                       placeholder="입력해주세요">
-
-            </div>
-            <div class="form-group">
-                <label for="InputNotice" class="form-label mt-4">공지사항</label>
-                <input type="text" class="form-control rooms-notice" name="notice" id="InputNotice" maxlength="40"
-                       placeholder="입력해주세요">
-            </div>
-            <div class="form-group">
-                <%--                <input type="text" class="form-control rooms-category" id="InputCategory" placeholder="입력해주세요">--%>
-
-                <label for="InputCategory" class="form-label mt-4">카테고리</label>
-                <select name="category" id="InputCategory" class="form-group rooms-category">
-                    <option value="식사">식사</option>
-                    <option value="공부">공부</option>
-                    <option value="운동">운동</option>
-                    <option value="여행">여행</option>
-                    <option value="거래">거래</option>
-                    <option value="기타">기타</option>
-                </select>
-
-            </div>
-            <div class="form-group">
-                <label for="InputLimit" class="form-label mt-4">제한 인원</label>
-                <%--                <input type="text" class="form-control rooms-user_limit" id="InputLimit" placeholder="입력해주세요">--%>
-                <select name="user_limit" id="InputLimit" class="form-group rooms-user_limit">
-                    <option value="2">2명</option>
-                    <option value="3">3명</option>
-                    <option value="4">4명</option>
-                    <option value="5">5명</option>
-                    <option value="6">6명</option>
-                </select>
-            </div>
-
-
-            <%--            <button id="sendBtn" class ="btn btn-primary" type="button">등록하기</button>--%>
-
-        </fieldset>
-        <input type="submit" value="등록하기" class="btn btn-primary"/>
-    </form>
-
-    <div class="map_wrap">
-        <div id="map" style="width:50%;height:500px;position:relative;overflow:hidden;"></div>
-
-        <div id="menu_wrap" class="bg_white">
-            <div class="option">
-                <div>
-                    <form onsubmit="searchPlaces(); return false;">
-                        키워드 : <input type="text" value="" id="keyword" size="15">
-                        <button type="submit">검색하기</button>
-                    </form>
+                    <div id="menu_wrap" class="bg_white">
+                        <div class="option">
+                            <div>
+                                <form onsubmit="searchPlaces(); return false;">
+                                    <input type="text" value="" id="keyword" size="15">
+                                    <button class="map-make-btn" type="submit" style="margin-left:62%">검색하기</button>
+                                </form>
+                            </div>
+                        </div>
+                        <hr>
+                        <ul id="placesList"></ul>
+                        <div id="pagination"></div>
+                    </div>
                 </div>
-            </div>
-            <hr>
-            <ul id="placesList"></ul>
-            <div id="pagination"></div>
-        </div>
-    </div>
+            </article>
 
         </div>
-        </div>
-        </div>
-</section>
-
+    </section>
+</div>
 
 
 <!-- About-->
@@ -301,14 +306,13 @@
 
     let toUserHtml = function (userInfo) {
         let tmp = '<div>'
-        tmp +=  userInfo.nickname + '    Coin: <tab>'
-        tmp +=  userInfo.coin +  '    Lv:    '
-        tmp +=  Math.floor(userInfo.level)
+        tmp += userInfo.nickname + '    Coin: <tab>'
+        tmp += userInfo.coin + '    Lv:    '
+        tmp += Math.floor(userInfo.level)
 
 
         return tmp + '</div>';
     }
-
 
 
     window.addEventListener('DOMContentLoaded', event => {

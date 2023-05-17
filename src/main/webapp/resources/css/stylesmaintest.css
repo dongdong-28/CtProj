@@ -4291,3 +4291,69 @@ option {
     transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
 }
 
+.list-radio {
+    margin-right: 7%;
+    font-weight: 400;
+}
+
+
+.list-radio-icon {
+    margin-right: 16%;
+    margin-bottom: 2%;
+}
+
+.review-nic {
+    margin-bottom : 5%;
+    font-size:30px;
+    font-weight: 300;
+    margin-left: 1%;
+    color:black;
+}
+
+.form-group {
+    margin-top:5%;
+    border-bottom: solid 2px rgba(160, 160, 160, 0.3);
+    padding-bottom: 3%;
+
+}
+
+#sidebar-make-in{
+    width: 30%;
+    margin-right: 10%;
+}
+
+.post-make-in{
+
+width: 60%;
+/*margin-right: 5%;*/
+/*padding: 3em 3em 1em 3em;*/
+background: #ffffff;
+border: solid 1px rgba(160, 160, 160, 0.3);
+position: relative;
+    height: 600px;
+    margin-top:10%;
+
+}
+
+.map-make-btn {
+    background: #6b7770;
+    width: 70px;
+    margin: 5%;
+    height: 35px;
+}
+
+.map-make-btn:hover {
+    background: #969696;
+    width: 70px;
+    margin: 5%;
+    height: 35px;
+}
+
+.post-find-in{
+    width: 100%;
+    margin-right: 5%;
+    padding: 3em 3em 1em 3em;
+    background: #ffffff;
+    border: solid 1px rgba(160, 160, 160, 0.3);
+    position: relative;
+}

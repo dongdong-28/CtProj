@@ -84,7 +84,8 @@ public class RoomInServiceImpl implements RoomInService {
     public int confirmMem(Integer room_bno, String user_id, Integer isCoinReturn) throws Exception {
         BoolDto boolDto = boolDao.select(room_bno, user_id);
         RoomDto roomDto = roomDao.select(room_bno);
-        ReviewDto reviewDto = new ReviewDto(room_bno,user_id,roomDto.getTitle(),roomDto.getMeet_Date(),roomDto.getMeet_place());
+        UserDto userDto = userDao.selectUser(user_id);
+        ReviewDto reviewDto = new ReviewDto(room_bno,user_id,userDto.getNickname(),roomDto.getTitle(),roomDto.getMeet_Date(),roomDto.getMeet_place());
         System.out.println(boolDto);
         System.out.println("reviewDto = " + reviewDto);
         try {

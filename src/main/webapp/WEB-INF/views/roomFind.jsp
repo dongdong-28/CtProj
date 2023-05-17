@@ -83,7 +83,7 @@
 </nav>
 
 <!-- Section-->
-<section id="main">
+<section id="main"  style="background: #f4f4f4;;">
     <div class="container">
 
         <div class="row gtr-200" style="margin-left: 0px;">
@@ -126,7 +126,7 @@
             <%--                <option value="기타">기타</option>--%>
             <%--            </select>--%>
             <%--            <button type="button" id="categoryBtn" class="rooms-category">선택</button>--%>
-            <div class="col-12" style="padding: 10px;border: solid 2px;">
+            <div class="col-12 post-find-in" style="padding:30px 10px">
 
                 <%--        키워드로 제목 검색--%>
                 <div class="search d-flex">
@@ -141,7 +141,7 @@
                     <%--            <label for="searchBtn"></label>--%>
 
                 </div>
-                <div id="roomList" style="padding: 20px;border: solid 2px;">
+                <div id="roomList" style="padding: 20px;">
                     <%--                    <c:forEach var="room" items="${roomList}">--%>
                     <%--                        <tr>--%>
                     <%--                            <td>${room.bno}</td>--%>
@@ -412,50 +412,6 @@
     }
 
 
-    <%--let toHtml = function (rooms) {--%>
-    <%--    let tmp = '<div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">'--%>
-
-    <%--    rooms.forEach(function (room) {--%>
-    <%--        // var pic =  document.getElementById('InputPic').files[0].name;--%>
-    <%--        const dateFormat = new Date(room.meet_Date);--%>
-    <%--        const meet_date_format = dateFormat.getTime()--%>
-    <%--        const meet_date = dateFormat.getFullYear() + '년 ' + (dateFormat.getMonth() + 1) + '월 ' + dateFormat.getDate() + '일' + dateFormat.getHours() + '시 ' + dateFormat.getMinutes() + '분';--%>
-    <%--        tmp += '<div class="col mb-3">'--%>
-    <%--        tmp += '  <div class="card h-70">'--%>
-    <%--        tmp += '      <!-- Product image-->'--%>
-    <%--        tmp += '      <img class="card-img-top" src="${pageContext.request.contextPath}' + room.filepath + '" alt="대체" />'--%>
-    <%--        tmp += '      <!-- Product details--> '--%>
-    <%--        tmp += '      <div class="card-body p-4">'--%>
-    <%--        tmp += '          <div class="text-left">'--%>
-    <%--        tmp += '              <!-- Product name-->'--%>
-    <%--        tmp += '<ul>'--%>
-    <%--        tmp += '<li data-bno=' + room.bno + '>'--%>
-    <%--        // tmp += '방번호= ' + room.bno + '<br>'--%>
-    <%--        tmp += ' 제목= <span class="title">' + room.title + '</span><br>'--%>
-    <%--        tmp += ' 시간= <span class="meet_Date">' + meet_date + '</span><br>'--%>
-    <%--        tmp += ' 장소= <span class="meet_place">' + room.meet_place + '</span><br>'--%>
-    <%--        tmp += ' 카테고리= <span class="category">' + room.category + '</span><br>'--%>
-    <%--        &lt;%&ndash;tmp +=  '인원수: '+${list.size()+1} + ' / '+ room.user_limit+'<br>';&ndash;%&gt;--%>
-    <%--        tmp += ' 작성자=<span class="writer">' + room.writer + '</span>'--%>
-    <%--        tmp += '      <!-- Product actions-->'--%>
-    <%--        tmp += '   <div class="card-footer mx-auto pt-0 border-top-0 bg-transparent" style="position: absolute;top: 85%;left: 63%;">'--%>
-    <%--        tmp += '  <button type="button" class="btn btn-outline-danger btn-myroom entBtn">입장</button>'--%>
-    <%--        tmp += '      </div>'--%>
-    <%--        tmp += '</li>'--%>
-    <%--        tmp += '</ul>'--%>
-    <%--        tmp += '    </div>'--%>
-    <%--        tmp += '      </div>'--%>
-
-    <%--        tmp += '  </div>'--%>
-    <%--        tmp += ' </div>'--%>
-
-
-    <%--    })--%>
-
-    <%--    return tmp + "</div>";--%>
-
-    <%--}--%>
-
 
     let toHtml = function (rooms) {
 
@@ -479,7 +435,7 @@
             tmp += '           <div class="course-content">'
             tmp += '<div class="d-flex justify-content-between align-items-center mb-3">'
             tmp += '   <h4>' + room.category + '</h4>'
-            tmp += '             <p class="price">1/4</p>'
+            tmp += '             <p class="price">'+ room.user_cnt + '/' + room.user_limit + '</p>'
             tmp += '  </div>'
             tmp += '  <h3 style="padding-top:15px">' + room.title + '</h3>'
             tmp += '  장소: ' + room.meet_place + '</br>'
