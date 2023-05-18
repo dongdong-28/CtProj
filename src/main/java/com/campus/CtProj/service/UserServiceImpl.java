@@ -21,6 +21,11 @@ public class UserServiceImpl implements UserService {
         return userDao.selectUser(id);
     }
 
+    @Override
+    public int write(UserDto userDto) throws Exception {
+        return userDao.insertUser(userDto);
+    }
+
 
 
 

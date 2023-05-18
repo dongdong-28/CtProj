@@ -1,50 +1,48 @@
 package com.campus.CtProj.controller;
 
-import com.campus.CtProj.dao.UserDao;
+import com.campus.CtProj.domain.UserDto;
+import com.campus.CtProj.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
-@Controller // ctrl+shift+o 자동 import
+import javax.validation.Valid;
+
+@Controller
 @RequestMapping("/register")
 public class RegisterController {
     @Autowired
-    UserDao userDao;
-    final int FAIL = 0;
+    UserService userService;
 
-//    @InitBinder
-//    public void toDate(WebDataBinder binder) {
-//        SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
-//        binder.registerCustomEditor(Date.class, new CustomDateEditor(df, false));
-//        binder.setValidator(new UserValidator()); // UserValidator를 WebDataBinder의 로컬 validator로 등록
-//        //	List<Validator> validatorList = binder.getValidators();
-//        //	System.out.println("validatorList="+validatorList);
-//    }
-//
     @GetMapping("/add")
     public String register() {
         return "registerForm"; // WEB-INF/views/registerForm.jsp
     }
-//
-//    @PostMapping("/add")
-//    public String save(@Valid User user, BindingResult result, Model m) throws Exception {
-//        System.out.println("result="+result);
-//        System.out.println("user="+user);
-//
-//        // User객체를 검증한 결과 에러가 있으면, registerForm을 이용해서 에러를 보여줘야 함.
-//        if(!result.hasErrors()) {
-//            // 2. DB에 신규회원 정보를 저장
-//            int rowCnt = userDao.insertUser(user);
-//
-//            if(rowCnt != FAIL) {
-//                return "registerInfo";
-//            }
-//        }
-//
-//        return "registerForm";
-//    }
-//
-//    private boolean isValid(User user) {
-//        return true;
- //   }
+
+
+    @PostMapping("/add")
+    public String save(UserDto userDto) throws Exception {
+
+        System.out.println("userDto = " + userDto);
+        System.out.println("userDto = " + userDto.getId());
+        System.out.println("userDto = " + userDto.getPassword());
+        System.out.println("userDto = " + userDto.getNickname());
+
+        try{
+            int rowCnt = userService.write(userDto);
+
+
+        }
+        catch(Exception e){
+            e.printStackTrace();
+            return "registerForm";
+
+        }
+
+        return "index";
+    }
+
+
 }

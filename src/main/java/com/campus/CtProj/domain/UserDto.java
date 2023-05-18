@@ -14,36 +14,30 @@ public class UserDto {
     private String nickname;
     private int coin;
     private double level;
-    private String filename;
-    private String filepath;
     @JsonFormat(pattern ="yyyy-MM-dd hh:mm", timezone="Asia/Seoul")
     private Timestamp reg_date;
 
     public UserDto(){}
 
-    public UserDto(String id, String password, String nickname, int coin, float level, String filename, String filepath, Timestamp reg_date) {
+    public UserDto(String id, String password, String nickname, int coin, double level) {
         this.id = id;
         this.password = password;
         this.nickname = nickname;
         this.coin = coin;
         this.level = level;
-        this.filename = filename;
-        this.filepath = filepath;
-        this.reg_date = reg_date;
     }
 
     @Override
-    public String toString() {
-        return "UserDto{" +
-                "id='" + id + '\'' +
-                ", password='" + password + '\'' +
-                ", nickname='" + nickname + '\'' +
-                ", coin=" + coin +
-                ", level=" + level +
-                ", filename='" + filename + '\'' +
-                ", filepath='" + filepath + '\'' +
-                ", reg_date=" + reg_date +
-                '}';
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        UserDto userDto = (UserDto) o;
+        return coin == userDto.coin && Double.compare(userDto.level, level) == 0 && Objects.equals(id, userDto.id) && Objects.equals(password, userDto.password) && Objects.equals(nickname, userDto.nickname);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, password, nickname, coin, level);
     }
 
     public String getId() {
@@ -84,22 +78,6 @@ public class UserDto {
 
     public void setLevel(double level) {
         this.level = level;
-    }
-
-    public String getFilename() {
-        return filename;
-    }
-
-    public void setFilename(String filename) {
-        this.filename = filename;
-    }
-
-    public String getFilepath() {
-        return filepath;
-    }
-
-    public void setFilepath(String filepath) {
-        this.filepath = filepath;
     }
 
     public Timestamp getReg_date() {

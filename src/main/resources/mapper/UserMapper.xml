@@ -12,8 +12,8 @@
     </delete>
 
     <insert id="insert" parameterType="UserDto">
-        INSERT INTO user_data (id, password, nickname, filename, filepath, reg_date)
-        VALUES (#{id}, #{password}, #{nickname}, #{filenaem}, #{filepath}, now())
+        INSERT INTO user_data (id, password, nickname, reg_date)
+        VALUES (#{id}, #{password}, #{nickname}, now())
     </insert>
 
 
@@ -23,8 +23,6 @@
                nickname,
                coin,
                level,
-               filename,
-               filepath,
                reg_date
         FROM user_data
         WHERE id = #{id};
@@ -37,8 +35,6 @@
           , password = #{password}
           , coin     = #{coin}
           , level    = #{level}
-          , filename = #{filename}
-          , filepath = #{filepath}
         WHERE id = #{id}
     </update>
 
