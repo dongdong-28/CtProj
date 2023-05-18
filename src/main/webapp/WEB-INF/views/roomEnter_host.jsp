@@ -88,6 +88,7 @@
 
 </nav>
 
+
 <!-- Main -->
 <div id="main" style="padding-top:50px;background: #f4f4f4;">
     <section id="menu" class="menu section-bg">
@@ -96,35 +97,17 @@
             <article class="post-in">
                 <div id="roomInfo"></div>
                 <div class="chat">
-                    <div class="chat-in" style="overflow: scroll;">
-                        dsafasd<br>
-                        dsafasd<br>
-                        dsafasd<br>
-                        dsafasd<br>
-                        dsafasd<br>
-                        dsafasd<br>
-                        dsafasd<br>
-                        dsafasd<br>
-                        dsafasd<br>
-                        dsafasd<br>
-                        dsafasd<br>
-                        dsafasd<br>
-                        dsafasd<br>
-                        dsafasd<br>
-                        dsafasd<br>
-                        dsafasd<br>
-                        dsafasd<br>
-                        dsafasd<br>
-                        dsafasd<br>
+                    <div id="chat-in">
+
                     </div>
 
                     <form>
                         <div class="card-body">
 
                             <li class="list-group-item" style="list-style: none;">
-                                <textarea class="enter-form" id="exampleFormControlTextarea1" rows="3"></textarea>
-                                <button type="button" class="btn btn-dark mt-3" onClick="javascript:addReply();">post
-                                    reply
+                                <textarea class="enter-form" id="chat-text"></textarea>
+                                <button type="button" class="btn btn-dark mt-3 com-sendBtn">
+                                    등록하기
                                 </button>
                             </li>
 
@@ -175,7 +158,7 @@
 
 
                             <div class="form-group">
-                                <label for="img_file" class="form-label mt-4">사진</label>
+                                <label for="img_file" class="form-label mt-4">사진</label><br>
                                 <input class="form-control rooms-picture" type="file" name="imgFile" id="img_file"
                                        placeholder="입력해주세요">
 
@@ -229,9 +212,10 @@
                             </div>
                             <div class="form-group">
                                 <label for="InputCategory" class="form-label mt-4">카테고리</label>
-                                <select name="Category" id="InputCategory" class="form-group rooms-category">
+                                <select name="Category" id="InputCategory" class="form-group rooms-category"
+                                        style="width: 77px;height:50px">
                                     <option value="식사" selected>식사</option>
-                                    <option value="공부" >공부</option>
+                                    <option value="공부">공부</option>
                                     <option value="운동">운동</option>
                                     <option value="여행">여행</option>
                                     <option value="거래">거래</option>
@@ -241,7 +225,8 @@
                             </div>
                             <div class="form-group">
                                 <label for="InputLimit" class="form-label mt-4">제한 인원</label>
-                                <select name="limit" id="InputLimit" class="form-group rooms-user_limit">
+                                <select name="limit" id="InputLimit" class="form-group rooms-user_limit"
+                                        style="width: 75px;height:50px">
                                     <option value="2">2명</option>
                                     <option value="3">3명</option>
                                     <option value="4">4명</option>
@@ -262,7 +247,6 @@
     </section><!-- End Menu Section -->
     <!-- Modal -->
 
-    <%--    <div style="width: 60%;" id="ww_1f8f1284a9686" v='1.3' loc='id' a='{"t":"responsive","lang":"ko","sl_lpl":1,"ids":["wl4479"],"font":"Arial","sl_ics":"one_a","sl_sot":"celsius","cl_bkg":"rgba(246,247,243,1)","cl_font":"#000000","cl_cloud":"#d4d4d4","cl_persp":"#2196F3","cl_sun":"#FFC107","cl_moon":"#FFC107","cl_thund":"#FF5722","sl_tof":"7","cl_odd":"#00000000","el_nme":3}'>Weather Data Source: <a href="https://wetterlang.de/seoul_wetter_30_tage/" id="ww_1f8f1284a9686_u" target="_blank">wetterlang.de/seoul_wetter_30_tage/</a></div><script async src="https://app1.weatherwidget.org/js/?id=ww_1f8f1284a9686"></script>--%>
 </div>
 
 
@@ -306,18 +290,16 @@
             }); // $.ajax()
         }
 
-        <%--$.ajax({--%>
-        <%--    type: 'GET',       // 요청 메서드--%>
-        <%--    url: '/CtProj/room/review/?bno=' +${roomDto.bno},  // 요청 URI--%>
-        <%--    async: false,--%>
-        <%--    success: function (result) {--%>
-        <%--        console.log(result.is_coin_return);--%>
-        <%--        $("#roomOutIsCoin").html(toHtmlIsCoinReturn(result));    // 서버로부터 응답이 도착하면 호출될 함수--%>
-        <%--    },--%>
-        <%--    error: function () {--%>
-        <%--        alert("error")--%>
-        <%--    } // 에러가 발생했을 때, 호출될 함수--%>
-        <%--}); // $.ajax()--%>
+        $.ajax({
+            type: 'GET',       // 요청 메서드
+            url: '/CtProj/comments?bno=' +${roomDto.bno},  // 요청 URI
+            success: function (result) {
+                $("#chat-in").html(toHtmlComment(result));    // 서버로부터 응답이 도착하면 호출될 함수
+            },
+            error: function () {
+                alert("error")
+            } // 에러가 발생했을 때, 호출될 함수
+        }); // $.ajax()
 
 
         $.ajax({
@@ -351,16 +333,6 @@
             } // 에러가 발생했을 때, 호출될 함수
         }); // $.ajax()
 
-        <%--$.ajax({--%>
-        <%--    type: 'GET',       // 요청 메서드--%>
-        <%--    url: '/CtProj/room_in/list/mem/review?bno=' +${roomDto.bno},  // 요청 URI--%>
-        <%--    success: function (result) {--%>
-        <%--        $("#roomReviewList").html(toHtmlroomReviewList(result));--%>
-        <%--    },--%>
-        <%--    error: function () {--%>
-        <%--        alert("안됨..")--%>
-        <%--    } // 에러가 발생했을 때, 호출될 함수--%>
-        <%--}); // $.ajax()--%>
 
         $.ajax({
             type: 'GET',       // 요청 메서드
@@ -478,53 +450,6 @@
         });
 
 
-        <%--$('#reviewBtn').click(function () {--%>
-        <%--    let userNum = $("#totalUserNum").text();--%>
-        <%--    let bno = ${roomDto.bno};--%>
-        <%--    let reviewKey = []--%>
-        <%--    let reviewValue = []--%>
-        <%--    console.log(userNum);--%>
-        <%--    for (let i = 0; i < userNum - 1; i++) {--%>
-        <%--        let reviewIdArr = {}--%>
-        <%--        let idSelect = "#radioCheckUserId" + i + "";--%>
-        <%--        let nameSelect = "chk_info" + i + "";--%>
-        <%--        console.log(nameSelect)--%>
-        <%--        if ($("input:radio[name=" + nameSelect + "]:checked")) {--%>
-        <%--            reviewKey.push($(idSelect).text());--%>
-        <%--            reviewValue.push($("input:radio[name=" + nameSelect + "]:checked").val());--%>
-        <%--        }--%>
-
-        <%--    }--%>
-
-        <%--    console.log(reviewKey)--%>
-        <%--    console.log(reviewValue)--%>
-
-
-        <%--    $.ajax({--%>
-        <%--        type: 'POST',       // 요청 메서드--%>
-        <%--        url: '/CtProj/room_in/mem/drop/review/' + bno,  // 요청 URI /ch4/comments?bno=1085 POST--%>
-        <%--        // headers: {"content-type": "application/json"}, // 요청 헤더--%>
-        <%--        traditional: true,--%>
-        <%--        data:--%>
-        <%--            {--%>
-        <%--                "reviewKey": reviewKey,--%>
-        <%--                "reviewValue": reviewValue--%>
-        <%--            },  // 서버로 전송할 데이터. stringify()로 직렬화 필요.--%>
-        <%--        success: function (result) {--%>
-        <%--            alert("완료하였습니다.");--%>
-        <%--            window.location.href = 'http://localhost:8080/CtProj/';--%>
-
-
-        <%--        },--%>
-        <%--        error: function () {--%>
-        <%--            alert("왜 실패하지..?")--%>
-        <%--        } // 에러가 발생했을 때, 호출될 함수--%>
-        <%--    });--%>
-
-
-        <%--});--%>
-
-
         $('#drop-Btn').click(function () {
             let bno = ${roomDto.bno};
             user_id = []
@@ -635,6 +560,79 @@
             });
         });
 
+        $(".com-sendBtn").click(function () {
+            let comment = $("#chat-text").val();
+            let bno = ${roomDto.bno};
+            console.log(comment);
+
+            $.ajax({
+                type: 'POST',       // 요청 메서드
+                url: '/CtProj/comment',
+                data: {
+                    bno: bno,
+                    comment: comment,
+                },  // 서버로 전송할 데이터. stringify()로 직렬화 필요.
+                success: function (result) {
+                    alert("댓글입력성공!")
+                    $("#chat-text").val("");
+                    showList()
+                },
+                error: function () {
+                    alert("다시 입력해주세요.")
+                } // 에러가 발생했을 때, 호출될 함수
+            }); // $.ajax()
+
+        })
+
+
+        $("#chat-in").on("click", ".com-delBtn", function () {
+            let cno = $(this).parent().parent().attr("data-cno");
+            console.log(cno)
+            if (confirm("삭제하시겠습니까?")) {
+                $.ajax({
+                    type: 'DELETE',       // 요청 메서드
+                    url: '/CtProj/comment/' + cno,
+                    success: function (result) {
+                        alert("댓글삭제 성공!")
+                        showList()
+                    },
+                    error: function () {
+                        alert("다시 입력해주세요.")
+                    } // 에러가 발생했을 때, 호출될 함수
+                }); // $.ajax()
+            }
+
+        })
+
+
+        $("#chat-in").on("click", ".com-modBtn", function () {
+            let cno = $(this).parent().parent().attr("data-cno");
+            let comment = $("#chat-text").val();
+            console.log(comment)
+            // $("#chat-text").val(comment)
+            if (confirm("수정하시겠습니까?")) {
+                $.ajax({
+                    type: 'PATCH',       // 요청 메서드
+                    url: '/CtProj/comment/' + cno,
+                    headers: {"content-type": "application/json"}, // 요청 헤더
+                    data: JSON.stringify({
+                        cno: cno,
+                        comment: comment,
+                    }),
+                    success: function (result) {
+                        alert("댓글 수정 성공!")
+                        $("#chat-text").val("");
+                        showList()
+                    },
+                    error: function () {
+                        alert("다시 입력해주세요.")
+                    } // 에러가 발생했을 때, 호출될 함수
+                }); // $.ajax()
+            }
+
+        })
+
+
         $('#InputDate').daterangepicker({
             "singleDatePicker": true,
             "timePicker": true,
@@ -652,6 +650,7 @@
 
     let toUserHtml = function (userInfo) {
         let tmp = '<div>'
+        tmp += '<div id="userIdInfo" style="display: none">' + userInfo.id + '</div>';
         tmp += userInfo.nickname + '    Coin: <tab>'
         tmp += userInfo.coin + '    Lv:    '
         tmp += Math.floor(userInfo.level)
@@ -668,34 +667,6 @@
 
     }
 
-
-    <%--let toHtmlroomReviewList = function (list) {--%>
-    <%--    let userIdInfo = $("#userIdInfo").text()--%>
-    <%--    let tmp = "<ul>";--%>
-    <%--    console.log(userIdInfo);--%>
-    <%--    for (const val in Object.keys(list)) {--%>
-    <%--        if (list[val].user_id != userIdInfo) {--%>
-    <%--            tmp += '<div class="form-group">'--%>
-    <%--            tmp += '<div id="radioCheckUserId' + val + '">' + list[val].user_id + '</div><br>'--%>
-    <%--            tmp += ' <input type="radio" name="chk_info' + val + '" value="1">별로에요'--%>
-    <%--            tmp += ' <input type="radio" name="chk_info' + val + '" value="2">아쉬워요'--%>
-    <%--            tmp += ' <input type="radio" name="chk_info' + val + '" value="3">보통이에요'--%>
-    <%--            tmp += ' <input type="radio" name="chk_info' + val + '" value="4">좋았어요'--%>
-    <%--            tmp += ' <input type="radio" name="chk_info' + val + '" value="5">최고에요!'--%>
-    <%--            tmp += '</br></div>'--%>
-    <%--        }--%>
-
-    <%--    }--%>
-
-
-    <%--    &lt;%&ndash;tmp += '<li class="list-group-item d-flex justify-content-between align-items-center list-group-item-danger">방장: ' + ${roomDto.writer} +'</li>'&ndash;%&gt;--%>
-    <%--    &lt;%&ndash;for (const val in Object.keys(list)) {&ndash;%&gt;--%>
-    <%--    &lt;%&ndash;    tmp += '<li class="list-group-item d-flex justify-content-between align-items-center">'&ndash;%&gt;--%>
-    <%--    &lt;%&ndash;    tmp += list[val].user_id&ndash;%&gt;--%>
-    <%--    &lt;%&ndash;    tmp += list[val] + '<input class="form-check-input" type="checkbox" name="flexCheckChecked"  value="' + list[val] + '"> </li> ';&ndash;%&gt;--%>
-    <%--    &lt;%&ndash;}&ndash;%&gt;--%>
-    <%--    return tmp + '</ul>';--%>
-    <%--}--%>
 
     let toHtmlIsCoinReturn = function (roomInfo) {
         const now = new Date();
@@ -718,6 +689,30 @@
         } else {
             return false;
         }
+    }
+
+    let toHtmlComment = function (comments) {
+        let userIdInfo = $("#userIdInfo").text();
+        let tmp = '<ul class="comment-ul">';
+
+        comments.forEach(function (comment) {
+            tmp += '<li data-cno=' + comment.cno + '>'
+            tmp += '<div class="com-ti">'
+            tmp += '<span class="nickname">' + comment.nickname + '</span>'
+            tmp += '<span>' + comment.up_date + '</span>'
+            tmp += '</div>'
+            tmp += '<div class="comment-box"><div class="comment" style="font-weight: 500">' + comment.comment + '</div></div>'
+            // tmp += 'commenter= <span class="commenter">' + comment.commenter + '</span>'
+            if (comment.commenter == userIdInfo) {
+                tmp += '<div style="float:right; padding:10px">'
+                tmp += '<button class="com-delBtn com-Btn" style="margin-right:10px;">삭제</button>'
+                tmp += '<button class="com-modBtn com-Btn" >수정</button>'
+                tmp += '</div>'
+            }
+
+            tmp += '</li>'
+        })
+        return tmp + '</ul>';
     }
 
 
@@ -746,22 +741,15 @@
         tmp += '<div class="place-in">' + room.meet_place_road + '</div>'
         tmp += '<div class="place-in">' + room.meet_place + '</div>'
         tmp += '<div class = "rooms-user_cnt" style="display:none;">' + room.user_cnt + '</div>'
+        tmp += '  <div class="tomorrow" data-location-id="065498" data-language="KO" data-unit-system="METRIC" data-skin="light" data-widget-type="upcoming" style="padding-bottom:22px;position:relative;width: 800px;" >'
+        tmp += '  <a href="https://www.tomorrow.io/weather-api/" rel="nofollow noopener noreferrer" target="_blank" style="position: absolute; bottom: 0; transform: translateX(-50%); left: 50%;" >'
+        tmp += ' <img alt="Powered by the Tomorrow.io Weather API" src="https://weather-website-client.tomorrow.io/img/powered-by.svg" width="250" height="18" />'
+        tmp += '</a>'
+        tmp += ' </div>'
         tmp += '  <footer>'
-        tmp += '<div>채팅창</div>'
         tmp += '</footer>'
         return tmp;
     }
-
-
-    <%--let toHtmlModal = function (list) {--%>
-    <%--    let tmp = "<ul>";--%>
-    <%--    tmp += '<li class="list-group-item d-flex justify-content-between align-items-center list-group-item-danger">방장: ' + ${roomDto.writer} +'</li>'--%>
-    <%--    for (const val in Object.keys(list)) {--%>
-    <%--        tmp += '<li class="list-group-item d-flex justify-content-between align-items-center">'--%>
-    <%--        tmp += list[val] + '<input class="form-check-input" type="checkbox" name="flexCheckChecked"  value="' + list[val] + '"> </li> ';--%>
-    <%--    }--%>
-    <%--    return tmp + '</ul>';--%>
-    <%--}--%>
 
 
     let toHtmlMem = function (list) {
@@ -1084,6 +1072,22 @@
     }
 
 
+</script>
+<script>
+    (function (d, s, id) {
+        if (d.getElementById(id)) {
+            if (window.__TOMORROW__) {
+                window.__TOMORROW__.renderWidget();
+            }
+            return;
+        }
+        const fjs = d.getElementsByTagName(s)[0];
+        const js = d.createElement(s);
+        js.id = id;
+        js.src = "https://www.tomorrow.io/v1/widget/sdk/sdk.bundle.min.js";
+
+        fjs.parentNode.insertBefore(js, fjs);
+    })(document, 'script', 'tomorrow-sdk');
 </script>
 <!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *-->
 <!-- * *                               SB Forms JS                               * *-->

@@ -102,6 +102,7 @@
 <!-- Header -->
 <header id="header">
     <div class="logo container">
+<%--        <img src="assets/img/main-image.jpg">--%>
         <div>
             <h1><a href="<c:url value='/'/>">With Us</a></h1>
             <%--            <p>A responsive site template by HTML5 UP</p>--%>
@@ -137,7 +138,7 @@
 <!-- Banner -->
 <section id="banner">
     <div class="content">
-        <h2>사람들과 만나고 소통하세요</h2>
+        <h2>오늘 어디서 만날까?</h2>
         <p>삶 전체에 있어서 가장 참된 것은 만남이다. -마르틴 부버- </p>
         <a href="#main" class="button scrolly">카테고리 선택</a>
     </div>

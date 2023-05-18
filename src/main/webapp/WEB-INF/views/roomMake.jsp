@@ -142,7 +142,7 @@
                             <%--                <input type="text" class="form-control rooms-category" id="InputCategory" placeholder="입력해주세요">--%>
 
                             <label for="InputCategory" class="form-label mt-4">카테고리</label>
-                            <select name="category" id="InputCategory" class="form-group rooms-category">
+                            <select name="category" id="InputCategory" class="form-group rooms-category" style="width: 77px;height:50px">
                                 <option value="식사">식사</option>
                                 <option value="공부">공부</option>
                                 <option value="운동">운동</option>
@@ -155,7 +155,7 @@
                         <div class="form-group" style="border-bottom:none;">
                             <label for="InputLimit" class="form-label mt-4">제한 인원</label>
                             <%--                <input type="text" class="form-control rooms-user_limit" id="InputLimit" placeholder="입력해주세요">--%>
-                            <select name="user_limit" id="InputLimit" class="form-group rooms-user_limit">
+                            <select name="user_limit" id="InputLimit" class="form-group rooms-user_limit" style="width: 75px;height:50px">
                                 <option value="2">2명</option>
                                 <option value="3">3명</option>
                                 <option value="4">4명</option>
@@ -170,6 +170,9 @@
                     </fieldset>
                     <input type="submit" value="등록하기" class="btn btn-primary" style="margin:3% 0 0 92%"/>
                 </form>
+
+
+
             </div>
                     <article class="post-make-in">
 
@@ -190,6 +193,28 @@
                         <div id="pagination"></div>
                     </div>
                 </div>
+                        <div class="tomorrow"
+                             data-location-id="065498"
+                             data-language="KO"
+                             data-unit-system="METRIC"
+                             data-skin="light"
+                             data-widget-type="upcoming"
+                             style="padding-bottom:22px;position:relative;width: 800px;margin-top: 20%;"
+                        >
+                            <a
+                                    href="https://www.tomorrow.io/weather-api/"
+                                    rel="nofollow noopener noreferrer"
+                                    target="_blank"
+                                    style="position: absolute; bottom: 0; transform: translateX(-50%); left: 50%;"
+                            >
+                                <img
+                                        alt="Powered by the Tomorrow.io Weather API"
+                                        src="https://weather-website-client.tomorrow.io/img/powered-by.svg"
+                                        width="250"
+                                        height="18"
+                                />
+                            </a>
+                        </div>
             </article>
 
         </div>
@@ -608,6 +633,22 @@
         }
 
     }
+</script>
+<script>
+    (function(d, s, id) {
+        if (d.getElementById(id)) {
+            if (window.__TOMORROW__) {
+                window.__TOMORROW__.renderWidget();
+            }
+            return;
+        }
+        const fjs = d.getElementsByTagName(s)[0];
+        const js = d.createElement(s);
+        js.id = id;
+        js.src = "https://www.tomorrow.io/v1/widget/sdk/sdk.bundle.min.js";
+
+        fjs.parentNode.insertBefore(js, fjs);
+    })(document, 'script', 'tomorrow-sdk');
 </script>
 
 

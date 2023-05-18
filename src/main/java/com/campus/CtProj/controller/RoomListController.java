@@ -149,24 +149,6 @@ public class RoomListController {
 
 
 
-//    // 후기를 위해서 방안의 유저정보가져옴
-//    @PostMapping("/mem/review")
-//    @ResponseBody public ResponseEntity<List<BoolDto>> getReviewMemList(@RequestBody Integer roomBno, HttpServletRequest request) throws Exception {
-//        System.out.println("여기도 안드가져?");
-//        List<BoolDto> list = null;
-//        try {
-//            list = roomInService.readReviewUser(roomBno);
-//            System.out.println(list);
-//            return new ResponseEntity<>(list, HttpStatus.OK);   // 200
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//            return new ResponseEntity<>(list, HttpStatus.BAD_REQUEST);      //400
-//        }
-//
-//    }
-
-
-
 
     // 후기 체크하기
     @PostMapping("/review/mem")
@@ -175,6 +157,7 @@ public class RoomListController {
         String writer = (String)session.getAttribute("id");
         System.out.println(reviewKey);
         System.out.println(reviewValue);
+        System.out.println(reviewKey.length);
 
 
 

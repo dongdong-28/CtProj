@@ -58,11 +58,12 @@
 </header>
 
 
+
 <!-- Nav -->
 <nav id="nav">
     <ul >
         <li ><a href="<c:url value='/'/>">홈</a></li>
-        <li ><a href="<c:url value='/room/in-mem'/>">방 입장</a></li>
+        <li><a href="<c:url value='/room/in-mem'/>">방 입장</a></li>
         <li class="current"><a href="<c:url value='/room/find'/>">방 찾기</a></li>
         <li><a href="<c:url value='/room/make'/>">방 생성</a></li>
         <li><a href="<c:url value='/room/list'/>">나의 방</a></li>
@@ -83,109 +84,96 @@
 </nav>
 
 <!-- Section-->
-<section id="main"  style="background: #f4f4f4;;">
-    <div class="container">
-
-        <div class="row gtr-200" style="margin-left: 0px;">
-            <div id="category-icon">
-                <ul style="display: flex">
-                    <li class="categoryBtn active">
-                        <div class="icon solid fa-globe cate-small"><span>전체</span></div>
-                    </li>
-                    <li class="categoryBtn">
-                        <div class="icon solid fa-book-reader cate-small"><span>공부</span></div>
-                    </li>
-                    <li class="categoryBtn">
-                        <div class="icon solid fa-utensils cate-small"><span>식사</span></div>
-                    </li>
-                    <li class="categoryBtn">
-                        <div class="icon solid fa-dumbbell cate-small "><span>운동</span></div>
-                    </li>
-                    <li class="categoryBtn">
-                        <div class="icon solid fa-passport cate-small "><span>여행</span></div>
-                    </li>
-                    <li class="categoryBtn">
-                        <div class="icon solid fa-dollar-sign cate-small "><span>거래</span></div>
-                    </li>
-                    <li class="categoryBtn">
-                        <div class="icon solid fa-cog cate-small "><span>기타</span></div>
-                    </li>
+<section id="main" style="background: #f4f4f4;;">
+    <div id="category-icon">
+        <ul>
+            <li class="categoryBtn active">
+                <div class="icon solid fa-globe cate-small"><span>전체</span></div>
+            </li>
+            <li class="categoryBtn">
+                <div class="icon solid fa-book-reader cate-small"><span>공부</span></div>
+            </li>
+            <li class="categoryBtn">
+                <div class="icon solid fa-utensils cate-small"><span>식사</span></div>
+            </li>
+            <li class="categoryBtn">
+                <div class="icon solid fa-dumbbell cate-small "><span>운동</span></div>
+            </li>
+            <li class="categoryBtn">
+                <div class="icon solid fa-passport cate-small "><span>여행</span></div>
+            </li>
+            <li class="categoryBtn">
+                <div class="icon solid fa-dollar-sign cate-small "><span>거래</span></div>
+            </li>
+            <li class="categoryBtn" style="padding-right:5%;">
+                <div class="icon solid fa-cog cate-small "><span>기타</span></div>
+            </li>
 
 
-                </ul>
-            </div>
-            <%--카테고리 선택--%>
-            <%--            <label for="InputCategory" class="form-label mt-4">카테고리</label>--%>
-            <%--            <select name="Category" id="InputCategory" class="form-group rooms-category">--%>
-            <%--                <option value="전체">전체</option>--%>
-            <%--                <option value="식사">식사</option>--%>
-            <%--                <option value="공부">공부</option>--%>
-            <%--                <option value="운동">운동</option>--%>
-            <%--                <option value="여행">여행</option>--%>
-            <%--                <option value="거래">거래</option>--%>
-            <%--                <option value="기타">기타</option>--%>
-            <%--            </select>--%>
-            <%--            <button type="button" id="categoryBtn" class="rooms-category">선택</button>--%>
-            <div class="col-12 post-find-in" style="padding:30px 10px">
-
-                <%--        키워드로 제목 검색--%>
-                <div class="search d-flex">
-
-                    <select id="search-option" style="margin-right: 0.5rem !important;" name="option">
-                        <option value="T" selected> 제목</option>
-                        <option value="C">작성자</option>
-                    </select>
-                    <input type="text" id="search-input" class="form-search-control" placeholder="Keyword...!" value=''>
-                    <button id="searchBtn" class="btn btn-secondary my-2 my-sm-0">선택</button>
-                    <%--                    <input type="button" value="선택" id="searchBtn">--%>
-                    <%--            <label for="searchBtn"></label>--%>
-
-                </div>
-                <div id="roomList" style="padding: 20px;">
-                    <%--                    <c:forEach var="room" items="${roomList}">--%>
-                    <%--                        <tr>--%>
-                    <%--                            <td>${room.bno}</td>--%>
-
-
-                    <%--                        </tr>--%>
-
-
-                    <%--                    </c:forEach>--%>
-
-
-                </div>        <!-- 방 정보를 가져와서 집어넣을 예정이다-->
-
-                <div>
-                    <ul class="pagination pagination-lg page-style">
-                        <li class="page-item">
-                            <button class="page-link" href="#">&laquo;</button>
-                        </li>
-                        <li class="page-item active">
-                            <button class="page-link" value="1">1</button>
-                        </li>
-                        <li class="page-item ">
-                            <button class="page-link" value="2">2</button>
-                        </li>
-                        <li class="page-item">
-                            <button class="page-link" value="3">3</button>
-                        </li>
-                        <li class="page-item">
-                            <button class="page-link" value="4">4</button>
-                        </li>
-                        <li class="page-item">
-                            <button class="page-link" value="5">5</button>
-                        </li>
-                        <li class="page-item">
-                            <button class="page-link" value="6">6</button>
-                        </li>
-                        <li class="page-item">
-                            <button class="page-link" href="#">&raquo;</button>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-        </div>
+        </ul>
     </div>
+    <section id="menu" class="menu section-bg">
+        <div class="container " data-aos="fade-up">
+            <article class="post-find-in">
+                    <%--        키워드로 제목 검색--%>
+                    <div class="search d-flex" style="padding: 15px 0; margin-bottom: 0px;">
+
+                        <select id="search-option" style="margin-right: 0.5rem !important;" name="option">
+                            <option value="T" selected> 제목</option>
+                            <option value="C">작성자</option>
+                        </select>
+                        <input type="text" id="search-input" class="form-search-control" placeholder="Keyword...!"
+                               value=''>
+                        <button id="searchBtn" class="btn btn-secondary my-2 my-sm-0">선택</button>
+                        <%--                    <input type="button" value="선택" id="searchBtn">--%>
+                        <%--            <label for="searchBtn"></label>--%>
+
+                    </div>
+                    <div id="roomList" style="padding: 20px;border-top: solid 1px rgba(160, 160, 160, 0.3);">
+                        <%--                    <c:forEach var="room" items="${roomList}">--%>
+                        <%--                        <tr>--%>
+                        <%--                            <td>${room.bno}</td>--%>
+
+
+                        <%--                        </tr>--%>
+
+
+                        <%--                    </c:forEach>--%>
+
+
+                    </div>        <!-- 방 정보를 가져와서 집어넣을 예정이다-->
+
+                    <div>
+                        <ul class="pagination pagination-lg page-style">
+                            <li class="page-item">
+                                <button class="page-link" href="#">&laquo;</button>
+                            </li>
+                            <li class="page-item active">
+                                <button class="page-link" value="1">1</button>
+                            </li>
+                            <li class="page-item ">
+                                <button class="page-link" value="2">2</button>
+                            </li>
+                            <li class="page-item">
+                                <button class="page-link" value="3">3</button>
+                            </li>
+                            <li class="page-item">
+                                <button class="page-link" value="4">4</button>
+                            </li>
+                            <li class="page-item">
+                                <button class="page-link" value="5">5</button>
+                            </li>
+                            <li class="page-item">
+                                <button class="page-link" value="6">6</button>
+                            </li>
+                            <li class="page-item">
+                                <button class="page-link" href="#">&raquo;</button>
+                            </li>
+                        </ul>
+                    </div>
+            </article>
+        </div>
+    </section>
 </section>
 
 
@@ -401,6 +389,8 @@
 
     });
 
+
+
     let toUserHtml = function (userInfo) {
         let tmp = '<div>'
         tmp +=  userInfo.nickname + '    Coin: <tab>'
@@ -412,12 +402,11 @@
     }
 
 
-
     let toHtml = function (rooms) {
 
         let tmp = ' <section id="courses" class="courses">'
-        tmp += ' <div class="container" data-aos="fade-up">'
-        tmp += ' <div class="row" data-aos="zoom-in" data-aos-delay="100" >'
+        // tmp += ' <div class="container" data-aos="fade-up">'
+        tmp += ' <div class="row" data-aos="zoom-in" data-aos-delay="100" style="margin-left:0px" >'
 
         rooms.forEach(function (room) {
             // var pic =  document.getElementById('InputPic').files[0].name;
@@ -429,13 +418,13 @@
             //     ' <div class="container" data-aos="fade-up">'
             //         ' <div class="row" data-aos="zoom-in" data-aos-delay="100">'
 
-            tmp += ' <div class="col-lg-4 col-md-6 d-flex align-items-stretch">'
+            tmp += ' <div class="d-flex align-items-stretch">'
             tmp += '    <div class="course-item">'
             tmp += '      <img class="img-fluid" src="${pageContext.request.contextPath}' + room.filepath + '" alt="대체" />'
             tmp += '           <div class="course-content">'
             tmp += '<div class="d-flex justify-content-between align-items-center mb-3">'
             tmp += '   <h4>' + room.category + '</h4>'
-            tmp += '             <p class="price">'+ room.user_cnt + '/' + room.user_limit + '</p>'
+            tmp += '             <p class="price">' + room.user_cnt + '/' + room.user_limit + '</p>'
             tmp += '  </div>'
             tmp += '  <h3 style="padding-top:15px">' + room.title + '</h3>'
             tmp += '  장소: ' + room.meet_place + '</br>'
@@ -453,7 +442,7 @@
 
 
         })
-        tmp += '</div></div>'
+        tmp += '</div>'
 
         return tmp + "</section>";
 

@@ -105,34 +105,18 @@
             <article class="post-in">
                 <div id="roomInfo"></div>
                 <div class="chat">
-                    <div class="chat-in" style="overflow: scroll;">
-                        dsafasd<br>
-                        dsafasd<br>
-                        dsafasd<br>
-                        dsafasd<br>
-                        dsafasd<br>
-                        dsafasd<br>
-                        dsafasd<br>
-                        dsafasd<br>
-                        dsafasd<br>
-                        dsafasd<br>
-                        dsafasd<br>
-                        dsafasd<br>
-                        dsafasd<br>
-                        dsafasd<br>
-                        dsafasd<br>
-                        dsafasd<br>
-                        dsafasd<br>
-                        dsafasd<br>
-                        dsafasd<br>
+                    <div id="chat-in">
+
                     </div>
 
                     <form>
                         <div class="card-body">
 
-                            <li class="list-group-item"  style="list-style: none;">
-                                <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
-                                <button type="button" class="btn btn-dark mt-3" onClick="javascript:addReply();">post reply</button>
+                            <li class="list-group-item" style="list-style: none;">
+                                <textarea class="enter-form" id="chat-text"></textarea>
+                                <button type="button" class="btn btn-dark mt-3 com-sendBtn">post
+                                    reply
+                                </button>
                             </li>
 
                         </div>
@@ -232,14 +216,97 @@
                 alert("error")
             } // 에러가 발생했을 때, 호출될 함수
         }); // $.ajax()
+
+        $.ajax({
+            type: 'GET',       // 요청 메서드
+            url: '/CtProj/comments?bno=' +${roomDto.bno},  // 요청 URI
+            success: function (result) {
+                $("#chat-in").html(toHtmlComment(result));    // 서버로부터 응답이 도착하면 호출될 함수
+            },
+            error: function () {
+                alert("error")
+            } // 에러가 발생했을 때, 호출될 함수
+        }); // $.ajax()
     }
 
     $(document).ready(function () {
         showList();
+        $(".com-sendBtn").click(function () {
+            let comment = $("#chat-text").val();
+            let bno = ${roomDto.bno};
+            console.log(comment);
+
+            $.ajax({
+                type: 'POST',       // 요청 메서드
+                url: '/CtProj/comment',
+                data: {
+                    bno: bno,
+                    comment: comment,
+                },  // 서버로 전송할 데이터. stringify()로 직렬화 필요.
+                success: function (result) {
+                    alert("댓글입력성공!")
+                    $("#chat-text").val("");
+                    showList()
+                },
+                error: function () {
+                    alert("다시 입력해주세요.")
+                } // 에러가 발생했을 때, 호출될 함수
+            }); // $.ajax()
+
+        })
+
+
+        $("#chat-in").on("click", ".com-delBtn", function () {
+            let cno = $(this).parent().parent().attr("data-cno");
+            console.log(cno)
+            if (confirm("삭제하시겠습니까?")) {
+                $.ajax({
+                    type: 'DELETE',       // 요청 메서드
+                    url: '/CtProj/comment/' + cno,
+                    success: function (result) {
+                        alert("댓글삭제 성공!")
+                        showList()
+                    },
+                    error: function () {
+                        alert("다시 입력해주세요.")
+                    } // 에러가 발생했을 때, 호출될 함수
+                }); // $.ajax()
+            }
+
+        })
+
+
+        $("#chat-in").on("click", ".com-modBtn", function () {
+            let cno = $(this).parent().parent().attr("data-cno");
+            let comment = $("#chat-text").val();
+            console.log(comment)
+            // $("#chat-text").val(comment)
+            if (confirm("수정하시겠습니까?")) {
+                $.ajax({
+                    type: 'PATCH',       // 요청 메서드
+                    url: '/CtProj/comment/' + cno,
+                    headers: {"content-type": "application/json"}, // 요청 헤더
+                    data: JSON.stringify({
+                        cno: cno,
+                        comment: comment,
+                    }),
+                    success: function (result) {
+                        alert("댓글 수정 성공!")
+                        $("#chat-text").val("");
+                        showList()
+                    },
+                    error: function () {
+                        alert("다시 입력해주세요.")
+                    } // 에러가 발생했을 때, 호출될 함수
+                }); // $.ajax()
+            }
+
+        })
     });
 
     let toUserHtml = function (userInfo) {
         let tmp = '<div>'
+        tmp += '<div id="userIdInfo" style="display: none">' + userInfo.id + '</div>';
         tmp += userInfo.nickname + '    Coin: <tab>'
         tmp += userInfo.coin + '    Lv:    '
         tmp += Math.floor(userInfo.level)
@@ -274,11 +341,16 @@
         tmp += '<div class="place-in">' + room.meet_place_road + '</div>'
         tmp += '<div class="place-in">' + room.meet_place + '</div>'
         tmp += '<div class = "rooms-user_cnt" style="display:none;">' + room.user_cnt + '</div>'
+        tmp += '  <div class="tomorrow" data-location-id="065498" data-language="KO" data-unit-system="METRIC" data-skin="light" data-widget-type="upcoming" style="padding-bottom:22px;position:relative;width: 800px;" >'
+        tmp += '  <a href="https://www.tomorrow.io/weather-api/" rel="nofollow noopener noreferrer" target="_blank" style="position: absolute; bottom: 0; transform: translateX(-50%); left: 50%;" >'
+        tmp += ' <img alt="Powered by the Tomorrow.io Weather API" src="https://weather-website-client.tomorrow.io/img/powered-by.svg" width="250" height="18" />'
+        tmp += '</a>'
+        tmp += ' </div>'
         tmp += '  <footer>'
-        tmp += '<div>채팅창</div>'
         tmp += '</footer>'
         return tmp;
     }
+
 
     function btnCheck() {
         if (confirm("정말로 나가시겠습니까?")) {
@@ -286,6 +358,30 @@
         } else {
             return false;
         }
+    }
+
+    let toHtmlComment = function (comments) {
+        let userIdInfo = $("#userIdInfo").text();
+        let tmp = '<ul class="comment-ul">';
+
+        comments.forEach(function (comment) {
+            tmp += '<li data-cno=' + comment.cno + '>'
+            tmp += '<div class="com-ti">'
+            tmp += '<span class="nickname">' + comment.nickname + '</span>'
+            tmp += '<span>' + comment.up_date + '</span>'
+            tmp += '</div>'
+            tmp += '<div class="comment-box"><div class="comment" style="font-weight: 300">' + comment.comment + '</div></div>'
+            // tmp += 'commenter= <span class="commenter">' + comment.commenter + '</span>'
+            if (comment.commenter == userIdInfo) {
+                tmp += '<div style="float:right; padding:10px">'
+                tmp += '<button class="com-delBtn com-Btn" style="margin-right:10px;">삭제</button>'
+                tmp += '<button class="com-modBtn com-Btn" >수정</button>'
+                tmp += '</div>'
+            }
+
+            tmp += '</li>'
+        })
+        return tmp + '</ul>';
     }
 
     let toHtmlMem = function (list) {
@@ -340,6 +436,23 @@
 
     });
 
+</script>
+
+<script>
+    (function(d, s, id) {
+        if (d.getElementById(id)) {
+            if (window.__TOMORROW__) {
+                window.__TOMORROW__.renderWidget();
+            }
+            return;
+        }
+        const fjs = d.getElementsByTagName(s)[0];
+        const js = d.createElement(s);
+        js.id = id;
+        js.src = "https://www.tomorrow.io/v1/widget/sdk/sdk.bundle.min.js";
+
+        fjs.parentNode.insertBefore(js, fjs);
+    })(document, 'script', 'tomorrow-sdk');
 </script>
 <!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *-->
 <!-- * *                               SB Forms JS                               * *-->

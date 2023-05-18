@@ -3,7 +3,7 @@ package com.campus.CtProj.domain;
 public class PageHandler {
 
     private int totalCnt;       // 총 게시물 개수
-    private int pageSize = 9;       // 한 페이지당 크기
+    private int pageSize = 12;       // 한 페이지당 크기
     private int totalPage;      // 전체 페이지의 개수
     private int naviSize = 6;       // 페이지 내비게이션의 크기
     private int page;       // 현재페이지

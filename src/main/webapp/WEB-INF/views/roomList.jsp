@@ -96,7 +96,6 @@
             </div>
 
             <div class="row" data-aos="fade-up" data-aos-delay="100">
-
             </div>
 
             <div class="list-mem"></div>        <!-- 회원 정보를 가져와서 집어넣을 예정이다-->
@@ -259,22 +258,53 @@
         $('#reviewConfirmBtn').click(function () {
             let userNum = $(".reviewMemNum").text();
             let reviewRoomBno = $(".reviewRoomBno").text();
+            let userIdVal = $(".userIdVal").text();
             let reviewKey = []
             let reviewValue = []
+            console.log(userIdVal)
             console.log(userNum);
-            for (let i = 1; i < userNum; i++) {
-                let idSelect = "#radioCheckUserId" + i + "";
-                let nameSelect = "chk_info" + i + "";
-                console.log(nameSelect)
-                if ($("input:radio[name=" + nameSelect + "]:checked")) {
-                    reviewKey.push($(idSelect).text());
-                    reviewValue.push($("input:radio[name=" + nameSelect + "]:checked").val());
+            for (let i = 0; i < userNum; i++) {
+                if(i != userIdVal){
+                    let idSelect = "#radioCheckUserId" + i + "";
+                    let nameSelect = "chk_info" + i + "";
+                    console.log(nameSelect)
+                    if ($("input:radio[name=" + nameSelect + "]:checked")) {
+                        reviewKey.push($(idSelect).text());
+                        reviewValue.push($("input:radio[name=" + nameSelect + "]:checked").val());
+                    }
                 }
 
             }
             console.log(reviewKey)
             console.log(reviewValue)
             new Promise((succ, fail) => {
+                $.ajax({
+                    type: 'DELETE',       // 요청 메서드
+                    url: '/CtProj/list/review/mem/' + reviewRoomBno,  // 요청 URI
+                    success: function (result) {
+                        // showList(listCate);
+                        succ();
+                        $('#reviewModal').modal("hide");
+
+                    },
+                    error: function () {
+                        alert("삭제에 실패하였습니다.")
+                        return false;
+                    } // 에러가 발생했을 때, 호출될 함수
+                }); // $.ajax()
+
+            }).then((arg) => {    // 두번째 ajax를 실행한다.
+                $.ajax({
+                    type: 'GET',       // 요청 메서드
+                    url: '/CtProj/list/review',  // 요청 URI
+                    success: function (result) {
+                        $(".reviewList").html(toHtmlReviewList(result));
+                    },
+                    error: function () {
+                        alert("안됨..")
+                    } // 에러가 발생했을 때, 호출될 함수
+                }); // $.ajax()
+            }).then((arg) => {
                 $.ajax({
                     type: 'POST',       // 요청 메서드
                     url: '/CtProj/list/review/mem',  // 요청 URI /ch4/comments?bno=1085 POST
@@ -286,27 +316,26 @@
                             "reviewValue": reviewValue
                         },  // 서버로 전송할 데이터. stringify()로 직렬화 필요.
                     success: function (result) {
-                        succ(result);
+                        // succ();
                         alert("후기 완료하였습니다..!!");
                     },
                     error: function () {
                         alert("왜 실패하지..?")
                     } // 에러가 발생했을 때, 호출될 함수
                 });
-            }).then((arg) => {    // 두번째 ajax를 실행한다.
-                $.ajax({
-                    type: 'DELETE',       // 요청 메서드
-                    url: '/CtProj/list/review/mem/' + reviewRoomBno,  // 요청 URI
-                    success: function (result) {
-                        console.log("후기 삭제하고 나갑니다.")
-                        showList(listCate);
-                        $('#reviewModal').modal("hide");
-                    },
-                    error: function () {
-                        alert("삭제에 실패하였습니다.")
-                        return false;
-                    } // 에러가 발생했을 때, 호출될 함수
-                }); // $.ajax()
+                // $.ajax({
+                //     type: 'DELETE',       // 요청 메서드
+                //     url: '/CtProj/list/review/mem/' + reviewRoomBno,  // 요청 URI
+                //     success: function (result) {
+                //         showList(listCate);
+                //     },
+                //     error: function () {
+                //         alert("삭제에 실패하였습니다.")
+                //         $('#reviewModal').modal("hide");
+                //
+                //         return false;
+                //     } // 에러가 발생했을 때, 호출될 함수
+                // }); // $.ajax()
 
             });
 
@@ -401,6 +430,7 @@
 
     let toUserHtml = function (userInfo) {
         let tmp = '<div>'
+        tmp += '<div id="userIdInfo" style="display: none">' + userInfo.id + '</div>';
         tmp +=  userInfo.nickname + '    Coin: <tab>'
         tmp +=  userInfo.coin +  '    Lv:    '
         tmp +=  Math.floor(userInfo.level)
@@ -555,10 +585,15 @@
         console.log(list.length)
         let tmp = '<ul><div class="reviewMemNum" style="display: none">' + list.length + '</div>';
         tmp += '<div class="reviewRoomBno" style="display: none">' + reviewRoomBno + '</div>';
+        var idVal;
         for (const val in Object.keys(list)) {
+            if (list[val].userId == userIdInfo) {
+                idVal = val
+            }
             if (list[val].userId != userIdInfo) {
                 tmp += '<div class="form-group">'
-                tmp += '<div id="radioCheckUserId' + val + '" class="review-nic">' + list[val].nickname + '</div>'
+                tmp += '<div id="radioCheckUserId' + val + '" style="display: none">' + list[val].userId + '</div>';
+                tmp += '<div class="review-nic">' + list[val].nickname + '</div>'
                 // tmp += '<div style="display: flex"><div  class="icon solid fa-face-sad-cry"></div><div  class="icon solid fa-face-sad-sweat"></div><div  class="icon solid fa-face-mech"></div><div  class="icon solid fa-smile"></div><div class="icon solid fa-happy"></div></div>'
                 tmp += '<div style="display: flex">'
                 tmp += '<span  class="icon solid fa-tired fa-lg list-radio-icon" style="margin-left:5%;"></span>'
@@ -580,7 +615,7 @@
             }
 
         }
-
+        tmp += '<div class="userIdVal" style="display: none">' + idVal + '</div>';
         return tmp + '</ul>';
     }
 
