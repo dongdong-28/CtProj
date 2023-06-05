@@ -26,11 +26,13 @@ public class RoomDto {
     private String writer;
     private int user_limit;
     private int user_cnt = 1;
+    private String nickname;
+    private double wri_level;
 
     public RoomDto() {
     }
 
-    public RoomDto(Integer bno, String title, String filename, String filepath, Date meet_Date, String meet_place, String meet_place_road, String notice, String category, String writer, int user_limit, int user_cnt) {
+    public RoomDto(Integer bno, String title, String filename, String filepath, Date meet_Date, String meet_place, String meet_place_road, String notice, String category, String writer, int user_limit, int user_cnt, String nickname, double wri_level) {
         this.bno = bno;
         this.title = title;
         this.filename = filename;
@@ -43,19 +45,8 @@ public class RoomDto {
         this.writer = writer;
         this.user_limit = user_limit;
         this.user_cnt = user_cnt;
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        RoomDto roomDto = (RoomDto) o;
-        return user_limit == roomDto.user_limit && user_cnt == roomDto.user_cnt && Objects.equals(bno, roomDto.bno) && Objects.equals(title, roomDto.title) && Objects.equals(filename, roomDto.filename) && Objects.equals(filepath, roomDto.filepath) && Objects.equals(meet_Date, roomDto.meet_Date) && Objects.equals(meet_place, roomDto.meet_place) && Objects.equals(meet_place_road, roomDto.meet_place_road) && Objects.equals(notice, roomDto.notice) && Objects.equals(category, roomDto.category) && Objects.equals(reg_date, roomDto.reg_date) && Objects.equals(up_date, roomDto.up_date) && Objects.equals(writer, roomDto.writer);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(bno, title, filename, filepath, meet_Date, meet_place, meet_place_road, notice, category, reg_date, up_date, writer, user_limit, user_cnt);
+        this.nickname = nickname;
+        this.wri_level = wri_level;
     }
 
     @Override
@@ -75,6 +66,8 @@ public class RoomDto {
                 ", writer='" + writer + '\'' +
                 ", user_limit=" + user_limit +
                 ", user_cnt=" + user_cnt +
+                ", nickname='" + nickname + '\'' +
+                ", wri_level=" + wri_level +
                 '}';
     }
 
@@ -188,5 +181,21 @@ public class RoomDto {
 
     public void setUser_cnt(int user_cnt) {
         this.user_cnt = user_cnt;
+    }
+
+    public String getNickname() {
+        return nickname;
+    }
+
+    public void setNickname(String nickname) {
+        this.nickname = nickname;
+    }
+
+    public double getWri_level() {
+        return wri_level;
+    }
+
+    public void setWri_level(double wri_level) {
+        this.wri_level = wri_level;
     }
 }

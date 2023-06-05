@@ -118,14 +118,12 @@ public class CommonController {
         RoomDto roomDto = roomService.read(room_bno);
         List<String> list = enterService.selectRoomId(room_bno);
         if(roomService.modify(roomDto) != 1){
-            System.out.println("변경안됨.. ㅋㅋ ");
             return "roomEnter_host";
         }
         m.addAttribute("roomDto",roomDto);    // view 로 넘기기
         m.addAttribute("list",list);
         if(!loginCheck(request))
             return "redirect:/login/login?toURL="+request.getRequestURL();  // 로그인을 안했으면 로그인 화면으로 이동
-        System.out.println("변경완료인데..?");
         return "roomEnter_host";
     }
 

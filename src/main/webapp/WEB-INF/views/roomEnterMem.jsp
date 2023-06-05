@@ -114,8 +114,8 @@
 
                             <li class="list-group-item" style="list-style: none;">
                                 <textarea class="enter-form" id="chat-text"></textarea>
-                                <button type="button" class="btn btn-dark mt-3 com-sendBtn">post
-                                    reply
+                                <button type="button" class="btn btn-dark mt-3 com-sendBtn">
+                                    등록하기
                                 </button>
                             </li>
 
@@ -133,7 +133,7 @@
 
                 <section class="sec-btn" style="border-top:0;margin: 2em 0 0 0;">
                     <!-- 나가기버튼-->
-               <form action = "/CtProj/room_in/delete/mem" onsubmit="return btnCheck()" method = "post">
+               <form action = "/CtProj/room-in/delete/mem" onsubmit="return btnCheck()" method = "post">
               <input type = "hidden" name = "room_num" value ="${roomDto.bno}" />
                  <input type = "submit"  class="btn bFtn-outline-primary" value="나가기"/>
               </form>
@@ -196,7 +196,7 @@
 
         $.ajax({
             type: 'GET',       // 요청 메서드
-            url: '/CtProj/room_in/list/mem?bno=' +${roomDto.bno},  // 요청 URI
+            url: '/CtProj/room-in/list/mem?bno=' +${roomDto.bno},  // 요청 URI
             success: function (result) {
 
                 console.log(result)

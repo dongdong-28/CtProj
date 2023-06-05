@@ -246,6 +246,8 @@
         </div>
     </section><!-- End Menu Section -->
     <!-- Modal -->
+    <form id="go-main" method="get" style="display: none;">
+    </form>
 
 </div>
 
@@ -322,7 +324,7 @@
 
         $.ajax({
             type: 'GET',       // 요청 메서드
-            url: '/CtProj/room_in/list/mem?bno=' +${roomDto.bno},  // 요청 URI
+            url: '/CtProj/room-in/list/mem?bno=' +${roomDto.bno},  // 요청 URI
             success: function (result) {
 
                 console.log(result)
@@ -427,7 +429,7 @@
             } else {
                 $.ajax({
                     type: 'POST',       // 요청 메서드
-                    url: '/CtProj/room_in/upload',
+                    url: '/CtProj/room-in/upload',
                     processData: false,
                     contentType: false,
                     data: formData,
@@ -469,7 +471,7 @@
                 console.log(val)
                 $.ajax({
                     type: 'DELETE',       // 요청 메서드
-                    url: '/CtProj/room_in/drop/mem/' + bno + '/' + user_id[val] + '/' + user_id.length,  // 요청 URI
+                    url: '/CtProj/room-in/drop/mem/' + bno + '/' + user_id[val] + '/' + user_id.length,  // 요청 URI
                     success: function (result) {
                         showList();          // 삭제된 이후에 목록에 다시 갱신해주며 보여주기
                     },
@@ -501,10 +503,10 @@
                 if (confirm("모임에 참석한 인원이 없습니까??")) {
                     $.ajax({
                         type: 'POST',       // 요청 메서드
-                        url: '/CtProj/room_in/delete/host?room-bno=' + bno,  // 요청 URI
+                        url: '/CtProj/room-in/delete/host?room-bno=' + bno,  // 요청 URI
                         success: function (result) {
                             console.log("확인후 나갑니다..!")
-                            window.location.href = 'http://localhost:8080/CtProj/';
+                            $("#go-main").attr("action","/CtProj/").submit();
                             return false;
                         },
                         error: function () {
@@ -527,7 +529,7 @@
                 for (const val in Object.values(user_id)) {
                     $.ajax({
                         type: 'POST',       // 요청 메서드
-                        url: '/CtProj/room_in/mem/confirm',  // 요청 URI /ch4/comments?bno=1085 POST
+                        url: '/CtProj/room-in/mem/confirm',  // 요청 URI /ch4/comments?bno=1085 POST
                         headers: {"content-type": "application/json"}, // 요청 헤더
                         data: JSON.stringify({
                             user_id: user_id[val],
@@ -547,10 +549,11 @@
             }).then((arg) => {    // 두번째 ajax를 실행한다.
                 $.ajax({
                     type: 'DELETE',       // 요청 메서드
-                    url: '/CtProj/room_in/mem/confirm/' + bno,  // 요청 URI
+                    url: '/CtProj/room-in/mem/confirm/' + bno,  // 요청 URI
                     success: function (result) {
                         console.log("확인후 나갑니다.")
-                        window.location.href = 'http://localhost:8080/CtProj/';
+                        $("#go-main").attr("action","/CtProj/").submit();
+                        // window.location.href = 'http://localhost:8080/CtProj/';
                     },
                     error: function () {
                         alert("삭제에 실패하였습니다.")
@@ -660,7 +663,7 @@
     }
 
     let toHtmlRoomOut = function () {
-        let tmp = '<form action = "/CtProj/room_in/delete/host" onsubmit="return btnCheck()" method = "post">'
+        let tmp = '<form action = "/CtProj/room-in/delete/host" onsubmit="return btnCheck()" method = "post">'
         tmp += '<input type = "hidden" name = "room-bno" value ="' + ${roomDto.bno}+'" />'
         tmp += '<input type = "submit" style="width:120px;height:50px;"  class="btn btn-outline-primary" value="나가기"/>'
         return tmp + '</form>';

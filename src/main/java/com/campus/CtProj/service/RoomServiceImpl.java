@@ -65,6 +65,10 @@ public class RoomServiceImpl implements RoomService {
                 throw new Exception("no Coin");
             userdto.setCoin(coin);
             userDao.updateUser(userdto);
+            roomDto.setNickname(userdto.getNickname());
+            roomDto.setWri_level(userdto.getLevel());
+            System.out.println("roomDto222 = " + roomDto);
+
             roomDao.insert(roomDto);
         } catch(Exception e){
             e.printStackTrace();
@@ -93,6 +97,9 @@ public class RoomServiceImpl implements RoomService {
 
     @Override           // 방 안에 내용 변경
     public int modify(RoomDto roomDto) throws Exception {
+        UserDto userDto = userDao.selectUser(roomDto.getWriter());
+        roomDto.setNickname(userDto.getNickname());
+        roomDto.setWri_level(userDto.getLevel());
         return roomDao.update(roomDto);
     }
 

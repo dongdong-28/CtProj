@@ -20,16 +20,20 @@ import java.io.File;
 import java.util.*;
 
 @Controller
-@RequestMapping("/room_in")
+@RequestMapping("/room-in")
 public class RoomInController {
-    @Autowired
     RoomService roomService;
-    @Autowired
     RoomInService roomInService;
-    @Autowired
     EnterService enterService;
-    @Autowired
     UserService userService;
+
+
+    public RoomInController(RoomService roomService,RoomInService roomInService,EnterService enterService, UserService userService){
+        this.roomService = roomService;
+        this.roomInService = roomInService;
+        this.enterService = enterService;
+        this.userService = userService;
+    }
 
 
     // 방 입장 상태에서 나가기를 누르면 메인 홈으로 이동하게 한다.
@@ -74,7 +78,6 @@ public class RoomInController {
     @GetMapping("/list/mem/review")
     @ResponseBody public ResponseEntity<List<BoolDto>> getReviewMemList(HttpServletRequest request) throws Exception {
         Integer roomBno = Integer.parseInt(request.getParameter("bno"));
-        System.out.println("여기도 안드가져?");
         List<BoolDto> list = null;
         try {
             list = roomInService.readReviewUser(roomBno);
@@ -113,7 +116,6 @@ public class RoomInController {
     @PostMapping("/upload")
     @ResponseBody public ResponseEntity<String> modifyHostRoom(RoomDto dto,@RequestParam("uploadFile")MultipartFile uploadfile, HttpSession session,HttpServletRequest request) throws Exception {    // 입력한 내용을 받아와야하니깐 CommentDto dto 해줘야한다.
 
-        System.out.println("담기지도 않나..?");
         String writer = (String)session.getAttribute("id");
         RoomDto roomDto = roomInService.read(dto.getBno());
 
@@ -163,39 +165,7 @@ public class RoomInController {
         }
     }
 
-//    // 후기 체크하기
-//    @PostMapping("/mem/drop/review/{bno}")
-//    @ResponseBody
-//    public ResponseEntity<String> modifyReview(@PathVariable Integer bno,String[] reviewKey,String[] reviewValue, HttpSession session) throws Exception {    // 입력한 내용을 받아와야하니깐 CommentDto dto 해줘야한다.
-//        String writer = (String)session.getAttribute("id");
-//        System.out.println(bno+"번호");
-//        System.out.println(reviewKey);
-//        System.out.println(reviewValue);
-//
-//
-//
-//        try {
-//            for(int i =0; i< reviewKey.length;i++){
-//                System.out.println(reviewKey[i] + " : " + reviewValue[i]);
-//                if (roomInService.modifyMemLevel(reviewKey[i],Integer.parseInt(reviewValue[i])) != 1)
-//                    throw new Exception("Modify failed. ");
-//                if (roomInService.removeHost(bno) != 1)
-//                    throw new Exception("Delete failed");
-//            }
-//
-//            return new ResponseEntity<>("MOD_OK", HttpStatus.OK);
-//
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//            return new ResponseEntity<>("MOD_ERR", HttpStatus.BAD_REQUEST);
-//        }
-//    }
-
-
-
     // 확인 후에 방을 삭제하는 메서드
-    // /comments/1?bno=1085         // 이 bno 는 그냥 쿼리스트링
-    // {cno} 이거는 밑에 그냥 쿼리스트링으로 한게 아니고 rest 방식으로 한 url의 일부이므로 @PathVariable 을 붙여준다.
     @DeleteMapping("/mem/confirm/{bno}")       // /comments/1 <-- 삭제할 방 번호
     @ResponseBody
     public ResponseEntity<String> removeAterConfirm(@PathVariable Integer bno, HttpSession session) throws Exception {

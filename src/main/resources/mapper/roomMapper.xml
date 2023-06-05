@@ -28,9 +28,9 @@
     <insert id="insert" parameterType="RoomDto">
         INSERT INTO room_info
         (title, filename, filepath, meet_Date, meet_place, meet_place_road, notice, category, writer, user_limit,
-         user_cnt)
+         user_cnt,nickname,wri_level)
         VALUES (#{title}, #{filename}, #{filepath}, #{meet_Date}, #{meet_place}, #{meet_place_road}, #{notice},
-                #{category}, #{writer}, #{user_limit}, #{user_cnt})
+                #{category}, #{writer}, #{user_limit}, #{user_cnt},#{nickname},#{wri_level})
     </insert>
 
     <select id="selectAll" resultType="RoomDto">
@@ -45,7 +45,9 @@
                category,
                writer,
                user_limit,
-               user_cnt
+               user_cnt,
+               nickname,
+               wri_level
         FROM room_info
         ORDER BY writer ASC;
     </select>
@@ -62,7 +64,9 @@
                category,
                writer,
                user_limit,
-               user_cnt
+               user_cnt,
+               nickname,
+               wri_level
         FROM room_info
         ORDER BY writer ASC
             LIMIT #{offset}, #{pageSize}
@@ -81,7 +85,9 @@
                category,
                writer,
                user_limit,
-               user_cnt
+               user_cnt,
+               nickname,
+               wri_level
         FROM room_info
         WHERE category = #{category}
     </select>
@@ -98,7 +104,9 @@
                category,
                writer,
                user_limit,
-               user_cnt
+               user_cnt,
+               nickname,
+               wri_level
         FROM room_info
         WHERE bno = #{bno}
     </select>
@@ -116,14 +124,16 @@
                category,
                writer,
                user_limit,
-               user_cnt
+               user_cnt,
+               nickname,
+               wri_level
         FROM room_info
         WHERE writer = #{writer}
     </select>
 
     <select id="selectRoom" parameterType="Integer" resultType="RoomDto">
         SELECT bno, title,
-        filename,filepath,meet_Date,meet_place,meet_place_road,notice,category,writer,user_limit,user_cnt
+        filename,filepath,meet_Date,meet_place,meet_place_road,notice,category,writer,user_limit,user_cnt,nickname,wri_level
         FROM room_info WHERE bno IN
         <if test="list.size == 0">
             (null)
@@ -149,13 +159,16 @@
           , up_date         = now()
           , user_limit      = #{user_limit}
           , user_cnt        = #{user_cnt}
+          , nickname        = #{nickname}
+          , wri_level        = #{wri_level}
+
         WHERE bno = #{bno}
     </update>
 
     <!--검색하기 -->
     <select id="searchSelectPage" parameterType="SearchCondition" resultType="RoomDto">
         SELECT bno, title,
-        filename,filepath,meet_Date,meet_place,meet_place_road,notice,category,writer,user_limit,user_cnt
+        filename,filepath,meet_Date,meet_place,meet_place_road,notice,category,writer,user_limit,user_cnt,nickname,wri_level
         FROM room_info
         WHERE true
         <choose>

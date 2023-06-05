@@ -20,10 +20,12 @@ import java.util.List;
 @RestController
 @RequestMapping("/list")
 public class RoomListController {
-    @Autowired
     RoomListService roomListService;
-    @Autowired
     RoomInService roomInService;
+    RoomListController(RoomListService roomListService, RoomInService roomInService) {
+        this.roomListService = roomListService;
+        this.roomInService =roomInService;
+    }
 
     // 회원에 따른 방들을 전부 보여주는 메서드
     @GetMapping("/mem")
@@ -58,7 +60,6 @@ public class RoomListController {
     @ResponseBody public ResponseEntity<List<BoolDto>> getReviewList(HttpSession session) throws Exception {
         String userId = (String) session.getAttribute("id");
 
-        System.out.println("여기도 안드가져?");
         List<BoolDto> list = null;
         try {
             list = roomListService.readReviewList(userId);
@@ -76,7 +77,6 @@ public class RoomListController {
     // 후기작성을 위해서 방안의 유저정보가져옴
     @GetMapping("/review/mem")
     @ResponseBody public ResponseEntity<List<ReviewDto>> getReviewMem( HttpServletRequest request) throws Exception {
-        System.out.println("후기내용 안드가져?");
         Integer roomBno = Integer.parseInt(request.getParameter("bno"));
 
         List<ReviewDto> list = null;
@@ -155,11 +155,6 @@ public class RoomListController {
     @ResponseBody
     public ResponseEntity<String> modifyReview(String[] reviewKey,String[] reviewValue, HttpSession session) throws Exception {    // 입력한 내용을 받아와야하니깐 CommentDto dto 해줘야한다.
         String writer = (String)session.getAttribute("id");
-        System.out.println(reviewKey);
-        System.out.println(reviewValue);
-        System.out.println(reviewKey.length);
-
-
 
         try {
             for(int i =0; i< reviewKey.length;i++){

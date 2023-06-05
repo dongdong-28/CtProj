@@ -1,12 +1,9 @@
 package com.campus.CtProj.controller;
-
 import com.campus.CtProj.domain.BoolDto;
 import com.campus.CtProj.domain.PageHandler;
 import com.campus.CtProj.domain.RoomDto;
 import com.campus.CtProj.domain.SearchCondition;
-import com.campus.CtProj.service.RoomListService;
 import com.campus.CtProj.service.RoomService;
-import org.apache.commons.io.FileUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -14,20 +11,14 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.multipart.commons.CommonsMultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.imageio.ImageIO;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
-import javax.validation.Valid;
 import java.awt.image.BufferedImage;
 import java.io.File;
-import java.io.IOException;
-import java.io.InputStream;
 import java.net.URL;
-import java.nio.file.Files;
-import java.sql.Timestamp;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -35,8 +26,11 @@ import java.util.UUID;
 
 @Controller
 public class RoomController {
-    @Autowired
-    RoomService service;
+    RoomService roomService;
+    
+    public RoomController(RoomService roomService) {
+        this.roomService = roomService;
+    }
 
     // 방 읽기
     @GetMapping("/room")
@@ -46,7 +40,7 @@ public class RoomController {
         RoomDto RoomInfo = null;
         Integer bno = Integer.parseInt(request.getParameter("bno"));
         try {
-            RoomInfo = service.read(bno);
+            RoomInfo = roomService.read(bno);
             return new ResponseEntity<>(RoomInfo, HttpStatus.OK);   // 200
         } catch (Exception e) {
             e.printStackTrace();
@@ -56,26 +50,10 @@ public class RoomController {
     }
 
 
-//    @PostMapping("/saveImage")
-//    public String saveImage(@RequestParam("image_url") String imageUrl) throws IOException {
-//        // 1. URL에서 이미지 데이터 가져오기
-//        URL url = new URL(imageUrl);
-//        InputStream inputStream = url.openStream();
-//
-//        // 2. MultipartFile 객체 생성
-//        MultipartFile multipartFile = new MockMultipartFile("file", "image.jpg", "image/jpeg", inputStream);
-//
-//        // 3. MultipartFile 객체를 서버에 저장
-//        File file = new File("이미지 저장 경로");
-//        multipartFile.transferTo(file);
-//
-//        return "이미지가 성공적으로 저장되었습니다.";
-//    }
-
 
     // 방 생성하는 메서드
     @PostMapping("/room")
-    public String write(RoomDto roomDto, MultipartFile file, HttpSession session, HttpServletRequest request,Model m,RedirectAttributes rattr) throws Exception {
+    public String write(RoomDto roomDto, MultipartFile file, HttpSession session, HttpServletRequest request, Model m, RedirectAttributes rattr) throws Exception {
 
         String writer = (String) session.getAttribute("id");
 
@@ -83,15 +61,13 @@ public class RoomController {
         String filename = null;
         String savePath = request.getServletContext().getRealPath("/resources" + path);
         String imageUrl = "https://picsum.photos/500/400";
-        System.out.println(savePath);
         UUID uuid = UUID.randomUUID();      // 파일 이름앞에 붙일 랜덤 이름 생성
-        System.out.println(file);
         File saveFile = null;
         if (file.isEmpty()) {
             filename = uuid + "_" +(int)(Math.random()*100)+".jpg";
             saveFile = new File(savePath, filename);               // 파일 넣어줄 껍데기 만들고 경로 , 이름 생성
             URL url = new URL(imageUrl);
-            System.out.println(url);
+            ImageIO.setUseCache(false);
             BufferedImage image = ImageIO.read(url);
             ImageIO.write(image,"jpg",saveFile);
         } else {
@@ -99,21 +75,18 @@ public class RoomController {
             saveFile = new File(savePath, filename);               // 파일 넣어줄 껍데기 만들고 경로 , 이름 생성
             file.transferTo(saveFile);
         }
-        System.out.println(saveFile);
 
         String filepath = path + "/" + filename;
 
 
         roomDto.setFilename(filename);
         roomDto.setFilepath(filepath);
-        System.out.println(filepath);
 
 
         roomDto.setWriter(writer);
-        System.out.println(roomDto);
 
         try {
-            if (service.write(roomDto) != 1)
+            if (roomService.write(roomDto) != 1)
                 throw new Exception("Write failed. ");
             rattr.addFlashAttribute("msg","WRT_OK");
 
@@ -138,7 +111,7 @@ public class RoomController {
         String writer = (String) session.getAttribute("id");
 
         try {
-            int rowCnt = service.remove(bno);
+            int rowCnt = roomService.remove(bno);
 
             if (rowCnt != 1)
                 throw new Exception("Delete Failed");
@@ -160,15 +133,14 @@ public class RoomController {
     public ResponseEntity<String> modify(@PathVariable Integer bno, @RequestBody RoomDto roomDto, HttpSession session) throws Exception {    // 입력한 내용을 받아와야하니깐 CommentDto dto 해줘야한다.
         String writer = (String) session.getAttribute("id");
 
-        RoomDto dto = service.read(bno);
+        RoomDto dto = roomService.read(bno);
         roomDto.setWriter(writer);
         roomDto.setBno(bno);
         roomDto.setFilepath(dto.getFilepath());
         roomDto.setFilename(dto.getFilename());
-        System.out.println("dto = " + roomDto);
 
         try {
-            if (service.modify(roomDto) != 1)
+            if (roomService.modify(roomDto) != 1)
                 throw new Exception("Write failed. ");
             return new ResponseEntity<>("MOD_OK", HttpStatus.OK);
 
@@ -185,7 +157,7 @@ public class RoomController {
     public ResponseEntity<List<RoomDto>> list() {
         List<RoomDto> list = null;
         try {
-            list = service.getList();
+            list = roomService.getList();
             // return 으로 그냥 list 를 보내는 것이 아니라 ResponseEntity<List<CommentDto>>(list, HttpStatus.OK) 를 쓴 이유는
             // 그냥 list 로 보내면 오류가 나도 응답은 200번대로 나온다 그래서 responseEntity를 사용해서 list 에다가 + 상태코드도 같이 보내주게 한다.
             return new ResponseEntity<List<RoomDto>>(list, HttpStatus.OK);   // 200
@@ -202,14 +174,15 @@ public class RoomController {
     @ResponseBody
     public ResponseEntity<List<RoomDto>> list(Integer page) throws Exception {
         List<RoomDto> list = null;
-        int roomCnt = service.getCount();
+        int roomCnt = roomService.getCount();
         if(page == null) page = 1;
         try {
             PageHandler ph = new PageHandler(roomCnt,page);
             Map map = new HashMap();
             map.put("offset",(page-1)*ph.getPageSize());
             map.put("pageSize",ph.getPageSize());
-            list = service.getPageList(map);
+            list = roomService.getPageList(map);
+
             return new ResponseEntity<List<RoomDto>>(list, HttpStatus.OK);   // 200
         } catch (Exception e) {
             e.printStackTrace();
@@ -218,38 +191,13 @@ public class RoomController {
 
     }
 
-
-//    // 모든 방을 가져온다
-//    @GetMapping("/rooms/list")
-//    public String listPage(Integer page,Model m) throws Exception {
-//        List<RoomDto> list = null;
-//        int roomCnt = service.getCount();
-//        if(page == null) page = 1;
-//        try {
-//            PageHandler ph = new PageHandler(roomCnt,page);
-//            Map map = new HashMap();
-//            map.put("offset",(page-1)*ph.getPageSize());
-//            map.put("pageSize",ph.getPageSize());
-//             list = service.getPageList(map);
-//             m.addAttribute("roomList",list);
-//             m.addAttribute("ph",ph);
-//            // return 으로 그냥 list 를 보내는 것이 아니라 ResponseEntity<List<CommentDto>>(list, HttpStatus.OK) 를 쓴 이유는
-//            // 그냥 list 로 보내면 오류가 나도 응답은 200번대로 나온다 그래서 responseEntity를 사용해서 list 에다가 + 상태코드도 같이 보내주게 한다.
-//            return "roomFind";
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//            return "index";
-//        }
-//
-//    }
-
     // 방찾기 페이지에서 카테고리 선택하면 그에 맞는 방읽기
     @GetMapping("/rooms-category")
     @ResponseBody
     public ResponseEntity<List<RoomDto>> listCategory(String category) {
         List<RoomDto> list = null;
         try {
-            list = service.readCategoryList(category);
+            list = roomService.readCategoryList(category);
             return new ResponseEntity<List<RoomDto>>(list, HttpStatus.OK);   // 200
         } catch (Exception e) {
             e.printStackTrace();
@@ -262,7 +210,7 @@ public class RoomController {
     public ResponseEntity<List<RoomDto>> SearchSelectPage(SearchCondition sc) throws Exception {
         List<RoomDto> list = null;
         try {
-            list = service.getSearchSelectPage(sc);
+            list = roomService.getSearchSelectPage(sc);
             return new ResponseEntity<List<RoomDto>>(list, HttpStatus.OK);   // 200
         } catch (Exception e) {
             e.printStackTrace();
@@ -273,12 +221,12 @@ public class RoomController {
 
     // 후기 기능 켤지 안켤지 확인하기
     @GetMapping("/room/review")
-    public ResponseEntity<BoolDto> userReview(HttpServletRequest request,HttpSession session) throws Exception {
+    public ResponseEntity<BoolDto> userReview(HttpServletRequest request, HttpSession session) throws Exception {
         Integer roomBno = Integer.parseInt(request.getParameter("bno"));
         String userName = (String) session.getAttribute("id");
         BoolDto boolDto = null;
         try {
-            boolDto = service.selectReview(roomBno,userName);
+            boolDto = roomService.selectReview(roomBno,userName);
             return new ResponseEntity<BoolDto>(boolDto, HttpStatus.OK);   // 200
         } catch (Exception e) {
             e.printStackTrace();

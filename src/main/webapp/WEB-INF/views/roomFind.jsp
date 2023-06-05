@@ -243,6 +243,7 @@
                             $(this).addClass("active");
                         }
                     });
+                    console.log(result)
 
                     $("#roomList").html(toHtml(result));    // 서버로부터 응답이 도착하면 호출될 함수
                 },
@@ -252,23 +253,6 @@
             }); // $.ajax()
         }
 
-
-        // let goRoomIn = function () {
-        //     let bno = $(this).parent().parent().attr("data-bno");
-        //
-        //     $.ajax({
-        //         type: 'POST',       // 요청 메서드
-        //         url: '/CtProj/roomIn/' + bno,  // 요청 URI
-        //         success: function (result) {
-        //
-        //         },
-        //         error: function () {
-        //             alert("error")
-        //         } // 에러가 발생했을 때, 호출될 함수
-        //     }); // $.ajax()
-        //
-        //
-        // }
     }
 
     $(document).ready(function () {
@@ -344,6 +328,7 @@
                     url: '/CtProj/rooms',  // 요청 URI
                     success: function (result) {
                         $("#roomList").html(toHtml(result));    // 서버로부터 응답이 도착하면 호출될 함수
+                        console.log(result)
                     },
                     error: function () {
                         alert("error")
@@ -407,6 +392,8 @@
         let tmp = ' <section id="courses" class="courses">'
         // tmp += ' <div class="container" data-aos="fade-up">'
         tmp += ' <div class="row" data-aos="zoom-in" data-aos-delay="100" style="margin-left:0px" >'
+        console.log(rooms[0].nickname);
+        console.log(rooms[0].meet_Date);
 
         rooms.forEach(function (room) {
             // var pic =  document.getElementById('InputPic').files[0].name;
@@ -432,8 +419,8 @@
             tmp += '    공지사항:' + room.notice + '</br>'
             tmp += '     <div class="trainer d-flex justify-content-between align-items-center">'
             tmp += '     <div class="trainer-profile d-flex align-items-center">'
-            tmp += ' <span>' + room.writer + '</span>'
-            tmp += ' <span>레벨</span>'
+            tmp += ' <span>' + room.nickname + '</span>'
+            tmp += ' <span>Lv'+Math.floor(room.wri_level)+'</span>'
             tmp += ' </div>'
             tmp += '<div class="trainer-rank d-flex align-items-center"  data-bno=' + room.bno + '>'
             tmp += '<button type="button" class="btn btn-outline-danger btn-myroom entBtn" style="width: 120px;height:50px;font-size:17px">입장</button>'
