@@ -14,9 +14,9 @@ import java.util.List;
 //@ResponseBody
 @RestController
 public class EnterController {
-    @Autowired
     EnterService enterService;
 
+    @Autowired
     public EnterController(EnterService enterService){
         this.enterService = enterService;
     }

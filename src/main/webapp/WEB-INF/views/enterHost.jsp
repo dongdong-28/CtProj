@@ -48,7 +48,6 @@
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css"/>
 
     <link rel="stylesheet" type="text/css" href="<c:url value="/css/stylesmaintest.css"/>">
-    <%--    <link rel="stylesheet" type="text/css" href="<c:url value="/css/stylesmaintest.css"/>">--%>
 
 
 </head>
@@ -59,7 +58,6 @@
     <div class="logo container">
         <div>
             <h1><a href="<c:url value='/'/>">With Us</a></h1>
-            <%--            <p>A responsive site template by HTML5 UP</p>--%>
         </div>
     </div>
 </header>
@@ -119,7 +117,6 @@
             <!-- Sidebar -->
             <div id="sidebar-in">
                 <%--                <!-- 방장 + 인원 -->--%>
-                <%--                <ul class="list-group border-primary">--%>
                 <div id="list-mem"></div>
                 <div id="list-num"></div>
 
@@ -127,8 +124,6 @@
                 <button type="button" class="btn btn-primary wrapInfo" id="drop-Btn">강퇴</button>
 
                 <section class="sec-btn" style="border-top:0;margin: 2em 0 0 0;">
-                    <!-- 수정버튼-->
-                    <%--                                            <button type="button" id="openModalBtn" class="btn btn-outline-primary wrapInfo" style="width:80px;height:50px;left:80%; top:96%;">수정</button>--%>
 
                     <button type="button" id="openModalBtn" class="btn btn-outline-primary wrapInfo"
                             style="margin-right:15px;">수정하기
@@ -368,7 +363,6 @@
             let user_cnt = cnt
             let bno = ${roomDto.bno};
             const meetDate = new Date(meet_Date); // meet_Date Date 객체로 변환
-            // let roomMeetDate = meetDate.toISOString(); // meet_Date room.meet_Date 값으로 변환
 
             let formData = new FormData();
             let input_file = $("input[name='imgFile']")[0].files[0];
@@ -553,7 +547,6 @@
                     success: function (result) {
                         console.log("확인후 나갑니다.")
                         $("#go-main").attr("action","/CtProj/").submit();
-                        // window.location.href = 'http://localhost:8080/CtProj/';
                     },
                     error: function () {
                         alert("삭제에 실패하였습니다.")
@@ -782,28 +775,7 @@
     }
 
 
-    window.addEventListener('DOMContentLoaded', event => {
 
-        // Navbar shrink function
-        var navbarShrink = function () {
-            const navbarCollapsible = document.body.querySelector('#mainNav');
-            if (!navbarCollapsible) {
-                return;
-            }
-            if (window.scrollY === 0) {
-                navbarCollapsible.classList.remove('navbar-shrink')
-            } else {
-                navbarCollapsible.classList.add('navbar-shrink')
-            }
-
-        };
-
-        // Shrink the navbar
-        navbarShrink();
-
-        // Shrink the navbar when page is scrolled
-        document.addEventListener('scroll', navbarShrink);
-    });
 
     <!--for Map-->
 
@@ -960,20 +932,6 @@
     // 검색결과 항목을 Element로 반환하는 함수입니다
     function getListItem(index, places) {
 
-        // let tmp = '<li class="item">'
-        // tmp+=  '<span class="markerbg marker_' + (index+1) + '"></span>' +
-        //     '<div class="info">' +
-        //     '   <h5>' + places.place_name + '</h5>';
-        // if (places.road_address_name) {
-        // tmp+= '    <span>' + places.road_address_name + '</span>' +
-        //     '   <span class="jibun gray">' +  places.address_name  + '</span>';
-        // } else {
-        // tmp+='    <span>' +  places.address_name  + '</span>';
-        // }
-        // tmp+= '  <span class="tel">' + places.phone  + '</span>' + '</div>';
-        //
-        // return tmp + '</li>';
-
         var el = document.createElement('li'),
             itemStr = '<span class="markerbg marker_' + (index + 1) + '"></span>' + '<div class="info">' +
                 '   <h5>' + places.place_name + '</h5>';
@@ -990,8 +948,7 @@
 
         el.innerHTML = itemStr;
         el.className = 'item';
-        // document.getElementById('InputPlace').value = places.place_name;
-        // document.getElementById('InputPlaceRoad').value = places.road_address_name;
+
 
         return el;
     }

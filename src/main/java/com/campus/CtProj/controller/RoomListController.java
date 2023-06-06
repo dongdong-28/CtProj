@@ -22,6 +22,8 @@ import java.util.List;
 public class RoomListController {
     RoomListService roomListService;
     RoomInService roomInService;
+
+    @Autowired
     RoomListController(RoomListService roomListService, RoomInService roomInService) {
         this.roomListService = roomListService;
         this.roomInService =roomInService;

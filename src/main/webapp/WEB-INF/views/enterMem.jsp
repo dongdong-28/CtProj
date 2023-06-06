@@ -28,32 +28,10 @@
           rel="stylesheet" type="text/css"/>
     <!-- SimpleLightbox plugin CSS-->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/SimpleLightbox/2.1.0/simpleLightbox.min.css" rel="stylesheet"/>
-    <!-- Core theme CSS (includes Bootstrap)-->
-    <%--    <link rel="stylesheet" type="text/css" href="<c:url value="/css/stylesmainpage.css"/>">--%>
+
 
     <link rel="stylesheet" type="text/css" href="<c:url value="/css/stylesmaintest.css"/>">
-    <%--    <link rel="stylesheet" type="text/css" href="<c:url value="/css/stylesmaintest.css"/>">--%>
 
-<%--    <style>--%>
-<%--        ul > li {--%>
-<%--            display: table-row-group;--%>
-<%--            color: black;--%>
-<%--        }--%>
-
-<%--        .wrapInfo {--%>
-<%--            position: absolute;--%>
-<%--        }--%>
-
-<%--        .page-section {--%>
-<%--            height: 800px;--%>
-<%--        }--%>
-
-<%--        .login-card {--%>
-<%--            background-color: #4f5050;--%>
-<%--            left: 1097px;--%>
-<%--            top: 119px;--%>
-<%--        }--%>
-<%--    </style>--%>
 
 </head>
 <body id="page-top">
@@ -65,7 +43,6 @@
     <div class="logo container">
         <div>
             <h1><a href="<c:url value='/'/>">With Us</a></h1>
-            <%--            <p>A responsive site template by HTML5 UP</p>--%>
         </div>
     </div>
 </header>
@@ -143,7 +120,6 @@
         </div>
     </section><!-- End Menu Section -->
 
-    <%--    <div style="width: 60%;" id="ww_1f8f1284a9686" v='1.3' loc='id' a='{"t":"responsive","lang":"ko","sl_lpl":1,"ids":["wl4479"],"font":"Arial","sl_ics":"one_a","sl_sot":"celsius","cl_bkg":"rgba(246,247,243,1)","cl_font":"#000000","cl_cloud":"#d4d4d4","cl_persp":"#2196F3","cl_sun":"#FFC107","cl_moon":"#FFC107","cl_thund":"#FF5722","sl_tof":"7","cl_odd":"#00000000","el_nme":3}'>Weather Data Source: <a href="https://wetterlang.de/seoul_wetter_30_tage/" id="ww_1f8f1284a9686_u" target="_blank">wetterlang.de/seoul_wetter_30_tage/</a></div><script async src="https://app1.weatherwidget.org/js/?id=ww_1f8f1284a9686"></script>--%>
 </div>
 
 <!-- About-->
@@ -410,31 +386,6 @@
     }
 
 
-
-    window.addEventListener('DOMContentLoaded', event => {
-
-        // Navbar shrink function
-        var navbarShrink = function () {
-            const navbarCollapsible = document.body.querySelector('#mainNav');
-            if (!navbarCollapsible) {
-                return;
-            }
-            if (window.scrollY === 0) {
-                navbarCollapsible.classList.remove('navbar-shrink')
-            } else {
-                navbarCollapsible.classList.add('navbar-shrink')
-            }
-
-        };
-
-        // Shrink the navbar
-        navbarShrink();
-
-        // Shrink the navbar when page is scrolled
-        document.addEventListener('scroll', navbarShrink);
-
-
-    });
 
 </script>
 

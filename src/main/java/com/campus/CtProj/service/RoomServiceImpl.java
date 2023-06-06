@@ -67,7 +67,6 @@ public class RoomServiceImpl implements RoomService {
             userDao.updateUser(userdto);
             roomDto.setNickname(userdto.getNickname());
             roomDto.setWri_level(userdto.getLevel());
-            System.out.println("roomDto222 = " + roomDto);
 
             roomDao.insert(roomDto);
         } catch(Exception e){
@@ -78,7 +77,6 @@ public class RoomServiceImpl implements RoomService {
         List<RoomDto> hostList = roomDao.selectHostRoom(roomDto.getWriter());
         RoomDto dto = hostList.get(hostList.size()-1);
         BoolDto boolDto = new BoolDto(dto.getWriter(),dto.getBno());
-        System.out.println(boolDto);
         return boolDao.insert(boolDto);
     }
 
@@ -89,7 +87,7 @@ public class RoomServiceImpl implements RoomService {
     }
 
     // 카테고리별로 방 가져오기
-    @Override       // 방 읽기
+    @Override
     public List<RoomDto> readCategoryList(String category) throws Exception {
 
         return roomDao.selectCategory(category);

@@ -31,11 +31,9 @@
           rel="stylesheet" type="text/css"/>
     <!-- SimpleLightbox plugin CSS-->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/SimpleLightbox/2.1.0/simpleLightbox.min.css" rel="stylesheet"/>
-    <!-- Core theme CSS (includes Bootstrap)-->
-    <%--    <link rel="stylesheet" type="text/css" href="<c:url value="/css/stylesmainpage.css"/>">--%>
+
 
     <link rel="stylesheet" type="text/css" href="<c:url value="/css/stylesmaintest.css"/>">
-    <%--    <link rel="stylesheet" type="text/css" href="<c:url value="/css/stylesmaintest.css"/>">--%>
 
     <style>
         ul > li {
@@ -52,7 +50,6 @@
     <div class="logo container">
         <div>
             <h1><a href="<c:url value='/'/>">With Us</a></h1>
-            <%--            <p>A responsive site template by HTML5 UP</p>--%>
         </div>
     </div>
 </header>
@@ -125,22 +122,10 @@
                         <input type="text" id="search-input" class="form-search-control" placeholder="Keyword...!"
                                value=''>
                         <button id="searchBtn" class="btn btn-secondary my-2 my-sm-0">선택</button>
-                        <%--                    <input type="button" value="선택" id="searchBtn">--%>
-                        <%--            <label for="searchBtn"></label>--%>
+
 
                     </div>
                     <div id="roomList" style="padding: 20px;border-top: solid 1px rgba(160, 160, 160, 0.3);">
-                        <%--                    <c:forEach var="room" items="${roomList}">--%>
-                        <%--                        <tr>--%>
-                        <%--                            <td>${room.bno}</td>--%>
-
-
-                        <%--                        </tr>--%>
-
-
-                        <%--                    </c:forEach>--%>
-
-
                     </div>        <!-- 방 정보를 가져와서 집어넣을 예정이다-->
 
                     <div>
@@ -209,8 +194,6 @@
             }); // $.ajax()
         }
 
-        <%--$("#roomList").html(toHtml(${roomList}));    // 서버로부터 응답이 도착하면 호출될 함수--%>
-        <%--console.log(${roomList})--%>
         let maincate = "${maintocate}";
         let page = 1;
         if (maincate == "") {
@@ -230,10 +213,7 @@
             $.ajax({
                 type: 'GET',       // 요청 메서드
                 url: '/CtProj/rooms-category?category=' + maincate,  // 요청 URI
-                // headers: {"content-type": "application/json"}, // 요청 헤더
-                // data: JSON.stringify({
-                //     category: categoryOption
-                // }),  // 서버로 전송할 데이터. stringify()로 직렬화 필요.
+
                 success: function (result) {
                     console.log(maincate);
                     $(".categoryBtn").removeClass("active");
@@ -275,7 +255,6 @@
 
         $("#roomList").on("click", ".delBtn", function () {
             let bno = $(this).parent().attr("data-bno");
-            // let title = $(this).parent().attr("title");
 
             $.ajax({
                 type: 'DELETE',       // 요청 메서드
@@ -307,7 +286,6 @@
                     success: function (result) {
                         alert("입장 완료했습니다.");
                         showList();
-                        // formTest(result);
                     },
                     error: function () {
                         alert("입장에 실패했습니다..!")
@@ -338,10 +316,6 @@
                 $.ajax({
                     type: 'GET',       // 요청 메서드
                     url: '/CtProj/rooms-category?category=' + categoryOption,  // 요청 URI
-                    // headers: {"content-type": "application/json"}, // 요청 헤더
-                    // data: JSON.stringify({
-                    //     category: categoryOption
-                    // }),  // 서버로 전송할 데이터. stringify()로 직렬화 필요.
                     success: function (result) {
                         $("#roomList").html(toHtml(result));    // 서버로부터 응답이 도착하면 호출될 함수
                     },
@@ -390,21 +364,14 @@
     let toHtml = function (rooms) {
 
         let tmp = ' <section id="courses" class="courses">'
-        // tmp += ' <div class="container" data-aos="fade-up">'
         tmp += ' <div class="row" data-aos="zoom-in" data-aos-delay="100" style="margin-left:0px" >'
         console.log(rooms[0].nickname);
         console.log(rooms[0].meet_Date);
 
         rooms.forEach(function (room) {
-            // var pic =  document.getElementById('InputPic').files[0].name;
             const dateFormat = new Date(room.meet_Date);
             const meet_date_format = dateFormat.getTime()
             const meet_date = dateFormat.getFullYear() + '년 ' + (dateFormat.getMonth() + 1) + '월 ' + dateFormat.getDate() + '일' + dateFormat.getHours() + '시 ' + dateFormat.getMinutes() + '분';
-
-            // ' <section id="courses" class="courses">'
-            //     ' <div class="container" data-aos="fade-up">'
-            //         ' <div class="row" data-aos="zoom-in" data-aos-delay="100">'
-
             tmp += ' <div class="d-flex align-items-stretch">'
             tmp += '    <div class="course-item">'
             tmp += '      <img class="img-fluid" src="${pageContext.request.contextPath}' + room.filepath + '" alt="대체" />'
@@ -449,52 +416,7 @@
 
     });
 
-    //
-    //     $(".page-item").off("click").on("click", function() {
-    //
-    // // test class를 포함하는 DOM 객체가 active class를 포함하면 true 아니면 false를 반환
-    //
-    //         if ($(".page-item").hasClass("active")) {
-    //
-    // // active class 제거
-    //
-    //             $(".page-item").removeClass("active");
-    //
-    //         }
-    //
-    //         else {
-    //
-    //             $(".page-item").addClass("active");
-    //
-    //         }
-    //
-    //     });
 
-
-    window.addEventListener('DOMContentLoaded', event => {
-
-        // Navbar shrink function
-        var navbarShrink = function () {
-            const navbarCollapsible = document.body.querySelector('#mainNav');
-            if (!navbarCollapsible) {
-                return;
-            }
-            if (window.scrollY === 0) {
-                navbarCollapsible.classList.remove('navbar-shrink')
-            } else {
-                navbarCollapsible.classList.add('navbar-shrink')
-            }
-
-        };
-
-        // Shrink the navbar
-        navbarShrink();
-
-        // Shrink the navbar when page is scrolled
-        document.addEventListener('scroll', navbarShrink);
-
-
-    });
 
 </script>
 <!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *-->

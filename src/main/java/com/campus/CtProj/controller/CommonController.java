@@ -7,7 +7,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -92,7 +91,7 @@ public class CommonController {
         m.addAttribute("userDto",userDto);
         if(!loginCheck(request))
             return "redirect:/login/login?toURL="+request.getRequestURL();
-        return "roomEnterMem";
+        return "enterMem";
     }
 
     // 나의방 페이지에서 입장하면 방 입장으로 이동 (방장일때)
@@ -108,7 +107,7 @@ public class CommonController {
         m.addAttribute("userDto",userDto);
         if(!loginCheck(request))
             return "redirect:/login/login?toURL="+request.getRequestURL();  // 로그인을 안했으면 로그인 화면으로 이동
-        return "roomEnter_host";
+        return "enterHost";
     }
 
     // 방장이 방안에서 변경사항 변경하기
@@ -118,13 +117,13 @@ public class CommonController {
         RoomDto roomDto = roomService.read(room_bno);
         List<String> list = enterService.selectRoomId(room_bno);
         if(roomService.modify(roomDto) != 1){
-            return "roomEnter_host";
+            return "enterHost";
         }
         m.addAttribute("roomDto",roomDto);    // view 로 넘기기
         m.addAttribute("list",list);
         if(!loginCheck(request))
             return "redirect:/login/login?toURL="+request.getRequestURL();  // 로그인을 안했으면 로그인 화면으로 이동
-        return "roomEnter_host";
+        return "enterHost";
     }
 
     // 홈에서 카테고리선택에 따른 방 찾기 .. 카테고리선택을 방 찾기 페이지로 넘기기 위한..!

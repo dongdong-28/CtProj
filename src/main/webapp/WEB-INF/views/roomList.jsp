@@ -30,11 +30,9 @@
           rel="stylesheet" type="text/css"/>
     <!-- SimpleLightbox plugin CSS-->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/SimpleLightbox/2.1.0/simpleLightbox.min.css" rel="stylesheet"/>
-    <!-- Core theme CSS (includes Bootstrap)-->
-    <%--    <link rel="stylesheet" type="text/css" href="<c:url value="/css/stylesmainpage.css"/>">--%>
+
 
     <link rel="stylesheet" type="text/css" href="<c:url value="/css/stylesmaintest.css"/>">
-    <%--        <link rel="stylesheet" type="text/css" href="<c:url value="/css/stylesmaintest.css"/>">--%>
 
 
 </head>
@@ -46,7 +44,6 @@
     <div class="logo container">
         <div>
             <h1><a href="<c:url value='/'/>">With Us</a></h1>
-            <%--            <p>A responsive site template by HTML5 UP</p>--%>
         </div>
     </div>
 </header>
@@ -82,13 +79,9 @@
     <section id="menu" class="menu section-bg">
         <div class="container" data-aos="fade-up">
 
-            <%--            <div class="section-title">--%>
-            <%--                <h2>Menu</h2>--%>
-            <%--                <p>Check Our Tasty Menu</p>--%>
-            <%--            </div>--%>
+
             <div class="col-lg-12 d-flex justify-content-center">
                 <ul id="menu-flters">
-                    <%--            <li data-filter="*" class="filter-active">All</li>--%>
                     <li class=" cate-list filter-active">방장</li>
                     <li class="cate-list">회원</li>
                     <li class="cate-list">후기</li>
@@ -213,16 +206,6 @@
         }
 
 
-        // $.ajax({
-        //     type: 'GET',       // 요청 메서드
-        //     url: '/CtProj/list/num',  // 요청 URI
-        //     success: function (result) {
-        //         $("#list-num").html(toHtmlListNum(result));    // 서버로부터 응답이 도착하면 호출될 함수
-        //     },
-        //     error: function () {
-        //         alert("error")
-        //     } // 에러가 발생했을 때, 호출될 함수
-        // }); // $.ajax()
 
 
     }
@@ -323,19 +306,7 @@
                         alert("왜 실패하지..?")
                     } // 에러가 발생했을 때, 호출될 함수
                 });
-                // $.ajax({
-                //     type: 'DELETE',       // 요청 메서드
-                //     url: '/CtProj/list/review/mem/' + reviewRoomBno,  // 요청 URI
-                //     success: function (result) {
-                //         showList(listCate);
-                //     },
-                //     error: function () {
-                //         alert("삭제에 실패하였습니다.")
-                //         $('#reviewModal').modal("hide");
-                //
-                //         return false;
-                //     } // 에러가 발생했을 때, 호출될 함수
-                // }); // $.ajax()
+
 
             });
 
@@ -454,10 +425,6 @@
             tmp += '   <div class="col-lg-6 menu-item filter-starters">'
             tmp += '              <!-- Product name-->'
             tmp += ' <div class="menu-content">'
-            // tmp += '<div data-bno=' + room.bno + 'style="display:hidden;">'
-            // tmp += '방번호= ' + room.bno
-            // tmp += '</div>'
-            // tmp += '<div>'
             tmp += '<div class="title">' + room.title + '</div><span>' + room.user_cnt + '/' + room.user_limit + '</span>'
             tmp += '</div>'
 
@@ -465,7 +432,6 @@
             tmp += '장소:' + room.meet_place + '</span><br>'
             tmp += '날짜: <span class="meet_Date">' + meet_date + '</span><br>'
             tmp += '공지사항: <span>' + room.notice + '</span>'
-            <%--tmp +=  '인원수: '+${list.size()+1} + ' / '+ room.user_limit;--%>
             tmp += '</div>'
             tmp += '      <!-- Product actions-->'
             tmp += '   <div class="sub" style="float:right;">'
@@ -500,10 +466,6 @@
                 tmp += '   <div class="col-lg-6 menu-item filter-starters">'
                 tmp += '              <!-- Product name-->'
                 tmp += ' <div class="menu-content">'
-                // tmp += '<div data-bno=' + room.bno + 'style="display:hidden;">'
-                // tmp += '방번호= ' + room.bno
-                // tmp += '</div>'
-                // tmp += '<div>'
                 tmp += '<div class="title">' + room.review_title + '</div><span class="icon solid fa-star"></span>'
                 tmp += '</div>'
 
@@ -513,7 +475,6 @@
                 tmp += '</div>'
                 tmp += '      <!-- Product actions-->'
                 tmp += '   <div class="sub" data-reviewBno="' + room.room_bno + '" style="float:right;">'
-                // tmp += '<div data-reviewBno=' + room.room_bno + ' style="list-style-type:none;"></div>'
                 tmp += ' <button type="button"  class="btn btn-primary reveiwMemBtn" data-bs-toggle="modal" data-bs-target="#reviewModal">후기남기기</button>'
                 tmp += '      </div>'
 
@@ -539,8 +500,6 @@
             tmp += '   <div class="col-lg-6 menu-item filter-starters">'
             tmp += '              <!-- Product name-->'
             tmp += ' <div class="menu-content">'
-            // tmp += '<div data-bno=' + room.bno + 'style="display:none;">'
-            // tmp += '</div>'
             tmp += '<div class="title">' + room.title + '</div><span>' + room.user_cnt + '/' + room.user_limit + '</span>'
             tmp += '</div>'
 
@@ -548,12 +507,9 @@
             tmp += '장소:' + room.meet_place + '</span><br>'
             tmp += '날짜: <span class="meet_Date">' + meet_date + '</span><br>'
             tmp += '공지사항: <span>' + room.notice + '</span>'
-            <%--tmp +=  '인원수: '+${list.size()+1} + ' / '+ room.user_limit;--%>
             tmp += '</div>'
             tmp += '      <!-- Product actions-->'
             tmp += '   <div class="sub" style="float:right;">'
-            // tmp += '<div data-bno=' + room.bno + '>'+room.bno
-            // tmp += '</div>'
             tmp += '<form action = "/CtProj/room/in-host" method = "post" style="display: inline-block">'
             tmp += '<input type = "hidden" name = "room_num" value ="' + room.bno + '"/>'
             tmp += ' <input type = "submit" value = "입장하기" class="btn-myroom" style="margin-right:10px;  padding: 0.35em 0.5em;font-size: 1.1em;font-weight: 600;"/>'
@@ -594,7 +550,6 @@
                 tmp += '<div class="form-group">'
                 tmp += '<div id="radioCheckUserId' + val + '" style="display: none">' + list[val].userId + '</div>';
                 tmp += '<div class="review-nic">' + list[val].nickname + '</div>'
-                // tmp += '<div style="display: flex"><div  class="icon solid fa-face-sad-cry"></div><div  class="icon solid fa-face-sad-sweat"></div><div  class="icon solid fa-face-mech"></div><div  class="icon solid fa-smile"></div><div class="icon solid fa-happy"></div></div>'
                 tmp += '<div style="display: flex">'
                 tmp += '<span  class="icon solid fa-tired fa-lg list-radio-icon" style="margin-left:5%;"></span>'
                 tmp += '<span  class="icon solid fa-frown fa-lg list-radio-icon"></span>'
@@ -603,13 +558,11 @@
                 tmp += '<span  class="icon solid fa-laugh fa-lg list-radio-icon"></span>'
 
                 tmp += '</div>'
-                // tmp += '<div class="list-radios>'
                 tmp += ' <span class="list-radio" ><input type="radio" name="chk_info' + val + '" value="1">별로에요</span>'
                 tmp += '  <span class="list-radio" ><input type="radio"  name="chk_info' + val + '" value="2">아쉬워요</span>'
                 tmp += ' <span class="list-radio" > <input type="radio" name="chk_info' + val + '" value="3">보통이에요</span>'
                 tmp += '  <span class="list-radio" ><input type="radio" name="chk_info' + val + '" value="4">좋았어요</span>'
                 tmp += ' <span class="list-radio" > <input type="radio" name="chk_info' + val + '" value="5">최고에요</span>'
-                // tmp += '</div>'
 
                 tmp += '</br></div>'
             }
@@ -619,31 +572,6 @@
         return tmp + '</ul>';
     }
 
-
-    window.addEventListener('DOMContentLoaded', event => {
-
-        // Navbar shrink function
-        var navbarShrink = function () {
-            const navbarCollapsible = document.body.querySelector('#mainNav');
-            if (!navbarCollapsible) {
-                return;
-            }
-            if (window.scrollY === 0) {
-                navbarCollapsible.classList.remove('navbar-shrink')
-            } else {
-                navbarCollapsible.classList.add('navbar-shrink')
-            }
-
-        };
-
-        // Shrink the navbar
-        navbarShrink();
-
-        // Shrink the navbar when page is scrolled
-        document.addEventListener('scroll', navbarShrink);
-
-
-    });
 
 </script>
 <!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *-->

@@ -41,7 +41,6 @@
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css"/>
 
     <link rel="stylesheet" type="text/css" href="<c:url value="/css/stylesmaintest.css"/>">
-    <%--    <link rel="stylesheet" type="text/css" href="<c:url value="/css/stylesmaintest.css"/>">--%>
 
     <style>
         .form-group {
@@ -58,32 +57,32 @@
     <div class="logo container">
         <div>
             <h1><a href="<c:url value='/'/>">With Us</a></h1>
-            <%--            <p>A responsive site template by HTML5 UP</p>--%>
         </div>
     </div>
 </header>
 
 <!-- Nav -->
 <nav id="nav">
-    <ul >
-        <li ><a href="<c:url value='/'/>">홈</a></li>
+    <ul>
+        <li><a href="<c:url value='/'/>">홈</a></li>
         <li><a href="<c:url value='/room/in-mem'/>">방 입장</a></li>
         <li><a href="<c:url value='/room/find'/>">방 찾기</a></li>
-        <li class="current" ><a href="<c:url value='/room/make'/>">방 생성</a></li>
-        <li ><a href="<c:url value='/room/list'/>">나의 방</a></li>
-
+        <li class="current"><a href="<c:url value='/room/make'/>">방 생성</a></li>
+        <li><a href="<c:url value='/room/list'/>">나의 방</a></li>
 
 
         <div id="userInformation"></div>
         <!-- 로그인-->
         <a href="<c:url value='${loginOutLink}'/>">
-            <button type="button" class="btn btn-outline-danger loginBtn">${loginOut}</button></a>
+            <button type="button" class="btn btn-outline-danger loginBtn">${loginOut}</button>
+        </a>
         <a href="<c:url value='/register/add'/>">
             <button type="button" class="btn btn-outline-danger loginBtn">회원가입</button>
         </a>
 
 
-    </ul>`
+    </ul>
+    `
 
 </nav>
 
@@ -93,7 +92,7 @@
         <div class="container row-in" data-aos="fade-up">
             <div id="sidebar-make-in">
 
-            <%--    enctype="multipart/form-data"--%>
+                <%--    enctype="multipart/form-data"--%>
                 <form action="/CtProj/room" method="post" onsubmit="return inputData()" enctype="multipart/form-data">
                     <fieldset style="padding-left:40px">
                         <div class="form-group">
@@ -118,10 +117,6 @@
                         </div>
 
                         <div class="form-group">
-                            <%--                <label for="InputPlace" class="form-label mt-4">만날 장소</label>--%>
-                            <%--                <input type="text" class="form-control rooms-meet_place" name="meet_place" id="InputPlace"--%>
-                            <%--                       placeholder="입력해주세요">--%>
-                            <%--                <div id="map" style="width:100%;height:350px;"></div>--%>
 
                             <label for="InputPlaceRoad" class="form-label mt-4">모임 주소</label>
                             <input type="text" class="form-control rooms-meet_place_road" name="meet_place_road"
@@ -139,10 +134,10 @@
                                    placeholder="입력해주세요">
                         </div>
                         <div class="form-group">
-                            <%--                <input type="text" class="form-control rooms-category" id="InputCategory" placeholder="입력해주세요">--%>
 
                             <label for="InputCategory" class="form-label mt-4">카테고리</label>
-                            <select name="category" id="InputCategory" class="form-group rooms-category" style="width: 77px;height:50px">
+                            <select name="category" id="InputCategory" class="form-group rooms-category"
+                                    style="width: 77px;height:50px">
                                 <option value="식사">식사</option>
                                 <option value="공부">공부</option>
                                 <option value="운동">운동</option>
@@ -154,8 +149,8 @@
                         </div>
                         <div class="form-group" style="border-bottom:none;">
                             <label for="InputLimit" class="form-label mt-4">제한 인원</label>
-                            <%--                <input type="text" class="form-control rooms-user_limit" id="InputLimit" placeholder="입력해주세요">--%>
-                            <select name="user_limit" id="InputLimit" class="form-group rooms-user_limit" style="width: 75px;height:50px">
+                            <select name="user_limit" id="InputLimit" class="form-group rooms-user_limit"
+                                    style="width: 75px;height:50px">
                                 <option value="2">2명</option>
                                 <option value="3">3명</option>
                                 <option value="4">4명</option>
@@ -163,20 +158,15 @@
                                 <option value="6">6명</option>
                             </select>
                         </div>
-
-
-                        <%--            <button id="sendBtn" class ="btn btn-primary" type="button">등록하기</button>--%>
-
                     </fieldset>
                     <input type="submit" value="등록하기" class="btn btn-primary" style="margin:3% 0 0 92%"/>
                 </form>
 
 
-
             </div>
-                    <article class="post-make-in">
+            <article class="post-make-in">
 
-            <div class="map_wrap">
+                <div class="map_wrap">
                     <div id="map" style="height:600px;position:relative;overflow:hidden;"></div>
 
                     <div id="menu_wrap" class="bg_white">
@@ -193,28 +183,28 @@
                         <div id="pagination"></div>
                     </div>
                 </div>
-                        <div class="tomorrow"
-                             data-location-id="065498"
-                             data-language="KO"
-                             data-unit-system="METRIC"
-                             data-skin="light"
-                             data-widget-type="upcoming"
-                             style="padding-bottom:22px;position:relative;width: 800px;margin-top: 20%;"
-                        >
-                            <a
-                                    href="https://www.tomorrow.io/weather-api/"
-                                    rel="nofollow noopener noreferrer"
-                                    target="_blank"
-                                    style="position: absolute; bottom: 0; transform: translateX(-50%); left: 50%;"
-                            >
-                                <img
-                                        alt="Powered by the Tomorrow.io Weather API"
-                                        src="https://weather-website-client.tomorrow.io/img/powered-by.svg"
-                                        width="250"
-                                        height="18"
-                                />
-                            </a>
-                        </div>
+                <div class="tomorrow"
+                     data-location-id="065498"
+                     data-language="KO"
+                     data-unit-system="METRIC"
+                     data-skin="light"
+                     data-widget-type="upcoming"
+                     style="padding-bottom:22px;position:relative;width: 800px;margin-top: 20%;"
+                >
+                    <a
+                            href="https://www.tomorrow.io/weather-api/"
+                            rel="nofollow noopener noreferrer"
+                            target="_blank"
+                            style="position: absolute; bottom: 0; transform: translateX(-50%); left: 50%;"
+                    >
+                        <img
+                                alt="Powered by the Tomorrow.io Weather API"
+                                src="https://weather-website-client.tomorrow.io/img/powered-by.svg"
+                                width="250"
+                                height="18"
+                        />
+                    </a>
+                </div>
             </article>
 
         </div>
@@ -280,38 +270,6 @@
         showList();
 
 
-        // $("#sendBtn").click(function () {
-
-        //     $.ajax({
-        //         type: 'POST',       // 요청 메서드
-        //         url: '/CtProj/rooms/',  // 요청 URI /ch4/comments?bno=1085 POST
-        //         headers: {"content-type": "application/json"}, // 요청 헤더
-        //         data: JSON.stringify({
-        //             title: title,
-        //             picture: picture,
-        //             meet_Date: meet_Date,
-        //             meet_place: meet_place,
-        //             notice: notice,
-        //             category: category,
-        //             user_limit: user_limit
-        //         }),  // 서버로 전송할 데이터. stringify()로 직렬화 필요.
-        //         success: function (result) {
-        //             alert("방 생성을 성공하였습니다.");
-        //             console.log(meet_Date);
-        //             showList();
-        //
-        //         },
-        //         error: function () {
-        //             console.log(meet_Date);
-        //             alert("다시 입력해주세요.")
-        //
-        //         } // 에러가 발생했을 때, 호출될 함수
-        //     }); // $.ajax()
-        //
-        //
-        // });
-
-
         $('#InputDate').daterangepicker({
             "singleDatePicker": true,
             "timePicker": true,
@@ -324,7 +282,6 @@
                 "monthNames": ["1월", "2월", "3월", "4월", "5월", "6월", "7월", "8월", "9월", "10월", "11월", "12월"],
             },
         });
-        // $('#InputDate').val(getDateFormat());		// 현재날짜 format에 맞게 반환하는 함수
 
 
     });
@@ -340,30 +297,7 @@
     }
 
 
-    window.addEventListener('DOMContentLoaded', event => {
 
-        // Navbar shrink function
-        var navbarShrink = function () {
-            const navbarCollapsible = document.body.querySelector('#mainNav');
-            if (!navbarCollapsible) {
-                return;
-            }
-            if (window.scrollY === 0) {
-                navbarCollapsible.classList.remove('navbar-shrink')
-            } else {
-                navbarCollapsible.classList.add('navbar-shrink')
-            }
-
-        };
-
-        // Shrink the navbar
-        navbarShrink();
-
-        // Shrink the navbar when page is scrolled
-        document.addEventListener('scroll', navbarShrink);
-
-
-    });
 
     <!--for Map-->
 
@@ -520,19 +454,6 @@
     // 검색결과 항목을 Element로 반환하는 함수입니다
     function getListItem(index, places) {
 
-        // let tmp = '<li class="item">'
-        // tmp+=  '<span class="markerbg marker_' + (index+1) + '"></span>' +
-        //     '<div class="info">' +
-        //     '   <h5>' + places.place_name + '</h5>';
-        // if (places.road_address_name) {
-        // tmp+= '    <span>' + places.road_address_name + '</span>' +
-        //     '   <span class="jibun gray">' +  places.address_name  + '</span>';
-        // } else {
-        // tmp+='    <span>' +  places.address_name  + '</span>';
-        // }
-        // tmp+= '  <span class="tel">' + places.phone  + '</span>' + '</div>';
-        //
-        // return tmp + '</li>';
 
         var el = document.createElement('li'),
             itemStr = '<span class="markerbg marker_' + (index + 1) + '"></span>' + '<div class="info">' +
@@ -550,8 +471,6 @@
 
         el.innerHTML = itemStr;
         el.className = 'item';
-        // document.getElementById('InputPlace').value = places.place_name;
-        // document.getElementById('InputPlaceRoad').value = places.road_address_name;
 
         return el;
     }
@@ -635,7 +554,7 @@
     }
 </script>
 <script>
-    (function(d, s, id) {
+    (function (d, s, id) {
         if (d.getElementById(id)) {
             if (window.__TOMORROW__) {
                 window.__TOMORROW__.renderWidget();

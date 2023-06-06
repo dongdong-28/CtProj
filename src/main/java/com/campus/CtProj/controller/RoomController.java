@@ -27,7 +27,8 @@ import java.util.UUID;
 @Controller
 public class RoomController {
     RoomService roomService;
-    
+
+    @Autowired
     public RoomController(RoomService roomService) {
         this.roomService = roomService;
     }

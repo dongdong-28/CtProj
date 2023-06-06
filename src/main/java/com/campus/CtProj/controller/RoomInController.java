@@ -27,7 +27,7 @@ public class RoomInController {
     EnterService enterService;
     UserService userService;
 
-
+    @Autowired
     public RoomInController(RoomService roomService,RoomInService roomInService,EnterService enterService, UserService userService){
         this.roomService = roomService;
         this.roomInService = roomInService;

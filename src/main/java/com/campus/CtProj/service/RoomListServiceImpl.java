@@ -48,12 +48,6 @@ public class RoomListServiceImpl implements RoomListService {
         }
     }
 
-//    @Override
-//    @Transactional(rollbackFor = Exception.class)
-//    public int removeHost(Integer room_bno, String writer) throws Exception {
-//        enterDao.deleteAll(room_bno);
-//        return roomDao.delete(room_bno, writer);
-//    }
 
 
     @Override

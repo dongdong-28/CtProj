@@ -55,20 +55,13 @@ public class RoomInServiceImpl implements RoomInService {
     public int removeMem(Integer room_bno, String user_id) throws Exception {
         RoomDto dto = roomDao.select(room_bno);
         EnterDto enterDto = new EnterDto(user_id, room_bno);
-//        UserDto userdto = userDao.selectUser(user_id);
-//        BoolDto boolDto = boolDao.select(room_bno, user_id);
-//        int coin = userdto.getCoin();
         try {
             Integer dtoVal = enterDao.selectBno(enterDto);
             int cnt = dto.getUser_cnt() - 1;
             System.out.println("삭제완료 : " + cnt);
             if (dtoVal == null || cnt == 0)
                 throw new Exception(" no enter mem ");
-//            if (boolDto.getis_coin_return() == 1)
-//                coin += 2;
-//            userdto.setCoin(coin);
             dto.setUser_cnt(cnt);
-//            userDao.updateUser(userdto);
             roomDao.update(dto);
             return enterDao.delete(room_bno, user_id);
         } catch (Exception e) {
@@ -86,8 +79,7 @@ public class RoomInServiceImpl implements RoomInService {
         RoomDto roomDto = roomDao.select(room_bno);
         UserDto userDto = userDao.selectUser(user_id);
         ReviewDto reviewDto = new ReviewDto(room_bno,user_id,userDto.getNickname(),roomDto.getTitle(),roomDto.getMeet_Date(),roomDto.getMeet_place());
-        System.out.println(boolDto);
-        System.out.println("reviewDto = " + reviewDto);
+
         try {
             boolDto.setIs_coin_return(isCoinReturn);
             boolDto.setReview_title(roomDto.getTitle());
