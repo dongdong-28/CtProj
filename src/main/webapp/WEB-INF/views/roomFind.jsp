@@ -194,7 +194,7 @@
             }); // $.ajax()
         }
 
-        let maincate = "${maintocate}";
+        let maincate = "${maintocate}";     // main 페이지에서 카테고리를 눌렀을 때만 존재
         let page = 1;
         if (maincate == "") {
             $.ajax({

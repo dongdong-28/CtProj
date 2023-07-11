@@ -41,6 +41,7 @@ public class EnterServiceImpl implements EnterService {
     public int dropOut(Integer room_bno, String user_id, Integer drop_num) throws Exception {
         RoomDto dto = roomDao.select(room_bno);
         EnterDto enterDto = new EnterDto(user_id, room_bno);
+        BoolDto boolDto = new BoolDto(user_id,room_bno);
         try {
             Integer dtoVal = enterDao.selectBno(enterDto);
             int cnt = dto.getUser_cnt() - drop_num;
@@ -49,7 +50,9 @@ public class EnterServiceImpl implements EnterService {
             if (dtoVal == null || cnt == 0)
                 throw new Exception(" no enter mem ");
             dto.setUser_cnt(cnt);
+            boolDto.setIs_drop(1);
             roomDao.update(dto);
+            boolDao.update(boolDto);
             return enterDao.delete(room_bno, user_id);
         } catch (Exception e) {
             e.printStackTrace();
@@ -88,6 +91,8 @@ public class EnterServiceImpl implements EnterService {
                 throw new Exception("over user_limit");
             if (coin < 0)                                                                    // 코인이 부족한경우
                 throw new Exception("no coin");
+            if(boolDto.getIs_drop() == 1)
+                throw new Exception("dropped");
             roomdto.setUser_cnt(cnt);
             userdto.setCoin(coin);
             userDao.updateUser(userdto);
