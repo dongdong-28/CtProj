@@ -1,24 +1,32 @@
 # With Us (학생들을 위한 모임사이트)
 
-<p align="center">
-  <br>
-  <img src="./images/common/logo-sample.jpeg">
-  <br>
-</p>
+안녕하세요! 학생들을 위한 모임사이트 , WithUs 입니다.
 
+## 목차
 
-## 프로젝트 소개
+## 개요
+### 프로젝트 이름 : With Us
 
+### 프로젝트 기간 : 2022.22.22 ~ 2022.22.22 
 
-<p align="justify">
-프로젝트 개요/동기
+### 프로젝트 소개
+<p>
+
 많은 학생들이 같이 활동을 하고 싶은 일종의 모임을 찾기를 원하는데기존의 사용하는 에브리타임이라는 앱에서는 여러 글들을 다 올릴 수 있어서 모임을 따로 원하는 인원들을 특정하기가 힘들다는 단점을 가지고 있습니다.
 따라서 이러한 모임을 원하는 인원들을 위한 웹사이 트를 제작하게 되었습니다.
-이 with us 라는 웹사이트에서는 특정한 모임을 하기를 원하는 학생들이 방을 만들기도 하고 그 방에 입장도
-하면서 원활하게 모임을 진행할 수 있게 만들었습니다.
+이 with us 라는 웹사이트에서는 특정한 모임을 하기를 원하는 학생들이 방을 만들기도 하고 그 방에 입장도 하면서 원활하게 모임을 진행할 수 있게 만들었습니다.
   
 </p>
 
+
+<br>
+
+
+## 아키텍쳐
+
+<br>
+
+## ERD
 
 <br>
 
@@ -39,9 +47,6 @@
 ### infra
 * Aws
 
-
-
-
 <br>
 
 ## 구현 기능
@@ -55,26 +60,6 @@
 ### 기능 4
 
 <br>
-
-## 배운 점 & 아쉬운 점
-
-<p align="justify">
-
-</p>
-
-<br>
-
-## 라이센스
-
-MIT &copy; [NoHack](mailto:lbjp114@gmail.com)
-
-<!-- Stack Icon Refernces -->
-
-[js]: /images/stack/javascript.svg
-[ts]: /images/stack/typescript.svg
-[react]: /images/stack/react.svg
-[node]: /images/stack/node.svg
-
 
 
 
