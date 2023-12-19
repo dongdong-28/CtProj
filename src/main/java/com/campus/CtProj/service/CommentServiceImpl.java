@@ -2,6 +2,7 @@ package com.campus.CtProj.service;
 
 import com.campus.CtProj.dao.CommentDao;
 import com.campus.CtProj.domain.CommentDto;
+import lombok.Getter;
 import org.springframework.beans.factory.annotation.*;
 import org.springframework.stereotype.*;
 import org.springframework.transaction.annotation.*;
