@@ -33,6 +33,8 @@ public class CommonController {
 
 
 
+    // {test}
+
     // 방 생성 페이지 이동
     @GetMapping("/make")
     public String ViewMake(HttpServletRequest request) {
@@ -43,7 +45,9 @@ public class CommonController {
 
     // 메인 페이지로 이동
     @GetMapping("/index")
-    public String ViewIndex(HttpServletRequest request) {
+    public String ViewIndex(HttpServletRequest request)
+    {
+        System.out.println("왜 안돼??");
         return "index";
     }
 
