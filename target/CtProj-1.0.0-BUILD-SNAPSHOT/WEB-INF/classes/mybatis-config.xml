@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration
+        PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+    <typeAliases>
+<!--        다 적기 귀찮으니 별명적기-->
+        <!-- mybatis 에서 parameterType 작성할때 원래 패키지명 다 써줘야 하는데 귀찮으니 이렇게 별명으로 만들어서 한다-->
+        <typeAlias alias="UserDto" type="com.campus.CtProj.domain.UserDto"/>
+        <typeAlias alias="RoomDto" type="com.campus.CtProj.domain.RoomDto"/>
+        <typeAlias alias="EnterDto" type="com.campus.CtProj.domain.EnterDto"/>
+        <typeAlias alias="BoolDto" type="com.campus.CtProj.domain.BoolDto"/>
+        <typeAlias alias="ReviewDto" type="com.campus.CtProj.domain.ReviewDto"/>
+        <typeAlias alias="CommentDto" type="com.campus.CtProj.domain.CommentDto"/>
+        <typeAlias alias="SearchCondition" type="com.campus.CtProj.domain.SearchCondition"/>
+    </typeAliases>
+</configuration>

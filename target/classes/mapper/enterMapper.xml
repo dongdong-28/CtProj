@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.campus.CtProj.dao.EnterMapper">
+
+
+    <select id="countId" parameterType="string" resultType="int">
+        SELECT count(*)
+        FROM user_num
+        WHERE user_id = #{user_id};
+    </select>
+
+
+    <delete id="delete" parameterType="map">
+        DELETE
+        FROM user_num
+        WHERE user_id = #{user_id}
+          and room_bno = #{room_bno};
+    </delete>
+
+    <delete id="deleteAll" parameterType="Integer">
+        DELETE
+        FROM user_num
+        WHERE room_bno = #{room_bno};
+    </delete>
+
+
+    <insert id="insert" parameterType="EnterDto">
+        INSERT INTO user_num
+            (user_id, room_bno)
+        VALUES (#{user_id}, #{room_bno})
+    </insert>
+
+    <select id="selectAll" resultType="EnterDto">
+        SELECT user_id, room_bno
+        FROM user_num;
+    </select>
+
+
+    <select id="selectRoomBno" parameterType="String" resultType="Integer">
+        SELECT room_bno
+        FROM user_num
+        WHERE user_id = #{user_id};
+    </select>
+
+    <select id="selectRoomId" parameterType="Integer" resultType="String">
+        SELECT user_id
+        FROM user_num
+        WHERE room_bno = #{room_bno};
+    </select>
+
+
+    <select id="selectBno" parameterType="EnterDto" resultType="Integer">
+        SELECT bno
+        FROM user_num
+        WHERE user_id = #{user_id}
+          and room_bno = #{room_bno};
+    </select>
+
+
+</mapper>

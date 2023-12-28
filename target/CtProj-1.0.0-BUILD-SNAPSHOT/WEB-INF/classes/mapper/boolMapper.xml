@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.campus.CtProj.dao.boolMapper">
+
+
+    <select id="countId" parameterType="string" resultType="int">
+        SELECT count(*)
+        FROM user_bool
+        WHERE user_id = #{user_id};
+    </select>
+
+    <select id="select" parameterType="map" resultType="BoolDto">
+        SELECT user_id, room_bno, is_coin_return, is_drop,review_title,review_date,review_place
+        FROM user_bool  WHERE user_id = #{user_id} and room_bno = #{room_bno};
+    </select>
+
+
+
+    <delete id="delete" parameterType="map">
+        DELETE
+        FROM user_bool
+        WHERE user_id = #{user_id}
+          and room_bno = #{room_bno};
+    </delete>
+
+    <delete id="deleteAll" parameterType="Integer">
+        DELETE
+        FROM user_bool
+        WHERE room_bno = #{room_bno};
+    </delete>
+
+
+    <insert id="insert" parameterType="BoolDto">
+        INSERT INTO user_bool
+            (user_id, room_bno,is_coin_return)
+        VALUES (#{user_id}, #{room_bno},#{is_coin_return})
+    </insert>
+
+    <select id="selectAll" resultType="BoolDto">
+        SELECT user_id, room_bno, is_coin_return, is_drop,review_title,review_date,review_place
+        FROM user_bool;
+    </select>
+
+
+    <update id="update" parameterType="BoolDto">
+        UPDATE user_bool
+        SET user_id        = #{user_id}
+          , room_bno       = #{room_bno}
+          , is_coin_return = #{is_coin_return}
+          , is_drop        = #{is_drop}
+          , review_title        = #{review_title}
+          , review_date        = #{review_date}
+          , review_place        = #{review_place}
+        WHERE user_id = #{user_id} and room_bno = #{room_bno}
+    </update>
+
+
+    <select id="selectBno" parameterType="BoolDto" resultType="Integer">
+        SELECT bno
+        FROM user_bool
+        WHERE user_id = #{user_id}
+          and room_bno = #{room_bno};
+    </select>
+
+
+    <select id="selectRoomId" parameterType="Integer" resultType="BoolDto">
+        SELECT user_id, room_bno, is_drop, is_coin_return,review_title,review_date,review_place
+        FROM user_bool  WHERE room_bno = #{room_bno};
+    </select>
+
+    <select id="selectRoomBno" parameterType="String" resultType="BoolDto">
+        SELECT user_id, room_bno, is_drop, is_coin_return,review_title,review_date,review_place
+        FROM user_bool  WHERE user_id = #{user_id};
+    </select>
+
+</mapper>

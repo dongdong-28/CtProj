@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.campus.CtProj.dao.reviewMapper">
+
+
+    <!--전체 방 수 카운트 -->
+    <select id="count" resultType="int">
+        SELECT count(*) FROM review_info;
+    </select>
+
+
+
+    <delete id="delete" parameterType="Integer">
+        DELETE FROM review_info WHERE bno = #{bno} and userId = #{userId}
+    </delete>
+
+    <insert id="insert" parameterType="ReviewDto">
+        INSERT INTO review_info
+            (bno,userId,nickname,reviewTitle,reviewDate,reviewPlace)
+        VALUES
+            (#{bno},#{userId},#{nickname},#{reviewTitle},#{reviewDate},#{reviewPlace})
+    </insert>
+
+    <select id="selectAll" resultType="ReviewDto">
+        SELECT bno,userId,nickname, reviewTitle,reviewDate,reviewPlace
+        FROM review_info;
+    </select>
+
+
+
+    <select id="select" parameterType="map" resultType="ReviewDto">
+        SELECT bno,userId,nickname,reviewTitle,reviewDate,reviewPlace
+        FROM review_info  WHERE bno = #{bno} and userId = #{userId}
+    </select>
+
+
+    <select id="selectreviewId" parameterType="Integer" resultType="ReviewDto">
+        SELECT bno,userId,nickname,reviewTitle,reviewDate,reviewPlace
+        FROM review_info  WHERE bno = #{bno};
+    </select>
+
+
+
+</mapper>
